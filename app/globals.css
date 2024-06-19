@@ -2,32 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* ./src/index.css */
+
+.header-mesh {
+
+  background-color: rgb(30, 58, 138);
+  background-image: radial-gradient(at 20% 80%,
+      rgb(30, 58, 138) 0, transparent 40%),
+    radial-gradient(at 80% 80%, rgb(30, 58, 138) 0,
+      transparent 41%),
+    radial-gradient(at 20% 20%,
+      rgb(30, 58, 138) 0, transparent 27%),
+    radial-gradient(at 80% 20%,
+      rgb(30, 64, 175) 0, transparent 40%),
+    radial-gradient(at 67.62% 62.17%,
+      rgb(8, 145, 178) 0, transparent 21%),
+    radial-gradient(at 36.10% 37.33%,
+      rgb(29, 78, 216) 0, transparent 63%);
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+  /* outline: 1px solid red; */
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  overflow: visible;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.glass-card {
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  background-color: rgba(17, 25, 40, 0.32);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.079);
+}
+
+.blr {
+  box-shadow: 0px 0px 50px 50px #04153c;
 }
