@@ -14,7 +14,7 @@ export default function Navbar() {
                     </span>
                 </div>
 
-                <div className="flex flex-row items-center gap-3 m-1 px-6 glass-card">
+                <div className="sm:flex hidden flex-row items-center gap-3 m-1 px-6 glass-card">
                     <span className="text-xl text-slate-100">Features</span>
                     <span className="text-xl text-slate-100">Leaderboard</span>
                     <span className="text-xl text-slate-100">Explore</span>
