@@ -6,7 +6,7 @@ const raleway = Raleway({ subsets: ["latin"] });
 export default function Header() {
     return (
         <>
-            <main className="flex sm:min-h-screen mt-20 sm:mt-0 justify-center items-center w-11/12 mx-auto">
+            <main className="z-10 flex sm:min-h-screen mt-20 sm:mt-0 justify-center items-center w-11/12 mx-auto">
                 <div className="flex flex-col gap-5 justify-center items-center">
                     <span className="sm:text-6xl text-3xl text-slate-100">
                         Welcome To RAGE AI
