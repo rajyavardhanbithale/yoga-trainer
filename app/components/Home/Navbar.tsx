@@ -72,6 +72,9 @@ export default function Navbar() {
         handleReadCookie()
     }, [])
 
+    console.log("navbar ",process.browser);
+    
+
     return (
         <>
             <Toaster
@@ -80,7 +83,7 @@ export default function Navbar() {
 
             />
 
-            <nav className="flex mx-5 my-5 justify-between">
+            <nav className="z-50 flex mx-5 my-5 justify-between">
                 <div className="flex items-center m-1 glass-card p-2">
                     <img
                         src="/home/logo.svg"
