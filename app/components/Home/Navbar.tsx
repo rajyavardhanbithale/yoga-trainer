@@ -1,11 +1,19 @@
 'use client'
+import { createClientBrowser } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import { IoAccessibilityOutline, IoCloseOutline, IoCompassOutline, IoTrendingUpOutline } from "react-icons/io5";
 import { RxHamburgerMenu } from "react-icons/rx";
+import toast, { Toaster } from 'react-hot-toast';
+import Link from "next/link";
+import Cookies from 'js-cookie';
 
 export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false)
-    const [animate, setAnimate] = useState(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [animate, setAnimate] = useState<boolean>(false)
+    const [isAuth, setIsAuth] = useState<boolean>(false)
+
+    const supabase = createClientBrowser()
+
 
     useEffect(() => {
         let timeout: NodeJS.Timeout
@@ -15,11 +23,63 @@ export default function Navbar() {
                 setIsOpen(false)
             }, 700)
         }
-        return () => clearTimeout(timeout); 
+        return () => clearTimeout(timeout);
     }, [animate])
+
+
+    const toastAndSetCookie = (userPromise: Promise<any>, username: string) => {
+        toast.promise(userPromise, {
+            loading: 'Loading...',
+            success: <b>Hello {username}, You are now logged in</b>,
+            error: <b>Couldn't Authenticate.</b>
+        }, {
+            duration: 2000,
+            icon: '🧘',
+            style: {
+                borderRadius: '10px',
+                background: '#033298',
+                color: '#fff',
+            },
+        })
+        Cookies.set('init', '0')
+    }
+
+    const handleReadCookie = async () => {
+        const { data: { user } } = await supabase.auth.getUser()
+
+        const userPromise = new Promise((resolve, reject) => {
+            if (user) {
+                setIsAuth(true)
+                resolve(user);
+            }
+        });
+
+        const ISLOGGEDIN = Cookies.get(
+            'sb-kdsknciyenkdduogvoqj-auth-token.0' ||
+            'sb-kdsknciyenkdduogvoqj-auth-token') ? true : false
+
+
+        const SHOWTOAST = Cookies.get('init') ? true : false
+
+
+        ISLOGGEDIN && !SHOWTOAST && (
+            toastAndSetCookie(userPromise, user?.user_metadata?.name)
+        )
+
+    }
+
+    useEffect(() => {
+        handleReadCookie()
+    }, [])
 
     return (
         <>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+
+            />
+
             <nav className="flex mx-5 my-5 justify-between">
                 <div className="flex items-center m-1 glass-card p-2">
                     <img
@@ -55,9 +115,11 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex flex-row items-center gap-3 m-1 p-2 glass-card">
-                    <button className="sm:block hidden text-xl bg-blue-800 text-slate-100 py-2 px-4 rounded-xl shadow-lg shadow-blue-700 glass-card hover:scale-105 duration-200 transform">
-                        Login
-                    </button>
+                    <Link href={isAuth ? "/dashboard" : "/login"}>
+                        <button className="sm:block hidden text-xl  text-slate-100 py-2 px-4 rounded-xl shadow-lg shadow-blue-700 hover:scale-105 duration-200 transform">
+                            {isAuth ? "Dashboard" : "Login"}
+                        </button>
+                    </Link>
 
                     <button
                         onClick={() => setIsOpen(true)}
@@ -112,9 +174,13 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    <button className=" glass-card text-3xl text-slate-100 m-2 py-2 mb-16">
-                        Login
-                    </button>
+                    <Link href={isAuth ? "/dashboard" : "/login"}>
+                        <button
+
+                            className=" glass-card text-3xl text-slate-100 m-2 py-2 mb-16">
+                            {isAuth ? "Dashboard" : "Login"}
+                        </button>
+                    </Link>
                 </div>
             }
         </>

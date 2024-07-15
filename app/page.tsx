@@ -1,5 +1,6 @@
 import Navbar from "./components/Home/Navbar";
 import Header from "./components/Home/Header";
+import BackgroundSVG from "./components/Home/Background";
 
 
 export default function Home() {
@@ -9,10 +10,8 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col">
-      <img src="/home/bg.svg" alt="" className="xl:flex inset-0 w-full h-full object-cover hidden absolute z-0" />
-      <img src="/home/bg-md.svg" alt="" className="absolute inset-0 w-full h-full object-cover z-0 xl:hidden" />
+      <BackgroundSVG />
       <Navbar />
-      
       <Header />
     </main>
   );
