@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function AuthImageSlideShow() {
@@ -22,9 +23,12 @@ export default function AuthImageSlideShow() {
     console.log(currentIndex);
     return (
         <>
-            <img
+            <Image
                 src={`assets/${images[currentIndex]}`}
-                alt=""
+                alt="login-image"
+                height={0}
+                width={0}
+                sizes="100vw"
                 className="w-full h-full hover:scale-110 duration-1000 ease-in-out" />
         </>
     )
