@@ -1,25 +1,23 @@
 'use client'
-
 import { Raleway } from "next/font/google";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { ImStatsDots } from "react-icons/im";
 import { PiBowlFoodLight } from "react-icons/pi";
-import { useState } from "react";
 import { RiUser6Line } from "react-icons/ri";
 import { TbTrophy } from "react-icons/tb";
 import { Comfortaa } from "next/font/google";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/lib/store";
+import { activeWindow } from "@/lib/store/dashboard/dashboardSlice";
 
-const raleway = Raleway(
-    {
-        subsets: ["latin"],
-        weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
-    }
-);
+
+const raleway = Raleway({
+    subsets: ["latin"],
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
+})
 const comfortaa = Comfortaa({ subsets: ["latin"] });
 
-export default function Sidebar(props: any) {
-
-    const [selected, setSelected] = useState<number>(0)
+export default function Sidebar() {
     const menuItem = [
         { title: 'Dashboard', icon: <LuLayoutDashboard /> },
         { title: 'Stats', icon: <ImStatsDots /> },
@@ -28,6 +26,8 @@ export default function Sidebar(props: any) {
         { title: 'Profile', icon: <RiUser6Line /> }
     ]
 
+    const activeWindows = useSelector((state: RootState) => state.dashboard.activeWindow)
+    const dispatch = useDispatch<AppDispatch>()
 
 
     return (
@@ -45,6 +45,7 @@ export default function Sidebar(props: any) {
                     <ul className="w-full">
                         {menuItem.map((item, index) => (
                             <li
+                                onClick={() => dispatch(activeWindow(item.title.toLocaleLowerCase()))}
                                 key={index}
                                 className="flex items-center p-4 my-4 hover:bg-blue-950 hover:bg-opacity-50 cursor-pointer text-xl font-semibold transition-colors duration-500 rounded-2xl  ease-in-out"
                             >

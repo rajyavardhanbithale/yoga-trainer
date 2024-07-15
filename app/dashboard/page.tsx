@@ -1,16 +1,28 @@
-
+'use client'
 import Sidebar from "../components/Dashboard/utils/Sidebar";
 import Dashboard from "../components/Dashboard/utils/Dashboard";
-import { createClient } from "@/utils/supabase/server";
-export default async function Page() {
-    // const [activeSection, setActiveSection] = useState<string>('dashboard')
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { createClientBrowser } from "@/utils/supabase/client";
+import { useEffect, useState } from "react";
+export default function Page() {
+    const [username, setUsername] = useState<string>('')
 
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    const username = user?.user_metadata?.name
+    const supabase = createClientBrowser()
 
 
-    
+    const getUser = async () => {
+        const { data: { user } } = await supabase.auth.getUser()
+        setUsername(user?.user_metadata?.name)
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [])
+
+    const activeWindow = useSelector((state: RootState) => state.dashboard.activeWindow)
+
+
     return (
         <>
             {/* <Calendar epochTimes={Time} /> */}
@@ -18,7 +30,8 @@ export default async function Page() {
             <div className="flex bg-white">
                 <Sidebar></Sidebar>
                 <div className="flex-1 p-2 bg-slate-50 w-full">
-                    {username &&
+
+                    {activeWindow === 'dashboard' &&
                         <Dashboard name={username}></Dashboard>
                     }
                 </div>

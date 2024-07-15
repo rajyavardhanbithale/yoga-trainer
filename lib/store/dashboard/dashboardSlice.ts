@@ -7,13 +7,15 @@ type STATE = {
     POSEDATA: APIYogaDataMinimal[] | null
     RECENTACT: APIYogaDataMinimal[] | null
     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
+    activeWindow: string
 }
 
 const initialState: STATE = {
     data: null,
-    POSEDATA:null,
-    RECENTACT:null,
+    POSEDATA: null,
+    RECENTACT: null,
     loading: 'idle',
+    activeWindow: 'dashboard',
 }
 
 export const fetchDashboardAPI = createAsyncThunk(
@@ -26,7 +28,7 @@ export const fetchDashboardAPI = createAsyncThunk(
 
 export const fetchYogaPoseAPI = createAsyncThunk(
     'api/pose',
-    async (param:string) => {
+    async (param: string) => {
         const response = await axios.get(`/api/pose?poseID=${param}`)
         return response.data.poseDataList as APIYogaDataMinimal[]
     }
@@ -34,7 +36,7 @@ export const fetchYogaPoseAPI = createAsyncThunk(
 
 export const fetchRecentActivity = createAsyncThunk(
     'api/recent-activity',
-    async (param:string) => {
+    async (param: string) => {
         const response = await axios.get(`/api/pose?poseID=${param}`)
         return response.data.poseDataList as APIYogaDataMinimal[]
     }
@@ -44,7 +46,11 @@ export const fetchRecentActivity = createAsyncThunk(
 const dashboardSlice = createSlice({
     name: 'dashboard',
     initialState,
-    reducers: {},
+    reducers: {
+        activeWindow: (state, action) => {
+            state.activeWindow = action.payload
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchDashboardAPI.fulfilled, (state, action: PayloadAction<IFResponse1>) => {
             state.data = action.payload;
@@ -57,15 +63,16 @@ const dashboardSlice = createSlice({
             state.loading = 'failed';
         });
 
-        builder.addCase(fetchYogaPoseAPI.fulfilled, (state,action: PayloadAction<APIYogaDataMinimal[]>) => {
+        builder.addCase(fetchYogaPoseAPI.fulfilled, (state, action: PayloadAction<APIYogaDataMinimal[]>) => {
             state.POSEDATA = action.payload;
             state.loading = 'succeeded';
         })
-        builder.addCase(fetchRecentActivity.fulfilled, (state,action: PayloadAction<APIYogaDataMinimal[]>) => {
+        builder.addCase(fetchRecentActivity.fulfilled, (state, action: PayloadAction<APIYogaDataMinimal[]>) => {
             state.RECENTACT = action.payload;
             state.loading = 'succeeded';
         })
     },
 });
 
+export const { activeWindow } = dashboardSlice.actions
 export default dashboardSlice.reducer
