@@ -1,4 +1,4 @@
-import { YogaPoseAPI } from "../../../../types";
+import { YogaPoseAPI } from "@/types";
 
 const pose: {[key:string]:string} = {
     "101" : "Tree Pose", 
