@@ -67,7 +67,7 @@ export default function Dashboard(name: any) {
 
     return (
         <>
-            {dashboardData &&
+            {(dashboardData && poseInfo && recentActivities) &&
                 <div className="grid grid-cols-12 gap-8 m-2 overflow-y-hidden">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
@@ -180,6 +180,61 @@ export default function Dashboard(name: any) {
 
                 </div>
             }
+            {!(dashboardData && poseInfo && recentActivities) &&
+                <div className="grid grid-cols-12 gap-8 m-2 overflow-y-hidden">
+                    {/* level 0 */}
+                    <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
+                        <span className="text-3xl mx-5 font-medium text-slate-800">
+                            Dashboard
+                        </span>
+                        <div className="flex text-gray-700 font-light">
+                            <IoCalendarClearOutline className="mx-3 text-xl" />
+                            <span className="text-nowrap">
+                                {dateToday()}
+                            </span>
+                        </div>
+                    </div>
+
+
+                    {/* level 1 */}
+
+                    {/* level 1.1 - user welcome */}
+                    <div className="col-span-full xl:col-span-4 min-h-[40vh] bg-slate-300 animate-pulse overflow-hidden rounded-2xl">
+
+                    </div>
+
+                    {/* level 1.2 - today list */}
+                    <div className="col-span-full xl:col-span-5 min-h-[40vh] bg-slate-300 animate-pulse rounded-2xl">
+
+
+                    </div>
+
+                    {/* level 1.3 - calendar */}
+                    <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl bg-slate-300 animate-pulse">
+
+                    </div>
+
+
+
+                    {/* level 2 */}
+
+
+                    {/* level 2.1 recent activity */}
+                    <div className="col-span-full xl:col-span-9 min-h-[40vh] rounded-2xl bg-slate-300 animate-pulse">
+
+                    </div>
+
+                    {/* level 2.2 last 30 days */}
+                    <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl bg-slate-300 animate-pulse">
+
+                    </div>
+
+
+                </div>
+
+            }
+
+
         </>
 
     )

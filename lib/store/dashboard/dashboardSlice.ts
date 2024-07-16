@@ -1,4 +1,4 @@
-import { APIYogaDataMinimal, IFResponse1 } from "@/types";
+import { APIYogaDataMinimal, DashboardStats, IFResponse1 } from "@/types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from 'axios'
 
@@ -6,6 +6,7 @@ type STATE = {
     data: IFResponse1 | null
     POSEDATA: APIYogaDataMinimal[] | null
     RECENTACT: APIYogaDataMinimal[] | null
+    STATS: DashboardStats | null
     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
     activeWindow: string
 }
@@ -14,8 +15,9 @@ const initialState: STATE = {
     data: null,
     POSEDATA: null,
     RECENTACT: null,
+    STATS: null,
     loading: 'idle',
-    activeWindow: 'dashboard',
+    activeWindow: 'stats',
 }
 
 export const fetchDashboardAPI = createAsyncThunk(
@@ -39,6 +41,14 @@ export const fetchRecentActivity = createAsyncThunk(
     async (param: string) => {
         const response = await axios.get(`/api/pose?poseID=${param}`)
         return response.data.poseDataList as APIYogaDataMinimal[]
+    }
+)
+
+export const fetchStats = createAsyncThunk(
+    'api/stats',
+    async () => {
+        const response = await axios.get(`/api/db/stats`)
+        return response.data.responseData as DashboardStats
     }
 )
 
@@ -68,8 +78,11 @@ const dashboardSlice = createSlice({
             state.loading = 'succeeded';
         })
         builder.addCase(fetchRecentActivity.fulfilled, (state, action: PayloadAction<APIYogaDataMinimal[]>) => {
-            state.RECENTACT = action.payload;
+            state.RECENTACT = Array.from(new Set(action.payload));
             state.loading = 'succeeded';
+        })
+        builder.addCase(fetchStats.fulfilled, (state,action: PayloadAction<DashboardStats>)=>{
+            state.STATS = action.payload
         })
     },
 });
