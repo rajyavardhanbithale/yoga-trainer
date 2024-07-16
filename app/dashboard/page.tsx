@@ -6,6 +6,7 @@ import { RootState } from "@/lib/store";
 import { createClientBrowser } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import StatsDashboard from "../components/Dashboard/Stats/Stats";
+import Achievements from "../components/Dashboard/Achivements/Achievements";
 
 export default function Page() {
     const [username, setUsername] = useState<string>('')
@@ -34,7 +35,8 @@ export default function Page() {
                 <div className="flex-1 p-2 bg-slate-50 w-full">
 
                     {/* {activeWindow === 'dashboard' && <Dashboard name={username}></Dashboard>} */}
-                    {activeWindow === 'stats' && <StatsDashboard></StatsDashboard>}
+                    {/* {activeWindow === 'stats' && <StatsDashboard></StatsDashboard>} */}
+                    {activeWindow === 'achievements' && <Achievements></Achievements>}
                 </div>
             </div>
 
