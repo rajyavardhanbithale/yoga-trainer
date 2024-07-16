@@ -9,6 +9,7 @@ import { Tooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
 import './tooltip.css'
 import { CiLock, CiUnlock } from "react-icons/ci";
+import Image from "next/image";
 
 export default function Achievements() {
     const completed = useSelector((state: RootState) => state.dashboard.ACHIEVEMENTS)
@@ -41,13 +42,17 @@ export default function Achievements() {
                                 key={key}
                                 className="has-tooltip w-48 h-fit overflow-hidden m-2 span-5 rounded-full cursor-pointer"
                             >
-                                <img
+
+
+                                <Image
                                     src={`/achievements/${item.icon}-${gender}.jpg`}
-                                    alt={item.name}
-                                    className={`
-                                            rounded-full object-cover shadow-lg hover:scale-105 hover:brightness-105 hover:shadow-2xl duration-500 
+                                    width={256}
+                                    height={256}
+                                    alt="BG-IMAGE"
+                                    className={`rounded-full object-cover shadow-lg hover:scale-105 hover:brightness-105 hover:shadow-2xl duration-500 
                                             ${completed?.includes(item.id) ? 'brightness-100' : 'brightness-[.30]'}
-                                        `} />
+                                        `}
+                                />
 
                                 <Tooltip id={`tooltip-${key}`} className="place-tooltip animate-fade-up">
                                     <div className="flex flex-col m-2 span-2">

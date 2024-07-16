@@ -20,7 +20,7 @@ const initialState: STATE = {
     STATS: null,
     ACHIEVEMENTS: null,
     loading: 'idle',
-    activeWindow: 'achievements',
+    activeWindow: 'profile',
 }
 
 export const fetchDashboardAPI = createAsyncThunk(
@@ -77,13 +77,6 @@ const dashboardSlice = createSlice({
             state.data = action.payload;
             state.loading = 'succeeded';
         });
-        builder.addCase(fetchDashboardAPI.pending, (state) => {
-            state.loading = 'pending';
-        });
-        builder.addCase(fetchDashboardAPI.rejected, (state) => {
-            state.loading = 'failed';
-        });
-
         builder.addCase(fetchYogaPoseAPI.fulfilled, (state, action: PayloadAction<APIYogaDataMinimal[]>) => {
             state.POSEDATA = action.payload;
             state.loading = 'succeeded';

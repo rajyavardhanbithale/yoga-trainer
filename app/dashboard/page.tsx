@@ -7,16 +7,17 @@ import { createClientBrowser } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import StatsDashboard from "../components/Dashboard/Stats/Stats";
 import Achievements from "../components/Dashboard/Achivements/Achievements";
+import Profile from "../components/Dashboard/Profile/Profile";
 
 export default function Page() {
-    const [username, setUsername] = useState<string>('')
+    const [user, setUser] = useState<any>(null)
 
     const supabase = createClientBrowser()
 
 
     const getUser = async () => {
         const { data: { user } } = await supabase.auth.getUser()
-        setUsername(user?.user_metadata?.name)
+        setUser(user)
     }
 
     useEffect(() => {
@@ -24,8 +25,7 @@ export default function Page() {
     }, [])
 
     const activeWindow = useSelector((state: RootState) => state.dashboard.activeWindow)
-
-
+    
     return (
         <>
             {/* <Calendar epochTimes={Time} /> */}
@@ -34,9 +34,10 @@ export default function Page() {
                 <Sidebar></Sidebar>
                 <div className="flex-1 p-2 bg-slate-50 w-full">
 
-                    {/* {activeWindow === 'dashboard' && <Dashboard name={username}></Dashboard>} */}
+                    {/* {activeWindow === 'dashboard' && <Dashboard name={user?.user_metadata?.name}></Dashboard>} */}
                     {/* {activeWindow === 'stats' && <StatsDashboard></StatsDashboard>} */}
-                    {activeWindow === 'achievements' && <Achievements></Achievements>}
+                    {/* {activeWindow === 'achievements' && <Achievements></Achievements>} */}
+                    {user && activeWindow === 'profile' && <Profile user={user}></Profile>}
                 </div>
             </div>
 
