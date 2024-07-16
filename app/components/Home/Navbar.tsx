@@ -31,7 +31,7 @@ export default function Navbar() {
         toast.promise(userPromise, {
             loading: 'Loading...',
             success: <b>Hello {username}, You are now logged in</b>,
-            error: <b>Couldn't Authenticate.</b>
+            error: <b>Couldn&apos;t Authenticate.</b>
         }, {
             duration: 2000,
             icon: '🧘',
@@ -72,7 +72,7 @@ export default function Navbar() {
         handleReadCookie()
     }, [])
 
-    console.log("navbar ",process.browser);
+    console.log("navbar",process.browser);
     
 
     return (
