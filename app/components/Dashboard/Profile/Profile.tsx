@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "@/lib/store"
 import { fetchUser, toggleProfileVisibility } from "@/lib/store/dashboard/userProfileSlice"
 import { getName } from "country-list"
 import AvatarSelection from "./AvatarSelection"
+import CountrySelector from "./CountrySelector"
 
 export default function Profile(props: any) {
     const [isPublic, setIsPublic] = useState(false);
@@ -76,6 +77,7 @@ export default function Profile(props: any) {
                                 <span className="text-xl text-gray-700 cursor-pointer hover:text-gray-900 duration-500">
                                     {getName(userProfile.country)}
                                 </span>
+                                <CountrySelector></CountrySelector>
                             </div>
 
                             <span className="text-gray-800">

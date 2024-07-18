@@ -16,7 +16,7 @@ import { MdModeEditOutline } from "react-icons/md"
 import { useDispatch } from "react-redux"
 
 export default function AvatarSelection() {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
     const dispatch = useDispatch<AppDispatch>()
 
     const availableAvatarCategory = ['men', 'women', 'animal']

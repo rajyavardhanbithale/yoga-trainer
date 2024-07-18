@@ -116,6 +116,39 @@ export const updateProfilePic = createAsyncThunk(
 
 )
 
+export const updateCountry = createAsyncThunk(
+    'user/update-country',
+    async (country: String) => {
+
+        const { data: { user } } = await supabase.auth.getUser();
+        const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null;
+
+        const { data, error } = await supabase
+            .from(USERDB)
+            .update({ 'country': country })
+            .eq('userID', userID)
+            .select('*')
+            .single();
+
+
+        const FDT = data && data
+        const response: UserProfile = {
+            name: user?.user_metadata.name,
+            userID: FDT.user_public_id,
+            date: new Date(FDT.created_at).getTime(),
+            isPublic: FDT.profile_type === 'public' ? true : false,
+            image: FDT.profile_pic,
+            country: FDT.country
+        }
+        console.log(data);
+        
+        return response
+
+    }
+
+)
+
+
 
 const userProfileSlice = createSlice({
     name: "userProfileSlice",
@@ -135,6 +168,11 @@ const userProfileSlice = createSlice({
         })
 
         builder.addCase(updateProfilePic.fulfilled, (state, action) => {
+            state.loading = 'succeeded';
+            state.USERINFO = action.payload
+        })
+
+        builder.addCase(updateCountry.fulfilled, (state, action) => {
             state.loading = 'succeeded';
             state.USERINFO = action.payload
         })
