@@ -46,7 +46,7 @@ export const fetchUser = createAsyncThunk(
 
 export const toggleProfileVisibility = createAsyncThunk(
     'user/profile-visibility',
-    async (visibility: String, {rejectWithValue}) => {
+    async (visibility: String, { rejectWithValue }) => {
         try {
             const { data: { user } } = await supabase.auth.getUser();
             const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null;
@@ -58,16 +58,62 @@ export const toggleProfileVisibility = createAsyncThunk(
                 .select('*')
                 .single();
 
-            if (error) {
-                throw new Error(error.message); 
+
+            const FDT = data && data
+            const response: UserProfile = {
+                name: user?.user_metadata.name,
+                userID: FDT.user_public_id,
+                date: new Date(FDT.created_at).getTime(),
+                isPublic: FDT.profile_type === 'public' ? true : false,
+                image: FDT.profile_pic,
+                country: FDT.country
             }
 
-          
-        } catch (error:any) {
-            return rejectWithValue(error.message); 
+
+            if (error) {
+                throw new Error(error.message);
+            } else {
+                return response
+            }
+
+
+        } catch (error: any) {
+            return rejectWithValue(error.message);
         }
     }
-    
+
+)
+
+export const updateProfilePic = createAsyncThunk(
+    'user/update-profile-pic',
+    async (name: String) => {
+
+        const { data: { user } } = await supabase.auth.getUser();
+        const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null;
+
+        const { data, error } = await supabase
+            .from(USERDB)
+            .update({ 'profile_pic': name })
+            .eq('userID', userID)
+            .select('*')
+            .single();
+
+
+        const FDT = data && data
+        const response: UserProfile = {
+            name: user?.user_metadata.name,
+            userID: FDT.user_public_id,
+            date: new Date(FDT.created_at).getTime(),
+            isPublic: FDT.profile_type === 'public' ? true : false,
+            image: FDT.profile_pic,
+            country: FDT.country
+        }
+        console.log(data);
+        
+        return response
+
+    }
+
 )
 
 
@@ -80,11 +126,17 @@ const userProfileSlice = createSlice({
             state.USERINFO = action.payload
         })
 
-        builder.addCase(toggleProfileVisibility.fulfilled, (state, action: PayloadAction<any>) => {
-            state.loading = 'succeeded'
+        builder.addCase(toggleProfileVisibility.fulfilled, (state, action) => {
+            state.loading = 'succeeded';
+            state.USERINFO = action.payload
         })
-        builder.addCase(toggleProfileVisibility.pending, (state, action: PayloadAction<any>) => {
+        builder.addCase(toggleProfileVisibility.pending, (state) => {
             state.loading = 'pending'
+        })
+
+        builder.addCase(updateProfilePic.fulfilled, (state, action) => {
+            state.loading = 'succeeded';
+            state.USERINFO = action.payload
         })
 
     }
