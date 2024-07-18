@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import dashboardSlice from "./dashboard/dashboardSlice"
 import userProfileSlice from "./dashboard/userProfileSlice"
+import profileSlice from "./profile/profileSlice"
 
 
 export const store = configureStore({
   reducer: {
     dashboard: dashboardSlice,
     userProfile: userProfileSlice,
+    profileSlice: profileSlice
   },
 })
 

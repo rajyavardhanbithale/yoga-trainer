@@ -24,7 +24,7 @@ export default function Achievements() {
 
     return (
         <>
-            {/* {completed &&
+            {completed &&
                 <div className="h-[75vh] flex flex-col justify-between m-5">
                     <div className="flex flex-col gap-2 justify-start items-start m-5 py-5">
                         <span className="text-5xl font-semibold text-slate-900 uppercase">
@@ -99,8 +99,8 @@ export default function Achievements() {
                         ))}
                     </div>
                 </div>
-            } */}
-            {completed &&
+            }
+            {!completed &&
                 <div className="h-[75vh] flex flex-col justify-between m-5">
                     <div className="flex flex-col gap-2 justify-start items-start m-5 py-5">
                         <span className="text-5xl font-semibold text-slate-900 uppercase">

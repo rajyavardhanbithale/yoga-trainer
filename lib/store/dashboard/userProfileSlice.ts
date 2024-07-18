@@ -140,8 +140,7 @@ export const updateCountry = createAsyncThunk(
             image: FDT.profile_pic,
             country: FDT.country
         }
-        console.log(data);
-        
+ 
         return response
 
     }

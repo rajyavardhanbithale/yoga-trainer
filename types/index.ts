@@ -152,6 +152,17 @@ interface UserProfile {
 }
 
 
+interface UserProfilePublic {
+    name: string
+    userID: string
+    date: number
+    isPublic: boolean
+    image: string
+    country: string
+    achievements: number[]
+}
+
+
 export type {
     YogaPose,
     YogaPoseAPI,
@@ -176,5 +187,6 @@ export type {
     DBFetchSupabase,
 
     IFResponse1,
-    UserProfile
+    UserProfile,
+    UserProfilePublic
 }
