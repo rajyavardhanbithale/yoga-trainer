@@ -65,11 +65,11 @@ export default function StatsDashboard() {
                             title="Weekly Activity"
                             description="Overview of your activity throughout the week"
                         />
-                         <div className="animate-fade-up h-full flex w-full ">
+                        <div className="animate-fade-up h-full flex w-full ">
                             <WeekActivity weeklyActivity={userStats.weeklyActivity} />
 
                         </div>
-                       
+
                     </div>
                     <div className="col-span-full xl:col-span-6 min-h-[50vh] flex flex-col justify-between rounded-2xl">
                         <Heading
@@ -122,6 +122,26 @@ export default function StatsDashboard() {
                     </div>
                 </div>
 
+            }
+            {!userStats &&
+                <div className="grid grid-cols-12 gap-8 m-5 overflow-x-hidden">
+                    <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
+                        <span className="text-3xl mx-5 font-medium text-slate-800">
+                            Stats
+                        </span>
+                        <div className="flex text-gray-700 font-light">
+                            <IoCalendarClearOutline className="mx-3 text-xl" />
+                            <span className="text-nowrap">
+                                {dateToday()}
+                            </span>
+                        </div>
+                    </div>
+                    <div className="col-span-full xl:col-span-6 min-h-[50vh] bg-slate-300 animate-pulse rounded-2xl"></div>
+                    <div className="col-span-full xl:col-span-6 min-h-[50vh] bg-slate-300 animate-pulse rounded-2xl"></div>
+                    <div className="col-span-full xl:col-span-full min-h-[50vh] bg-slate-300 animate-pulse max-h-[100vh] rounded-2xl"></div>
+                    <div className="col-span-full xl:col-span-6 min-h-[50vh] bg-slate-300 animate-pulse rounded-2xl"></div>
+                    <div className="col-span-full xl:col-span-6 min-h-[50vh] bg-slate-300 animate-pulse rounded-2xl"></div>
+                </div>
             }
 
         </>

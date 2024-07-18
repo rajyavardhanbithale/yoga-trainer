@@ -129,10 +129,10 @@ interface DBFetchSupabase {
     correctPose: Array<number>
 }
 
-interface DashboardStats{
+interface DashboardStats {
     weeklyActivity: Array<number>
-    activeInMonth: {[key:string]:number}
-    performance: {[key:string]:number}
+    activeInMonth: { [key: string]: number }
+    performance: { [key: string]: number }
     areaOfInterest: any
 }
 interface IFResponse1 {
@@ -141,6 +141,16 @@ interface IFResponse1 {
     userRecentActivity: any
     userLastNDaysActivity: any
 }
+
+interface UserProfile {
+    name: string
+    userID: string
+    date: number
+    isPublic: boolean
+    image: string
+    country: string
+}
+
 
 export type {
     YogaPose,
@@ -165,5 +175,6 @@ export type {
 
     DBFetchSupabase,
 
-    IFResponse1
+    IFResponse1,
+    UserProfile
 }

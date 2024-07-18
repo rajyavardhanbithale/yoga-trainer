@@ -20,7 +20,7 @@ const initialState: STATE = {
     STATS: null,
     ACHIEVEMENTS: null,
     loading: 'idle',
-    activeWindow: 'dashboard',
+    activeWindow: 'profile',
 }
 
 export const fetchDashboardAPI = createAsyncThunk(

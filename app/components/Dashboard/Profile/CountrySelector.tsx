@@ -32,7 +32,7 @@ export default function CountrySelector(props: any) {
                 <div className="absolute inset-0 bg-black opacity-50"></div>
 
                 <div className="p-8 rounded-md z-10">
-                    <div className={`xl:w-[3/4] w-full h-auto flex flex-col mx-auto ${closed ? "animate-jump-in" : "animate-jump-out"}`}>
+                    <div className={`xl:w-[3/4] w-full h-auto flex flex-col mx-auto  ${closed ? "animate-jump-in" : "animate-jump-out"}`}>
                         <div className="flex gap-4">
                             <span className="w-[90%] text-3xl font-bold mb-2 text-slate-800 bg-white m-2 px-4 py-3 rounded-2xl">
                                 Select Country

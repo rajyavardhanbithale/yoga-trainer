@@ -34,9 +34,9 @@ export default function Page() {
                 <Sidebar></Sidebar>
                 <div className="flex-1 p-2 bg-slate-50 w-full">
 
-                    {activeWindow === 'dashboard' && <Dashboard name={user?.user_metadata?.name}></Dashboard>}
-                    {activeWindow === 'stats' && <StatsDashboard></StatsDashboard>}
-                    {activeWindow === 'achievements' && <Achievements></Achievements>}
+                    {/* {activeWindow === 'dashboard' && <Dashboard name={user?.user_metadata?.name}></Dashboard>} */}
+                    {/* {activeWindow === 'stats' && <StatsDashboard></StatsDashboard>} */}
+                    {/* {activeWindow === 'achievements' && <Achievements></Achievements>} */}
                     {user && activeWindow === 'profile' && <Profile user={user}></Profile>}
                 </div>
             </div>

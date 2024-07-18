@@ -24,7 +24,7 @@ export default function Achievements() {
 
     return (
         <>
-            {completed &&
+            {/* {completed &&
                 <div className="h-[75vh] flex flex-col justify-between m-5">
                     <div className="flex flex-col gap-2 justify-start items-start m-5 py-5">
                         <span className="text-5xl font-semibold text-slate-900 uppercase">
@@ -42,8 +42,6 @@ export default function Achievements() {
                                 key={key}
                                 className="has-tooltip w-48 h-fit overflow-hidden m-2 span-5 rounded-full cursor-pointer"
                             >
-
-
                                 <Image
                                     src={`/achievements/${item.icon}-${gender}.jpg`}
                                     width={256}
@@ -53,7 +51,6 @@ export default function Achievements() {
                                             ${completed?.includes(item.id) ? 'brightness-100' : 'brightness-[.30]'}
                                         `}
                                 />
-
                                 <Tooltip id={`tooltip-${key}`} className="place-tooltip animate-fade-up">
                                     <div className="flex flex-col m-2 span-2">
                                         <span className="font-bold text-slate-900 text-xl">{item.name}</span>
@@ -98,13 +95,30 @@ export default function Achievements() {
                                         </div>
                                     </div>
                                 </Tooltip>
-
-
                             </div>
                         ))}
                     </div>
                 </div>
+            } */}
+            {completed &&
+                <div className="h-[75vh] flex flex-col justify-between m-5">
+                    <div className="flex flex-col gap-2 justify-start items-start m-5 py-5">
+                        <span className="text-5xl font-semibold text-slate-900 uppercase">
+                            Achievements
+                        </span>
+                        <span className="text-2xl font-normal text-slate-600">
+                            Explore your achievements and milestones.
+                        </span>
+                    </div>
 
+                    <div className="flex flex-wrap gap-5 justify-center items-center w-11/12 mx-auto">
+                        {Array.from({ length: 10 }).map((_, idx) => (
+                            <div key={idx} className="flex justify-center h-60 w-60 rounded-full bg-slate-300 p-1 animate-pulse">
+                                {/* <span className="loading loading-spinner loading-md"></span> */}
+                            </div>
+                        ))}
+                    </div>
+                </div>
             }
 
         </>
