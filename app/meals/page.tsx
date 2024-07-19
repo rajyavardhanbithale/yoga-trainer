@@ -10,7 +10,7 @@ export default function Meals() {
                 <h1 className="text-4xl mt-20 font-bold mb-8 text-center text-gray-800">Meal Planner</h1>
                 <div className="flex flex-wrap gap-8 justify-center">
                     {mealData.map((meal, idx) => (
-                        <div key={idx} className="flex flex-col w-1/3 xl:w-1/5 m-5 rounded-2xl shadow-xl gap-5">
+                        <div key={idx} className="flex flex-col  sm:w-1/3 xl:w-1/5 m-5 rounded-2xl shadow-xl gap-5">
                             <div className="w-full h-64 overflow-hidden rounded-2xl mx-auto">
                                 <img
                                     src={`/meals/${meal.image}`}
