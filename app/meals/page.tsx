@@ -1,16 +1,36 @@
 import Image from "next/image";
-import { mealData } from "../api/meals/mealData";
+
 
 import { LuVegan } from "react-icons/lu";
 import { TbMeat } from "react-icons/tb";
-export default function Meals() {
+
+import Link from "next/link";
+import { mealData } from "../api/meals/mealData";
+
+
+export default async function Meals({
+    searchParams
+  }: {
+    searchParams?: { search?: string; tag?: string } | undefined
+  }) {
+
+  
+
+    const tag = searchParams?.tag
+    
+
+
+    const filter = tag ? mealData.filter(item => item.tags.includes(tag)) : mealData
+
+
+
     return (
         <>
             <div className="h-screen bg-white w-full">
                 <h1 className="text-4xl mt-20 font-bold mb-8 text-center text-gray-800">Meal Planner</h1>
                 <div className="flex flex-wrap gap-8 justify-center">
-                    {mealData.map((meal, idx) => (
-                        <div key={idx} className="flex flex-col  sm:w-1/3 xl:w-1/5 m-5 rounded-2xl shadow-xl gap-5">
+                    {filter.map((meal, idx) => (
+                        <div key={idx} className="flex flex-col sm:w-1/3 xl:w-1/5 m-5 rounded-2xl shadow-xl gap-5">
                             <div className="w-full h-64 overflow-hidden rounded-2xl mx-auto">
                                 <Image
                                     src={`/meals/${meal.image}`}
@@ -43,9 +63,14 @@ export default function Meals() {
 
                                 <div className="flex flex-wrap gap-2 my-2">
                                     {meal.tags.map((tag, idx1) => (
-                                        <span className="text-base bg-blue-900 text-slate-50 rounded-2xl px-3 py-1 capitalize cursor-pointer hover:bg-blue-950 duration-500" key={idx1}>
+                                        <Link
+                                            href={`/meals?tag=${encodeURIComponent(tag)}`}
+                                            as={`/meals?tag=${encodeURIComponent(tag)}`}
+                                            className="text-base bg-blue-900 text-slate-50 rounded-2xl px-3 py-1 capitalize cursor-pointer hover:bg-blue-950 duration-500"
+                                            key={idx1}
+                                        >
                                             {tag}
-                                        </span>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
