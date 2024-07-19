@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { mealData } from "../api/meals/mealData";
-import MealCard from '@/app/components/Meal/MealCard'
+
 import { LuVegan } from "react-icons/lu";
 import { TbMeat } from "react-icons/tb";
 export default function Meals() {
@@ -12,7 +12,7 @@ export default function Meals() {
                     {mealData.map((meal, idx) => (
                         <div key={idx} className="flex flex-col  sm:w-1/3 xl:w-1/5 m-5 rounded-2xl shadow-xl gap-5">
                             <div className="w-full h-64 overflow-hidden rounded-2xl mx-auto">
-                                <img
+                                <Image
                                     src={`/meals/${meal.image}`}
                                     width={0}
                                     height={0}
