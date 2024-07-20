@@ -5,7 +5,8 @@ import { LuVegan } from "react-icons/lu";
 import { TbMeat } from "react-icons/tb";
 
 import Link from "next/link";
-import { mealData } from "../api/meals/mealData";
+import { MealData, mealData } from "../api/meals/mealData";
+import MealDialog from "../components/Meal/MealDialog";
 
 
 export default async function Meals({
@@ -29,7 +30,7 @@ export default async function Meals({
             <div className="h-screen bg-white w-full">
                 <h1 className="text-4xl mt-20 font-bold mb-8 text-center text-gray-800">Meal Planner</h1>
                 <div className="flex flex-wrap gap-8 justify-center">
-                    {filter.map((meal, idx) => (
+                    {filter.map((meal:MealData, idx) => (
                         <div key={idx} className="flex flex-col sm:w-1/3 xl:w-1/5 m-5 rounded-2xl shadow-xl gap-5">
                             <div className="w-full h-64 overflow-hidden rounded-2xl mx-auto">
                                 <Image
@@ -45,7 +46,7 @@ export default async function Meals({
                             <div className="flex flex-col m-5 p-1 gap-1">
                                 <span className="text-2xl font-bold text-slate-900 tracking-wide block  leading-tight">
                                     {meal.name}
-                                    {/* {meal.name.split(' ').length <= 3 && <br />} */}
+                                    {meal.name.split(' ').length <= 3 && <br />}
                                 </span>
 
                                 <span className="text-lg font-semibold text-slate-600">
@@ -66,13 +67,15 @@ export default async function Meals({
                                         <Link
                                             href={`/meals?tag=${encodeURIComponent(tag)}`}
                                             as={`/meals?tag=${encodeURIComponent(tag)}`}
-                                            className="text-base bg-blue-900 text-slate-50 rounded-2xl px-3 py-1 capitalize cursor-pointer hover:bg-blue-950 duration-500"
+                                            className="text-base bg-blue-700 text-slate-50 rounded-2xl px-3 py-1 capitalize cursor-pointer hover:bg-blue-950 duration-500"
                                             key={idx1}
                                         >
                                             {tag}
                                         </Link>
                                     ))}
                                 </div>
+
+                                <MealDialog meal={meal} />
                             </div>
                         </div>
                     ))}
