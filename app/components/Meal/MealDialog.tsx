@@ -7,6 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import Image from "next/image";
 
 import { RiCompassLine } from "react-icons/ri";
 
@@ -28,7 +29,10 @@ export default function MealDialog(props: { meal: MealData }) {
                                 <div className="flex flex-col xl:flex-row-reverse gap-6">
 
                                     <div className="flex w-full h-72 xl:h-auto xl:w-1/2 overflow-hidden rounded-2xl justify-center items-center bg-gray-100">
-                                        <img
+                                        <Image
+                                            height={0}
+                                            width={0}
+                                            sizes="100vw"
                                             src={`meals/${meal?.image}`}
                                             alt={meal.name}
                                             className="object-cover h-full w-full rounded-2xl hover:scale-105 duration-700"
