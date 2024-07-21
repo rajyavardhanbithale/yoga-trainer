@@ -33,7 +33,7 @@ export default function MealDialog(props: { meal: MealData }) {
                                             height={0}
                                             width={0}
                                             sizes="100vw"
-                                            src={`meals/${meal?.image}`}
+                                            src={`/meals/${meal?.image}`}
                                             alt={meal.name}
                                             className="object-cover h-full w-full rounded-2xl hover:scale-105 duration-700"
                                         />

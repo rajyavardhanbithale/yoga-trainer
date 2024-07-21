@@ -23,7 +23,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Breakfast",
         name: "Green Smoothie Bowl",
-        image: "green-smoothie-bowl.jpg",
+        image: "green-smoothie-bowl.webp",
         ingredients: [
             { item: "Spinach", quantity: "1 cup" },
             { item: "Banana", quantity: "1" },
@@ -50,7 +50,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Lunch",
         name: "Quinoa Salad",
-        image: "quinoa-salad.jpg",
+        image: "quinoa-salad.webp",
         ingredients: [
             { item: "Quinoa", quantity: "1 cup" },
             { item: "Cucumber", quantity: "1/2, diced" },
@@ -82,7 +82,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Dinner",
         name: "Baked Salmon with Asparagus",
-        image: "baked-salmon-with-asparagus.jpg",
+        image: "baked-salmon-with-asparagus.webp",
         ingredients: [
             { item: "Salmon Fillet", quantity: "1 (6 oz)" },
             { item: "Asparagus", quantity: "1 bunch" },
@@ -113,7 +113,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Snack",
         name: "Hummus with Veggies",
-        image: "hummus-with-veggies.jpg",
+        image: "hummus-with-veggies.webp",
         ingredients: [
             { item: "Hummus", quantity: "1/2 cup" },
             { item: "Carrot Sticks", quantity: "1 cup" },
@@ -138,7 +138,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Breakfast",
         name: "Oatmeal with Fruits and Nuts",
-        image: "oatmeal-with-fruits-and-nuts.jpg",
+        image: "oatmeal-with-fruits-and-nuts.webp",
         ingredients: [
             { item: "Rolled Oats", quantity: "1/2 cup" },
             { item: "Almond Milk", quantity: "1 cup" },
@@ -165,7 +165,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Lunch",
         name: "Veggie Wrap",
-        image: "veggie-wrap.jpg",
+        image: "veggie-wrap.webp",
         ingredients: [
             { item: "Whole Wheat Tortilla", quantity: "1" },
             { item: "Hummus", quantity: "2 tbsp" },
@@ -193,7 +193,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Dinner",
         name: "Vegetable Stir-Fry with Tofu",
-        image: "vegetable-stir-fry-with-tofu.jpg",
+        image: "vegetable-stir-fry-with-tofu.webp",
         ingredients: [
             { item: "Firm Tofu", quantity: "1 block, cubed" },
             { item: "Broccoli", quantity: "1 cup, chopped" },
@@ -225,7 +225,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Snack",
         name: "Greek Yogurt with Honey and Nuts",
-        image: "greek-yogurt-with-honey-and-Nuts.jpg",
+        image: "greek-yogurt-with-honey-and-Nuts.webp",
         ingredients: [
             { item: "Greek Yogurt", quantity: "1 cup" },
             { item: "Honey", quantity: "1 tbsp" },
@@ -250,7 +250,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Breakfast",
         name: "Avocado Toast",
-        image: "avocado-toast.jpg",
+        image: "avocado-toast.webp",
         ingredients: [
             { item: "Whole Grain Bread", quantity: "2 slices" },
             { item: "Avocado", quantity: "1, mashed" },
@@ -277,7 +277,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Lunch",
         name: "Lentil Soup",
-        image: "lentil-soup.jpg",
+        image: "lentil-soup.webp",
         ingredients: [
             { item: "Lentils", quantity: "1 cup" },
             { item: "Carrots", quantity: "2, diced" },
@@ -309,7 +309,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Dinner",
         name: "Stuffed Bell Peppers",
-        image: "stuffed-bell-peppers.jpg",
+        image: "stuffed-bell-peppers.webp",
         ingredients: [
             { item: "Bell Peppers", quantity: "4, halved and seeded" },
             { item: "Quinoa", quantity: "1 cup, cooked" },
@@ -342,7 +342,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Snack",
         name: "Energy Balls",
-        image: "energy-balls.jpg",
+        image: "energy-balls.webp",
         ingredients: [
             { item: "Oats", quantity: "1 cup" },
             { item: "Peanut Butter", quantity: "1/2 cup" },
@@ -396,7 +396,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Lunch",
         name: "Chickpea Salad",
-        image: "chickpea-salad.jpg",
+        image: "chickpea-salad.webp",
         ingredients: [
             { item: "Chickpeas", quantity: "1 can, drained and rinsed" },
             { item: "Cucumber", quantity: "1, diced" },
@@ -426,7 +426,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Dinner",
         name: "Mushroom Risotto",
-        image: "mushroom-risotto.jpg",
+        image: "mushroom-risotto.webp",
         ingredients: [
             { item: "Arborio Rice", quantity: "1 cup" },
             { item: "Mushrooms", quantity: "2 cups, sliced" },
@@ -460,7 +460,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Snack",
         name: "Fruit and Nut Mix",
-        image: "fruit-and-nut-mix.jpg",
+        image: "fruit-and-nut-mix.webp",
         ingredients: [
             { item: "Almonds", quantity: "1/2 cup" },
             { item: "Walnuts", quantity: "1/2 cup" },
@@ -485,7 +485,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Breakfast",
         name: "Smoothie Bowl",
-        image: "smoothie-bowl.jpeg",
+        image: "smoothie-bowl.webp",
         ingredients: [
             { item: "Frozen Berries", quantity: "1 cup" },
             { item: "Banana", quantity: "1" },
@@ -512,7 +512,7 @@ export const mealData: MealData[] = [
     {
         meal_type: "Lunch",
         name: "Falafel Wrap",
-        image: "falafel-wrap.jpg",
+        image: "falafel-wrap.webp",
         ingredients: [
             { item: "Falafel Balls", quantity: "4" },
             { item: "Whole Wheat Tortilla", quantity: "1" },
