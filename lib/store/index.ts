@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import dashboardSlice from "./dashboard/dashboardSlice"
 import userProfileSlice from "./dashboard/userProfileSlice"
-import profileSlice from "./profile/profileSlice"
+import profileSlice from "./user/profileSlice"
 
 
 export const store = configureStore({

@@ -14,6 +14,7 @@ export default function Profile(props: any) {
     const [isPublic, setIsPublic] = useState(false);
 
     const userProfile = useSelector((state: RootState) => state.userProfile.USERINFO)
+    
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {

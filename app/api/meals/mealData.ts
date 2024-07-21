@@ -1,4 +1,5 @@
 export interface MealData {
+    id: number
     meal_type: string
     name: string
     image: string
@@ -17,10 +18,12 @@ export interface MealData {
     vegetarian: boolean
     website: string
     video: string
+    likes?: number
 }
 
 export const mealData: MealData[] = [
     {
+        id: 101,
         meal_type: "Breakfast",
         name: "Green Smoothie Bowl",
         image: "green-smoothie-bowl.webp",
@@ -48,6 +51,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=q5-r7RpOooU"
     },
     {
+        id: 102,
         meal_type: "Lunch",
         name: "Quinoa Salad",
         image: "quinoa-salad.webp",
@@ -80,6 +84,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=3QEjP3X3aBI"
     },
     {
+        id: 103,
         meal_type: "Dinner",
         name: "Baked Salmon with Asparagus",
         image: "baked-salmon-with-asparagus.webp",
@@ -111,6 +116,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=Kdq3khk_8n0"
     },
     {
+        id: 104,
         meal_type: "Snack",
         name: "Hummus with Veggies",
         image: "hummus-with-veggies.webp",
@@ -136,6 +142,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=CzZToWUHMNM"
     },
     {
+        id: 105,
         meal_type: "Breakfast",
         name: "Oatmeal with Fruits and Nuts",
         image: "oatmeal-with-fruits-and-nuts.webp",
@@ -163,6 +170,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=3dyy1SyKwCE"
     },
     {
+        id: 106,
         meal_type: "Lunch",
         name: "Veggie Wrap",
         image: "veggie-wrap.webp",
@@ -191,6 +199,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=5r3vjmrXXmI"
     },
     {
+        id: 107,
         meal_type: "Dinner",
         name: "Vegetable Stir-Fry with Tofu",
         image: "vegetable-stir-fry-with-tofu.webp",
@@ -223,6 +232,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=lNdFgQ4fBCI"
     },
     {
+        id: 108,
         meal_type: "Snack",
         name: "Greek Yogurt with Honey and Nuts",
         image: "greek-yogurt-with-honey-and-Nuts.webp",
@@ -248,6 +258,7 @@ export const mealData: MealData[] = [
     },
 
     {
+        id: 109,
         meal_type: "Breakfast",
         name: "Avocado Toast",
         image: "avocado-toast.webp",
@@ -275,6 +286,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=0R5km8AQGlI"
     },
     {
+        id: 110,
         meal_type: "Lunch",
         name: "Lentil Soup",
         image: "lentil-soup.webp",
@@ -307,6 +319,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=ZCVFUok4h6c"
     },
     {
+        id: 111,
         meal_type: "Dinner",
         name: "Stuffed Bell Peppers",
         image: "stuffed-bell-peppers.webp",
@@ -340,6 +353,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=ektsiKFVqks"
     },
     {
+        id: 112,
         meal_type: "Snack",
         name: "Energy Balls",
         image: "energy-balls.webp",
@@ -367,6 +381,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=1noPmYc_DxI"
     },
     {
+        id: 113,
         meal_type: "Breakfast",
         name: "Chia Pudding",
         image: "chia-pudding.webp",
@@ -394,6 +409,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=6Ig3Rm1YLRo"
     },
     {
+        id: 114,
         meal_type: "Lunch",
         name: "Chickpea Salad",
         image: "chickpea-salad.webp",
@@ -424,6 +440,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=PrJH8QFmtFE"
     },
     {
+        id: 115,
         meal_type: "Dinner",
         name: "Mushroom Risotto",
         image: "mushroom-risotto.webp",
@@ -458,6 +475,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=ju9H1RlYNxk"
     },
     {
+        id: 116,
         meal_type: "Snack",
         name: "Fruit and Nut Mix",
         image: "fruit-and-nut-mix.webp",
@@ -483,6 +501,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=DeeBmd7OaX0"
     },
     {
+        id: 117,
         meal_type: "Breakfast",
         name: "Smoothie Bowl",
         image: "smoothie-bowl.webp",
@@ -510,6 +529,7 @@ export const mealData: MealData[] = [
         video: "https://www.youtube.com/watch?v=kGONo2ghhqg"
     },
     {
+        id: 118,
         meal_type: "Lunch",
         name: "Falafel Wrap",
         image: "falafel-wrap.webp",

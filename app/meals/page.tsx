@@ -1,11 +1,16 @@
 
-import { mealData } from "../api/meals/mealData";
+import { MealData, mealData } from "../api/meals/mealData";
 
 import MealInput from "../components/Meal/MealInput";
 import MealNoResult from "../components/Meal/MealNoResult";
 import MealCard from "../components/Meal/MealCard";
 import MealTag from "../components/Meal/MealTag";
+import { createClient } from "@/utils/supabase/server";
 
+interface Like {
+    id: number
+    likes: number
+}
 
 
 export default async function Meals({
@@ -14,10 +19,8 @@ export default async function Meals({
     searchParams?: { search?: string; tag?: string } | undefined
 }) {
 
-
     const tagParam = searchParams?.tag
     const search = searchParams?.search?.toLowerCase()
-
     const tag = tagParam ? tagParam.split(',') : null;
 
 
@@ -33,6 +36,27 @@ export default async function Meals({
 
     const filteredMeals = filter(tag, search)
 
+    const supabase = createClient();
+
+    const { data, error } = await supabase
+        .from('food-data')
+        .select()
+
+
+    const combineMealsAndLikes = (meals: MealData[], likes: any): (MealData & { likes: number })[] => {
+        const likesMap: Record<number, number> = likes.reduce((acc: any, like: any) => {
+            acc[like.id] = like.likes
+            return acc
+        }, {} as Record<number, number>)
+
+        return meals.map(meal => ({
+            ...meal,
+            likes: likesMap[meal.id] || 0,
+        }));
+    };
+
+
+    const merge = combineMealsAndLikes(filteredMeals, data)
 
     return (
         <>
@@ -62,8 +86,8 @@ export default async function Meals({
                 )}
 
                 <div className="flex flex-wrap gap-10 justify-center">
-                    {filteredMeals.length === 0 && <MealNoResult />}
-                    {filteredMeals.map((meal, idx) => (
+                    {merge.length === 0 && <MealNoResult />}
+                    {merge.map((meal, idx: number) => (
                         <MealCard meals={meal} key={idx} />
                     ))}
                 </div>

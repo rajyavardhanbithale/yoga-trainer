@@ -7,6 +7,9 @@ import { LuVegan } from "react-icons/lu";
 import { TbMeat } from "react-icons/tb";
 import MealDialog from "./MealDialog";
 import { useRouter, useSearchParams } from "next/navigation";
+import { FcLike } from "react-icons/fc";
+import MealUserLike from "./MealUserLike";
+
 
 export default function MealCard(props: { meals: MealData }) {
     const meal = props?.meals
@@ -16,17 +19,17 @@ export default function MealCard(props: { meals: MealData }) {
         // overlay param in url is used to disconnect the main meal page from the next param page
         // problem without overlay is that whenever the new tag is added to url 
         // and the user 'back' the page it takes long to navigate back to the main 'meal' page if there are nested tags
-        
+
         const currentUrl = new URL(window.location.href)
         const searchParams = new URLSearchParams(currentUrl.search)
         const overlay = searchParams.get('overlay') || null
 
         const prevTag = searchParams.get('tag') || null
-        
+
 
         searchParams.set('overlay', 'true');
         searchParams.set('tag', `${tag}${prevTag ? `,${prevTag}` : ''}`)
-    
+
         const newUrl = `${currentUrl.pathname}?${searchParams.toString()}`
         overlay ? router.replace(newUrl) : router.push(newUrl)
 
@@ -48,7 +51,7 @@ export default function MealCard(props: { meals: MealData }) {
                     {/* <div className="z-50 bg-slate-300 h-full w-full animate-pulse"></div> */}
                 </div>
 
-                <div className="flex flex-col p-6">
+                <div className="flex flex-col px-6 py-2 justify-evenly h-[60%]">
                     <span className="text-2xl font-semibold text-gray-800 leading-tight">
                         {meal.name}
                         {meal.name.split(' ').length <= 3 && <br />}
@@ -61,12 +64,12 @@ export default function MealCard(props: { meals: MealData }) {
                         ) : (
                             <TbMeat className="text-xl inline-flex mx-2 text-red-500 mb-1" />
                         )}
-                    </span>
+                    </span> 
 
-                    <div className="flex flex-wrap gap-2 my-5">
+                    <div className="flex flex-wrap gap-2 my-2">
                         {meal.tags.map((tag, idx1) => (
-                            <button 
-                                onClick={()=>handleTagRoute(tag)}
+                            <button
+                                onClick={() => handleTagRoute(tag)}
                                 className="text-base bg-blue-700 text-white rounded-2xl px-3 py-1 capitalize cursor-pointer hover:bg-blue-900 transition-colors duration-300"
                                 key={idx1}
                             >
@@ -75,7 +78,10 @@ export default function MealCard(props: { meals: MealData }) {
 
                         ))}
                     </div>
+
+
                     <MealDialog meal={meal} />
+                    <MealUserLike mealId={meal.id} mealLike={meal.likes} />
                 </div>
             </div>
         </>
