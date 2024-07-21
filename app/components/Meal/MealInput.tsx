@@ -6,7 +6,6 @@ import { useCallback } from "react";
 
 
 export default function MealInput() {
-    const searchParams = useSearchParams();
     const router = useRouter();
 
     const debounce = (func: Function, delay: number) => {

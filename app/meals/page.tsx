@@ -1,12 +1,6 @@
-import Image from "next/image";
 
+import { mealData } from "../api/meals/mealData";
 
-import { LuVegan } from "react-icons/lu";
-import { TbMeat } from "react-icons/tb";
-
-import Link from "next/link";
-import { MealData, mealData } from "../api/meals/mealData";
-import MealDialog from "../components/Meal/MealDialog";
 import MealInput from "../components/Meal/MealInput";
 import MealNoResult from "../components/Meal/MealNoResult";
 import MealCard from "../components/Meal/MealCard";
@@ -22,12 +16,12 @@ export default async function Meals({
 
 
     const tagParam = searchParams?.tag
-    const search = searchParams?.search?.toLowerCase() 
+    const search = searchParams?.search?.toLowerCase()
 
     const tag = tagParam ? tagParam.split(',') : null;
 
 
-    const filter = (tag:string[] | null, search:string | undefined) => {
+    const filter = (tag: string[] | null, search: string | undefined) => {
         if (!tag && !search) {
             return mealData;
         }
@@ -44,14 +38,14 @@ export default async function Meals({
         <>
             <div className="min-h-screen bg-gray-50 w-full p-8">
                 <h1 className="text-5xl mt-12 font-extrabold mb-8 text-center text-blue-950">Healthy Diet Essentials</h1>
-                <div className="max-w-2xl mx-auto">
+                <div className="max-w-2xl mx-auto my-5">
                     <MealInput />
                 </div>
 
                 {search && (
                     <div className="my-5">
                         <span className="text-xl px-5 mx-5 capitalize font-semibold text-slate-700">
-                            Search Result For <b>"{search}"</b>
+                            Search Result For <b>&ldquo;{search}&ldquo;</b>
                         </span>
                     </div>
                 )}
@@ -68,13 +62,10 @@ export default async function Meals({
                 )}
 
                 <div className="flex flex-wrap gap-10 justify-center">
-                    {filteredMeals.length === 0 ? (
-                        <MealNoResult />
-                    ) : (
-                        filteredMeals.map((meal, idx) => (
-                            <MealCard meals={meal} key={idx} />
-                        ))
-                    )}
+                    {filteredMeals.length === 0 && <MealNoResult />}
+                    {filteredMeals.map((meal, idx) => (
+                        <MealCard meals={meal} key={idx} />
+                    ))}
                 </div>
             </div>
 

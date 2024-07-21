@@ -63,7 +63,7 @@ export default function MealCard(props: { meals: MealData }) {
                         )}
                     </span>
 
-                    <div className="flex flex-wrap gap-2 mt-3">
+                    <div className="flex flex-wrap gap-2 my-5">
                         {meal.tags.map((tag, idx1) => (
                             <button 
                                 onClick={()=>handleTagRoute(tag)}
