@@ -1,11 +1,10 @@
 'use client'
-import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, Title, ArcElement, Legend, Tooltip } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2'
+import { Chart as ChartJS, Title, ArcElement, Legend, Tooltip } from 'chart.js'
 
-ChartJS.register(Title, ArcElement, Legend, Tooltip);
+ChartJS.register(Title, ArcElement, Legend, Tooltip)
 
-export default function DaySpent({activeInMonth}) {
-   
+export default function DaySpent({ activeInMonth }) {
     const data = {
         labels: ['Active', 'Inactive'],
         datasets: [
@@ -16,7 +15,7 @@ export default function DaySpent({activeInMonth}) {
                 hoverOffset: 4,
             },
         ],
-    };
+    }
 
     const options = {
         plugins: {
@@ -30,14 +29,14 @@ export default function DaySpent({activeInMonth}) {
                         } else if (dataIndex === 1) {
                             label = `Number of Inactive Days: : ${activeInMonth.inactive}`
                         }
-                        return label;
-                    }
-                }
-            }
+                        return label
+                    },
+                },
+            },
         },
-        responsive:true,
+        responsive: true,
         maintainAspectRatio: false,
-    };
+    }
 
     return (
         <>

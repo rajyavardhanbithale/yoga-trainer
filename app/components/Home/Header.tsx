@@ -1,7 +1,7 @@
-import { Raleway } from "next/font/google"
-import { IoArrowForwardOutline, IoCompassOutline } from "react-icons/io5";
+import { Raleway } from 'next/font/google'
+import { IoArrowForwardOutline, IoCompassOutline } from 'react-icons/io5'
 
-const raleway = Raleway({ subsets: ["latin"] });
+const raleway = Raleway({ subsets: ['latin'] })
 
 export default function Header() {
     return (
@@ -12,12 +12,17 @@ export default function Header() {
                         Welcome To RAGE AI
                     </span>
 
-                    <div className={`${raleway.className} flex flex-col gap-3 justify-center items-center`}>
+                    <div
+                        className={`${raleway.className} flex flex-col gap-3 justify-center items-center`}
+                    >
                         <span className="sm:text-2xl text-xl text-slate-200 text-center">
                             Transform Your Yoga Practice with RageAI
                         </span>
                         <span className="sm:text-2xl text-lg text-slate-200 xl:w-1/2 text-center">
-                            Discover our user-friendly yoga guidance platform: select poses, get real-time feedback, and personalized tips for an enhanced practice experience.
+                            Discover our user-friendly yoga guidance platform:
+                            select poses, get real-time feedback, and
+                            personalized tips for an enhanced practice
+                            experience.
                         </span>
                     </div>
 

@@ -1,18 +1,23 @@
 'use client'
 
-import { AchievementsData, achievementsData } from "@/app/api/achievements/achievementsData";
-import { AppDispatch, RootState } from "@/lib/store";
-import { fetchAchievement } from "@/lib/store/dashboard/dashboardSlice";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {
+    AchievementsData,
+    achievementsData,
+} from '@/app/api/achievements/achievementsData'
+import { AppDispatch, RootState } from '@/lib/store'
+import { fetchAchievement } from '@/lib/store/dashboard/dashboardSlice'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Tooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
 import './tooltip.css'
-import { CiLock, CiUnlock } from "react-icons/ci";
-import Image from "next/image";
+import { CiLock, CiUnlock } from 'react-icons/ci'
+import Image from 'next/image'
 
 export default function Achievements() {
-    const completed = useSelector((state: RootState) => state.dashboard.ACHIEVEMENTS)
+    const completed = useSelector(
+        (state: RootState) => state.dashboard.ACHIEVEMENTS
+    )
     const dispatch = useDispatch<AppDispatch>()
 
     const gender = 'women'
@@ -24,7 +29,7 @@ export default function Achievements() {
 
     return (
         <>
-            {completed &&
+            {completed && (
                 <div className="h-[75vh] flex flex-col justify-between m-5">
                     <div className="flex flex-col gap-2 justify-start items-start m-5 py-5">
                         <span className="text-5xl font-semibold text-slate-900 uppercase">
@@ -51,10 +56,17 @@ export default function Achievements() {
                                             ${completed?.includes(item.id) ? 'brightness-100' : 'brightness-[.30]'}
                                         `}
                                 />
-                                <Tooltip id={`tooltip-${key}`} className="place-tooltip animate-fade-up">
+                                <Tooltip
+                                    id={`tooltip-${key}`}
+                                    className="place-tooltip animate-fade-up"
+                                >
                                     <div className="flex flex-col m-2 span-2">
-                                        <span className="font-bold text-slate-900 text-xl">{item.name}</span>
-                                        <span className="text-slate-800 text-lg">{item.description}</span>
+                                        <span className="font-bold text-slate-900 text-xl">
+                                            {item.name}
+                                        </span>
+                                        <span className="text-slate-800 text-lg">
+                                            {item.description}
+                                        </span>
                                         <div className="flex flex-col justify-between text-slate-700 mt-2 capitalize">
                                             <div className="flex gap-2 items-center">
                                                 <span className="font-bold text-lg">
@@ -77,19 +89,19 @@ export default function Achievements() {
                                                     Achievement -
                                                 </span>
                                                 <span className="font-semibold text-base">
-                                                    {completed?.includes(item.id) ? (
+                                                    {completed?.includes(
+                                                        item.id
+                                                    ) ? (
                                                         <span>
                                                             Unlocked
                                                             <CiUnlock className="inline-flex justify-center align-middle items-center mb-0.5 mx-1 font-bold" />
                                                         </span>
-
                                                     ) : (
                                                         <span>
                                                             Locked
                                                             <CiLock className="inline-flex justify-center align-middle items-center mb-0.5 mx-1 font-bold" />
                                                         </span>
-                                                    )
-                                                    }
+                                                    )}
                                                 </span>
                                             </div>
                                         </div>
@@ -99,8 +111,8 @@ export default function Achievements() {
                         ))}
                     </div>
                 </div>
-            }
-            {!completed &&
+            )}
+            {!completed && (
                 <div className="h-[75vh] flex flex-col justify-between m-5">
                     <div className="flex flex-col gap-2 justify-start items-start m-5 py-5">
                         <span className="text-5xl font-semibold text-slate-900 uppercase">
@@ -113,14 +125,16 @@ export default function Achievements() {
 
                     <div className="flex flex-wrap gap-5 justify-center items-center w-11/12 mx-auto">
                         {Array.from({ length: 10 }).map((_, idx) => (
-                            <div key={idx} className="flex justify-center h-60 w-60 rounded-full bg-slate-300 p-1 animate-pulse">
+                            <div
+                                key={idx}
+                                className="flex justify-center h-60 w-60 rounded-full bg-slate-300 p-1 animate-pulse"
+                            >
                                 {/* <span className="loading loading-spinner loading-md"></span> */}
                             </div>
                         ))}
                     </div>
                 </div>
-            }
-
+            )}
         </>
     )
 }

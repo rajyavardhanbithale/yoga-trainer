@@ -1,38 +1,51 @@
 'use client'
 
-import { Chart as ChartJS, BarElement, LinearScale, CategoryScale, Title, Tooltip, Legend } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    BarElement,
+    LinearScale,
+    CategoryScale,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js'
+import { Bar } from 'react-chartjs-2'
 
-
-ChartJS.register(BarElement, LinearScale, CategoryScale, Title, Tooltip, Legend);
-
-
+ChartJS.register(BarElement, LinearScale, CategoryScale, Title, Tooltip, Legend)
 
 export default function WeekActivity({ weeklyActivity }) {
-
-    const labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const labels = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+    ]
     const data = {
         labels: labels,
-        datasets: [{
-            label: 'Daily Activity',
-            data: weeklyActivity,
-            backgroundColor: [
-                "#3a61fd",
-                "#5079fc",
-                "#668ffc",
-                "#7ba3fb",
-                "#668ffc",
-                "#5079fc",
-                "#3a61fd",
-            ],
-            borderWidth: 0,
-            barThickness: 30,
-            maxBarThickness: 30,
-            borderRadius: 10,
-            hoverBorderRadius: 15,
-        }]
-
-    };
+        datasets: [
+            {
+                label: 'Daily Activity',
+                data: weeklyActivity,
+                backgroundColor: [
+                    '#3a61fd',
+                    '#5079fc',
+                    '#668ffc',
+                    '#7ba3fb',
+                    '#668ffc',
+                    '#5079fc',
+                    '#3a61fd',
+                ],
+                borderWidth: 0,
+                barThickness: 30,
+                maxBarThickness: 30,
+                borderRadius: 10,
+                hoverBorderRadius: 15,
+            },
+        ],
+    }
 
     const options = {
         // animations: {
@@ -49,7 +62,6 @@ export default function WeekActivity({ weeklyActivity }) {
                 },
             },
             y: {
-
                 beginAtZero: true,
                 grid: {
                     display: false,
@@ -58,8 +70,8 @@ export default function WeekActivity({ weeklyActivity }) {
                 ticks: {
                     display: false,
                 },
-                max: 4
-            }
+                max: 4,
+            },
         },
         plugins: {
             legend: {
@@ -70,14 +82,12 @@ export default function WeekActivity({ weeklyActivity }) {
             },
         },
         responsive: true,
-        maintainAspectRatio: false,  // Allows the chart to take the full height of the container
-    };
+        maintainAspectRatio: false, // Allows the chart to take the full height of the container
+    }
 
     return (
         <div className="w-full">
             <Bar data={data} options={options} />
-
         </div>
-
-    );
+    )
 }

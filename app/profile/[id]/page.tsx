@@ -1,9 +1,7 @@
-import Image from "next/image"
-import { getName } from "country-list"
-import { createClient } from "@/utils/supabase/server"
-import { AchievementsData } from "@/app/api/achievements/achievementsData"
-
-
+import Image from 'next/image'
+import { getName } from 'country-list'
+import { createClient } from '@/utils/supabase/server'
+import { AchievementsData } from '@/app/api/achievements/achievementsData'
 
 const USERDB = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_USER_PROFILE!
 
@@ -11,7 +9,20 @@ export default async function Profile({ params }: any) {
     const searchParam = params.id
 
     const joinedTime = (time: number) => {
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        const monthNames = [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec',
+        ]
         const jTime = new Date(time)
         const date = jTime.getDate()
         const year = jTime.getFullYear()
@@ -21,17 +32,20 @@ export default async function Profile({ params }: any) {
     }
 
     const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const {
+        data: { user },
+    } = await supabase.auth.getUser()
     const { data, error } = await supabase
         .from(USERDB)
         .select('*')
         .eq('user_public_id', searchParam)
-        .single();
+        .single()
 
-    const achievement = AchievementsData.filter(item => data.achievements.includes(item.id))
+    const achievement = AchievementsData.filter((item) =>
+        data.achievements.includes(item.id)
+    )
 
     const gender = 'men'
-
 
     return (
         <>
@@ -48,8 +62,12 @@ export default async function Profile({ params }: any) {
                     </div>
                     <div className="md:col-span-4 flex flex-col justify-center sm:items-start items-center m-5 gap-4">
                         <div className="flex flex-col">
-                            <span className="text-4xl font-semibold text-gray-800">{data.name}</span>
-                            <span className="text-sm font-semibold text-gray-600">#{data.user_public_id}</span>
+                            <span className="text-4xl font-semibold text-gray-800">
+                                {data.name}
+                            </span>
+                            <span className="text-sm font-semibold text-gray-600">
+                                #{data.user_public_id}
+                            </span>
                         </div>
 
                         <div className="flex items-center gap-2">
@@ -88,9 +106,6 @@ export default async function Profile({ params }: any) {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
-
-

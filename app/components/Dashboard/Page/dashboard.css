@@ -1,28 +1,27 @@
 .anim-blob {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1038%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(89%2c 121%2c 242%2c 1)'%3e%3c/rect%3e%3cpath d='M1142.651563148312 240.83043716122557L1020.016922838189 175.6244422599202 954.8109279368837 298.2590825700433 1077.4455682470068 363.46507747134865z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1337.091581746942 446.87159246570127L1293.9665981109965 305.8161268179838 1152.911132463279 348.9411104539292 1196.0361160992245 489.9965761016466z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1331.3624609670385 180.37391620568417L1283.890389183588 310.80236148544316 1414.318834463347 358.27443326889363 1461.7909062467975 227.8459879891346z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M-17.34911510177688 305.3963447154097L75.42244785103264 354.7238597273951 124.74996286301803 261.9522967745856 31.97839991020851 212.6247817626002z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1359.9513318150894 97.17567886932501L1279.7104918447922 241.93398609883303 1424.4687990743003 322.1748260691301 1504.7096390445975 177.41651883962209z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M301.7%2c119.079C324.233%2c119.749%2c348.47%2c116.148%2c360.947%2c97.373C374.596%2c76.835%2c373.57%2c50.13%2c361.992%2c28.357C349.628%2c5.107%2c327.986%2c-15.606%2c301.7%2c-14.04C277.007%2c-12.569%2c263.656%2c12.696%2c252.69%2c34.87C243.296%2c53.866%2c237.599%2c75.705%2c248.259%2c94.021C258.866%2c112.246%2c280.622%2c118.452%2c301.7%2c119.079' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M575.7219370863609 278.3235701100134L694.798402931752 237.32225482650156 653.7970876482401 118.24578898111048 534.720621802849 159.24710426462235z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float3'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1038'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 5s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
-  transition: transform 0.8s ease-in-out;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1038%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(89%2c 121%2c 242%2c 1)'%3e%3c/rect%3e%3cpath d='M1142.651563148312 240.83043716122557L1020.016922838189 175.6244422599202 954.8109279368837 298.2590825700433 1077.4455682470068 363.46507747134865z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1337.091581746942 446.87159246570127L1293.9665981109965 305.8161268179838 1152.911132463279 348.9411104539292 1196.0361160992245 489.9965761016466z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1331.3624609670385 180.37391620568417L1283.890389183588 310.80236148544316 1414.318834463347 358.27443326889363 1461.7909062467975 227.8459879891346z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M-17.34911510177688 305.3963447154097L75.42244785103264 354.7238597273951 124.74996286301803 261.9522967745856 31.97839991020851 212.6247817626002z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1359.9513318150894 97.17567886932501L1279.7104918447922 241.93398609883303 1424.4687990743003 322.1748260691301 1504.7096390445975 177.41651883962209z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M301.7%2c119.079C324.233%2c119.749%2c348.47%2c116.148%2c360.947%2c97.373C374.596%2c76.835%2c373.57%2c50.13%2c361.992%2c28.357C349.628%2c5.107%2c327.986%2c-15.606%2c301.7%2c-14.04C277.007%2c-12.569%2c263.656%2c12.696%2c252.69%2c34.87C243.296%2c53.866%2c237.599%2c75.705%2c248.259%2c94.021C258.866%2c112.246%2c280.622%2c118.452%2c301.7%2c119.079' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M575.7219370863609 278.3235701100134L694.798402931752 237.32225482650156 653.7970876482401 118.24578898111048 534.720621802849 159.24710426462235z' fill='rgba(65%2c 88%2c 168%2c 1)' class='triangle-float3'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1038'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 5s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
+    transition: transform 0.8s ease-in-out;
 }
 
 .anim-blob:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .rdp-day_selected,
 .rdp-day_selected:focus-visible,
 .rdp-day_selected:hover {
-  color: white !important;
-  opacity: 1;
-  background-color: #1e40af !important;
-  transition: transform 1s;
+    color: white !important;
+    opacity: 1;
+    background-color: #1e40af !important;
+    transition: transform 1s;
 }
 
 .rdp-day_selected:hover {
-  transform: scale(1.08);
+    transform: scale(1.08);
 }
 
 .rdp-weeknumber,
 .rdp-day {
-  margin: 2px !important;
-  border-radius: 30% !important;
-
+    margin: 2px !important;
+    border-radius: 30% !important;
 }

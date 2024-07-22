@@ -1,22 +1,23 @@
 'use client'
-import Sidebar from "../components/Dashboard/Page/Sidebar";
-import Dashboard from "../components/Dashboard/Page/Dashboard";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
-import { createClientBrowser } from "@/utils/supabase/client";
-import { useEffect, useState } from "react";
-import StatsDashboard from "../components/Dashboard/Stats/Stats";
-import Achievements from "../components/Dashboard/Achivements/Achievements";
-import Profile from "../components/Dashboard/Profile/Profile";
+import Sidebar from '../components/Dashboard/Page/Sidebar'
+import Dashboard from '../components/Dashboard/Page/Dashboard'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/lib/store'
+import { createClientBrowser } from '@/utils/supabase/client'
+import { useEffect, useState } from 'react'
+import StatsDashboard from '../components/Dashboard/Stats/Stats'
+import Achievements from '../components/Dashboard/Achivements/Achievements'
+import Profile from '../components/Dashboard/Profile/Profile'
 
 export default function Page() {
     const [user, setUser] = useState<any>(null)
 
     const supabase = createClientBrowser()
 
-
     const getUser = async () => {
-        const { data: { user } } = await supabase.auth.getUser()
+        const {
+            data: { user },
+        } = await supabase.auth.getUser()
         setUser(user)
     }
 
@@ -24,8 +25,10 @@ export default function Page() {
         getUser()
     }, [])
 
-    const activeWindow = useSelector((state: RootState) => state.dashboard.activeWindow)
-    
+    const activeWindow = useSelector(
+        (state: RootState) => state.dashboard.activeWindow
+    )
+
     return (
         <>
             {/* <Calendar epochTimes={Time} /> */}
@@ -33,15 +36,20 @@ export default function Page() {
             <div className="flex bg-white">
                 <Sidebar></Sidebar>
                 <div className="flex-1 p-2 bg-slate-50 w-full">
-
-                    {activeWindow === 'dashboard' && <Dashboard name={user?.user_metadata?.name}></Dashboard>}
-                    {activeWindow === 'stats' && <StatsDashboard></StatsDashboard>}
-                    {activeWindow === 'achievements' && <Achievements></Achievements>}
-                    {user && activeWindow === 'profile' && <Profile user={user}></Profile>}
+                    {activeWindow === 'dashboard' && (
+                        <Dashboard name={user?.user_metadata?.name}></Dashboard>
+                    )}
+                    {activeWindow === 'stats' && (
+                        <StatsDashboard></StatsDashboard>
+                    )}
+                    {activeWindow === 'achievements' && (
+                        <Achievements></Achievements>
+                    )}
+                    {user && activeWindow === 'profile' && (
+                        <Profile user={user}></Profile>
+                    )}
                 </div>
             </div>
-
-
         </>
     )
 }

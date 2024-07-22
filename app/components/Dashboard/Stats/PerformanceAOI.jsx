@@ -1,13 +1,19 @@
 'use client'
-import React from 'react';
-import { Radar } from 'react-chartjs-2';
-import { Chart as ChartJS, RadialLinearScale, ArcElement, Tooltip, Legend, Filler } from 'chart.js';
-import { pose } from "@/app/api/pose/poseApiData";
+import React from 'react'
+import { Radar } from 'react-chartjs-2'
+import {
+    Chart as ChartJS,
+    RadialLinearScale,
+    ArcElement,
+    Tooltip,
+    Legend,
+    Filler,
+} from 'chart.js'
+import { pose } from '@/app/api/pose/poseApiData'
 
-ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend, Filler);
+ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend, Filler)
 
 export default function PerformanceAOI({ areaOfInterest }) {
-
     const backgroundColor = [
         'rgb(58, 97, 253, 0.2)',
         'rgb(72, 64, 186, 0.3)',
@@ -22,24 +28,14 @@ export default function PerformanceAOI({ areaOfInterest }) {
         'rgb(30, 48, 97, 1)',
     ]
 
-    
-
-
-
     const FAreaOfInterest = areaOfInterest.slice(0, 5)
-    const label = FAreaOfInterest.map(item =>
-        pose[parseInt(item.id)]
-
-    )
-    const accuracy = FAreaOfInterest.map(item =>{
+    const label = FAreaOfInterest.map((item) => pose[parseInt(item.id)])
+    const accuracy = FAreaOfInterest.map((item) => {
         const sum = item.data.reduce((sum, a) => sum + a, 0)
         return Math.round(sum / item.data.length)
     })
 
-    const inaccuracy = accuracy.map(item => 100 - item)
-   
-   
-   
+    const inaccuracy = accuracy.map((item) => 100 - item)
 
     const data = {
         labels: label,
@@ -61,21 +57,21 @@ export default function PerformanceAOI({ areaOfInterest }) {
                 fill: true,
             },
         ],
-    };
+    }
 
     const options = {
         scale: {
             angleLines: {
-                display: true
+                display: true,
             },
             ticks: {
                 suggestedMin: 0,
-                suggestedMax: 100
-            }
+                suggestedMax: 100,
+            },
         },
         responsive: true,
         maintainAspectRatio: false,
-    };
+    }
 
     return (
         <>
@@ -83,5 +79,5 @@ export default function PerformanceAOI({ areaOfInterest }) {
                 <Radar data={data} options={options} />
             </div>
         </>
-    );
+    )
 }

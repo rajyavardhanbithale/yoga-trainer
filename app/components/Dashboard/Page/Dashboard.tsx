@@ -1,39 +1,70 @@
 'use client'
 
 import './dashboard.css'
-import { BsLightningCharge } from "react-icons/bs"
-import { IoCalendarClearOutline } from "react-icons/io5"
-import Calendar from "./Calendar"
-import RecentActivity from "./RecentActivity"
-import Heading from "./Heading"
-import LastTHDays from "./LastTHDays"
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchDashboardAPI, fetchRecentActivity, fetchYogaPoseAPI } from "@/lib/store/dashboard/dashboardSlice"
-import { AppDispatch, RootState } from "@/lib/store"
-
+import { BsLightningCharge } from 'react-icons/bs'
+import { IoCalendarClearOutline } from 'react-icons/io5'
+import Calendar from './Calendar'
+import RecentActivity from './RecentActivity'
+import Heading from './Heading'
+import LastTHDays from './LastTHDays'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    fetchDashboardAPI,
+    fetchRecentActivity,
+    fetchYogaPoseAPI,
+} from '@/lib/store/dashboard/dashboardSlice'
+import { AppDispatch, RootState } from '@/lib/store'
 
 export default function Dashboard(name: any) {
-    const dashboardData = useSelector((state: RootState) => state.dashboard.data)
+    const dashboardData = useSelector(
+        (state: RootState) => state.dashboard.data
+    )
     const poseInfo = useSelector((state: RootState) => state.dashboard.POSEDATA)
-    const recentActivities = useSelector((state: RootState) => state.dashboard.RECENTACT)
-    const dispatch = useDispatch<AppDispatch>();
+    const recentActivities = useSelector(
+        (state: RootState) => state.dashboard.RECENTACT
+    )
+    const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
-        dispatch(fetchDashboardAPI());
-    }, [dispatch]);
+        dispatch(fetchDashboardAPI())
+    }, [dispatch])
 
     useEffect(() => {
         if (dashboardData) {
-            dispatch(fetchYogaPoseAPI(dashboardData?.todayPoseList.toString()));
-            dispatch(fetchRecentActivity(dashboardData?.userRecentActivity.toString()));
+            dispatch(fetchYogaPoseAPI(dashboardData?.todayPoseList.toString()))
+            dispatch(
+                fetchRecentActivity(
+                    dashboardData?.userRecentActivity.toString()
+                )
+            )
         }
     }, [dashboardData])
 
-
     const dateToday = () => {
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const monthNames = [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec',
+        ]
+        const dayNames = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+        ]
 
         const timestamp = Date.now()
         const epochDate = new Date(timestamp)
@@ -48,26 +79,24 @@ export default function Dashboard(name: any) {
 
     const wishes = (time: string, name: string) => {
         switch (time) {
-            case "Morning":
+            case 'Morning':
                 return `Good morning, ${name}! Rise and shine for your yoga session.`
-            case "Midday":
+            case 'Midday':
                 return `Hey ${name}, it's time for your midday yoga break. Take a moment to recharge.`
-            case "Evening":
+            case 'Evening':
                 return `Good evening, ${name}! Unwind and release tension with some calming yoga.`
-            case "Afternoon":
+            case 'Afternoon':
                 return `Hello, ${name}! Take a break from your day and enjoy a refreshing yoga session.`
-            case "Night":
+            case 'Night':
                 return `Hey ${name}, wind down your day with some relaxing yoga before bed.`
             default:
                 return `Hello, ${name}! Enjoy your yoga session.`
         }
-
     }
-
 
     return (
         <>
-            {(dashboardData && poseInfo && recentActivities) &&
+            {dashboardData && poseInfo && recentActivities && (
                 <div className="grid grid-cols-12 gap-8 m-2 overflow-y-hidden">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
@@ -76,19 +105,15 @@ export default function Dashboard(name: any) {
                         </span>
                         <div className="flex text-gray-700 font-light">
                             <IoCalendarClearOutline className="mx-3 text-xl" />
-                            <span className="text-nowrap">
-                                {dateToday()}
-                            </span>
+                            <span className="text-nowrap">{dateToday()}</span>
                         </div>
                     </div>
-
 
                     {/* level 1 */}
 
                     {/* level 1.1 - user welcome */}
                     <div className="col-span-full xl:col-span-4 min-h-[40vh] overflow-hidden rounded-2xl">
                         <div className="h-full anim-blob flex flex-col justify-center ">
-
                             <div className="w-44 mx-auto">
                                 <img
                                     src="/dashboard/meditation.gif"
@@ -97,7 +122,7 @@ export default function Dashboard(name: any) {
                             </div>
                             <div className="flex text-center m-5">
                                 <span className="text-2xl p-5 text-white capitalize font-medium">
-                                    {wishes("Morning", name.name ?? "User")}
+                                    {wishes('Morning', name.name ?? 'User')}
                                 </span>
                             </div>
                         </div>
@@ -106,35 +131,38 @@ export default function Dashboard(name: any) {
                     {/* level 1.2 - today list */}
                     <div className="col-span-full xl:col-span-5 min-h-[40vh] flex flex-col justify-between rounded-2xl">
                         <Heading
-                            title=" Today&apos;s List"
+                            title=" Today's List"
                             description="Complete the following yoga exercises"
                         />
 
                         <div className="mx-5 my-3 flex flex-col justify-between h-fit">
-                            {poseInfo && poseInfo.map((item: any, idx) => (
-                                <div
-                                    key={idx}
-                                    className="flex justify-between capitalize m-2 p-2 items-center align-middle rounded-2xl shadow-lg hover:shadow-xl border-2 border-slate-200 duration-500"
-                                >
-                                    <div className="flex items-center w-3/4">
-                                        <div className="w-16">
-                                            <img
-                                                className="object-scale-down mix-blend-multiply rounded-xl"
-                                                src={`/pose/image/webp/${item?.image}`}
-                                                alt={item.name}
-                                            />
+                            {poseInfo &&
+                                poseInfo.map((item: any, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="flex justify-between capitalize m-2 p-2 items-center align-middle rounded-2xl shadow-lg hover:shadow-xl border-2 border-slate-200 duration-500"
+                                    >
+                                        <div className="flex items-center w-3/4">
+                                            <div className="w-16">
+                                                <img
+                                                    className="object-scale-down mix-blend-multiply rounded-xl"
+                                                    src={`/pose/image/webp/${item?.image}`}
+                                                    alt={item.name}
+                                                />
+                                            </div>
+
+                                            <span className="text-2xl overflow-hidden mx-4 p-1 truncate">
+                                                {item.name} -{' '}
+                                                {item.originalName}
+                                            </span>
                                         </div>
 
-                                        <span className="text-2xl overflow-hidden mx-4 p-1 truncate">{item.name} - {item.originalName}</span>
+                                        <button className="capitalize bg-blue-800 text-xl text-slate-100 rounded-xl px-3 py-3 font-medium h-fit mx-2 shadow-md hover:shadow-indigo-900 duration-300">
+                                            perform
+                                            <BsLightningCharge className="inline-flex mx-1" />
+                                        </button>
                                     </div>
-
-                                    <button className="capitalize bg-blue-800 text-xl text-slate-100 rounded-xl px-3 py-3 font-medium h-fit mx-2 shadow-md hover:shadow-indigo-900 duration-300">
-                                        perform
-                                        <BsLightningCharge className="inline-flex mx-1" />
-                                    </button>
-                                </div>
-
-                            ))}
+                                ))}
                         </div>
                     </div>
 
@@ -145,14 +173,13 @@ export default function Dashboard(name: any) {
                             description="All active dates are marked below"
                         />
                         <div className="flex justify-center items-center -mt-7">
-                            <Calendar epochTimes={dashboardData.userActiveDays} />
+                            <Calendar
+                                epochTimes={dashboardData.userActiveDays}
+                            />
                         </div>
                     </div>
 
-
-
                     {/* level 2 */}
-
 
                     {/* level 2.1 recent activity */}
                     <div className="col-span-full xl:col-span-9 min-h-[40vh] rounded-2xl">
@@ -161,8 +188,9 @@ export default function Dashboard(name: any) {
                             description="All your recent activities are displayed below"
                         />
                         <div className="mx-5 my-3 flex flex-col justify-between h-fit">
-                            <RecentActivity recentActivities={recentActivities} />
-
+                            <RecentActivity
+                                recentActivities={recentActivities}
+                            />
                         </div>
                     </div>
 
@@ -173,14 +201,14 @@ export default function Dashboard(name: any) {
                             description="Overview of activity trends over the last 30 days."
                         />
                         <div className="h-[23vh] flex justify-center items-center my-5 mx-8">
-                            <LastTHDays chartData={dashboardData.userLastNDaysActivity} />
+                            <LastTHDays
+                                chartData={dashboardData.userLastNDaysActivity}
+                            />
                         </div>
                     </div>
-
-
                 </div>
-            }
-            {!(dashboardData && poseInfo && recentActivities) &&
+            )}
+            {!(dashboardData && poseInfo && recentActivities) && (
                 <div className="grid grid-cols-12 gap-8 m-2 overflow-y-hidden">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
@@ -189,55 +217,30 @@ export default function Dashboard(name: any) {
                         </span>
                         <div className="flex text-gray-700 font-light">
                             <IoCalendarClearOutline className="mx-3 text-xl" />
-                            <span className="text-nowrap">
-                                {dateToday()}
-                            </span>
+                            <span className="text-nowrap">{dateToday()}</span>
                         </div>
                     </div>
-
 
                     {/* level 1 */}
 
                     {/* level 1.1 - user welcome */}
-                    <div className="col-span-full xl:col-span-4 min-h-[40vh] bg-slate-300 animate-pulse overflow-hidden rounded-2xl">
-
-                    </div>
+                    <div className="col-span-full xl:col-span-4 min-h-[40vh] bg-slate-300 animate-pulse overflow-hidden rounded-2xl"></div>
 
                     {/* level 1.2 - today list */}
-                    <div className="col-span-full xl:col-span-5 min-h-[40vh] bg-slate-300 animate-pulse rounded-2xl">
-
-
-                    </div>
+                    <div className="col-span-full xl:col-span-5 min-h-[40vh] bg-slate-300 animate-pulse rounded-2xl"></div>
 
                     {/* level 1.3 - calendar */}
-                    <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl bg-slate-300 animate-pulse">
-
-                    </div>
-
-
+                    <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl bg-slate-300 animate-pulse"></div>
 
                     {/* level 2 */}
 
-
                     {/* level 2.1 recent activity */}
-                    <div className="col-span-full xl:col-span-9 min-h-[40vh] rounded-2xl bg-slate-300 animate-pulse">
-
-                    </div>
+                    <div className="col-span-full xl:col-span-9 min-h-[40vh] rounded-2xl bg-slate-300 animate-pulse"></div>
 
                     {/* level 2.2 last 30 days */}
-                    <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl bg-slate-300 animate-pulse">
-
-                    </div>
-
-
+                    <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl bg-slate-300 animate-pulse"></div>
                 </div>
-
-            }
-
-
+            )}
         </>
-
     )
 }
-
-

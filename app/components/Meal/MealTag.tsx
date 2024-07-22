@@ -1,7 +1,6 @@
 'use client'
 
-import { useRouter } from "next/navigation";
-
+import { useRouter } from 'next/navigation'
 
 export default function MealTag(props: { mealTag: string }) {
     const tag = props?.mealTag
@@ -17,8 +16,8 @@ export default function MealTag(props: { mealTag: string }) {
         console.log(tags)
 
         if (tags) {
-            const tagArray = tags.split(',');
-            const updatedTagArray = tagArray.filter(tagT => tagT !== tag)
+            const tagArray = tags.split(',')
+            const updatedTagArray = tagArray.filter((tagT) => tagT !== tag)
             if (updatedTagArray.length > 0) {
                 searchParams.set('tag', updatedTagArray.join(','))
             } else {
@@ -31,14 +30,11 @@ export default function MealTag(props: { mealTag: string }) {
         searchParams.set('overlay', 'true')
         const newUrl = `${currentUrl.pathname}?${searchParams.toString()}`
 
-
         overlay ? router.replace(newUrl) : router.push(newUrl)
     }
 
     return (
         <>
-
-
             <div className="tooltip" data-tip="Click To Remove">
                 <button
                     onClick={() => handleTagRemove(tag)}

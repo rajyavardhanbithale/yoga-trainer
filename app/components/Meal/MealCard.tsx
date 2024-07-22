@@ -1,15 +1,14 @@
 'use client'
 
-import { MealData } from "@/app/api/meals/mealData";
-import Image from "next/image";
-import Link from "next/link";
-import { LuVegan } from "react-icons/lu";
-import { TbMeat } from "react-icons/tb";
-import MealDialog from "./MealDialog";
-import { useRouter, useSearchParams } from "next/navigation";
-import { FcLike } from "react-icons/fc";
-import MealUserLike from "./MealUserLike";
-
+import { MealData } from '@/app/api/meals/mealData'
+import Image from 'next/image'
+import Link from 'next/link'
+import { LuVegan } from 'react-icons/lu'
+import { TbMeat } from 'react-icons/tb'
+import MealDialog from './MealDialog'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { FcLike } from 'react-icons/fc'
+import MealUserLike from './MealUserLike'
 
 export default function MealCard(props: { meals: MealData }) {
     const meal = props?.meals
@@ -17,7 +16,7 @@ export default function MealCard(props: { meals: MealData }) {
 
     const handleTagRoute = (tag: string) => {
         // overlay param in url is used to disconnect the main meal page from the next param page
-        // problem without overlay is that whenever the new tag is added to url 
+        // problem without overlay is that whenever the new tag is added to url
         // and the user 'back' the page it takes long to navigate back to the main 'meal' page if there are nested tags
 
         const currentUrl = new URL(window.location.href)
@@ -26,14 +25,12 @@ export default function MealCard(props: { meals: MealData }) {
 
         const prevTag = searchParams.get('tag') || null
 
-
-        searchParams.set('overlay', 'true');
+        searchParams.set('overlay', 'true')
         searchParams.set('tag', `${tag}${prevTag ? `,${prevTag}` : ''}`)
 
         const newUrl = `${currentUrl.pathname}?${searchParams.toString()}`
         overlay ? router.replace(newUrl) : router.push(newUrl)
-
-    };
+    }
 
     return (
         <>
@@ -46,7 +43,6 @@ export default function MealCard(props: { meals: MealData }) {
                         sizes="100vw"
                         className="-z-50 w-full h-full object-center object-cover hover:scale-105 transition-transform duration-700"
                         alt={meal.name}
-
                     />
                     {/* <div className="z-50 bg-slate-300 h-full w-full animate-pulse"></div> */}
                 </div>
@@ -64,7 +60,7 @@ export default function MealCard(props: { meals: MealData }) {
                         ) : (
                             <TbMeat className="text-xl inline-flex mx-2 text-red-500 mb-1" />
                         )}
-                    </span> 
+                    </span>
 
                     <div className="flex flex-wrap gap-2 my-2">
                         {meal.tags.map((tag, idx1) => (
@@ -75,10 +71,8 @@ export default function MealCard(props: { meals: MealData }) {
                             >
                                 {tag}
                             </button>
-
                         ))}
                     </div>
-
 
                     <MealDialog meal={meal} />
                     <MealUserLike mealId={meal.id} mealLike={meal.likes} />

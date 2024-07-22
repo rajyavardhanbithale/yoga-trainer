@@ -7,7 +7,15 @@
     "devTurbo": "next dev --turbo",
     "build-next": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --write \"**/*.{ts,tsx,js,jsx,md,mdx,css,yaml,yml}\""
+  },
+  "lint-staged": {
+    "*/**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "eslint"
+    ]
   },
   "dependencies": {
     "@ionic/react": "^8.2.5",
@@ -52,7 +60,10 @@
     "daisyui": "^4.12.10",
     "eslint": "8",
     "eslint-config-next": "14.2.5",
+    "husky": "^9.1.1",
+    "lint-staged": "^15.2.7",
     "postcss": "^8.4.39",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.3"
   }

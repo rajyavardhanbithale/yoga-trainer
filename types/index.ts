@@ -27,9 +27,7 @@ interface YogaPoseDetailed {
         tutorialIFRAME: string
         tutorialSource: string
     }
-
 }
-
 
 interface YogaPoseAPI {
     id: number
@@ -151,7 +149,6 @@ interface UserProfile {
     country: string
 }
 
-
 interface UserProfilePublic {
     name: string
     userID: string
@@ -162,7 +159,6 @@ interface UserProfilePublic {
     achievements: number[]
 }
 
-
 export type {
     YogaPose,
     YogaPoseAPI,
@@ -172,21 +168,14 @@ export type {
     AudioState,
     UserSectionSelection,
     YogaPosePerformanceData,
-
-
     APIYogaPosePerformanceData,
     APIYogaDataMinimal,
-
     LogIn,
     SignUp,
-
-
     DashboardPROPS,
     DashboardStats,
-
     DBFetchSupabase,
-
     IFResponse1,
     UserProfile,
-    UserProfilePublic
+    UserProfilePublic,
 }

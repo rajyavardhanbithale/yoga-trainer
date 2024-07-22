@@ -1,9 +1,8 @@
 .place-tooltip {
-
     background: rgba(244, 244, 244, 0.697) !important;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
     border-radius: 20px !important;
     z-index: 9999;
-  }
+}
