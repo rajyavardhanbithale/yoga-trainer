@@ -159,6 +159,16 @@ interface UserProfilePublic {
     achievements: number[]
 }
 
+interface UserProfilePublicExt {
+    name: string
+    userID: string
+    date: number
+    isPublic: boolean
+    image: string
+    country: string
+    achievements: number[]
+}
+
 export type {
     YogaPose,
     YogaPoseAPI,
