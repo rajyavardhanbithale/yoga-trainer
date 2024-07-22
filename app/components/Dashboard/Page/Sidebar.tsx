@@ -21,7 +21,7 @@ export default function Sidebar() {
         { title: 'Dashboard', icon: <LuLayoutDashboard /> },
         { title: 'Stats', icon: <ImStatsDots /> },
         { title: 'Achievements', icon: <TbTrophy /> },
-        { title: 'Meals', icon: <PiBowlFoodLight /> },
+        { title: 'Diet', icon: <PiBowlFoodLight /> },
         { title: 'Profile', icon: <RiUser6Line /> },
     ]
 

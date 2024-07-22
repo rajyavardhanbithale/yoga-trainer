@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import StatsDashboard from '../components/Dashboard/Stats/Stats'
 import Achievements from '../components/Dashboard/Achivements/Achievements'
 import Profile from '../components/Dashboard/Profile/Profile'
+import DietDashboard from "../components/Dashboard/Diet/Diet"
 
 export default function Page() {
     const [user, setUser] = useState<any>(null)
@@ -36,10 +37,10 @@ export default function Page() {
             <div className="flex bg-white">
                 <Sidebar></Sidebar>
                 <div className="flex-1 p-2 bg-slate-50 w-full">
-                    {activeWindow === 'dashboard' && (
+                    {/* {activeWindow === 'dashboard' && (
                         <Dashboard name={user?.user_metadata?.name}></Dashboard>
-                    )}
-                    {activeWindow === 'stats' && (
+                    )} */}
+                    {/* {activeWindow === 'stats' && (
                         <StatsDashboard></StatsDashboard>
                     )}
                     {activeWindow === 'achievements' && (
@@ -47,6 +48,10 @@ export default function Page() {
                     )}
                     {user && activeWindow === 'profile' && (
                         <Profile user={user}></Profile>
+                    )} */}
+
+                    {activeWindow === 'diet' && (
+                        <DietDashboard />
                     )}
                 </div>
             </div>

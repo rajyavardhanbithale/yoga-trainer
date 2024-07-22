@@ -91,8 +91,8 @@ export const likeFoodPost = createAsyncThunk(
             method === 'like'
                 ? (foodData?.likes ?? 0) + 1
                 : method === 'unlike'
-                  ? (foodData?.likes ?? 0) - 1
-                  : 0
+                    ? (foodData?.likes ?? 0) - 1
+                    : 0
 
         const { error: updateFoodError } = await supabase
             .from('food-data')
