@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import StatsDashboard from '../components/Dashboard/Stats/Stats'
 import Achievements from '../components/Dashboard/Achivements/Achievements'
 import Profile from '../components/Dashboard/Profile/Profile'
-import DietDashboard from "../components/Dashboard/Diet/Diet"
+import DietDashboard from '../components/Dashboard/Diet/Diet'
 
 export default function Page() {
     const [user, setUser] = useState<any>(null)
@@ -50,9 +50,7 @@ export default function Page() {
                         <Profile user={user}></Profile>
                     )} */}
 
-                    {activeWindow === 'diet' && (
-                        <DietDashboard />
-                    )}
+                    {activeWindow === 'diet' && <DietDashboard />}
                 </div>
             </div>
         </>

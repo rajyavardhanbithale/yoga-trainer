@@ -41,7 +41,7 @@ export default function Dashboard(name: any) {
         }
     }, [dashboardData])
 
-     const dateToday = () => {
+    const dateToday = () => {
         const monthNames = [
             'Jan',
             'Feb',

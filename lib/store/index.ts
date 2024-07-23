@@ -9,7 +9,7 @@ export const store = configureStore({
         dashboard: dashboardSlice,
         userProfile: userProfileSlice,
         profileSlice: profileSlice,
-        dietSlice:  dietSlice
+        dietSlice: dietSlice,
     },
 })
 

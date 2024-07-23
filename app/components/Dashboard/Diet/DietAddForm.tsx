@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
     Dialog,
     DialogContent,
@@ -10,14 +10,14 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { DietAddSelect } from "./DietFormSelect"
-import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "@/lib/store"
-import { DietChange, saveRecentDiet } from "@/lib/store/dashboard/dietSlice"
-import { IoIosAddCircleOutline } from "react-icons/io"
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { DietAddSelect } from './DietFormSelect'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/lib/store'
+import { DietChange, saveRecentDiet } from '@/lib/store/dashboard/dietSlice'
+import { IoIosAddCircleOutline } from 'react-icons/io'
 
 export default function DietAddForm() {
     const foodData = useSelector((state: RootState) => state.dietSlice.FOOD)
@@ -30,26 +30,35 @@ export default function DietAddForm() {
     const [fats, setFats] = useState<string>('0')
 
     const resetForm = () => {
-        setName("name")
-        setCalories("0")
-        setProtein("0")
-        setCarbs("0")
-        setFats("0")
+        setName('name')
+        setCalories('0')
+        setProtein('0')
+        setCarbs('0')
+        setFats('0')
     }
 
     useEffect(() => {
         resetForm()
-        setName(foodData ? foodData.name : "name")
-        setCalories(foodData?.nutritional_information?.calories.toString() ?? "0")
-        setProtein(foodData?.nutritional_information?.protein?.match(/\d+/)?.[0] ?? "0")
-        setCarbs(foodData?.nutritional_information?.carbohydrates?.match(/\d+/)?.[0] ?? "0")
-        setFats(foodData?.nutritional_information?.fats?.match(/\d+/)?.[0] ?? "0")
+        setName(foodData ? foodData.name : 'name')
+        setCalories(
+            foodData?.nutritional_information?.calories.toString() ?? '0'
+        )
+        setProtein(
+            foodData?.nutritional_information?.protein?.match(/\d+/)?.[0] ?? '0'
+        )
+        setCarbs(
+            foodData?.nutritional_information?.carbohydrates?.match(
+                /\d+/
+            )?.[0] ?? '0'
+        )
+        setFats(
+            foodData?.nutritional_information?.fats?.match(/\d+/)?.[0] ?? '0'
+        )
     }, [foodData])
 
     const isNameDisabled = Boolean(foodData?.name)
 
     const handleSave = () => {
-
         const dietChange: DietChange = {
             id: Date.now(),
             name: name.trim(),
@@ -57,17 +66,19 @@ export default function DietAddForm() {
             protein: parseFloat(protein) || 0,
             fat: parseFloat(fats) || 0,
             carb: parseFloat(carbs) || 0,
-            method: 'save'
+            method: 'save',
         }
         dispatch(saveRecentDiet(dietChange))
-
     }
 
     return (
         <>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button className="flex justify-center bg-slate-300 w-fit p-2 rounded-xl duration-700" variant="outline">
+                    <Button
+                        className="flex justify-center bg-slate-300 w-fit p-2 rounded-xl duration-700"
+                        variant="outline"
+                    >
                         <span className=" flex font-semibold gap-2 justify-center items-center">
                             <IoIosAddCircleOutline className="inline-flex mb-0.5 text-xl" />
                             Add Today&apos;s Diet
@@ -76,9 +87,14 @@ export default function DietAddForm() {
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle className="mb-5">Add Your Recent Diet</DialogTitle>
+                        <DialogTitle className="mb-5">
+                            Add Your Recent Diet
+                        </DialogTitle>
                         <DialogDescription className="mt-5 text-sm text-gray-600 gap-5 flex items-center flex-col">
-                            <span className="mr-2 text-center">Add your recent diet data in the form below or select a dish</span>
+                            <span className="mr-2 text-center">
+                                Add your recent diet data in the form below or
+                                select a dish
+                            </span>
                             <DietAddSelect />
                         </DialogDescription>
                     </DialogHeader>
@@ -141,11 +157,17 @@ export default function DietAddForm() {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit"
-                            onClick={handleSave}
-                        >Save changes</Button>
+                        <Button type="submit" onClick={handleSave}>
+                            Save changes
+                        </Button>
 
-                        <Button type="button" onClick={resetForm} variant="outline">Reset</Button>
+                        <Button
+                            type="button"
+                            onClick={resetForm}
+                            variant="outline"
+                        >
+                            Reset
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
