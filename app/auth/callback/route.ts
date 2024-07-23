@@ -33,8 +33,8 @@ export async function GET(request: Request) {
         if (!error) {
             console.log(data.user)
             console.log(Date.now())
-            console.log(origin);
-            
+            console.log(origin)
+
             return NextResponse.redirect(`${origin}${next}`)
         }
     }
