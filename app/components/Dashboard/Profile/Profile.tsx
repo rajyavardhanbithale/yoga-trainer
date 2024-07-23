@@ -88,17 +88,21 @@ export default function Profile(props: any) {
                             </div>
 
                             <div className="flex items-center gap-2">
-                                <Image
-                                    height={24}
-                                    width={24}
-                                    className="mr-2 rounded-md shadow-xl brightness-95"
-                                    src={`https://flagicons.lipis.dev/flags/4x3/${userProfile.country}.svg`}
-                                    alt=""
-                                />
-                                <span className="text-xl text-gray-700 cursor-pointer hover:text-gray-900 duration-500">
-                                    {getName(userProfile.country)}
-                                </span>
-                                <CountrySelector></CountrySelector>
+                                {userProfile.country &&
+                                    <>
+                                        <Image
+                                            height={24}
+                                            width={24}
+                                            className="mr-2 rounded-md shadow-xl brightness-95"
+                                            src={`https://flagicons.lipis.dev/flags/4x3/${userProfile.country}.svg`}
+                                            alt=""
+                                        />
+                                        <span className="text-xl text-gray-700 cursor-pointer hover:text-gray-900 duration-500">
+                                            {getName(userProfile.country)}
+                                        </span>
+                                    </>
+                                }
+                                <CountrySelector isCountryAvailable={Boolean(userProfile.country)}></CountrySelector>
                             </div>
 
                             <span className="text-gray-800">

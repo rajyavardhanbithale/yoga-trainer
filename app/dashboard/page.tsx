@@ -46,9 +46,10 @@ export default function Page() {
                     {activeWindow === 'achievements' && (
                         <Achievements></Achievements>
                     )}
+                   */}
                     {user && activeWindow === 'profile' && (
                         <Profile user={user}></Profile>
-                    )} */}
+                    )}
 
                     {activeWindow === 'diet' && <DietDashboard />}
                 </div>

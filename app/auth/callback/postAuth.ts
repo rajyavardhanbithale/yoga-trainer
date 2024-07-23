@@ -1,31 +1,48 @@
 'use server'
 
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from '@/utils/supabase/server'
 import CryptoJS from 'crypto-js'
 
-export async function postAuth(userCreatedISO: string, thresholdTimeSecond: number) {
-    const date = new Date(userCreatedISO);
+export async function postAuth(
+    userCreatedISO: string,
+    thresholdTimeSecond: number
+) {
+    const date = new Date(userCreatedISO)
 
-    const userEpochTime = Math.floor(date.getTime());
-    const currentTime = Date.now();
+    const userEpochTime = Math.floor(date.getTime())
+    const currentTime = Date.now()
 
     // time difference in milliseconds
-    const diffInMilliseconds = currentTime - userEpochTime;
-    const diffInSeconds = diffInMilliseconds / 1000;
+    const diffInMilliseconds = currentTime - userEpochTime
+    const diffInSeconds = diffInMilliseconds / 1000
 
-    const checkThresholdTime = diffInSeconds > thresholdTimeSecond;
-    console.log(userEpochTime,currentTime);
-    
+    const checkThresholdTime = diffInSeconds > thresholdTimeSecond
+    console.log(userEpochTime, currentTime)
+
     return checkThresholdTime
-
 }
-
 
 export async function createUserForDatabase(user: any) {
     // create user in database
-    const avatars: string[] = ['animal-1', 'animal-2', 'animal-3', 'animal-4', 'animal-5', 'animal-6',
-        'men-1', 'men-2', 'men-3', 'men-4', 'men-5', 'men-6',
-        'women-1', 'women-2', 'women-3', 'women-4', 'women-5', 'women-6'
+    const avatars: string[] = [
+        'animal-1',
+        'animal-2',
+        'animal-3',
+        'animal-4',
+        'animal-5',
+        'animal-6',
+        'men-1',
+        'men-2',
+        'men-3',
+        'men-4',
+        'men-5',
+        'men-6',
+        'women-1',
+        'women-2',
+        'women-3',
+        'women-4',
+        'women-5',
+        'women-6',
     ]
     const md5Tag = CryptoJS.MD5(user.id).toString()
     const data = {
@@ -34,7 +51,8 @@ export async function createUserForDatabase(user: any) {
         profile_pic: avatars[Math.floor(Math.random() * avatars.length)],
         country: null,
         profile_type: 'public',
-        user_public_id: md5Tag.slice(0, 3) + md5Tag.slice(md5Tag.length - 3, md5Tag.length)
+        user_public_id:
+            md5Tag.slice(0, 3) + md5Tag.slice(md5Tag.length - 3, md5Tag.length),
     }
 
     const supabase = createClient()
@@ -45,14 +63,14 @@ export async function createUserForDatabase(user: any) {
         .select()
         .eq('userID', md5Tag)
 
-    console.log(user_dataError,data);
-    
+    console.log(user_dataError, data)
+
     // if the data is not in the database, insert it
     if (user_data && user_data.length === 0) {
-        const { data: user_dataInsert, error } = await supabase.from('user-db').insert(data)
-    
-        console.log(user_dataInsert,error);
-    }
+        const { data: user_dataInsert, error } = await supabase
+            .from('user-db')
+            .insert(data)
 
-    
+        console.log(user_dataInsert, error)
+    }
 }
