@@ -8,8 +8,7 @@ export async function GET(request: Request) {
     // if "next" is in param, use it as the redirect URL
     const next = searchParams.get('next') ?? '/'
 
-    origin = process.env.NEXT_PUBLIC_SUPABASE_ORIGIN || origin 
-    
+    origin = process.env.NEXT_PUBLIC_SUPABASE_ORIGIN ?? origin
 
     if (code) {
         const cookieStore = cookies()
@@ -32,13 +31,12 @@ export async function GET(request: Request) {
         )
         const { error, data } = await supabase.auth.exchangeCodeForSession(code)
         if (!error) {
-            console.log(data.user);
-            console.log(Date.now());
+            console.log(data.user)
+            console.log(Date.now())
+            console.log(origin);
             
             return NextResponse.redirect(`${origin}${next}`)
         }
-
-        
     }
 
     // return the user to an error page with instructions
