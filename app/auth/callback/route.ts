@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { type CookieOptions, createServerClient } from '@supabase/ssr'
+import { createUserForDatabase, postAuth } from './postAuth'
 
 export async function GET(request: Request) {
     let { searchParams, origin } = new URL(request.url)
@@ -31,9 +32,14 @@ export async function GET(request: Request) {
         )
         const { error, data } = await supabase.auth.exchangeCodeForSession(code)
         if (!error) {
-            console.log(data.user)
-            console.log(Date.now())
-            console.log(origin)
+
+            // adding new configuration to user-db
+            // using false wale because it check if the user created time is
+            // greater than Threshold time (in seconds)
+            // false if the user is created in the last 2 minutes
+            if (!await postAuth(data.user.created_at, 120)) {
+                await createUserForDatabase(data.user)
+            }
 
             return NextResponse.redirect(`${origin}${next}`)
         }
