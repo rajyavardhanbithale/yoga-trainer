@@ -11,7 +11,7 @@ import { RxHamburgerMenu } from 'react-icons/rx'
 import toast, { Toaster } from 'react-hot-toast'
 import Link from 'next/link'
 import Cookies from 'js-cookie'
-import axios from "axios"
+import axios from 'axios'
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -66,7 +66,7 @@ export default function Navbar() {
 
         const ISLOGGEDIN = Cookies.get(
             'sb-kdsknciyenkdduogvoqj-auth-token.0' ||
-            'sb-kdsknciyenkdduogvoqj-auth-token'
+                'sb-kdsknciyenkdduogvoqj-auth-token'
         )
             ? true
             : false
@@ -79,18 +79,16 @@ export default function Navbar() {
     }
 
     const fetchTime = async () => {
-        const response = await axios.get('http://worldtimeapi.org/api/timezone/Etc/UTC')
-        console.log(response.data);
-
+        const response = await axios.get(
+            'https://worldtimeapi.org/api/timezone/Etc/UTC'
+        )
+        console.log(response.data)
     }
 
     useEffect(() => {
         handleReadCookie()
         fetchTime()
     }, [])
-
-
-
 
     return (
         <>
