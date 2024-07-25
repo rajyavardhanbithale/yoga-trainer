@@ -1,9 +1,7 @@
-
-
 'use client'
 
-import React, { useMemo, useState } from 'react';
-import { Line } from 'react-chartjs-2';
+import React, { useMemo, useState } from 'react'
+import { Line } from 'react-chartjs-2'
 import {
     Chart as ChartJS,
     LineElement,
@@ -13,7 +11,7 @@ import {
     CategoryScale,
     Tooltip,
     Legend,
-} from 'chart.js';
+} from 'chart.js'
 
 // Register the components needed for the Line chart
 ChartJS.register(
@@ -24,16 +22,14 @@ ChartJS.register(
     CategoryScale,
     Tooltip,
     Legend
-);
-
+)
 
 export default function DietStatChart({ nutrientData }) {
-    const [chartType, setChartType] = useState('mixed');
-
+    const [chartType, setChartType] = useState('mixed')
 
     const { fat, carb, calorie, protein, dates } = nutrientData
 
-    const labels = dates?.map((d) => new Date(d).toLocaleDateString());
+    const labels = dates?.map((d) => new Date(d).toLocaleDateString())
 
     const backgroundColor = [
         'rgb(58, 97, 253, 1)',
@@ -73,7 +69,7 @@ export default function DietStatChart({ nutrientData }) {
                 tension: 0.3,
             },
         ],
-    };
+    }
 
     const dataFat = {
         labels,
@@ -86,7 +82,7 @@ export default function DietStatChart({ nutrientData }) {
                 tension: 0.3,
             },
         ],
-    };
+    }
 
     const dataCarb = {
         labels,
@@ -99,7 +95,7 @@ export default function DietStatChart({ nutrientData }) {
                 tension: 0.3,
             },
         ],
-    };
+    }
 
     const dataCalorie = {
         labels,
@@ -112,7 +108,7 @@ export default function DietStatChart({ nutrientData }) {
                 tension: 0.3,
             },
         ],
-    };
+    }
 
     const dataProtein = {
         labels,
@@ -125,23 +121,23 @@ export default function DietStatChart({ nutrientData }) {
                 tension: 0.3,
             },
         ],
-    };
+    }
 
     const chartData = useMemo(() => {
         switch (chartType) {
             case 'fat':
-                return dataFat;
+                return dataFat
             case 'carb':
-                return dataCarb;
+                return dataCarb
             case 'calorie':
-                return dataCalorie;
+                return dataCalorie
             case 'protein':
-                return dataProtein;
+                return dataProtein
             case 'mixed':
             default:
-                return dataMixed;
+                return dataMixed
         }
-    }, [chartType, dataFat, dataCarb, dataCalorie, dataProtein, dataMixed]);
+    }, [chartType, dataFat, dataCarb, dataCalorie, dataProtein, dataMixed])
 
     const options = {
         scales: {
@@ -170,31 +166,31 @@ export default function DietStatChart({ nutrientData }) {
             tooltip: {
                 callbacks: {
                     label: function (context) {
-                        return `${context.raw} units`;
+                        return `${context.raw} units`
                     },
                 },
             },
         },
         responsive: true,
         maintainAspectRatio: false,
-    };
+    }
 
-    const availableChart = ['mixed', 'fat', 'carb', 'calorie', 'protein'];
+    const availableChart = ['mixed', 'fat', 'carb', 'calorie', 'protein']
 
     return (
         <div className="h-[30vh] w-full">
-
             <div className="flex flex-wrap gap-3 my-2 px-5 sm:px-0">
                 {availableChart.map((chart, idx) => (
                     <button
                         key={idx}
                         className="capitalize bg-blue-900 text-slate-50 px-3 py-1 rounded-2xl hover:bg-blue-700 hover:scale-105 duration-700"
-                        onClick={() => setChartType(chart)}>
+                        onClick={() => setChartType(chart)}
+                    >
                         {chart}
                     </button>
                 ))}
             </div>
             <Line data={chartData} options={options} />
         </div>
-    );
+    )
 }

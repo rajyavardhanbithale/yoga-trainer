@@ -15,7 +15,7 @@ import {
     fetchYogaPoseAPI,
 } from '@/lib/store/dashboard/dashboardSlice'
 import { AppDispatch, RootState } from '@/lib/store'
-import { RxActivityLog } from "react-icons/rx"
+import { RxActivityLog } from 'react-icons/rx'
 
 export default function Dashboard(name: any) {
     const dashboardData = useSelector(
@@ -95,7 +95,7 @@ export default function Dashboard(name: any) {
         }
     }
 
-    console.log(recentActivities);
+    console.log(recentActivities)
 
     return (
         <>
@@ -190,22 +190,22 @@ export default function Dashboard(name: any) {
                             title="Recent Activities"
                             description="All your recent activities are displayed below"
                         />
-                        {recentActivities.length !== 0 &&
+                        {recentActivities.length !== 0 && (
                             <div className="mx-5 my-3 flex flex-col justify-between h-fit">
                                 <RecentActivity
                                     recentActivities={recentActivities}
                                 />
                             </div>
-                        }
+                        )}
 
-                        {recentActivities.length === 0 &&
+                        {recentActivities.length === 0 && (
                             <div className="h-full flex flex-col gap-5 justify-center items-center align-middle">
                                 <RxActivityLog className="text-4xl text-slate-900" />
                                 <span className="text-2xl text-slate-900 font-semibold">
                                     No recent activities
                                 </span>
                             </div>
-                        }
+                        )}
                     </div>
 
                     {/* level 2.2 last 30 days */}

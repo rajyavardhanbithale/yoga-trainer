@@ -53,8 +53,8 @@ export const fetchAchievement = createAsyncThunk(
     'api/achievements',
     async () => {
         const response = await axios.get(`/api/achievements`)
-        console.log(response);
-        
+        console.log(response)
+
         return response.data.achievements as number[]
     }
 )

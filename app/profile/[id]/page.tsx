@@ -96,20 +96,22 @@ export default async function Profile({ params }: any) {
 
                             <div className="flex flex-wrap w-full justify-center sm:justify-start">
                                 {achievement &&
-                                    achievement.map((item: any, key:number) => (
-                                        <div
-                                            key={key}
-                                            className="overflow-hidden m-2 rounded-full cursor-pointer flex items-center justify-center"
-                                        >
-                                            <Image
-                                                src={`/achievements/${item.icon}-${gender}.jpg`}
-                                                width={92}
-                                                height={92}
-                                                alt="Achievement"
-                                                className="rounded-full object-cover shadow-lg brightness-100 hover:scale-105 hover:brightness-105 hover:shadow-2xl duration-500"
-                                            />
-                                        </div>
-                                    ))}
+                                    achievement.map(
+                                        (item: any, key: number) => (
+                                            <div
+                                                key={key}
+                                                className="overflow-hidden m-2 rounded-full cursor-pointer flex items-center justify-center"
+                                            >
+                                                <Image
+                                                    src={`/achievements/${item.icon}-${gender}.jpg`}
+                                                    width={92}
+                                                    height={92}
+                                                    alt="Achievement"
+                                                    className="rounded-full object-cover shadow-lg brightness-100 hover:scale-105 hover:brightness-105 hover:shadow-2xl duration-500"
+                                                />
+                                            </div>
+                                        )
+                                    )}
                             </div>
                         </div>
                     </div>

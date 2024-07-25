@@ -1,4 +1,5 @@
 'use client'
+
 import { Raleway } from 'next/font/google'
 import { LuLayoutDashboard } from 'react-icons/lu'
 import { ImStatsDots } from 'react-icons/im'
@@ -19,8 +20,6 @@ const raleway = Raleway({
 const comfortaa = Comfortaa({ subsets: ['latin'] })
 
 export default function Sidebar() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-
     const menuItem = [
         { title: 'Dashboard', icon: <LuLayoutDashboard /> },
         { title: 'Stats', icon: <ImStatsDots /> },
@@ -33,29 +32,28 @@ export default function Sidebar() {
         (state: RootState) => state.dashboard.activeWindow
     )
     const dispatch = useDispatch<AppDispatch>()
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
     return (
         <>
-
+           
             <div
-                className={`lg:hidden fixed top-4 left-4 z-50 p-3 rounded-2xl cursor-pointer flex items-center justify-between bg-blue-900 hover:bg-blue-800 transition-colors duration-300 ${isSidebarOpen ? 'w-fit' : 'w-11/12'}`}
+                className={`lg:hidden fixed top-4 left-4 z-50 p-3 rounded-full cursor-pointer flex items-center justify-between bg-blue-950 hover:bg-blue-800 transition-colors duration-300 ${isSidebarOpen ? 'w-fit' : 'w-11/12'}`}
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >
                 {isSidebarOpen ? (
-                    <FaTimes className="text-white text-2xl" />
+                    <FaTimes className="text-white text-3xl" />
                 ) : (
                     <div className="flex items-center w-full justify-between">
-                        <FaBars className="text-white text-2xl" />
+                        <FaBars className="text-white text-3xl" />
                         <span className="text-slate-50 text-lg text-center flex-grow">Dashboard</span>
-                        <span className="w-5 h-5"></span>
                     </div>
                 )}
             </div>
 
-
+          
             <div
-                className={`z-40 fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 text-white flex flex-col shadow-lg transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-                    } lg:translate-x-0 lg:relative lg:w-64 lg:block transition-transform duration-300 ease-in-out`}
+                className={`lg:flex lg:flex-col lg:w-64 lg:h-screen lg:sticky lg:top-0 lg:bg-gradient-to-b lg:from-gray-800 lg:via-blue-800 lg:to-blue-900 lg:text-white lg:shadow-lg lg:transition-transform lg:duration-300 lg:ease-in-out ${isSidebarOpen ? 'fixed top-0 left-0 z-40 bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 text-white h-screen w-64' : 'hidden'}`}
             >
                 <div className="flex flex-col mt-8 items-center justify-center">
                     <img
@@ -89,9 +87,7 @@ export default function Sidebar() {
                         ))}
                     </ul>
                 </div>
-                <div className="p-4 mt-20 text-center cursor-pointer">
-                    Signout
-                </div>
+                <div className="p-4 mt-20 text-center">Signout</div>
             </div>
         </>
     )

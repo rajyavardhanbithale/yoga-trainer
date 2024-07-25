@@ -18,7 +18,7 @@ const initialState: STATE = {
     FOODNAME: null,
     USERDIET: null,
     STATE: 'idle',
-    operation: null
+    operation: null,
 }
 
 export interface DietChange {
@@ -82,7 +82,6 @@ export const fetchDiet = createAsyncThunk('diet/fetch-user', async () => {
         .select('diet')
         .eq('userID', userID)
         .single()
-       
 
     return userRecord?.diet as DietChange[]
 })

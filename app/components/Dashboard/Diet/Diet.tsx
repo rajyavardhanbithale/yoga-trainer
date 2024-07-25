@@ -6,19 +6,21 @@ import { AppDispatch, RootState } from '@/lib/store'
 import { useEffect, useRef, useState } from 'react'
 import { fetchDiet } from '@/lib/store/dashboard/dietSlice'
 import { mealData } from '@/app/api/diet/mealData'
-import toast, { Toaster } from "react-hot-toast"
+import toast, { Toaster } from 'react-hot-toast'
 
-import DietStats from "./Stats/DietStats"
+import DietStats from './Stats/DietStats'
 
-type View = 'manageDiet' | 'dietAnalysis';
+type View = 'manageDiet' | 'dietAnalysis'
 
 export default function DietDashboard() {
     const userDiet = useSelector((state: RootState) => state.dietSlice.USERDIET)
     const status = useSelector((state: RootState) => state.dietSlice.STATE)
-    const operation = useSelector((state: RootState) => state.dietSlice.operation)
-    const reversedUserDiet = userDiet && [...userDiet].reverse();
+    const operation = useSelector(
+        (state: RootState) => state.dietSlice.operation
+    )
+    const reversedUserDiet = userDiet && [...userDiet].reverse()
 
-    const [currentView, setCurrentView] = useState<View>('manageDiet');
+    const [currentView, setCurrentView] = useState<View>('manageDiet')
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
@@ -60,7 +62,9 @@ export default function DietDashboard() {
     }
 
     // Bad Approach Should be removed on future
-    const imagesName: string[] | undefined = reversedUserDiet?.map((item) => item.name)
+    const imagesName: string[] | undefined = reversedUserDiet?.map(
+        (item) => item.name
+    )
 
     const imageMap: { [key: string]: string } = mealData.reduce(
         (map, item) => {
@@ -72,19 +76,18 @@ export default function DietDashboard() {
 
     const images = imagesName?.map((name) => imageMap[name] || 'default.png')
 
-    const loadingToastId = useRef<string | null>(null);
+    const loadingToastId = useRef<string | null>(null)
 
     useEffect(() => {
         if (status === 'pending' && operation === 'saveDiet') {
-            loadingToastId.current = toast.loading('Saving your diet');
+            loadingToastId.current = toast.loading('Saving your diet')
         } else if (status === 'success' && operation === 'saveDiet') {
             if (loadingToastId.current) {
-                toast.dismiss(loadingToastId.current);
+                toast.dismiss(loadingToastId.current)
             }
-            toast.success('Diet saved successfully');
+            toast.success('Diet saved successfully')
         }
-    }, [status, operation]);
-
+    }, [status, operation])
 
     useEffect(() => {
         if (operation === 'saveDiet' && status === 'success') {
@@ -93,32 +96,30 @@ export default function DietDashboard() {
     }, [operation])
 
     const handleViewChange = (view: View) => {
-        setCurrentView(view);
-    };
+        setCurrentView(view)
+    }
 
     return (
         <>
-            <Toaster
-                position="top-center"
-                reverseOrder={false}
-            />
+            <Toaster position="top-center" reverseOrder={false} />
 
             <div className="flex gap-4 p-5 justify-center sm:justify-normal">
                 <button
                     className="capitalize bg-blue-900 text-slate-50 px-3 py-2 rounded-2xl hover:bg-blue-700 hover:scale-[1.01] duration-700"
-                    onClick={() => handleViewChange('manageDiet')} >
+                    onClick={() => handleViewChange('manageDiet')}
+                >
                     Manage Diet
                 </button>
                 <button
                     className="capitalize bg-blue-900 text-slate-50 px-3 py-2 rounded-2xl hover:bg-blue-700 hover:scale-[1.01] duration-700"
-                    onClick={() => handleViewChange('dietAnalysis')} >
+                    onClick={() => handleViewChange('dietAnalysis')}
+                >
                     Diet Analysis
                 </button>
             </div>
 
-
-            {currentView === 'manageDiet' &&
-                <div className="sm:m-5 sm:p-5">
+            {currentView === 'manageDiet' && (
+                <div className="">
                     <div className="flex sm:flex-row flex-col items-center align-middle p-5 justify-between gap-5 sm:gap-0">
                         <span className="text-3xl">Recent Diet Meal</span>
                         <DietAddForm />
@@ -146,14 +147,15 @@ export default function DietDashboard() {
                                             {data.calorie} kcal
                                         </p>
                                         <p className="text-gray-600 mb-1">
-                                            <strong>Protein:</strong> {data.protein}{' '}
-                                            g
+                                            <strong>Protein:</strong>{' '}
+                                            {data.protein} g
                                         </p>
                                         <p className="text-gray-600 mb-1">
                                             <strong>Fat:</strong> {data.fat} g
                                         </p>
                                         <p className="text-gray-600 mb-1">
-                                            <strong>Carbs:</strong> {data.carb} g
+                                            <strong>Carbs:</strong> {data.carb}{' '}
+                                            g
                                         </p>
                                         <p className="text-gray-600 mb-1">
                                             <strong>Date Added:</strong>{' '}
@@ -184,25 +186,26 @@ export default function DietDashboard() {
                             ))}
                     </div>
 
-                    {((!userDiet || userDiet.length === 0) && status !== 'pending') && (
-                        <div className="flex items-center justify-center  mt-40">
-                            <div className="max-w-md mx-auto p-6 bg-slate-50 shadow-lg rounded-2xl text-center">
-                                <div className="text-2xl font-semibold text-gray-800 mb-4">
-                                    Uh oh, no recent diet found
-                                </div>
-                                <div className="text-gray-600 mb-6">
-                                    It seems like you haven&apos;t added any recent
-                                    meal. Please add your recent diet to continue.
-                                </div>
-                                <div className="flex w-full px-4 py-2 justify-center">
-                                    <DietAddForm />
+                    {(!userDiet || userDiet.length === 0) &&
+                        status !== 'pending' && (
+                            <div className="flex items-center justify-center  mt-40">
+                                <div className="max-w-md mx-auto p-6 bg-slate-50 shadow-lg rounded-2xl text-center">
+                                    <div className="text-2xl font-semibold text-gray-800 mb-4">
+                                        Uh oh, no recent diet found
+                                    </div>
+                                    <div className="text-gray-600 mb-6">
+                                        It seems like you haven&apos;t added any
+                                        recent meal. Please add your recent diet
+                                        to continue.
+                                    </div>
+                                    <div className="flex w-full px-4 py-2 justify-center">
+                                        <DietAddForm />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )}
                 </div>
-            }
-
+            )}
 
             {currentView === 'dietAnalysis' && <DietStats />}
         </>

@@ -1,9 +1,8 @@
+import { createClient } from '@/utils/supabase/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-import { createClient } from "@/utils/supabase/server";
-import { NextRequest, NextResponse } from "next/server";
-
-import CryptoJS from "crypto-js";
-import { mealData } from "./mealData";
+import CryptoJS from 'crypto-js'
+import { mealData } from './mealData'
 
 const USERDB = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_USER_PROFILE!
 
@@ -28,8 +27,10 @@ export async function GET(req: NextRequest) {
 
     const fat: number[] = userRecord?.diet.map((item: any) => item.fat) || []
     const carb: number[] = userRecord?.diet.map((item: any) => item.carb) || []
-    const calorie: number[] = userRecord?.diet.map((item: any) => item.calorie) || []
-    const protein: number[] = userRecord?.diet.map((item: any) => item.protein) || []
+    const calorie: number[] =
+        userRecord?.diet.map((item: any) => item.calorie) || []
+    const protein: number[] =
+        userRecord?.diet.map((item: any) => item.protein) || []
     const dates: number[] = userRecord?.diet.map((item: any) => item.id) || []
 
     const response = {
@@ -37,27 +38,29 @@ export async function GET(req: NextRequest) {
         carb: carb,
         calorie: calorie,
         protein: protein,
-        dates: dates
+        dates: dates,
     }
 
     // user diet data
     const favMeal: MealCount[] = []
-    const mealCountMap: { [key: string]: number } = {};
+    const mealCountMap: { [key: string]: number } = {}
     userRecord?.diet.forEach((item: { name: string }) => {
         if (mealCountMap[item.name]) {
-            mealCountMap[item.name] += 1;
+            mealCountMap[item.name] += 1
         } else {
-            mealCountMap[item.name] = 1;
+            mealCountMap[item.name] = 1
         }
-    });
+    })
     for (const [name, count] of Object.entries(mealCountMap)) {
         favMeal.push({
             name,
             count,
-            image: mealData.filter((item) => item.name === name)[0].image || 'default.webp'
-        });
+            image:
+                mealData.filter((item) => item.name === name)[0].image ||
+                'default.webp',
+        })
     }
-    favMeal.sort((a, b) => b.count - a.count);
-    
-    return NextResponse.json({ response, favMeal });
+    favMeal.sort((a, b) => b.count - a.count)
+
+    return NextResponse.json({ response, favMeal })
 }

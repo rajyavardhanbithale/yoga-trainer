@@ -1,14 +1,14 @@
 'use client'
 
-import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, Title, ArcElement, Legend, Tooltip } from 'chart.js';
+import React from 'react'
+import { Doughnut } from 'react-chartjs-2'
+import { Chart as ChartJS, Title, ArcElement, Legend, Tooltip } from 'chart.js'
 
 // Register the necessary components
-ChartJS.register(Title, ArcElement, Legend, Tooltip);
+ChartJS.register(Title, ArcElement, Legend, Tooltip)
 
 const MarcoNutDoughnut = ({ nutritionalData }) => {
-    const { sumFat, sumCarb, sumCalorie, sumProtein } = nutritionalData;
+    const { sumFat, sumCarb, sumCalorie, sumProtein } = nutritionalData
 
     const data = {
         labels: ['Fat', 'Carbs', 'Calories', 'Protein'],
@@ -25,41 +25,40 @@ const MarcoNutDoughnut = ({ nutritionalData }) => {
                 hoverOffset: 4,
             },
         ],
-    };
+    }
 
     const options = {
         plugins: {
             tooltip: {
                 callbacks: {
                     label: function (context) {
-                        const labels = ['Fat', 'Carbs', 'Calories', 'Protein'];
-                        const values = [sumFat, sumCarb, sumCalorie, sumProtein];
+                        const labels = ['Fat', 'Carbs', 'Calories', 'Protein']
+                        const values = [sumFat, sumCarb, sumCalorie, sumProtein]
 
-                        return `${labels[context.dataIndex]}: ${values[context.dataIndex]}`;
+                        return `${labels[context.dataIndex]}: ${values[context.dataIndex]}`
                     },
                 },
             },
         },
         responsive: true,
         maintainAspectRatio: false,
-    };
+    }
 
-    const checkCondition = sumFat + sumCarb + sumCalorie + sumProtein === 0;
+    const checkCondition = sumFat + sumCarb + sumCalorie + sumProtein === 0
     return (
         <>
-            {!checkCondition &&
+            {!checkCondition && (
                 <div className="h-[30vh] w-full mt-12">
                     <Doughnut data={data} options={options} />
                 </div>
-            }
-            {checkCondition &&
+            )}
+            {checkCondition && (
                 <div className="text-2xl w-3/4 mt-12 text-center bg-slate-100 p-8 rounded-2xl shadow-md">
-                    No data available to display the chart 
+                    No data available to display the chart
                 </div>
-            }
+            )}
         </>
+    )
+}
 
-    );
-};
-
-export default MarcoNutDoughnut;
+export default MarcoNutDoughnut
