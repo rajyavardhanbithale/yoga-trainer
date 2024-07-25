@@ -4,50 +4,76 @@ import { createClient } from '@/utils/supabase/server'
 import CryptoJS from 'crypto-js'
 
 async function fetchCurrentUtcTime(): Promise<number> {
-    const response = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC');
-    const data = await response.json();
-    const currentUtcTime = Math.floor(new Date(data.datetime).getTime() / 1000); // Convert milliseconds to seconds
+    const response = await fetch(
+        'https://worldtimeapi.org/api/timezone/Etc/UTC'
+    )
+    const data = await response.json()
+    const currentUtcTime = Math.floor(new Date(data.datetime).getTime() / 1000) // Convert milliseconds to seconds
 
-    console.log(JSON.stringify({
-        message: 'Fetched current UTC time',
-        currentUtcTime
-    }, null, 2));
+    console.log(
+        JSON.stringify(
+            {
+                message: 'Fetched current UTC time',
+                currentUtcTime,
+            },
+            null,
+            2
+        )
+    )
 
-    return currentUtcTime;
+    return currentUtcTime
 }
 
 export async function postAuth(
     userCreatedISO: string,
     thresholdTimeSecond: number
 ) {
-    const userDate = new Date(userCreatedISO);
-    const userEpochTime = Math.floor(userDate.getTime() / 1000); // Convert milliseconds to seconds
+    const userDate = new Date(userCreatedISO)
+    const userEpochTime = Math.floor(userDate.getTime() / 1000) // Convert milliseconds to seconds
 
-    console.log(JSON.stringify({
-        message: 'User created ISO timestamp',
-        userCreatedISO,
-        userEpochTime
-    }, null, 2));
+    console.log(
+        JSON.stringify(
+            {
+                message: 'User created ISO timestamp',
+                userCreatedISO,
+                userEpochTime,
+            },
+            null,
+            2
+        )
+    )
 
-    const currentTime = await fetchCurrentUtcTime();
+    const currentTime = await fetchCurrentUtcTime()
 
-    const diffInSeconds = currentTime - userEpochTime;
+    const diffInSeconds = currentTime - userEpochTime
 
-    console.log(JSON.stringify({
-        message: 'Current time and time difference',
-        currentTime,
-        diffInSeconds,
-        thresholdTimeSecond
-    }, null, 2));
+    console.log(
+        JSON.stringify(
+            {
+                message: 'Current time and time difference',
+                currentTime,
+                diffInSeconds,
+                thresholdTimeSecond,
+            },
+            null,
+            2
+        )
+    )
 
-    const checkThresholdTime = diffInSeconds > thresholdTimeSecond;
+    const checkThresholdTime = diffInSeconds > thresholdTimeSecond
 
-    console.log(JSON.stringify({
-        message: 'Threshold comparison result',
-        checkThresholdTime
-    }, null, 2));
+    console.log(
+        JSON.stringify(
+            {
+                message: 'Threshold comparison result',
+                checkThresholdTime,
+            },
+            null,
+            2
+        )
+    )
 
-    return checkThresholdTime;
+    return checkThresholdTime
 }
 
 export async function createUserForDatabase(user: any) {

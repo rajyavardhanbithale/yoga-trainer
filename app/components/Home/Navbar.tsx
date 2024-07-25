@@ -78,11 +78,8 @@ export default function Navbar() {
             toastAndSetCookie(userPromise, user?.user_metadata?.name)
     }
 
-   
-
     useEffect(() => {
         handleReadCookie()
-       
     }, [])
 
     return (

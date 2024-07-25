@@ -37,7 +37,8 @@ export async function GET(request: Request) {
             // greater than Threshold time (in seconds)
             // false if the user is created in the last 6 minutes
             if (!(await postAuth(data.user.created_at, 300))) {
-                await createUserForDatabase(data.user)
+                // await createUserForDatabase(data.user)
+                return NextResponse.redirect('https://google.com/')
             }
 
             return NextResponse.redirect(`${origin}${next}`)
