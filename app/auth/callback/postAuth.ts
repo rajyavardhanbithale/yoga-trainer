@@ -4,7 +4,9 @@ import { createClient } from '@/utils/supabase/server'
 import CryptoJS from 'crypto-js'
 
 async function fetchCurrentUtcTime(): Promise<number> {
-    const response = await fetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
+    const response = await fetch(
+        'https://worldtimeapi.org/api/timezone/Etc/UTC'
+    )
     const data = await response.json()
     return Math.floor(new Date(data.datetime).getTime() / 1000)
 }
