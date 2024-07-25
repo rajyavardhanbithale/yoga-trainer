@@ -35,8 +35,8 @@ export async function GET(request: Request) {
             // adding new configuration to user-db
             // using false wale because it check if the user created time is
             // greater than Threshold time (in seconds)
-            // false if the user is created in the last 2 minutes
-            if (!(await postAuth(data.user.created_at, 120))) {
+            // false if the user is created in the last 6 minutes
+            if (!(await postAuth(data.user.created_at, 300))) {
                 await createUserForDatabase(data.user)
             }
 

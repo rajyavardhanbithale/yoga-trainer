@@ -78,16 +78,11 @@ export default function Navbar() {
             toastAndSetCookie(userPromise, user?.user_metadata?.name)
     }
 
-    const fetchTime = async () => {
-        const response = await axios.get(
-            'https://worldtimeapi.org/api/timezone/Etc/UTC'
-        )
-        console.log(response.data)
-    }
+   
 
     useEffect(() => {
         handleReadCookie()
-        fetchTime()
+       
     }, [])
 
     return (
