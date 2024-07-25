@@ -3,27 +3,25 @@
 import { createClient } from '@/utils/supabase/server'
 import CryptoJS from 'crypto-js'
 
+async function fetchCurrentUtcTime(): Promise<number> {
+    const response = await fetch('http://worldtimeapi.org/api/timezone/Etc/UTC');
+    const data = await response.json();
+    return Math.floor(new Date(data.datetime).getTime() / 1000);
+}
+
 export async function postAuth(
     userCreatedISO: string,
     thresholdTimeSecond: number
 ) {
     const date = new Date(userCreatedISO);
     const userEpochTime = Math.floor(date.getTime() / 1000);
-    const currentTime = Math.floor(Date.now() / 1000);
+    const currentTime = await fetchCurrentUtcTime();
+
     const diffInSeconds = currentTime - userEpochTime;
     const checkThresholdTime = diffInSeconds > thresholdTimeSecond;
 
-    console.log({
-        userEpochTime,
-        currentTime,
-        diffInSeconds,
-        thresholdTimeSecond,
-        checkThresholdTime
-    });
-
     return checkThresholdTime;
 }
-
 
 export async function createUserForDatabase(user: any) {
     // create user in database
