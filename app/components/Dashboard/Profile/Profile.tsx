@@ -88,7 +88,7 @@ export default function Profile(props: any) {
                             </div>
 
                             <div className="flex items-center gap-2">
-                                {userProfile.country &&
+                                {userProfile.country && (
                                     <>
                                         <Image
                                             height={24}
@@ -101,8 +101,12 @@ export default function Profile(props: any) {
                                             {getName(userProfile.country)}
                                         </span>
                                     </>
-                                }
-                                <CountrySelector isCountryAvailable={Boolean(userProfile.country)}></CountrySelector>
+                                )}
+                                <CountrySelector
+                                    isCountryAvailable={Boolean(
+                                        userProfile.country
+                                    )}
+                                ></CountrySelector>
                             </div>
 
                             <span className="text-gray-800">

@@ -9,7 +9,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { mealData } from '@/app/api/meals/mealData'
+import { mealData } from '@/app/api/diet/mealData'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/lib/store'
 import { getFoodData } from '@/lib/store/dashboard/dietSlice'

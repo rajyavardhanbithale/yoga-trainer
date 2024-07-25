@@ -61,6 +61,8 @@ export default function StatsDashboard() {
 
         return `${dayNames[dayIndex]}, ${date} ${monthNames[month]} ${year}`
     }
+
+    
     return (
         <>
             {userStats && (

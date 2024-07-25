@@ -1,4 +1,4 @@
-import { mealData, MealData } from '@/app/api/meals/mealData'
+import { mealData, MealData } from '@/app/api/diet/mealData'
 import { createClientBrowser } from '@/utils/supabase/client'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import CryptoJS from 'crypto-js'
@@ -10,6 +10,7 @@ type STATE = {
     FOODNAME: String | null
     USERDIET: DietChange[] | null
     STATE: 'idle' | 'pending' | 'success'
+    operation: string | null
 }
 
 const initialState: STATE = {
@@ -17,6 +18,7 @@ const initialState: STATE = {
     FOODNAME: null,
     USERDIET: null,
     STATE: 'idle',
+    operation: null
 }
 
 export interface DietChange {
@@ -80,6 +82,7 @@ export const fetchDiet = createAsyncThunk('diet/fetch-user', async () => {
         .select('diet')
         .eq('userID', userID)
         .single()
+       
 
     return userRecord?.diet as DietChange[]
 })
@@ -106,6 +109,15 @@ const dietSlice = createSlice({
             builder.addCase(fetchDiet.pending, (state) => {
                 state.STATE = 'pending'
             })
+
+        builder.addCase(saveRecentDiet.pending, (state) => {
+            state.operation = 'saveDiet'
+            state.STATE = 'pending'
+        })
+        builder.addCase(saveRecentDiet.fulfilled, (state) => {
+            state.operation = 'saveDiet'
+            state.STATE = 'success'
+        })
     },
 })
 

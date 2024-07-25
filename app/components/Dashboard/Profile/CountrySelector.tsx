@@ -15,7 +15,9 @@ import { AppDispatch } from '@/lib/store'
 import { updateCountry } from '@/lib/store/dashboard/userProfileSlice'
 import toast, { Toaster } from 'react-hot-toast'
 
-export default function CountrySelector(props: { isCountryAvailable: boolean }) {
+export default function CountrySelector(props: {
+    isCountryAvailable: boolean
+}) {
     const [open, setOpen] = useState<boolean>(false)
     const [searchQuery, setSearchQuery] = useState<string>('')
 
@@ -41,9 +43,9 @@ export default function CountrySelector(props: { isCountryAvailable: boolean }) 
             <Toaster position="top-center" reverseOrder={false} />
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger className="flex">
-                    {!props.isCountryAvailable &&
+                    {!props.isCountryAvailable && (
                         <span className="mr-2 font-bold">Update Country</span>
-                    }
+                    )}
                     <IoPencilSharp className="text-xl mb-1 text-slate-700" />
                 </DialogTrigger>
                 <DialogContent>

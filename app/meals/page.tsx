@@ -1,4 +1,4 @@
-import { MealData, mealData } from '../api/meals/mealData'
+import { MealData, mealData } from '../api/diet/mealData'
 
 import MealInput from '../components/Meal/MealInput'
 import MealNoResult from '../components/Meal/MealNoResult'

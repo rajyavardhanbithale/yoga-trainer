@@ -9,6 +9,8 @@ import { Comfortaa } from 'next/font/google'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/lib/store'
 import { activeWindow } from '@/lib/store/dashboard/dashboardSlice'
+import { useState } from 'react'
+import { FaBars, FaTimes } from 'react-icons/fa'
 
 const raleway = Raleway({
     subsets: ['latin'],
@@ -17,6 +19,8 @@ const raleway = Raleway({
 const comfortaa = Comfortaa({ subsets: ['latin'] })
 
 export default function Sidebar() {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
     const menuItem = [
         { title: 'Dashboard', icon: <LuLayoutDashboard /> },
         { title: 'Stats', icon: <ImStatsDots /> },
@@ -32,8 +36,26 @@ export default function Sidebar() {
 
     return (
         <>
+
             <div
-                className={`${raleway.className} h-screen sticky top-0 bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 text-white flex flex-col w-64 shadow-lg`}
+                className={`lg:hidden fixed top-4 left-4 z-50 p-3 rounded-2xl cursor-pointer flex items-center justify-between bg-blue-900 hover:bg-blue-800 transition-colors duration-300 ${isSidebarOpen ? 'w-fit' : 'w-11/12'}`}
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            >
+                {isSidebarOpen ? (
+                    <FaTimes className="text-white text-2xl" />
+                ) : (
+                    <div className="flex items-center w-full justify-between">
+                        <FaBars className="text-white text-2xl" />
+                        <span className="text-slate-50 text-lg text-center flex-grow">Dashboard</span>
+                        <span className="w-5 h-5"></span>
+                    </div>
+                )}
+            </div>
+
+
+            <div
+                className={`z-40 fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 text-white flex flex-col shadow-lg transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                    } lg:translate-x-0 lg:relative lg:w-64 lg:block transition-transform duration-300 ease-in-out`}
             >
                 <div className="flex flex-col mt-8 items-center justify-center">
                     <img
@@ -59,7 +81,7 @@ export default function Sidebar() {
                                     )
                                 }
                                 key={index}
-                                className="flex items-center p-4 my-4 hover:bg-blue-950 hover:bg-opacity-50 cursor-pointer text-xl font-semibold transition-colors duration-500 rounded-2xl  ease-in-out"
+                                className="flex items-center p-4 my-4 hover:bg-blue-950 hover:bg-opacity-50 cursor-pointer text-xl font-semibold transition-colors duration-500 rounded-2xl ease-in-out"
                             >
                                 <span className="mr-4">{item.icon}</span>
                                 <span>{item.title}</span>
@@ -67,7 +89,9 @@ export default function Sidebar() {
                         ))}
                     </ul>
                 </div>
-                <div className="p-4 mt-20 text-center">Signout</div>
+                <div className="p-4 mt-20 text-center cursor-pointer">
+                    Signout
+                </div>
             </div>
         </>
     )

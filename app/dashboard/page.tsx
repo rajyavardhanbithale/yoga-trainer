@@ -36,22 +36,26 @@ export default function Page() {
 
             <div className="flex bg-white">
                 <Sidebar></Sidebar>
-                <div className="flex-1 p-2 bg-slate-50 w-full">
+                <div className="flex-1 p-2 bg-slate-50 w-full mt-14">
                     {/* {activeWindow === 'dashboard' && (
                         <Dashboard name={user?.user_metadata?.name}></Dashboard>
                     )} */}
+
+
                     {/* {activeWindow === 'stats' && (
                         <StatsDashboard></StatsDashboard>
-                    )}
-                    {activeWindow === 'achievements' && (
+                    )} */}
+
+                    {/* {activeWindow === 'achievements' && (
                         <Achievements></Achievements>
-                    )}
-                   */}
-                    {user && activeWindow === 'profile' && (
-                        <Profile user={user}></Profile>
-                    )}
+                    )} */}
 
                     {activeWindow === 'diet' && <DietDashboard />}
+
+                    {/* {user && activeWindow === 'profile' && (
+                        <Profile user={user}></Profile>
+                    )} */}
+
                 </div>
             </div>
         </>

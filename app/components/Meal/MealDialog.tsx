@@ -1,4 +1,4 @@
-import { MealData } from '@/app/api/meals/mealData'
+import { MealData } from '@/app/api/diet/mealData'
 import {
     Dialog,
     DialogContent,

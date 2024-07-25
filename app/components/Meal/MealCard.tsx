@@ -1,6 +1,6 @@
 'use client'
 
-import { MealData } from '@/app/api/meals/mealData'
+import { MealData } from '@/app/api/diet/mealData'
 import Image from 'next/image'
 import Link from 'next/link'
 import { LuVegan } from 'react-icons/lu'

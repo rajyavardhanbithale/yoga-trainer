@@ -15,6 +15,7 @@ import {
     fetchYogaPoseAPI,
 } from '@/lib/store/dashboard/dashboardSlice'
 import { AppDispatch, RootState } from '@/lib/store'
+import { RxActivityLog } from "react-icons/rx"
 
 export default function Dashboard(name: any) {
     const dashboardData = useSelector(
@@ -93,6 +94,8 @@ export default function Dashboard(name: any) {
                 return `Hello, ${name}! Enjoy your yoga session.`
         }
     }
+
+    console.log(recentActivities);
 
     return (
         <>
@@ -187,11 +190,22 @@ export default function Dashboard(name: any) {
                             title="Recent Activities"
                             description="All your recent activities are displayed below"
                         />
-                        <div className="mx-5 my-3 flex flex-col justify-between h-fit">
-                            <RecentActivity
-                                recentActivities={recentActivities}
-                            />
-                        </div>
+                        {recentActivities.length !== 0 &&
+                            <div className="mx-5 my-3 flex flex-col justify-between h-fit">
+                                <RecentActivity
+                                    recentActivities={recentActivities}
+                                />
+                            </div>
+                        }
+
+                        {recentActivities.length === 0 &&
+                            <div className="h-full flex flex-col gap-5 justify-center items-center align-middle">
+                                <RxActivityLog className="text-4xl text-slate-900" />
+                                <span className="text-2xl text-slate-900 font-semibold">
+                                    No recent activities
+                                </span>
+                            </div>
+                        }
                     </div>
 
                     {/* level 2.2 last 30 days */}
@@ -221,23 +235,10 @@ export default function Dashboard(name: any) {
                         </div>
                     </div>
 
-                    {/* level 1 */}
-
-                    {/* level 1.1 - user welcome */}
                     <div className="col-span-full xl:col-span-4 min-h-[40vh] bg-slate-300 animate-pulse overflow-hidden rounded-2xl"></div>
-
-                    {/* level 1.2 - today list */}
                     <div className="col-span-full xl:col-span-5 min-h-[40vh] bg-slate-300 animate-pulse rounded-2xl"></div>
-
-                    {/* level 1.3 - calendar */}
                     <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl bg-slate-300 animate-pulse"></div>
-
-                    {/* level 2 */}
-
-                    {/* level 2.1 recent activity */}
                     <div className="col-span-full xl:col-span-9 min-h-[40vh] rounded-2xl bg-slate-300 animate-pulse"></div>
-
-                    {/* level 2.2 last 30 days */}
                     <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl bg-slate-300 animate-pulse"></div>
                 </div>
             )}
