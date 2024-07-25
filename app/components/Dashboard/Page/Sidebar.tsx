@@ -36,7 +36,6 @@ export default function Sidebar() {
 
     return (
         <>
-           
             <div
                 className={`lg:hidden fixed top-4 left-4 z-50 p-3 rounded-full cursor-pointer flex items-center justify-between bg-blue-950 hover:bg-blue-800 transition-colors duration-300 ${isSidebarOpen ? 'w-fit' : 'w-11/12'}`}
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -46,12 +45,13 @@ export default function Sidebar() {
                 ) : (
                     <div className="flex items-center w-full justify-between">
                         <FaBars className="text-white text-3xl" />
-                        <span className="text-slate-50 text-lg text-center flex-grow">Dashboard</span>
+                        <span className="text-slate-50 text-lg text-center flex-grow">
+                            Dashboard
+                        </span>
                     </div>
                 )}
             </div>
 
-          
             <div
                 className={`lg:flex lg:flex-col lg:w-64 lg:h-screen lg:sticky lg:top-0 lg:bg-gradient-to-b lg:from-gray-800 lg:via-blue-800 lg:to-blue-900 lg:text-white lg:shadow-lg lg:transition-transform lg:duration-300 lg:ease-in-out ${isSidebarOpen ? 'fixed top-0 left-0 z-40 bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 text-white h-screen w-64' : 'hidden'}`}
             >
