@@ -7,20 +7,23 @@ export async function postAuth(
     userCreatedISO: string,
     thresholdTimeSecond: number
 ) {
-    const date = new Date(userCreatedISO)
+    const date = new Date(userCreatedISO);
+    const userEpochTime = Math.floor(date.getTime() / 1000);
+    const currentTime = Math.floor(Date.now() / 1000);
+    const diffInSeconds = currentTime - userEpochTime;
+    const checkThresholdTime = diffInSeconds > thresholdTimeSecond;
 
-    const userEpochTime = Math.floor(date.getTime())
-    const currentTime = Date.now()
+    console.log({
+        userEpochTime,
+        currentTime,
+        diffInSeconds,
+        thresholdTimeSecond,
+        checkThresholdTime
+    });
 
-    // time difference in milliseconds
-    const diffInMilliseconds = currentTime - userEpochTime
-    const diffInSeconds = diffInMilliseconds / 1000
-
-    const checkThresholdTime = diffInSeconds > thresholdTimeSecond
-    console.log(userEpochTime, currentTime)
-
-    return checkThresholdTime
+    return checkThresholdTime;
 }
+
 
 export async function createUserForDatabase(user: any) {
     // create user in database
