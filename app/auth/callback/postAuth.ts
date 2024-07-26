@@ -1,6 +1,6 @@
-'use server'
+'use client'
 
-import { createClient } from '@/utils/supabase/server'
+import { createClientBrowser } from "@/utils/supabase/client"
 import CryptoJS from 'crypto-js'
 
 async function fetchCurrentUtcTime(): Promise<number> {
@@ -72,7 +72,7 @@ export async function postAuth(
             2
         )
     )
-
+    console.log('User created time is greater than threshold time:', checkThresholdTime)
     return checkThresholdTime
 }
 
@@ -109,7 +109,7 @@ export async function createUserForDatabase(user: any) {
             md5Tag.slice(0, 3) + md5Tag.slice(md5Tag.length - 3, md5Tag.length),
     }
 
-    const supabase = createClient()
+    const supabase = createClientBrowser()
 
     // check if the data is already in the database
     const { data: user_data, error: user_dataError } = await supabase

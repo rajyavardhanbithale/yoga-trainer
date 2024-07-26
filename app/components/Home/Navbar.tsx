@@ -10,8 +10,9 @@ import {
 import { RxHamburgerMenu } from 'react-icons/rx'
 import toast, { Toaster } from 'react-hot-toast'
 import Link from 'next/link'
-import Cookies from 'js-cookie'
-import axios from 'axios'
+import CryptoJS from "crypto-js"
+import { createUserForDatabase, postAuth } from "@/app/auth/callback/postAuth"
+
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -31,56 +32,22 @@ export default function Navbar() {
         return () => clearTimeout(timeout)
     }, [animate])
 
-    const toastAndSetCookie = (userPromise: Promise<any>, username: string) => {
-        toast.promise(
-            userPromise,
-            {
-                loading: 'Loading...',
-                success: <b>Hello {username}, You are now logged in</b>,
-                error: <b>Couldn&apos;t Authenticate.</b>,
-            },
-            {
-                duration: 2000,
-                icon: '🧘',
-                style: {
-                    borderRadius: '10px',
-                    background: '#033298',
-                    color: '#fff',
-                },
+
+    const getSupabaseSession = async () => {
+        const { data: { user }, error } = await supabase.auth.getUser()
+        console.log(user)
+        if (user) {
+            if (! await postAuth(user?.created_at, 360)){
+                createUserForDatabase(user)
             }
-        )
-        Cookies.set('init', '0')
-    }
+        }
 
-    const handleReadCookie = async () => {
-        const {
-            data: { user },
-        } = await supabase.auth.getUser()
-
-        const userPromise = new Promise((resolve, reject) => {
-            if (user) {
-                setIsAuth(true)
-                resolve(user)
-            }
-        })
-
-        const ISLOGGEDIN = Cookies.get(
-            'sb-kdsknciyenkdduogvoqj-auth-token.0' ||
-                'sb-kdsknciyenkdduogvoqj-auth-token'
-        )
-            ? true
-            : false
-
-        const SHOWTOAST = Cookies.get('init') ? true : false
-
-        ISLOGGEDIN &&
-            !SHOWTOAST &&
-            toastAndSetCookie(userPromise, user?.user_metadata?.name)
     }
 
     useEffect(() => {
-        handleReadCookie()
+        getSupabaseSession()
     }, [])
+
 
     return (
         <>
