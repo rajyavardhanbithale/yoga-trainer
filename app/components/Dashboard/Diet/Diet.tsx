@@ -4,24 +4,34 @@ import { useDispatch, useSelector } from 'react-redux'
 import DietAddForm from './DietAddForm'
 import { AppDispatch, RootState } from '@/lib/store'
 import { useEffect, useRef, useState } from 'react'
-import { DietChange, fetchDiet, saveRecentDiet } from '@/lib/store/dashboard/dietSlice'
+import {
+    DietChange,
+    fetchDiet,
+    saveRecentDiet,
+} from '@/lib/store/dashboard/dietSlice'
 import { mealData } from '@/app/api/diet/mealData'
 import toast, { Toaster } from 'react-hot-toast'
 
 import DietStats from './Stats/DietStats'
-import { IoTrashBinSharp } from "react-icons/io5"
+import { IoTrashBinSharp } from 'react-icons/io5'
 
 type View = 'manageDiet' | 'dietAnalysis'
 
 export default function DietDashboard() {
     const userDiet = useSelector((state: RootState) => state.dietSlice.USERDIET)
     const status = useSelector((state: RootState) => state.dietSlice.STATE)
-    const operation = useSelector((state: RootState) => state.dietSlice.operation)
+    const operation = useSelector(
+        (state: RootState) => state.dietSlice.operation
+    )
 
-    const reduxOptimisticDiet = useSelector((state: RootState) => state.dietSlice.optimisticDiet)
+    const reduxOptimisticDiet = useSelector(
+        (state: RootState) => state.dietSlice.optimisticDiet
+    )
 
     const [currentView, setCurrentView] = useState<View>('manageDiet')
-    const [optimisticDiet, setOptimisticDiet] = useState<DietChange[] | null>(null)
+    const [optimisticDiet, setOptimisticDiet] = useState<DietChange[] | null>(
+        null
+    )
     const reversedUserDiet = optimisticDiet && [...optimisticDiet].reverse()
 
     const dispatch = useDispatch<AppDispatch>()
@@ -93,9 +103,8 @@ export default function DietDashboard() {
     }, [status, operation, reduxOptimisticDiet])
 
     useEffect(() => {
-        setOptimisticDiet(userDiet);
+        setOptimisticDiet(userDiet)
     }, [userDiet])
-
 
     const handleViewChange = (view: View) => {
         setCurrentView(view)
@@ -165,9 +174,17 @@ export default function DietDashboard() {
                                         </p>
                                     </div>
 
-                                    <div 
-                                    onClick={() => dispatch(saveRecentDiet({ dietChanges: data, method: 'remove' }))}
-                                    className="absolute bottom-5 right-5 flex items-center justify-center p-2 rounded-xl bg-red-500 hover:bg-red-600 duration-500">
+                                    <div
+                                        onClick={() =>
+                                            dispatch(
+                                                saveRecentDiet({
+                                                    dietChanges: data,
+                                                    method: 'remove',
+                                                })
+                                            )
+                                        }
+                                        className="absolute bottom-5 right-5 flex items-center justify-center p-2 rounded-xl bg-red-500 hover:bg-red-600 duration-500"
+                                    >
                                         <IoTrashBinSharp className="text-slate-50 text-lg" />
                                     </div>
                                 </div>

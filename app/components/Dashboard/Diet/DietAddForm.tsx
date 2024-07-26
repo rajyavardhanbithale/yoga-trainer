@@ -65,9 +65,9 @@ export default function DietAddForm() {
             calorie: parseFloat(calories) || 0,
             protein: parseFloat(protein) || 0,
             fat: parseFloat(fats) || 0,
-            carb: parseFloat(carbs) || 0
+            carb: parseFloat(carbs) || 0,
         }
-        dispatch(saveRecentDiet({dietChanges: dietChange, method: 'save'}))
+        dispatch(saveRecentDiet({ dietChanges: dietChange, method: 'save' }))
     }
 
     return (

@@ -34,7 +34,6 @@ export default function DietStats() {
         fetchDiet()
     }, [])
 
-
     return (
         <>
             {favMeal && nutrition && (
@@ -49,16 +48,16 @@ export default function DietStats() {
                                 </div>
                                 <ScrollArea className="z-10 h-[40vh] rounded-xl p-4">
                                     <div className="flex flex-col gap-5 ">
-                                        {favMeal.length == 0 &&
+                                        {favMeal.length == 0 && (
                                             <div className="mt-20 text-center text-xl text-gray-500">
                                                 No favorite meal found
                                             </div>
-                                        }
-                                        {favMeal.length !== 0 &&
+                                        )}
+                                        {favMeal.length !== 0 && (
                                             <DietFavorite
                                                 diet={favMeal}
                                             ></DietFavorite>
-                                        }
+                                        )}
                                     </div>
                                 </ScrollArea>
                             </div>
