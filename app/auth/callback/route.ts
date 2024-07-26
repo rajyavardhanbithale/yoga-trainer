@@ -36,9 +36,8 @@ export async function GET(request: Request) {
             // using false wale because it check if the user created time is
             // greater than Threshold time (in seconds)
             // false if the user is created in the last 6 minutes
-           
-            await createUserForDatabase(data.user)
-            
+
+            createUserForDatabase(data.user)
 
             return NextResponse.redirect(`${origin}${next}`)
         }
