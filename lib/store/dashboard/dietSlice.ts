@@ -10,7 +10,8 @@ type STATE = {
     FOODNAME: String | null
     USERDIET: DietChange[] | null
     STATE: 'idle' | 'pending' | 'success'
-    operation: string | null
+    operation: string | null,
+    optimisticDiet: DietChange[] | null
 }
 
 const initialState: STATE = {
@@ -19,6 +20,7 @@ const initialState: STATE = {
     USERDIET: null,
     STATE: 'idle',
     operation: null,
+    optimisticDiet: null
 }
 
 export interface DietChange {
@@ -28,48 +30,58 @@ export interface DietChange {
     protein: number
     fat: number
     carb: number
-    method?: string
 }
 
-export const saveRecentDiet = createAsyncThunk(
+export const saveRecentDiet = createAsyncThunk<DietChange[], { dietChanges: DietChange; method: string }>(
     'diet/save',
-    async (dietChanges: DietChange) => {
-        const { method } = dietChanges
+    async ({ dietChanges, method }) => {
 
         const {
             data: { user },
-        } = await supabase.auth.getUser()
+            error: userError
+        } = await supabase.auth.getUser();
+
+        if (userError) throw userError;
+
         const userID: string | null = user
             ? CryptoJS.MD5(user.id).toString()
-            : null
+            : null;
+
 
         const { data: userRecord, error: fetchError } = await supabase
             .from(USERDB)
             .select('diet')
             .eq('userID', userID)
-            .single()
+            .single();
 
-        const dietArray: any[] = userRecord?.diet || []
+        if (fetchError) throw fetchError;
+
+
+        const dietArray: DietChange[] = userRecord?.diet || [];
+
 
         if (method === 'save') {
-            dietArray.push(dietChanges)
+            dietArray.push(dietChanges);
+        } else if (method === 'remove') {
+            const nameToRemove = dietChanges.name;
+            const filteredDietArray = dietArray.filter(d => d.name !== nameToRemove);
+            dietArray.length = 0; 
+            dietArray.push(...filteredDietArray);
         }
-        // else if (method === 'remove') {
-        //     const nameToRemove = '123';
-        //     const filteredDietArray = dietArray.filter(d => d.name !== nameToRemove);
-        //     dietArray.length = 0; // Clear the array
-        //     dietArray.push(...filteredDietArray);
-        // }
 
+   
         const { error: updateError } = await supabase
             .from(USERDB)
             .update({ diet: dietArray })
-            .eq('userID', userID)
+            .eq('userID', userID);
 
-        // To be removed later
-        window.location.href = window.location.href
+        if (updateError) throw updateError;
+
+
+        return dietArray;
+
     }
-)
+);
 
 export const fetchDiet = createAsyncThunk('diet/fetch-user', async () => {
     const {
@@ -113,9 +125,10 @@ const dietSlice = createSlice({
             state.operation = 'saveDiet'
             state.STATE = 'pending'
         })
-        builder.addCase(saveRecentDiet.fulfilled, (state) => {
+        builder.addCase(saveRecentDiet.fulfilled, (state, action) => {
             state.operation = 'saveDiet'
             state.STATE = 'success'
+            state.optimisticDiet = action.payload
         })
     },
 })

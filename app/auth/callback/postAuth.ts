@@ -8,7 +8,7 @@ async function fetchCurrentUtcTime(): Promise<number> {
         'https://worldtimeapi.org/api/timezone/Etc/UTC'
     )
     const data = await response.json()
-    const currentUtcTime = Math.floor(new Date(data.datetime).getTime() / 1000) 
+    const currentUtcTime = Math.floor(new Date(data.datetime).getTime() / 1000)
     return currentUtcTime
 }
 
@@ -17,7 +17,7 @@ export async function postAuth(
     thresholdTimeSecond: number
 ) {
     const userDate = new Date(userCreatedISO)
-    const userEpochTime = Math.floor(userDate.getTime() / 1000) 
+    const userEpochTime = Math.floor(userDate.getTime() / 1000)
     const currentTime = await fetchCurrentUtcTime()
     const diffInSeconds = currentTime - userEpochTime
     const checkThresholdTime = diffInSeconds > thresholdTimeSecond
@@ -70,6 +70,5 @@ export async function createUserForDatabase(user: any) {
         const { data: user_dataInsert, error } = await supabase
             .from('user-db')
             .insert(data)
-
     }
 }

@@ -4,23 +4,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import DietAddForm from './DietAddForm'
 import { AppDispatch, RootState } from '@/lib/store'
 import { useEffect, useRef, useState } from 'react'
-import { fetchDiet } from '@/lib/store/dashboard/dietSlice'
+import { DietChange, fetchDiet, saveRecentDiet } from '@/lib/store/dashboard/dietSlice'
 import { mealData } from '@/app/api/diet/mealData'
 import toast, { Toaster } from 'react-hot-toast'
 
 import DietStats from './Stats/DietStats'
+import { IoTrashBinSharp } from "react-icons/io5"
 
 type View = 'manageDiet' | 'dietAnalysis'
 
 export default function DietDashboard() {
     const userDiet = useSelector((state: RootState) => state.dietSlice.USERDIET)
     const status = useSelector((state: RootState) => state.dietSlice.STATE)
-    const operation = useSelector(
-        (state: RootState) => state.dietSlice.operation
-    )
-    const reversedUserDiet = userDiet && [...userDiet].reverse()
+    const operation = useSelector((state: RootState) => state.dietSlice.operation)
+
+    const reduxOptimisticDiet = useSelector((state: RootState) => state.dietSlice.optimisticDiet)
 
     const [currentView, setCurrentView] = useState<View>('manageDiet')
+    const [optimisticDiet, setOptimisticDiet] = useState<DietChange[] | null>(null)
+    const reversedUserDiet = optimisticDiet && [...optimisticDiet].reverse()
+
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
@@ -65,7 +68,6 @@ export default function DietDashboard() {
     const imagesName: string[] | undefined = reversedUserDiet?.map(
         (item) => item.name
     )
-
     const imageMap: { [key: string]: string } = mealData.reduce(
         (map, item) => {
             map[item.name] = item.image ?? 'default.png'
@@ -86,14 +88,14 @@ export default function DietDashboard() {
                 toast.dismiss(loadingToastId.current)
             }
             toast.success('Diet saved successfully')
+            setOptimisticDiet(reduxOptimisticDiet)
         }
-    }, [status, operation])
+    }, [status, operation, reduxOptimisticDiet])
 
     useEffect(() => {
-        if (operation === 'saveDiet' && status === 'success') {
-            dispatch(fetchDiet())
-        }
-    }, [operation])
+        setOptimisticDiet(userDiet);
+    }, [userDiet])
+
 
     const handleViewChange = (view: View) => {
         setCurrentView(view)
@@ -124,12 +126,12 @@ export default function DietDashboard() {
                         <span className="text-3xl">Recent Diet Meal</span>
                         <DietAddForm />
                     </div>
-                    <div className="flex flex-wrap gap-2 overflow-x-hidden">
+                    <div className="flex flex-wrap  overflow-x-hidden">
                         {status === 'success' &&
                             reversedUserDiet?.map((data, idx) => (
                                 <div
                                     key={idx}
-                                    className="w-full xl:w-auto m-5 sm:p-2 flex items-center bg-slate-50 shadow-md rounded-2xl overflow-hidden hover:scale-105 duration-700 cursor-pointer"
+                                    className="relative w-full xl:w-[31%] m-5 sm:p-2 flex items-center bg-slate-50 shadow-md rounded-2xl overflow-hidden hover:scale-[1.01] duration-700 cursor-pointer"
                                 >
                                     <div className="h-full overflow-hidden p-2">
                                         <img
@@ -162,6 +164,12 @@ export default function DietDashboard() {
                                             {dateToday(data.id)}
                                         </p>
                                     </div>
+
+                                    <div 
+                                    onClick={() => dispatch(saveRecentDiet({ dietChanges: data, method: 'remove' }))}
+                                    className="absolute bottom-5 right-5 flex items-center justify-center p-2 rounded-xl bg-red-500 hover:bg-red-600 duration-500">
+                                        <IoTrashBinSharp className="text-slate-50 text-lg" />
+                                    </div>
                                 </div>
                             ))}
 
@@ -186,7 +194,7 @@ export default function DietDashboard() {
                             ))}
                     </div>
 
-                    {(!userDiet || userDiet.length === 0) &&
+                    {(!optimisticDiet || optimisticDiet.length === 0) &&
                         status !== 'pending' && (
                             <div className="flex items-center justify-center  mt-40">
                                 <div className="max-w-md mx-auto p-6 bg-slate-50 shadow-lg rounded-2xl text-center">

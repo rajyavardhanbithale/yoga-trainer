@@ -6,12 +6,11 @@ import AuthImageSlideShow from '../components/Auth/ImageSlideShow'
 import { oAuthSignIn } from './actions'
 import ProviderUpdate from './ProvidesUpdate'
 import toast, { Toaster } from 'react-hot-toast'
-import { useEffect } from "react"
+import { useEffect } from 'react'
 import Cookies from 'js-cookie'
 export default function Page() {
-
     // remove toast notification
-    useEffect(() => { 
+    useEffect(() => {
         Cookies.remove('init')
     }, [])
 

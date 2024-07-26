@@ -66,8 +66,12 @@ export default function Navbar() {
         })
 
         const readCookie = Cookies.get('init')
-        readCookie === undefined ? toastAndSetCookie(userPromise, user.session?.user?.user_metadata?.name) : null
-
+        readCookie === undefined
+            ? toastAndSetCookie(
+                  userPromise,
+                  user.session?.user?.user_metadata?.name
+              )
+            : null
     }
 
     useEffect(() => {
@@ -126,12 +130,8 @@ export default function Navbar() {
 
             {/* Hamburger */}
             {isOpen && (
-                <div
-                    className="z-50 glass-card absolute flex flex-col justify-between gap-20 h-screen w-full"
-                >
-                    <button
-                        className="absolute right-3 top-3"
-                    >
+                <div className="z-50 glass-card absolute flex flex-col justify-between gap-20 h-screen w-full">
+                    <button className="absolute right-3 top-3">
                         <IoCloseOutline className="text-slate-200 text-3xl" />
                     </button>
 

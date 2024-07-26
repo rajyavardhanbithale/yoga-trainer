@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { createClient } from "./utils/supabase/server";
+import { createClient } from './utils/supabase/server'
 
 export default async function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname
@@ -19,7 +19,6 @@ export default async function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
         }
     }
-
 }
 
 // See "Matching Paths" below to learn more
@@ -32,6 +31,6 @@ export const config = {
          * - favicon.ico (favicon file)
          * Feel free to modify this pattern to include more paths.
          */
-        "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+        '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     ],
-};
+}

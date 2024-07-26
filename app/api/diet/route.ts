@@ -56,8 +56,8 @@ export async function GET(req: NextRequest) {
             name,
             count,
             image:
-                mealData.filter((item) => item.name === name)[0].image ||
-                'default.webp',
+                mealData.filter((item) => item.name === name)[0]?.image ||
+                'default.png',
         })
     }
     favMeal.sort((a, b) => b.count - a.count)
