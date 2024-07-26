@@ -10,44 +10,70 @@ import {
 import { RxHamburgerMenu } from 'react-icons/rx'
 import toast, { Toaster } from 'react-hot-toast'
 import Link from 'next/link'
-import CryptoJS from "crypto-js"
-import { createUserForDatabase, postAuth } from "@/app/auth/callback/postAuth"
-
+import Cookies from 'js-cookie'
+import { createUserForDatabase, postAuth } from '@/app/auth/callback/postAuth'
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const [animate, setAnimate] = useState<boolean>(false)
     const [isAuth, setIsAuth] = useState<boolean>(false)
 
     const supabase = createClientBrowser()
+    const postAuthFunction = async () => {
+        const {
+            data: { user },
+            error,
+        } = await supabase.auth.getUser()
 
-    useEffect(() => {
-        let timeout: NodeJS.Timeout
-        if (animate) {
-            timeout = setTimeout(() => {
-                setAnimate(false)
-                setIsOpen(false)
-            }, 700)
-        }
-        return () => clearTimeout(timeout)
-    }, [animate])
-
-
-    const getSupabaseSession = async () => {
-        const { data: { user }, error } = await supabase.auth.getUser()
-        console.log(user)
         if (user) {
-            if (! await postAuth(user?.created_at, 360)){
+            // adding new configuration to user-db
+            // using false wale because it check if the user created time is
+            // greater than Threshold time (in seconds)
+            // false if the user is created in the last 2 minutes
+            if (!(await postAuth(user?.created_at, 120))) {
                 createUserForDatabase(user)
             }
         }
+    }
+
+    const toastAndSetCookie = (userPromise: Promise<any>, username: string) => {
+        toast.promise(
+            userPromise,
+            {
+                loading: 'Loading...',
+                success: <b>Hello {username}, You are now logged in</b>,
+                error: <b>Couldn&apos;t Authenticate.</b>,
+            },
+            {
+                duration: 2000,
+                icon: '🧘',
+                style: {
+                    borderRadius: '10px',
+                    background: '#033298',
+                    color: '#fff',
+                },
+            }
+        )
+        Cookies.set('init', '0')
+    }
+
+    const valiDateUserCookie = async () => {
+        const { data: user, error } = await supabase.auth.getSession()
+        const userPromise = new Promise((resolve, reject) => {
+            if (user.session) {
+                setIsAuth(true)
+                resolve(user)
+            }
+        })
+
+        const readCookie = Cookies.get('init')
+        readCookie === undefined ? toastAndSetCookie(userPromise, user.session?.user?.user_metadata?.name) : null
 
     }
 
     useEffect(() => {
-        getSupabaseSession()
+        postAuthFunction()
+        valiDateUserCookie()
     }, [])
-
 
     return (
         <>
@@ -101,10 +127,9 @@ export default function Navbar() {
             {/* Hamburger */}
             {isOpen && (
                 <div
-                    className={`z-50 glass-card absolute flex flex-col justify-between gap-20 h-screen w-full ${!animate ? 'animate-fade-right' : 'animate-navbar-close'}`}
+                    className="z-50 glass-card absolute flex flex-col justify-between gap-20 h-screen w-full"
                 >
                     <button
-                        onClick={() => setAnimate(true)}
                         className="absolute right-3 top-3"
                     >
                         <IoCloseOutline className="text-slate-200 text-3xl" />
