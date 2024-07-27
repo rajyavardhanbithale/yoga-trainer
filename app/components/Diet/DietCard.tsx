@@ -2,15 +2,13 @@
 
 import { MealData } from '@/app/api/diet/mealData'
 import Image from 'next/image'
-import Link from 'next/link'
 import { LuVegan } from 'react-icons/lu'
 import { TbMeat } from 'react-icons/tb'
-import MealDialog from './MealDialog'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { FcLike } from 'react-icons/fc'
-import MealUserLike from './MealUserLike'
+import DietDialog from './DietDialog'
+import { useRouter } from 'next/navigation'
+import DietUserLike from './DietUserLike'
 
-export default function MealCard(props: { meals: MealData }) {
+export default function DietCard(props: { meals: MealData }) {
     const meal = props?.meals
     const router = useRouter()
 
@@ -74,8 +72,8 @@ export default function MealCard(props: { meals: MealData }) {
                         ))}
                     </div>
 
-                    <MealDialog meal={meal} />
-                    <MealUserLike mealId={meal.id} mealLike={meal.likes} />
+                    <DietDialog meal={meal} />
+                    <DietUserLike mealId={meal.id} mealLike={meal.likes} />
                 </div>
             </div>
         </>

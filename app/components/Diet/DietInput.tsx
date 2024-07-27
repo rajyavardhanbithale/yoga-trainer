@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 
-export default function MealInput() {
+export default function DietInput() {
     const router = useRouter()
 
     const debounce = (func: Function, delay: number) => {

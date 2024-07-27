@@ -11,7 +11,7 @@ import Image from 'next/image'
 
 import { RiCompassLine } from 'react-icons/ri'
 
-export default function MealDialog(props: { meal: MealData }) {
+export default function DietDialog(props: { meal: MealData }) {
     const meal = props?.meal
 
     return (

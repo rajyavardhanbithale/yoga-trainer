@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 
-export default function MealTag(props: { mealTag: string }) {
+export default function DietTags(props: { mealTag: string }) {
     const tag = props?.mealTag
 
     const router = useRouter()

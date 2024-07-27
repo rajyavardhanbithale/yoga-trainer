@@ -59,9 +59,7 @@ export const saveRecentDiet = createAsyncThunk<
         dietArray.push(dietChanges)
     } else if (method === 'remove') {
         const nameToRemove = dietChanges.id
-        const filteredDietArray = dietArray.filter(
-            (d) => d.id !== nameToRemove
-        )
+        const filteredDietArray = dietArray.filter((d) => d.id !== nameToRemove)
         dietArray.length = 0
         dietArray.push(...filteredDietArray)
     }

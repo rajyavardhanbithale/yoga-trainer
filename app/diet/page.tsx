@@ -1,9 +1,8 @@
-import { MealData, mealData } from '../api/diet/mealData'
-
-import MealInput from '../components/Meal/MealInput'
-import MealNoResult from '../components/Meal/MealNoResult'
-import MealCard from '../components/Meal/MealCard'
-import MealTag from '../components/Meal/MealTag'
+import { MealData, mealData } from '@/app/api/diet/mealData'
+import DietInput from '@/app/components/Diet/DietInput'
+import DietSearchNoResult from '@/app/components/Diet/DietSearchNoResult'
+import DietCard from '@/app/components/Diet/DietCard'
+import DietTags from '@/app/components/Diet/DietTags'
 import { createClient } from '@/utils/supabase/server'
 
 interface Like {
@@ -32,7 +31,7 @@ export default async function Meals({
             .filter((item) =>
                 search
                     ? item.name.toLowerCase().includes(search.toLowerCase()) ||
-                      item.tags.includes(search.toLowerCase())
+                    item.tags.includes(search.toLowerCase())
                     : true
             )
     }
@@ -70,7 +69,7 @@ export default async function Meals({
                     Healthy Diet Essentials
                 </h1>
                 <div className="max-w-2xl mx-auto my-5">
-                    <MealInput />
+                    <DietInput />
                 </div>
 
                 {search && (
@@ -88,16 +87,16 @@ export default async function Meals({
                         </span>
                         <div className="flex flex-wrap gap-2 px-5 mx-5 my-2">
                             {tag.map((tag, idx) => (
-                                <MealTag mealTag={tag} key={idx} />
+                                <DietTags mealTag={tag} key={idx} />
                             ))}
                         </div>
                     </div>
                 )}
 
                 <div className="flex flex-wrap gap-10 justify-center">
-                    {merge.length === 0 && <MealNoResult />}
+                    {merge.length === 0 && <DietSearchNoResult />}
                     {merge.map((meal, idx: number) => (
-                        <MealCard meals={meal} key={idx} />
+                        <DietCard meals={meal} key={idx} />
                     ))}
                 </div>
             </div>

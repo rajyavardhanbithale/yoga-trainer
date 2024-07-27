@@ -1,6 +1,6 @@
 import { FcBinoculars } from 'react-icons/fc'
 
-export default function MealNoResult() {
+export default function DietSearchNoResult() {
     return (
         <>
             <div className="flex flex-col items-center justify-center h-1/2">

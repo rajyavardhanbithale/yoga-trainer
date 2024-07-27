@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { FcLike, FcLikePlaceholder } from 'react-icons/fc'
 import { useDispatch, useSelector } from 'react-redux'
 
-export default function MealUserLike(props: {
+export default function DietUserLike(props: {
     mealId: number
     mealLike: number | undefined
 }) {

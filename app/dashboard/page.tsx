@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 
 import '@/app/components/Dashboard/Page/dashboard.css'
-import Loading from '../components/Dashboard/loading'
+import Loading from '../components/Dashboard/Loading'
 
 const Dashboard = dynamic(
     () => import('@/app/components/Dashboard/Page/Dashboard'),
