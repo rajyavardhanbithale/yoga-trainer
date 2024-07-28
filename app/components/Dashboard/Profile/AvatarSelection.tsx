@@ -7,6 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog'
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { AppDispatch } from '@/lib/store'
 import { updateProfilePic } from '@/lib/store/dashboard/userProfileSlice'
 import Image from 'next/image'
@@ -41,38 +42,40 @@ export default function AvatarSelection() {
                         <DialogTitle>
                             Select avatar for your profile
                         </DialogTitle>
-                        <DialogDescription>
-                            <div className="flex flex-wrap justify-center p-4">
-                                {avatarFilenames.map((filename, index) => (
-                                    <div
-                                        key={index}
-                                        className="w-1/3 sm:w-1/3 p-2"
-                                    >
+                        <DialogDescription className="w-full">
+                            <ScrollArea className="h-[80vh] w-full rounded-md border p-4">
+                                <div className="flex flex-wrap justify-center p-4">
+                                    {avatarFilenames.map((filename, index) => (
                                         <div
-                                            onClick={() => setOpen(false)}
-                                            className="relative w-full h-0 pb-[100%]"
+                                            key={index}
+                                            className="w-1/3 sm:w-1/3 p-2"
                                         >
-                                            <Image
-                                                height={0}
-                                                width={0}
-                                                sizes="100wv"
-                                                src={`/avatar/${filename}`}
-                                                onClick={() =>
-                                                    dispatch(
-                                                        updateProfilePic(
-                                                            filename
-                                                                .split('/')[1]
-                                                                .split('.')[0]
+                                            <div
+                                                onClick={() => setOpen(false)}
+                                                className="relative w-full h-0 pb-[100%]"
+                                            >
+                                                <Image
+                                                    height={0}
+                                                    width={0}
+                                                    sizes="100wv"
+                                                    src={`/avatar/${filename}`}
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            updateProfilePic(
+                                                                filename
+                                                                    .split('/')[1]
+                                                                    .split('.')[0]
+                                                            )
                                                         )
-                                                    )
-                                                }
-                                                alt="Avatar"
-                                                className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-md cursor-pointer transform hover:scale-105 transition-transform duration-300"
-                                            />
+                                                    }
+                                                    alt="Avatar"
+                                                    className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-md cursor-pointer transform hover:scale-105 transition-transform duration-300"
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
+                            </ScrollArea>
                         </DialogDescription>
                     </DialogHeader>
                 </DialogContent>

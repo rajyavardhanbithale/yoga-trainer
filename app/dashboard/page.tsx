@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 
 import '@/app/components/Dashboard/Page/dashboard.css'
-import Loading from '../components/Dashboard/Loading'
+import Loading from '@/app/components/Dashboard/Loading'
 
 const Dashboard = dynamic(
     () => import('@/app/components/Dashboard/Page/Dashboard'),
@@ -67,28 +67,36 @@ export default function Page() {
 
     return (
         <>
-            {/* <Calendar epochTimes={Time} /> */}
+
             <div className="flex bg-white">
-                <Sidebar></Sidebar>
-                <div className="flex-1 p-2 bg-slate-50 w-full mt-14 sm:mt-2">
+                <div className="sm:w-[15vw] 2xl:w-[12vw] bg-green-500">
+                    <Sidebar />
+                </div>
+                <div className="sm:w-[85vw] 2xl:w-[88vw] m-3">
                     {activeWindow === 'dashboard' && (
                         <Dashboard name={user?.user_metadata?.name}></Dashboard>
                     )}
+
                     {activeWindow === 'stats' && (
                         <StatsDashboard></StatsDashboard>
                     )}
 
-                    {activeWindow === 'achievements' && (
+                    {activeWindow === 'badges' && (
                         <Achievements></Achievements>
                     )}
 
                     {activeWindow === 'diet' && <DietDashboard />}
+
 
                     {user && activeWindow === 'profile' && (
                         <Profile user={user}></Profile>
                     )}
                 </div>
             </div>
+
+
+
+
         </>
     )
 }

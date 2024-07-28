@@ -135,12 +135,12 @@ export default function DietDashboard() {
                         <span className="text-3xl">Recent Diet Meal</span>
                         <DietAddForm />
                     </div>
-                    <div className="flex flex-wrap  overflow-x-hidden">
+                    <div className="flex flex-wrap overflow-x-hidden">
                         {status === 'success' &&
                             reversedUserDiet?.map((data, idx) => (
                                 <div
                                     key={idx}
-                                    className="relative w-full xl:w-[31%] m-5 sm:p-2 flex items-center bg-slate-50 shadow-md rounded-2xl overflow-hidden hover:scale-[1.01] duration-700 cursor-pointer"
+                                    className="relative w-full xl:w-[30%] m-5 sm:p-2 flex items-center bg-slate-50 shadow-md rounded-2xl overflow-hidden hover:scale-[1.01] duration-700 cursor-pointer"
                                 >
                                     <div className="h-full overflow-hidden p-2">
                                         <img

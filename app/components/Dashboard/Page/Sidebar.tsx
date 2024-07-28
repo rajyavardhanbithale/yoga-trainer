@@ -23,7 +23,7 @@ export default function Sidebar() {
     const menuItem = [
         { title: 'Dashboard', icon: <LuLayoutDashboard /> },
         { title: 'Stats', icon: <ImStatsDots /> },
-        { title: 'Achievements', icon: <TbTrophy /> },
+        { title: 'Badges', icon: <TbTrophy /> },
         { title: 'Diet', icon: <PiBowlFoodLight /> },
         { title: 'Profile', icon: <RiUser6Line /> },
     ]
@@ -53,7 +53,7 @@ export default function Sidebar() {
             </div>
 
             <div
-                className={`lg:flex lg:flex-col lg:w-64 lg:h-screen lg:sticky lg:top-0 lg:bg-gradient-to-b lg:from-gray-800 lg:via-blue-800 lg:to-blue-900 lg:text-white lg:shadow-lg lg:transition-transform lg:duration-300 lg:ease-in-out ${isSidebarOpen ? 'fixed top-0 left-0 z-40 bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 text-white h-screen w-64' : 'hidden'}`}
+                className={`lg:flex lg:flex-col lg:h-screen lg:sticky lg:top-0 lg:bg-gradient-to-b lg:from-gray-800 lg:via-blue-800 lg:to-blue-900 lg:text-white lg:shadow-lg lg:transition-transform lg:duration-300 lg:ease-in-out ${isSidebarOpen ? 'fixed top-0 left-0 z-40 bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 text-white h-screen w-64' : 'hidden'}`}
             >
                 <div className="flex flex-col mt-8 items-center justify-center">
                     <img
@@ -67,7 +67,7 @@ export default function Sidebar() {
                         RAGE AI
                     </span>
                 </div>
-                <div className="flex-1 flex items-center mx-5 h-fit">
+                <div className="flex-1 flex items-center mx-2 2xl:mx-0 h-fit">
                     <ul className="w-full">
                         {menuItem.map((item, index) => (
                             <li
@@ -79,7 +79,7 @@ export default function Sidebar() {
                                     )
                                 }
                                 key={index}
-                                className="flex items-center p-4 my-4 hover:bg-blue-950 hover:bg-opacity-50 cursor-pointer text-xl font-semibold transition-colors duration-500 rounded-2xl ease-in-out"
+                                className="flex items-center p-4 my-4 hover:bg-blue-950 hover:bg-opacity-50 cursor-pointer text-xl 2xl:text-lg font-semibold transition-colors duration-500 rounded-2xl ease-in-out"
                             >
                                 <span className="mr-4">{item.icon}</span>
                                 <span>{item.title}</span>

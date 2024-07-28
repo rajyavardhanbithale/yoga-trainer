@@ -11,12 +11,17 @@ export default function DietUserLike(props: {
     mealLike: number | undefined
     mealViews: number | undefined
 }) {
-    const userLikes = useSelector((state: RootState) => state.profileSlice.USERLIKE) || []
+    const userLikes =
+        useSelector((state: RootState) => state.profileSlice.USERLIKE) || []
     const status = useSelector((state: RootState) => state.profileSlice.status)
     const dispatch = useDispatch<AppDispatch>()
 
-    const [localLike, setLocalLike] = useState<boolean>(userLikes.includes(props.mealId))
-    const [localMealLike, setLocalMealLike] = useState<number>(props.mealLike ?? 0)
+    const [localLike, setLocalLike] = useState<boolean>(
+        userLikes.includes(props.mealId)
+    )
+    const [localMealLike, setLocalMealLike] = useState<number>(
+        props.mealLike ?? 0
+    )
     const [error, setError] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false) // Added loading state
 
@@ -33,7 +38,8 @@ export default function DietUserLike(props: {
 
         setLoading(true)
         const newLikeStatus = method === 'like'
-        const newLikeCount = method === 'like' ? localMealLike + 1 : localMealLike - 1
+        const newLikeCount =
+            method === 'like' ? localMealLike + 1 : localMealLike - 1
 
         setLocalLike(newLikeStatus)
         setLocalMealLike(newLikeCount)
@@ -43,7 +49,9 @@ export default function DietUserLike(props: {
             await dispatch(likeFoodPost({ id: props.mealId, method })).unwrap()
         } catch (error) {
             setLocalLike(!newLikeStatus)
-            setLocalMealLike(method === 'like' ? localMealLike : localMealLike + 1)
+            setLocalMealLike(
+                method === 'like' ? localMealLike : localMealLike + 1
+            )
             setError(true)
         } finally {
             setLoading(false)

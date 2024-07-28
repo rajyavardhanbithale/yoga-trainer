@@ -20,7 +20,7 @@ export default function RecentActivity(recentActivities: any) {
                 {recentActivities &&
                     recentActivities.recentActivities?.map(
                         (item: any, idx: number) => (
-                            <CarouselItem key={idx} className="basis-1/3">
+                            <CarouselItem key={idx} className="sm:basis-1/3">
                                 <div
                                     key={idx}
                                     className="flex justify-center items-center p-4"

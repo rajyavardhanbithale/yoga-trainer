@@ -30,7 +30,7 @@ export default function Achievements() {
         <>
             <div className="h-[75vh] flex flex-col justify-between m-5">
                 <div className="flex flex-col gap-2 justify-start items-start m-5 py-5">
-                    <span className="text-5xl font-semibold text-slate-900 uppercase">
+                    <span className="text-4xl font-semibold text-slate-900 uppercase">
                         Achievements
                     </span>
                     <span className="text-2xl font-normal text-slate-600">
@@ -38,12 +38,12 @@ export default function Achievements() {
                     </span>
                 </div>
 
-                <div className="flex flex-wrap justify-center w-11/12">
+                <div className="flex flex-wrap justify-center w-11/12 mx-auto">
                     {achievements.map((item: achievementsData, key) => (
                         <div
                             data-tooltip-id={`tooltip-${key}`}
                             key={key}
-                            className="has-tooltip w-48 h-fit overflow-hidden m-2 span-5 rounded-full cursor-pointer"
+                            className="has-tooltip 2xl:w-40 w-48 h-fit overflow-hidden m-2 span-5 rounded-full cursor-pointer"
                         >
                             <Image
                                 src={`/achievements/${item.icon}-${gender}.jpg`}

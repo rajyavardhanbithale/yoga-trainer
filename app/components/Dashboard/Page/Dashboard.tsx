@@ -95,7 +95,6 @@ export default function Dashboard(name: any) {
         }
     }
 
-    console.log(recentActivities)
 
     return (
         <>
@@ -115,38 +114,38 @@ export default function Dashboard(name: any) {
                     {/* level 1 */}
 
                     {/* level 1.1 - user welcome */}
-                    <div className="col-span-full xl:col-span-4 min-h-[40vh] overflow-hidden rounded-2xl">
-                        <div className="h-full anim-blob flex flex-col justify-center ">
+                    <div className="col-span-full xl:col-span-4 h-[50vh] overflow-hidden rounded-2xl">
+                        <div className="h-full anim-blob flex flex-col justify-center">
                             <div className="w-44 mx-auto">
                                 <img
                                     src="/dashboard/meditation.gif"
                                     alt="yoga"
                                 />
                             </div>
-                            <div className="flex text-center m-5">
-                                <span className="text-2xl p-5 text-white capitalize font-medium">
-                                    {wishes('Morning', name.name ?? 'User')}
+                            <div className="flex text-center mx-5">
+                                <span className="text-xl px-5 text-white capitalize font-bold">
+                                    {wishes('Morning', name.name.split(' ')[0] ?? 'User')}
                                 </span>
                             </div>
                         </div>
                     </div>
 
                     {/* level 1.2 - today list */}
-                    <div className="col-span-full xl:col-span-5 min-h-[40vh] flex flex-col justify-between rounded-2xl">
+                    <div className="col-span-full xl:col-span-5 sm:h-[50vh] flex flex-col  rounded-2xl">
                         <Heading
                             title=" Today's List"
                             description="Complete the following yoga exercises"
                         />
 
-                        <div className="mx-5 my-3 flex flex-col justify-between h-fit">
+                        <div className="my-3 flex flex-col justify-around h-full">
                             {poseInfo &&
                                 poseInfo.map((item: any, idx) => (
                                     <div
                                         key={idx}
-                                        className="flex justify-between capitalize m-2 p-2 items-center align-middle rounded-2xl shadow-lg hover:shadow-xl border-2 border-slate-200 duration-500"
+                                        className="flex flex-col sm:flex-row gap-5 sm:gap-0 justify-between capitalize mt-2 px-3 py-5 sm:py-2 items-center align-middle rounded-2xl shadow-lg hover:shadow-xl border-2 border-slate-200 duration-500"
                                     >
-                                        <div className="flex items-center w-3/4">
-                                            <div className="w-16">
+                                        <div className="flex flex-col sm:flex-row items-center sm:w-3/5 gap-5 sm:gap-0">
+                                            <div className="sm:w-16 w-36">
                                                 <img
                                                     className="object-scale-down mix-blend-multiply rounded-xl"
                                                     src={`/pose/image/webp/${item?.image}`}
@@ -154,8 +153,15 @@ export default function Dashboard(name: any) {
                                                 />
                                             </div>
 
-                                            <span className="text-2xl overflow-hidden mx-4 p-1 truncate">
+                                            <span className="text-xl overflow-hidden mx-4 p-1 truncate sm:block hidden">
                                                 {item.name} -{' '}
+                                                {item.originalName}
+                                            </span>
+
+                                            <span className="text-xl overflow-hidden mx-4 p-1 truncate sm:hidden block">
+                                                {item.name} -{' '}
+                                            </span>
+                                            <span className="text-xl overflow-hidden mx-4 p-1 truncate sm:hidden block">
                                                 {item.originalName}
                                             </span>
                                         </div>
@@ -170,28 +176,30 @@ export default function Dashboard(name: any) {
                     </div>
 
                     {/* level 1.3 - calendar */}
-                    <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl overflow-hidden">
+                    <div className="col-span-full xl:col-span-3 h-[50vh] rounded-2xl overflow-hidden">
                         <Heading
                             title="Current Activity"
                             description="All active dates are marked below"
                         />
-                        <div className="flex justify-center items-center -mt-7">
+
+                        <div className="flex sm:-mt-11 2xl:mt-0 justify-center">
                             <Calendar
                                 epochTimes={dashboardData.userActiveDays}
                             />
                         </div>
                     </div>
 
+
                     {/* level 2 */}
 
                     {/* level 2.1 recent activity */}
-                    <div className="col-span-full xl:col-span-9 min-h-[40vh] rounded-2xl">
+                    <div className="col-span-full xl:col-span-9 h-[50vh] rounded-2xl overflow-hidden">
                         <Heading
                             title="Recent Activities"
                             description="All your recent activities are displayed below"
                         />
                         {recentActivities.length !== 0 && (
-                            <div className="mx-5 my-3 flex flex-col justify-between h-fit">
+                            <div className="mx-5 my-3 p-3 flex flex-col justify-between h-fit">
                                 <RecentActivity
                                     recentActivities={recentActivities}
                                 />
@@ -209,12 +217,12 @@ export default function Dashboard(name: any) {
                     </div>
 
                     {/* level 2.2 last 30 days */}
-                    <div className="col-span-full xl:col-span-3 min-h-[40vh] max-h-[40vh] rounded-2xl">
+                    <div className="col-span-full xl:col-span-3 h-[50vh] rounded-2xl overflow-hidden">
                         <Heading
                             title="Last 30 Days"
                             description="Overview of activity trends over the last 30 days."
                         />
-                        <div className="h-[23vh] flex justify-center items-center my-5 mx-8">
+                        <div className="h-[45vh] flex justify-center items-center my-5 mx-8">
                             <LastTHDays
                                 chartData={dashboardData.userLastNDaysActivity}
                             />
