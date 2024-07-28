@@ -65,7 +65,9 @@ export const fetchUserLike = createAsyncThunk(
             .single()
 
         if (error) {
+
             return null
+
         }
 
         return data && data.food_like
@@ -95,12 +97,12 @@ export const likeFoodPost = createAsyncThunk(
             method === 'like'
                 ? (foodData?.likes ?? 0) + 1
                 : method === 'unlike'
-                  ? (foodData?.likes ?? 0) - 1
-                  : 0
+                    ? (foodData?.likes ?? 0) - 1
+                    : 0
 
         const { error: updateFoodError } = await supabase
             .from('food-data')
-            .update({ likes: updatedLike })
+            .update({ likes: updatedLike, views: foodData?.views + 1 })
             .eq('id', id)
 
         // updating user likes
@@ -115,6 +117,7 @@ export const likeFoodPost = createAsyncThunk(
 
         if (method === 'like') {
             updatedLikes = [...currentLikes, id]
+
         } else if (method === 'unlike') {
             updatedLikes = currentLikes.filter((likeId) => likeId !== id)
         } else {
