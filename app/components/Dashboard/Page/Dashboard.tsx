@@ -95,7 +95,6 @@ export default function Dashboard(name: any) {
         }
     }
 
-
     return (
         <>
             {dashboardData && poseInfo && recentActivities && (
@@ -124,7 +123,10 @@ export default function Dashboard(name: any) {
                             </div>
                             <div className="flex text-center mx-5">
                                 <span className="text-xl px-5 text-white capitalize font-bold">
-                                    {wishes('Morning', name.name.split(' ')[0] ?? 'User')}
+                                    {wishes(
+                                        'Morning',
+                                        name.name.split(' ')[0] ?? 'User'
+                                    )}
                                 </span>
                             </div>
                         </div>
@@ -188,7 +190,6 @@ export default function Dashboard(name: any) {
                             />
                         </div>
                     </div>
-
 
                     {/* level 2 */}
 

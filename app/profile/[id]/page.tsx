@@ -51,15 +51,13 @@ export default async function Profile({ params }: any) {
 
     const gender = 'men'
 
-    console.log(data)
-
     return (
         <>
             {data?.profile_type === 'public' && (
                 <div className="h-screen flex justify-center items-center bg-gray-50">
-                    <div className="grid bg-white w-11/12 sm:w-3/4 xl:w-1/3 grid-cols-1 md:grid-cols-6 p-6 rounded-2xl shadow-xl">
-                        <div className="md:col-span-2 flex flex-col justify-center items-center md:items-start">
-                            <div className="m-4 w-full sm:w-40 h-40 overflow-hidden rounded-xl shadow-2xl">
+                    <div className="grid bg-white w-11/12 sm:w-3/4 xl:w-1/2 grid-cols-1 md:grid-cols-6 p-6 rounded-2xl shadow-xl">
+                        <div className="md:col-span-2 flex flex-col justify-center items-center md:items-start w-full overflow-hidden">
+                            <div className="m-4 w-full sm:w-full h-72 overflow-hidden rounded-xl shadow-2xl mx-auto">
                                 <img
                                     src={`/avatar/${data.profile_pic.split('-')[0]}/${data.profile_pic}.webp`}
                                     alt="avatar"
@@ -67,7 +65,8 @@ export default async function Profile({ params }: any) {
                                 />
                             </div>
                         </div>
-                        <div className="md:col-span-4 flex flex-col justify-center sm:items-start items-center m-5 gap-4">
+
+                        <div className="md:col-span-4 flex flex-col justify-center sm:items-start items-center m-5 gap-3">
                             <div className="flex flex-col">
                                 <span className="text-4xl font-semibold text-gray-800">
                                     {data.name}

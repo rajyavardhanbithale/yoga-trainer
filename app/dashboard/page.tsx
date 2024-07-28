@@ -67,7 +67,6 @@ export default function Page() {
 
     return (
         <>
-
             <div className="flex bg-white">
                 <div className="sm:w-[15vw] 2xl:w-[12vw] bg-green-500">
                     <Sidebar />
@@ -81,22 +80,15 @@ export default function Page() {
                         <StatsDashboard></StatsDashboard>
                     )}
 
-                    {activeWindow === 'badges' && (
-                        <Achievements></Achievements>
-                    )}
+                    {activeWindow === 'badges' && <Achievements></Achievements>}
 
                     {activeWindow === 'diet' && <DietDashboard />}
-
 
                     {user && activeWindow === 'profile' && (
                         <Profile user={user}></Profile>
                     )}
                 </div>
             </div>
-
-
-
-
         </>
     )
 }

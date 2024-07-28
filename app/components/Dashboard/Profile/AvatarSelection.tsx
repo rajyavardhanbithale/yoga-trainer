@@ -7,7 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog'
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { AppDispatch } from '@/lib/store'
 import { updateProfilePic } from '@/lib/store/dashboard/userProfileSlice'
 import Image from 'next/image'
@@ -63,8 +63,12 @@ export default function AvatarSelection() {
                                                         dispatch(
                                                             updateProfilePic(
                                                                 filename
-                                                                    .split('/')[1]
-                                                                    .split('.')[0]
+                                                                    .split(
+                                                                        '/'
+                                                                    )[1]
+                                                                    .split(
+                                                                        '.'
+                                                                    )[0]
                                                             )
                                                         )
                                                     }

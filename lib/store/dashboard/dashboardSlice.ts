@@ -20,7 +20,7 @@ const initialState: STATE = {
     STATS: null,
     ACHIEVEMENTS: null,
     loading: 'idle',
-    activeWindow: 'profile',
+    activeWindow: 'dashboard',
 }
 
 export const fetchDashboardAPI = createAsyncThunk('api/dashboard', async () => {
@@ -39,7 +39,10 @@ export const fetchYogaPoseAPI = createAsyncThunk(
 export const fetchRecentActivity = createAsyncThunk(
     'api/recent-activity',
     async (param: string) => {
-        const response = await fetch(`/api/pose?poseID=${param}`, { cache: 'force-cache', next: { revalidate: 240 } })
+        const response = await fetch(`/api/pose?poseID=${param}`, {
+            cache: 'force-cache',
+            next: { revalidate: 240 },
+        })
         const data = await response.json()
         return data?.poseDataList as APIYogaDataMinimal[]
     }
