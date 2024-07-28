@@ -194,7 +194,7 @@ export default function Dashboard(name: any) {
                     {/* level 2 */}
 
                     {/* level 2.1 recent activity */}
-                    <div className="col-span-full xl:col-span-9 2xl:h-[50vh]  rounded-2xl overflow-hidden">
+                    <div className="col-span-full xl:col-span-9 2xl:h-[50vh] rounded-2xl overflow-hidden">
                         <Heading
                             title="Recent Activities"
                             description="All your recent activities are displayed below"
@@ -218,7 +218,7 @@ export default function Dashboard(name: any) {
                     </div>
 
                     {/* level 2.2 last 30 days */}
-                    <div className="col-span-full xl:col-span-3 max-2xl:h-[50vh] h-[60vh] rounded-2xl overflow-hidden">
+                    <div className="col-span-full xl:col-span-3 h-[50vh] rounded-2xl overflow-hidden">
                         <Heading
                             title="Last 30 Days"
                             description="Overview of activity trends over the last 30 days."
