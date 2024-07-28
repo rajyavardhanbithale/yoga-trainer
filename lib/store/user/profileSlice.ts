@@ -64,6 +64,10 @@ export const fetchUserLike = createAsyncThunk(
             .eq('userID', userID)
             .single()
 
+        if(error){
+            return null
+        }
+
         return data && data.food_like
     }
 )
@@ -151,6 +155,7 @@ const profileSlice = createSlice({
                 state.status = 'success'
             }
         )
+
 
         builder.addCase(
             likeFoodPost.pending,

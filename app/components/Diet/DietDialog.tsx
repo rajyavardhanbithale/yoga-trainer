@@ -17,7 +17,7 @@ export default function DietDialog(props: { meal: MealData }) {
     return (
         <>
             <Dialog>
-                <DialogTrigger className="my-3 w-1/2 text-xl bg-blue-900 text-slate-50 rounded-2xl px-3 py-1 capitalize cursor-pointer hover:bg-blue-950 duration-500 flex items-center justify-center">
+                <DialogTrigger className="xl:my-3 w-3/4 xl:w-1/2 text-xl bg-blue-900 text-slate-50 rounded-2xl px-3 py-1 capitalize cursor-pointer hover:bg-blue-950 duration-500 flex items-center justify-center">
                     Explore
                     <RiCompassLine className="text-xl inline-flex mx-2 mb-0.5" />
                 </DialogTrigger>

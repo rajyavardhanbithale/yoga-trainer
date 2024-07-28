@@ -5,10 +5,7 @@ import DietCard from '@/app/components/Diet/DietCard'
 import DietTags from '@/app/components/Diet/DietTags'
 import { createClient } from '@/utils/supabase/server'
 
-interface Like {
-    id: number
-    likes: number
-}
+
 
 export default async function Meals({
     searchParams,
@@ -40,28 +37,33 @@ export default async function Meals({
 
     const supabase = createClient()
 
-    const { data, error } = await supabase.from('food-data').select()
+    const { data, error } = await supabase.from('food-data').select('*')
 
-    const combineMealsAndLikes = (
+    const combineData = (
         meals: MealData[],
-        likes: any
-    ): (MealData & { likes: number })[] => {
-        const likesMap: Record<number, number> = likes.reduce(
-            (acc: any, like: any) => {
-                acc[like.id] = like.likes
-                return acc
+        data: any
+    ): (MealData & { likes: number; views: number })[] => {
+        // Create a map to store likes and views for each id
+        const likesAndViewsMap: Record<number, { likes: number; views: number }> = data.reduce(
+            (acc:any, item:any) => {
+                acc[item.id] = { likes: item.likes, views: item.views };
+                return acc;
             },
-            {} as Record<number, number>
-        )
+            {} as Record<number, { likes: number; views: number }>
+        );
 
+        // Map meals to include likes and views
         return meals.map((meal) => ({
             ...meal,
-            likes: likesMap[meal.id] || 0,
-        }))
+            likes: likesAndViewsMap[meal.id]?.likes || 0,
+            views: likesAndViewsMap[meal.id]?.views || 0
+        }));
     }
 
-    const merge = combineMealsAndLikes(filteredMeals, data)
 
+    const merge = combineData(filteredMeals, data)
+   
+    
     return (
         <>
             <div className="min-h-screen bg-gray-50 w-full p-8">

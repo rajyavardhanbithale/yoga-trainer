@@ -7,6 +7,9 @@ import { TbMeat } from 'react-icons/tb'
 import DietDialog from './DietDialog'
 import { useRouter } from 'next/navigation'
 import DietUserLike from './DietUserLike'
+import { MdArrowOutward } from "react-icons/md"
+import Link from "next/link"
+
 
 export default function DietCard(props: { meals: MealData }) {
     const meal = props?.meals
@@ -72,8 +75,17 @@ export default function DietCard(props: { meals: MealData }) {
                         ))}
                     </div>
 
-                    <DietDialog meal={meal} />
-                    <DietUserLike mealId={meal.id} mealLike={meal.likes} />
+                    <div className="flex flex-col xl:flex-row  gap-3 w-full ">
+                        <DietDialog meal={meal} />
+                        <Link
+                            href={`/diet/${meal.name.toLocaleLowerCase().replaceAll(' ', '-')}-${meal.id}`}>
+                            <button className="xl:my-3 w-3/4 xl:w-full text-xl bg-blue-900 text-slate-50 rounded-2xl px-5 py-1 capitalize cursor-pointer hover:bg-blue-950 duration-500">
+                                Read More
+                                <MdArrowOutward className="text-xl inline-flex  mb-0.5" />
+                            </button>
+                        </Link>
+                    </div>
+                    <DietUserLike mealId={meal.id} mealLike={meal.likes} mealViews={meal.views} />
                 </div>
             </div>
         </>
