@@ -1,16 +1,16 @@
 'use client'
 
-import { AppDispatch, RootState } from "@/lib/store"
-import { createClientBrowser } from "@/utils/supabase/client"
-import { useEffect, useState } from "react"
-import { FcLike, FcLikePlaceholder } from "react-icons/fc"
-import { IoIosShareAlt } from "react-icons/io"
-import { IoEye } from "react-icons/io5"
-import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from '@/lib/store'
+import { createClientBrowser } from '@/utils/supabase/client'
+import { useEffect, useState } from 'react'
+import { FcLike, FcLikePlaceholder } from 'react-icons/fc'
+import { IoIosShareAlt } from 'react-icons/io'
+import { IoEye } from 'react-icons/io5'
+import { useDispatch, useSelector } from 'react-redux'
 
-import CryptoJS from "crypto-js"
-import { likeFoodPost } from "@/lib/store/user/profileSlice"
-import Link from "next/link"
+import CryptoJS from 'crypto-js'
+import { likeFoodPost } from '@/lib/store/user/profileSlice'
+import Link from 'next/link'
 
 export default function RecipePageSocials(props: { mealID: number }) {
     const [localLikes, setLocalLikes] = useState<number>(0)
@@ -20,7 +20,6 @@ export default function RecipePageSocials(props: { mealID: number }) {
     const [error, setError] = useState<boolean>(false)
 
     const dispatch = useDispatch<AppDispatch>()
-
 
     const supabase = createClientBrowser()
     const fetchPostData = async (id: number) => {
@@ -60,11 +59,10 @@ export default function RecipePageSocials(props: { mealID: number }) {
         if (!error) {
             setIsUserLike(isLiked)
         }
-
     }
 
     const updateViews = async (id: number) => {
-        console.log(totalViews);
+        console.log(totalViews)
         const { data, error } = await supabase
             .from('food-data')
             .update({ views: totalViews + 1 })
@@ -108,25 +106,25 @@ export default function RecipePageSocials(props: { mealID: number }) {
                                 onClick={() => handleLikes('like')}
                                 className="text-3xl mb-1"
                             />
-                        ))
-                    }
+                        ))}
 
-                    {error &&
+                    {error && (
                         <Link href="/login">
-                            <FcLikePlaceholder
-                                className="text-3xl mb-1"
-                            />
+                            <FcLikePlaceholder className="text-3xl mb-1" />
                         </Link>
-                    }
+                    )}
                 </span>
-                <span className="text-lg text-white font-semibold">{localLikes}</span>
+                <span className="text-lg text-white font-semibold">
+                    {localLikes}
+                </span>
             </div>
             <div className="flex justify-center items-center flex-col gap-2">
                 <IoEye className="text-slate-100 text-3xl hover:opacity-50 duration-500 cursor-pointer" />
-                <span className="text-lg text-white font-semibold">{totalViews + 1}</span>
+                <span className="text-lg text-white font-semibold">
+                    {totalViews + 1}
+                </span>
             </div>
             <IoIosShareAlt className="text-slate-100 text-3xl hover:opacity-50 duration-500 cursor-pointer" />
-
         </>
     )
 }

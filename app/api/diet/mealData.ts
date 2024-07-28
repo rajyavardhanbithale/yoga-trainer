@@ -19,7 +19,7 @@ export interface MealData {
     website: string
     video: string
     likes?: number
-    views?:number
+    views?: number
 }
 
 export const mealData: MealData[] = [

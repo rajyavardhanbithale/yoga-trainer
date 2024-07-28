@@ -5,8 +5,6 @@ import DietCard from '@/app/components/Diet/DietCard'
 import DietTags from '@/app/components/Diet/DietTags'
 import { createClient } from '@/utils/supabase/server'
 
-
-
 export default async function Meals({
     searchParams,
 }: {
@@ -28,7 +26,7 @@ export default async function Meals({
             .filter((item) =>
                 search
                     ? item.name.toLowerCase().includes(search.toLowerCase()) ||
-                    item.tags.includes(search.toLowerCase())
+                      item.tags.includes(search.toLowerCase())
                     : true
             )
     }
@@ -44,26 +42,27 @@ export default async function Meals({
         data: any
     ): (MealData & { likes: number; views: number })[] => {
         // Create a map to store likes and views for each id
-        const likesAndViewsMap: Record<number, { likes: number; views: number }> = data.reduce(
-            (acc:any, item:any) => {
-                acc[item.id] = { likes: item.likes, views: item.views };
-                return acc;
+        const likesAndViewsMap: Record<
+            number,
+            { likes: number; views: number }
+        > = data.reduce(
+            (acc: any, item: any) => {
+                acc[item.id] = { likes: item.likes, views: item.views }
+                return acc
             },
             {} as Record<number, { likes: number; views: number }>
-        );
+        )
 
         // Map meals to include likes and views
         return meals.map((meal) => ({
             ...meal,
             likes: likesAndViewsMap[meal.id]?.likes || 0,
-            views: likesAndViewsMap[meal.id]?.views || 0
-        }));
+            views: likesAndViewsMap[meal.id]?.views || 0,
+        }))
     }
 
-
     const merge = combineData(filteredMeals, data)
-   
-    
+
     return (
         <>
             <div className="min-h-screen bg-gray-50 w-full p-8">

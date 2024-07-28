@@ -1,22 +1,26 @@
-
-import { MealData, mealData } from "@/app/api/diet/mealData";
+import { MealData, mealData } from '@/app/api/diet/mealData'
 import React from 'react'
 import RecipePage from '@/app/components/Diet/RecipePage'
-import NotFound from "@/app/components/not-found";
+import NotFound from '@/app/components/not-found'
 
 async function fetchDiet(id: string) {
-
     const param = id
 
-    const paramDecoded = decodeURIComponent(param);
+    const paramDecoded = decodeURIComponent(param)
     const paramTransformed: string[] = paramDecoded.split('-')
 
-    const dietID: number = parseInt(paramTransformed[paramTransformed.length - 1])
-    const dietName: string = paramTransformed.slice(0, paramTransformed.length - 1).join(' ')
+    const dietID: number = parseInt(
+        paramTransformed[paramTransformed.length - 1]
+    )
+    const dietName: string = paramTransformed
+        .slice(0, paramTransformed.length - 1)
+        .join(' ')
 
-    const diet: MealData | undefined = mealData.find((meal) =>
-        meal.id === dietID && meal.name.toLowerCase() === dietName.toLowerCase()
-    );
+    const diet: MealData | undefined = mealData.find(
+        (meal) =>
+            meal.id === dietID &&
+            meal.name.toLowerCase() === dietName.toLowerCase()
+    )
 
     return diet as MealData
 }
@@ -29,8 +33,7 @@ export async function generateMetadata({ params }: any) {
         return {
             title: 'RAGE Diet not found',
             description: 'RAGE Diet not found',
-
-        };
+        }
     }
 
     // Return metadata with information from metaInfo
@@ -40,7 +43,7 @@ export async function generateMetadata({ params }: any) {
         openGraph: {
             images: metaInfo.image[0],
         },
-    };
+    }
 }
 
 export default async function Recipe({ params }: any) {
@@ -49,18 +52,17 @@ export default async function Recipe({ params }: any) {
 
     return (
         <>
-            {diet &&
+            {diet && (
                 <div className="min-h-screen">
                     <RecipePage recipe={diet} />
                 </div>
-            }
+            )}
 
-            {!diet &&
+            {!diet && (
                 <div className="h-screen bg-white w-full flex justify-center align-middle items-center">
                     <NotFound />
                 </div>
-            }
+            )}
         </>
     )
 }
-
