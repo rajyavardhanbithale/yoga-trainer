@@ -98,7 +98,7 @@ export default function Dashboard(name: any) {
     return (
         <>
             {dashboardData && poseInfo && recentActivities && (
-                <div className="grid grid-cols-12 gap-8 m-2 overflow-y-hidden">
+                <div className="grid grid-cols-12 sm:gap-8 gap-5 sm:m-2 overflow-y-hidden ">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
                         <span className="text-3xl mx-5 font-medium text-slate-800">
@@ -184,7 +184,7 @@ export default function Dashboard(name: any) {
                             description="All active dates are marked below"
                         />
 
-                        <div className="flex sm:-mt-11 2xl:mt-0 justify-center">
+                        <div className="flex sm:-mt-11 max-2xl:mt-0 justify-center">
                             <Calendar
                                 epochTimes={dashboardData.userActiveDays}
                             />
@@ -194,7 +194,7 @@ export default function Dashboard(name: any) {
                     {/* level 2 */}
 
                     {/* level 2.1 recent activity */}
-                    <div className="col-span-full xl:col-span-9 h-[50vh] rounded-2xl overflow-hidden">
+                    <div className="col-span-full xl:col-span-9 2xl:h-[50vh]  rounded-2xl overflow-hidden">
                         <Heading
                             title="Recent Activities"
                             description="All your recent activities are displayed below"
@@ -218,7 +218,7 @@ export default function Dashboard(name: any) {
                     </div>
 
                     {/* level 2.2 last 30 days */}
-                    <div className="col-span-full xl:col-span-3 h-[50vh] rounded-2xl overflow-hidden">
+                    <div className="col-span-full xl:col-span-3 max-2xl:h-[50vh] h-[60vh] rounded-2xl overflow-hidden">
                         <Heading
                             title="Last 30 Days"
                             description="Overview of activity trends over the last 30 days."

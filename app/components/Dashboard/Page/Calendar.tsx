@@ -12,7 +12,7 @@ export default function Calendar({ epochTimes }: Prop) {
     const [selected, setSelected] = useState<Date[]>(dates)
     return (
         <>
-            <div className="sm:scale-[.75] 2xl:scale-[.90]">
+            <div className="sm:scale-[.75] max-2xl:scale-[.90]">
                 <DayPicker mode="multiple" selected={selected} />
             </div>
         </>
