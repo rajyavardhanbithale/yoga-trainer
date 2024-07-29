@@ -12,7 +12,6 @@ import { AppDispatch, RootState } from '@/lib/store'
 import { useEffect } from 'react'
 import { fetchStats } from '@/lib/store/dashboard/dashboardSlice'
 
-
 export default function StatsDashboard() {
     const userStats = useSelector((state: RootState) => state.dashboard.STATS)
     const dispatch = useDispatch<AppDispatch>()
@@ -114,7 +113,6 @@ export default function StatsDashboard() {
                             <AreaOfInterest
                                 areaOfInterest={userStats.areaOfInterest}
                             />
-
                         </div>
                     </div>
 

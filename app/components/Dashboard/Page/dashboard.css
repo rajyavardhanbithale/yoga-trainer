@@ -72,7 +72,7 @@
     }
 }
 
-.sidebar-in-animation{
+.sidebar-in-animation {
     transform: translateX(0);
     animation: animate-in-sidebar 300ms ease-in-out;
 }
@@ -84,10 +84,9 @@
     100% {
         transform: translateX(0);
     }
-    
 }
 
-.sidebar-out-animation{
+.sidebar-out-animation {
     transform: translateX(-100%);
     animation: animate-out-sidebar 300ms ease-in-out;
 }
@@ -99,5 +98,4 @@
     100% {
         transform: translateX(-100%);
     }
-    
 }

@@ -34,9 +34,7 @@ export default function AvatarSelection() {
         <>
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger className="w-3/4 xl:w-1/2 bg-blue-900 text-white px-4 py-2 font-medium rounded-2xl my-2 hover:brightness-90 duration-500 flex items-center justify-center">
-                    <span>
-                        Change
-                    </span>
+                    <span>Change</span>
                     {/* <MdModeEditOutline className="ml-2 inline-flex" /> */}
                 </DialogTrigger>
                 <DialogContent className="mt-8 sm:mt-0">

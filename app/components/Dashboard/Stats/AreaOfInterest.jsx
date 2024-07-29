@@ -70,10 +70,8 @@ export default function AreaOfInterest({ areaOfInterest }) {
     }
 
     return (
-
         <div className="xl:h-11/12 w-11/12 h-full sm:w-full">
             <PolarArea data={data} options={options} />
         </div>
-
     )
 }

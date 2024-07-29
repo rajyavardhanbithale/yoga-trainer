@@ -98,7 +98,7 @@ export default function Dashboard(name: any) {
     return (
         <>
             {dashboardData && poseInfo && recentActivities && (
-                <div className="grid grid-cols-12 sm:gap-8 gap-3 sm:m-2 overflow-y-hidden ml-3 mr-3">
+                <div className="grid grid-cols-12 sm:gap-8 gap-3 mt-8 sm:mt-0 sm:m-2 overflow-y-hidden ml-3 mr-3">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
                         <span className="text-3xl mx-5 font-medium text-slate-800">
@@ -113,7 +113,7 @@ export default function Dashboard(name: any) {
                     {/* level 1 */}
 
                     {/* level 1.1 - user welcome */}
-                    <div className="col-span-full xl:col-span-4 h-[50vh] overflow-hidden rounded-2xl">
+                    <div className="col-span-full xl:col-span-4 h-[30vh] xl:h-[50vh] overflow-hidden rounded-2xl">
                         <div className="h-full anim-blob flex flex-col justify-center">
                             <div className="w-44 mx-auto">
                                 <img
@@ -121,7 +121,7 @@ export default function Dashboard(name: any) {
                                     alt="yoga"
                                 />
                             </div>
-                            <div className="flex text-center mx-5">
+                            <div className="flex justify-center items-center text-center mx-5">
                                 <span className="text-xl px-5 text-white capitalize font-bold">
                                     {wishes(
                                         'Morning',
@@ -232,7 +232,7 @@ export default function Dashboard(name: any) {
                 </div>
             )}
 
-            {(!dashboardData && poseInfo && recentActivities) && (
+            {!dashboardData && poseInfo && recentActivities && (
                 <div className="grid grid-cols-12 sm:gap-8 gap-5 sm:m-2 m-5 overflow-y-hidden">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">

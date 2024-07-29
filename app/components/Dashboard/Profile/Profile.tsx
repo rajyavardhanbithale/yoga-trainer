@@ -66,7 +66,6 @@ export default function Profile(props: any) {
             {userProfile && (
                 <div className="h-screen flex justify-center items-center bg-gray-50">
                     <div className="grid bg-white w-11/12 xl:w-1/2 grid-cols-6 p-6 rounded-2xl shadow-xl">
-                        
                         <div className="col-span-full sm:col-span-2 flex flex-col justify-center items-center">
                             <div className="m-4 w-40 h-40 overflow-hidden rounded-xl shadow-2xl">
                                 <img
