@@ -67,11 +67,11 @@ export default function Page() {
 
     return (
         <>
-            <div className="flex bg-white">
-                <div className="w-[0vw] md:w-[15vw] lg:w-[20vw] max-w-2xl:w-[15vw] bg-green-500">
+            <div className="flex bg-slate-100">
+                <div className="">
                     <Sidebar />
                 </div>
-                <div className="w-[100vw] sm:w-[85vw] max-2xl:w-[85vw] sm:m-3 mx-auto">
+                <div className="mt-16 sm:ml-24 sm:m-2 h-full w-full bg-slate-50 rounded-2xl">
                     {activeWindow === 'dashboard' && (
                         <Dashboard name={user?.user_metadata?.name}></Dashboard>
                     )}
@@ -84,9 +84,12 @@ export default function Page() {
 
                     {activeWindow === 'diet' && <DietDashboard />}
 
+                    
                     {user && activeWindow === 'profile' && (
                         <Profile user={user}></Profile>
                     )}
+
+
                 </div>
             </div>
         </>

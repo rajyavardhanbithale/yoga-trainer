@@ -34,17 +34,19 @@ export default function AvatarSelection() {
         <>
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger className="w-3/4 xl:w-1/2 bg-blue-900 text-white px-4 py-2 font-medium rounded-2xl my-2 hover:brightness-90 duration-500 flex items-center justify-center">
-                    Change
-                    <MdModeEditOutline className="ml-2" />
+                    <span>
+                        Change
+                    </span>
+                    {/* <MdModeEditOutline className="ml-2 inline-flex" /> */}
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="mt-8 sm:mt-0">
                     <DialogHeader>
-                        <DialogTitle>
+                        <DialogTitle className="text-2xl">
                             Select avatar for your profile
                         </DialogTitle>
                         <DialogDescription className="w-full">
-                            <ScrollArea className="h-[80vh] w-full rounded-md border p-4">
-                                <div className="flex flex-wrap justify-center p-4">
+                            <ScrollArea className="h-[80vh] w-full rounded-md border sm:p-4">
+                                <div className="flex flex-wrap justify-center sm:p-4">
                                     {avatarFilenames.map((filename, index) => (
                                         <div
                                             key={index}

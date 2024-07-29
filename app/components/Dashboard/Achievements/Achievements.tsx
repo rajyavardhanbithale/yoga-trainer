@@ -43,7 +43,7 @@ export default function Achievements() {
                         <div
                             data-tooltip-id={`tooltip-${key}`}
                             key={key}
-                            className="has-tooltip 2xl:w-40 w-48 h-fit overflow-hidden m-2 span-5 rounded-full cursor-pointer"
+                            className="has-tooltip 2xl:w-40 sm:w-48 w-28 h-fit overflow-hidden m-2 span-5 rounded-full cursor-pointer"
                         >
                             <Image
                                 src={`/achievements/${item.icon}-${gender}.jpg`}

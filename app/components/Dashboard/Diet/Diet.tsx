@@ -153,22 +153,22 @@ export default function DietDashboard() {
                                         <h2 className="text-xl font-semibold mb-2">
                                             {data.name}
                                         </h2>
-                                        <p className="text-gray-600 mb-1">
+                                        <p className="text-slate-600 mb-1">
                                             <strong>Calories:</strong>{' '}
                                             {data.calorie} kcal
                                         </p>
-                                        <p className="text-gray-600 mb-1">
+                                        <p className="text-slate-600 mb-1">
                                             <strong>Protein:</strong>{' '}
                                             {data.protein} g
                                         </p>
-                                        <p className="text-gray-600 mb-1">
+                                        <p className="text-slate-600 mb-1">
                                             <strong>Fat:</strong> {data.fat} g
                                         </p>
-                                        <p className="text-gray-600 mb-1">
+                                        <p className="text-slate-600 mb-1">
                                             <strong>Carbs:</strong> {data.carb}{' '}
                                             g
                                         </p>
-                                        <p className="text-gray-600 mb-1">
+                                        <p className="text-slate-600 mb-1">
                                             <strong>Date Added:</strong>{' '}
                                             {dateToday(data.id)}
                                         </p>
@@ -183,7 +183,7 @@ export default function DietDashboard() {
                                                 })
                                             )
                                         }
-                                        className="absolute bottom-5 right-5 flex items-center justify-center p-2 rounded-xl bg-red-500 hover:bg-red-600 duration-500"
+                                        className="absolute sm:bottom-5 sm:right-5 bottom-1 right-2 flex items-center justify-center p-2 rounded-xl bg-red-500 hover:bg-red-600 duration-500"
                                     >
                                         <IoTrashBinSharp className="text-slate-50 text-lg" />
                                     </div>
@@ -200,12 +200,12 @@ export default function DietDashboard() {
                                         <div className="bg-slate-300 h-full w-40 rounded-2xl animate-pulse"></div>
                                     </div>
                                     <div className="p-4 flex-1 w-full">
-                                        <p className="text-gray-600 mb-1 bg-slate-300 h-8 w-3/4 rounded-xl animate-pulse"></p>
-                                        <p className="text-gray-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
-                                        <p className="text-gray-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
-                                        <p className="text-gray-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
-                                        <p className="text-gray-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
-                                        <p className="text-gray-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
+                                        <p className="text-slate-600 mb-1 bg-slate-300 h-8 w-3/4 rounded-xl animate-pulse"></p>
+                                        <p className="text-slate-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
+                                        <p className="text-slate-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
+                                        <p className="text-slate-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
+                                        <p className="text-slate-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
+                                        <p className="text-slate-600 mb-1 bg-slate-300 h-4 w-1/2 rounded-xl animate-pulse"></p>
                                     </div>
                                 </div>
                             ))}
@@ -215,10 +215,10 @@ export default function DietDashboard() {
                         status !== 'pending' && (
                             <div className="flex items-center justify-center  mt-40">
                                 <div className="max-w-md mx-auto p-6 bg-slate-50 shadow-lg rounded-2xl text-center">
-                                    <div className="text-2xl font-semibold text-gray-800 mb-4">
+                                    <div className="text-2xl font-semibold text-slate-800 mb-4">
                                         Uh oh, no recent diet found
                                     </div>
-                                    <div className="text-gray-600 mb-6">
+                                    <div className="text-slate-600 mb-6">
                                         It seems like you haven&apos;t added any
                                         recent meal. Please add your recent diet
                                         to continue.

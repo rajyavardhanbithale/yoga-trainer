@@ -97,7 +97,7 @@ export default function LastTHDays({ chartData }) {
 
     return (
         <>
-            <div className="h-[28vh]">
+            <div className="h-[20vh]">
                 <Line data={data} options={options} />
             </div>
         </>

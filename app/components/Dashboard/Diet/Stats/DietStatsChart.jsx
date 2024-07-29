@@ -181,7 +181,7 @@ export default function DietStatChart({ nutrientData }) {
     const availableChart = ['mixed', 'fat', 'carb', 'calorie', 'protein']
 
     return (
-        <div className="h-[30vh] w-full">
+        <div className="sm:h-[30vh] h-[50vh] w-full ">
             <div className="flex flex-wrap gap-3 my-2 px-5 sm:px-0">
                 {availableChart.map((chart, idx) => (
                     <button
@@ -193,7 +193,7 @@ export default function DietStatChart({ nutrientData }) {
                     </button>
                 ))}
             </div>
-            <Line data={chartData} options={options} />
+            <Line data={chartData} options={options} className="mb-5" />
         </div>
     )
 }

@@ -12,11 +12,6 @@ import { AppDispatch, RootState } from '@/lib/store'
 import { useEffect } from 'react'
 import { fetchStats } from '@/lib/store/dashboard/dashboardSlice'
 
-// const WeekActivity = dynamic(() => import('./WeekActivity'), { ssr: false })
-// const DaySpent = dynamic(() => import('./DaysSpent'), { ssr: false })
-// const Accuracy = dynamic(() => import('./Accuracy'), { ssr: false })
-// const AreaOfInterest = dynamic(() => import('./AreaOfInterest'), { ssr: false })
-// const PerformanceAOI = dynamic(() => import('./PerformanceAOI'), { ssr: false })
 
 export default function StatsDashboard() {
     const userStats = useSelector((state: RootState) => state.dashboard.STATS)
@@ -100,8 +95,8 @@ export default function StatsDashboard() {
 
                     <div className="col-span-full xl:col-span-full min-h-[50vh] max-h-[100vh] flex flex-col justify-between rounded-2xl">
                         <Heading
-                            title="Last 30 Days Activity"
-                            description="Summary of your recent activity."
+                            title="Performance"
+                            description="Summary of your recent performance."
                         />
 
                         <div className="animate-fade-up h-full flex w-full">
@@ -119,6 +114,7 @@ export default function StatsDashboard() {
                             <AreaOfInterest
                                 areaOfInterest={userStats.areaOfInterest}
                             />
+
                         </div>
                     </div>
 

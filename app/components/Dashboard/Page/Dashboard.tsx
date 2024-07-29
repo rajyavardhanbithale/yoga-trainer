@@ -98,7 +98,7 @@ export default function Dashboard(name: any) {
     return (
         <>
             {dashboardData && poseInfo && recentActivities && (
-                <div className="grid grid-cols-12 sm:gap-8 gap-5 sm:m-2 overflow-y-hidden ">
+                <div className="grid grid-cols-12 sm:gap-8 gap-3 sm:m-2 overflow-y-hidden ml-3 mr-3">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
                         <span className="text-3xl mx-5 font-medium text-slate-800">
@@ -178,13 +178,13 @@ export default function Dashboard(name: any) {
                     </div>
 
                     {/* level 1.3 - calendar */}
-                    <div className="col-span-full xl:col-span-3 h-[50vh] rounded-2xl overflow-hidden">
+                    <div className="col-span-full xl:col-span-3 sm:h-[50vh] rounded-2xl overflow-hidden">
                         <Heading
                             title="Current Activity"
                             description="All active dates are marked below"
                         />
 
-                        <div className="flex sm:-mt-11 max-2xl:mt-0 justify-center">
+                        <div className="flex sm:-mt-14 justify-center">
                             <Calendar
                                 epochTimes={dashboardData.userActiveDays}
                             />
@@ -200,7 +200,7 @@ export default function Dashboard(name: any) {
                             description="All your recent activities are displayed below"
                         />
                         {recentActivities.length !== 0 && (
-                            <div className="mx-5 my-3 p-3 flex flex-col justify-between h-fit">
+                            <div className="sm:p-3 px-9 flex flex-col justify-between h-fit">
                                 <RecentActivity
                                     recentActivities={recentActivities}
                                 />
@@ -218,12 +218,12 @@ export default function Dashboard(name: any) {
                     </div>
 
                     {/* level 2.2 last 30 days */}
-                    <div className="col-span-full xl:col-span-3 h-[50vh] rounded-2xl overflow-hidden">
+                    <div className="col-span-full xl:col-span-3 h-[60vh]  rounded-2xl overflow-hidden flex flex-col justify-between">
                         <Heading
                             title="Last 30 Days"
                             description="Overview of activity trends over the last 30 days."
                         />
-                        <div className="h-[45vh] flex justify-center items-center my-5 mx-8">
+                        <div className="h-[25vh] flex justify-center items-center my-5 mx-8">
                             <LastTHDays
                                 chartData={dashboardData.userLastNDaysActivity}
                             />
@@ -231,8 +231,9 @@ export default function Dashboard(name: any) {
                     </div>
                 </div>
             )}
-            {!(dashboardData && poseInfo && recentActivities) && (
-                <div className="grid grid-cols-12 gap-8 m-2 overflow-y-hidden">
+
+            {(!dashboardData && poseInfo && recentActivities) && (
+                <div className="grid grid-cols-12 sm:gap-8 gap-5 sm:m-2 m-5 overflow-y-hidden">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
                         <span className="text-3xl mx-5 font-medium text-slate-800">

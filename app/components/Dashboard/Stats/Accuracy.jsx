@@ -161,8 +161,8 @@ export default function Accuracy({ performanceData }) {
 
     return (
         <>
-            <div className="flex flex-col w-full h-full m-1 mx-5 p-2">
-                <div className="flex flex-col xl:flex-row h-fit mx-3">
+            <div className="flex flex-col w-full h-full m-1 sm:mx-5 p-2">
+                <div className="flex flex-col xl:flex-row h-fit sm:mx-3">
                     <div className="flex h-10 gap-5 text-slate-100">
                         <button
                             onClick={() => setUserSelection('mixed')}

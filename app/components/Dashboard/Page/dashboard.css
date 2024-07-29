@@ -71,3 +71,33 @@
             0 100%;
     }
 }
+
+.sidebar-in-animation{
+    transform: translateX(0);
+    animation: animate-in-sidebar 300ms ease-in-out;
+}
+
+@keyframes animate-in-sidebar {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+    
+}
+
+.sidebar-out-animation{
+    transform: translateX(-100%);
+    animation: animate-out-sidebar 300ms ease-in-out;
+}
+
+@keyframes animate-out-sidebar {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+    
+}
