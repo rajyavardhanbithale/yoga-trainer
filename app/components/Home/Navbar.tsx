@@ -1,39 +1,26 @@
 'use client'
-import { createClientBrowser } from '@/utils/supabase/client'
+
 import { useEffect, useState } from 'react'
 import {
     IoAccessibilityOutline,
     IoCloseOutline,
+    IoLogInOutline,
     IoTrendingUpOutline,
 } from 'react-icons/io5'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import toast, { Toaster } from 'react-hot-toast'
 import Link from 'next/link'
 import Cookies from 'js-cookie'
-import { createUserForDatabase, postAuth } from '@/app/auth/callback/postAuth'
 import { PiBowlFoodLight } from 'react-icons/pi'
+import { createClientBrowser } from "@/utils/supabase/client"
+import { MdOutlineSpaceDashboard } from "react-icons/md"
+
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isAuth, setIsAuth] = useState<boolean>(false)
 
     const supabase = createClientBrowser()
-    const postAuthFunction = async () => {
-        const {
-            data: { user },
-            error,
-        } = await supabase.auth.getUser()
-
-        if (user) {
-            // adding new configuration to user-db
-            // using false wale because it check if the user created time is
-            // greater than Threshold time (in seconds)
-            // false if the user is created in the last 2 minutes
-            if (!(await postAuth(user?.created_at, 120))) {
-                createUserForDatabase(user)
-            }
-        }
-    }
 
     const toastAndSetCookie = (userPromise: Promise<any>, username: string) => {
         toast.promise(
@@ -68,14 +55,13 @@ export default function Navbar() {
         const readCookie = Cookies.get('init')
         readCookie === undefined
             ? toastAndSetCookie(
-                  userPromise,
-                  user.session?.user?.user_metadata?.name
-              )
+                userPromise,
+                user.session?.user?.user_metadata?.name
+            )
             : null
     }
 
     useEffect(() => {
-        postAuthFunction()
         valiDateUserCookie()
     }, [])
 
@@ -125,7 +111,7 @@ export default function Navbar() {
                     ))}
                 </div>
 
-                <div className="flex flex-row items-center gap-3 m-1 p-2 glass-card">
+                <div className="flex flex-row items-center  m-1 p-2 glass-card">
                     <Link href={isAuth ? '/dashboard' : '/login'}>
                         <button className="sm:block hidden text-xl  text-slate-100 py-2 px-4 rounded-xl shadow-lg shadow-blue-700 hover:scale-105 duration-200 transform">
                             {isAuth ? 'Dashboard' : 'Login'}
@@ -133,48 +119,46 @@ export default function Navbar() {
                     </Link>
 
                     <button
-                        onClick={() => setIsOpen(true)}
+                        onClick={() => setIsOpen(!isOpen)}
                         className="sm:hidden block text-xl text-slate-100 py-2 px-4 rounded-xl   hover:scale-105 duration-200 transform"
                     >
-                        <RxHamburgerMenu className="text-2xl shadow-lg shadow-blue-700" />
+                        <RxHamburgerMenu className="text-2xl " />
                     </button>
                 </div>
             </nav>
 
             {/* Hamburger */}
             {isOpen && (
-                <div className="z-50 glass-card absolute flex flex-col justify-between gap-20 h-screen w-full">
-                    <button className="absolute right-3 top-3">
-                        <IoCloseOutline className="text-slate-200 text-3xl" />
-                    </button>
-
-                    <div className="flex items-center justify-center m-1 glass-card p-2 mt-16 w-3/4 mx-auto">
-                        <img src="/home/logo.svg" alt="" className="w-14" />
-                        <span className="text-4xl text-slate-100 px-1 m-1 font-extrabold">
-                            RAGE AI
-                        </span>
-                    </div>
-
-                    <div className="flex flex-col gap-5 items-center mx-auto cursor-pointer">
+                <div className="fixed top-20 right-0 animate-in mt-6 rounded-2xl w-11/12 inset-x-0 mx-auto shadow-lg z-50 p-4 glass-card">
+                    <div className="flex flex-col items-center gap-5">
                         {options.map((option, idx) => (
-                            <div
-                                key={idx}
-                                className="text-4xl capitalize text-slate-100 bg-slate-950 bg-opacity-20 rounded-2xl w-full m-1 p-2 text-center"
-                            >
-                                {option.icon}
-                                <span className="inline-flex items-center">
-                                    {option.name}
-                                </span>
-                            </div>
+                            <Link key={idx} href={`/${option.name}`} onClick={() => setIsOpen(false)}>
+                                <div className="text-xl text-slate-50 flex  px-2 py-1 rounded-2xl items-center hover:brightness-75 duration-1000 cursor-pointer ">
+                                    {option.icon}
+                                    <span className="capitalize inline-flex items-center cursor-pointer">
+                                        {option.name}
+                                    </span>
+                                </div>
+                            </Link>
                         ))}
+                        <Link href={isAuth ? '/dashboard' : '/login'} onClick={() => setIsOpen(false)}>
+                            <button className="text-xl bg-slate-100 text-slate-900 py-2 px-4 rounded-xl hover:scale-105 duration-200 transform">
+                                {isAuth ? (
+                                    <span>
+                                        <MdOutlineSpaceDashboard className="inline-flex align-middle mr-2 mb-0.5" />
+                                        Dashboard
+                                    </span>
+                                ) : (
+                                    <span>
+                                        <IoLogInOutline className="inline-flex align-middle mr-2 mb-0.5" />
+                                        Login
+                                    </span>
+                                )}
+                            </button>
+                        </Link>
                     </div>
-
-                    <Link href={isAuth ? '/dashboard' : '/login'}>
-                        <button className=" glass-card text-3xl text-slate-100 m-2 py-2 mb-16">
-                            {isAuth ? 'Dashboard' : 'Login'}
-                        </button>
-                    </Link>
                 </div>
+
             )}
         </>
     )

@@ -48,7 +48,7 @@ export default function DietUserLike(props: {
         try {
             await dispatch(likeFoodPost({ id: props.mealId, method })).unwrap()
         } catch (error) {
-            setLocalLike(!newLikeStatus)
+            setLocalLike(false)
             setLocalMealLike(
                 method === 'like' ? localMealLike : localMealLike + 1
             )

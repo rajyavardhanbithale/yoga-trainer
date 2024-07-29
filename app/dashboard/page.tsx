@@ -68,10 +68,9 @@ export default function Page() {
     return (
         <>
             <div className="flex bg-slate-100">
-                <div>
-                    <Sidebar />
-                </div>
+                <Sidebar />
                 <div className="mt-16 sm:ml-24 sm:m-2 h-full w-full bg-slate-50 rounded-2xl">
+                  
                     {activeWindow === 'dashboard' && (
                         <Dashboard name={user?.user_metadata?.name}></Dashboard>
                     )}

@@ -14,6 +14,8 @@ import { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 
 import './dashboard.css'
+import { IoHomeOutline } from "react-icons/io5"
+import { useRouter } from "next/navigation"
 
 const raleway = Raleway({
     subsets: ['latin'],
@@ -23,8 +25,9 @@ const comfortaa = Comfortaa({ subsets: ['latin'] })
 
 export default function Sidebar() {
     const [sidebar, setSidebar] = useState(false)
-
+    const { push } = useRouter();
     const menuItem = [
+        { title: 'Home', icon: <IoHomeOutline /> },
         { title: 'Dashboard', icon: <LuLayoutDashboard /> },
         { title: 'Stats', icon: <ImStatsDots /> },
         { title: 'Badges', icon: <TbTrophy /> },
@@ -38,15 +41,25 @@ export default function Sidebar() {
     const dispatch = useDispatch<AppDispatch>()
 
     const handleSideBarToggle = (option: string | null) => {
+        console.log(option);
+        if (option === 'home') {
+            push('/')
+        }
         if (option) {
             dispatch(activeWindow(option.toLowerCase()))
         }
         setSidebar(!sidebar)
     }
 
+    const handleDispatch = (option: string) => {
+        if (option === 'home') {
+            push('/')
+        }
+        dispatch(activeWindow(option.toLowerCase()))
+    }
+
     return (
         <>
-
             {/* for device greater than equal to md */}
             <div className="fixed hidden sm:block">
                 <div className="h-[98vh] w-16 mx-3 mt-2 flex flex-col justify-between items-center bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 rounded-2xl">
@@ -60,9 +73,7 @@ export default function Sidebar() {
                         {menuItem.map((item, idx) => (
                             <div
                                 onClick={() =>
-                                    dispatch(
-                                        activeWindow(item.title.toLowerCase())
-                                    )
+                                    handleDispatch(item.title.toLowerCase())
                                 }
                                 key={idx}
                                 className={`tooltip tooltip-right  hover:bg-opacity-50 hover:bg-blue-600 px-2.5 
@@ -87,24 +98,22 @@ export default function Sidebar() {
                         ${activeWindows === 'profile'.toLowerCase() ? 'bg-blue-100 text-slate-800' : 'bg-transparent text-slate-50'} 
                                 `}
                         data-tip={'Profile'}
-                        
                     >
                         <span className="text-2xl font-bold">
                             <RiUser6Line />
                         </span>
                     </div>
-                </div >
-            </div >
+                </div>
+            </div>
 
             {/* for device less than md */}
             {/* hamburger  */}
             <div className="z-[100] fixed sm:hidden block">
                 <div
                     onClick={() => handleSideBarToggle(null)}
-                    className="h-14 w-[90vw] mx-4 my-3 bg-gradient-to-r from-blue-950 to-blue-800 rounded-2xl flex justify-between items-center px-3">
-                    <div
-                        className="flex flex-col hover:bg-opacity-50 hover:bg-blue-900 px-1 py-1 rounded-xl duration-500 cursor-pointer"
-                    >
+                    className="h-14 w-[90vw] mx-4 my-3 bg-gradient-to-r from-blue-950 to-blue-800 rounded-2xl flex justify-between items-center px-3"
+                >
+                    <div className="flex flex-col hover:bg-opacity-50 hover:bg-blue-900 px-1 py-1 rounded-xl duration-500 cursor-pointer">
                         <span className="text-3xl text-slate-50 font-bold">
                             <LuAlignLeft />
                         </span>
@@ -119,66 +128,63 @@ export default function Sidebar() {
             </div>
 
             {/* sidebar menu for device less than md  */}
-            {
-                sidebar && (
-                    <div
-                        className={`z-[110] fixed h-full ${sidebar ? 'sidebar-in-animation' : 'sidebar-out-animation'}`}
-                    >
-                        <div className="h-full w-52 flex flex-col justify-between items-center bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 rounded-r-3xl">
-                            <div className="flex flex-col justify-center items-center mt-10">
-                                <img
-                                    src="/home/logo.svg"
-                                    alt="Logo"
-                                    className="w-14 brightness-200 hover:brightness-[5] duration-500"
-                                />
-                                <span
-                                    className={`${comfortaa.className} text-3xl font-extrabold text-slate-50`}
-                                >
-                                    RAGE AI
-                                </span>
-                            </div>
-                            <div className="flex flex-col justify-start items-start gap-5">
-                                {menuItem.map((item, idx) => (
-                                    <div
-                                        onClick={() =>
-                                            handleSideBarToggle(item.title)
-                                        }
-                                        key={idx}
-                                        className="flex hover:bg-opacity-50 hover:bg-blue-600 px-2.5 py-2.5 rounded-xl duration-500 cursor-pointer gap-5"
-                                    >
-                                        <span className="text-2xl text-slate-50 font-bold ">
-                                            {item.icon}
-                                        </span>
-                                        <span className="text-xl text-slate-50 font-bold ">
-                                            {item.title}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div
-                                onClick={() => handleSideBarToggle('profile')}
-                                className="flex flex-row gap-5 justify-start items-center bg-opacity-50 w-full mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-4 py-2.5 rounded-xl duration-500 cursor-pointer"
+            {sidebar && (
+                <div
+                    className={`z-[110] fixed h-full ${sidebar ? 'sidebar-in-animation' : 'sidebar-out-animation'}`}
+                >
+                    <div className="h-full w-52 flex flex-col justify-between items-center bg-gradient-to-b from-gray-800 via-blue-800 to-blue-900 rounded-r-3xl">
+                        <div className="flex flex-col justify-center items-center mt-10">
+                            <img
+                                src="/home/logo.svg"
+                                alt="Logo"
+                                className="w-14 brightness-200 hover:brightness-[5] duration-500"
+                            />
+                            <span
+                                className={`${comfortaa.className} text-3xl font-extrabold text-slate-50`}
                             >
-                                <span className="text-2xl text-slate-50 font-bold">
-                                    <RiUser6Line />
-                                </span>
-                                <span className="text-xl text-slate-50 font-bold">
-                                    Profile
-                                </span>
-                            </div>
+                                RAGE AI
+                            </span>
+                        </div>
+                        <div className="flex flex-col justify-start items-start gap-5">
+                            {menuItem.map((item, idx) => (
+                                <div
+                                    onClick={() =>
+                                        handleSideBarToggle(item.title)
+                                    }
+                                    key={idx}
+                                    className="flex hover:bg-opacity-50 hover:bg-blue-600 px-2.5 py-2.5 rounded-xl duration-500 cursor-pointer gap-5"
+                                >
+                                    <span className="text-2xl text-slate-50 font-bold ">
+                                        {item.icon}
+                                    </span>
+                                    <span className="text-xl text-slate-50 font-bold ">
+                                        {item.title}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div
+                            onClick={() => handleSideBarToggle('profile')}
+                            className="flex flex-row gap-5 justify-start items-center bg-opacity-50 w-full mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-4 py-2.5 rounded-xl duration-500 cursor-pointer"
+                        >
+                            <span className="text-2xl text-slate-50 font-bold">
+                                <RiUser6Line />
+                            </span>
+                            <span className="text-xl text-slate-50 font-bold">
+                                Profile
+                            </span>
                         </div>
                     </div>
-                )
-            }
+                </div>
+            )}
 
-            {
-                sidebar && (
-                    <div
-                        onClick={() => handleSideBarToggle(null)}
-                        className="absolute h-screen w-screen bg-transparent"></div>
-                )
-            }
+            {sidebar && (
+                <div
+                    onClick={() => handleSideBarToggle(null)}
+                    className="absolute h-screen w-screen bg-transparent"
+                ></div>
+            )}
         </>
     )
 }

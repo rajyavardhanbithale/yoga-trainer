@@ -53,6 +53,7 @@ export default async function Profile({ params }: any) {
 
     return (
         <>
+            
             {data?.profile_type === 'public' && (
                 <div className="h-screen flex justify-center items-center bg-gray-50">
                     <div className="grid bg-white w-11/12 sm:w-3/4 xl:w-1/2 grid-cols-1 md:grid-cols-6 p-6 rounded-2xl shadow-xl">

@@ -6,11 +6,9 @@
 
 .header-mesh {
     background-color: rgb(30, 58, 138);
-    background-image: radial-gradient(
-            at 20% 80%,
+    background-image: radial-gradient(at 20% 80%,
             rgb(30, 58, 138) 0,
-            transparent 40%
-        ),
+            transparent 40%),
         radial-gradient(at 80% 80%, rgb(30, 58, 138) 0, transparent 41%),
         radial-gradient(at 20% 20%, rgb(30, 58, 138) 0, transparent 27%),
         radial-gradient(at 80% 20%, rgb(30, 64, 175) 0, transparent 40%),
@@ -48,8 +46,20 @@ body {
         opacity: 1;
         transform: translateX(0);
     }
+
     100% {
         opacity: 0;
         transform: translateX(-4rem);
     }
+}
+
+
+.glass-nav {
+    background: rgba(189, 189, 189, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+    backdrop-filter: blur(12.5px);
+    -webkit-backdrop-filter: blur(12.5px);
+    border-radius: 50px;
+    width: 95%;
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }

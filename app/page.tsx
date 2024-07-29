@@ -1,6 +1,7 @@
 import Navbar from './components/Home/Navbar'
 import Header from './components/Home/Header'
 import BackgroundSVG from './components/Home/Background'
+import SupabasePostAuthHelper from "./components/Home/SupabasePostAuthHelper"
 
 export default function Home() {
     return (
@@ -8,6 +9,7 @@ export default function Home() {
             <BackgroundSVG />
             <Navbar />
             <Header />
+            <SupabasePostAuthHelper />
         </main>
     )
 }

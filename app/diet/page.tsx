@@ -4,6 +4,7 @@ import DietSearchNoResult from '@/app/components/Diet/DietSearchNoResult'
 import DietCard from '@/app/components/Diet/DietCard'
 import DietTags from '@/app/components/Diet/DietTags'
 import { createClient } from '@/utils/supabase/server'
+import NavbarDummy from "../components/Home/NavbarDummy"
 
 export default async function Meals({
     searchParams,
@@ -65,6 +66,7 @@ export default async function Meals({
 
     return (
         <>
+            <NavbarDummy></NavbarDummy>
             <div className="min-h-screen bg-gray-50 w-full p-8">
                 <h1 className="text-5xl mt-12 font-extrabold mb-8 text-center text-blue-950">
                     Healthy Diet Essentials
