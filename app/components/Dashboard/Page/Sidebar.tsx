@@ -14,8 +14,8 @@ import { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 
 import './dashboard.css'
-import { IoHomeOutline } from "react-icons/io5"
-import { useRouter } from "next/navigation"
+import { IoHomeOutline } from 'react-icons/io5'
+import { useRouter } from 'next/navigation'
 
 const raleway = Raleway({
     subsets: ['latin'],
@@ -25,7 +25,7 @@ const comfortaa = Comfortaa({ subsets: ['latin'] })
 
 export default function Sidebar() {
     const [sidebar, setSidebar] = useState(false)
-    const { push } = useRouter();
+    const { push } = useRouter()
     const menuItem = [
         { title: 'Home', icon: <IoHomeOutline /> },
         { title: 'Dashboard', icon: <LuLayoutDashboard /> },
@@ -41,7 +41,7 @@ export default function Sidebar() {
     const dispatch = useDispatch<AppDispatch>()
 
     const handleSideBarToggle = (option: string | null) => {
-        console.log(option);
+        console.log(option)
         if (option === 'home') {
             push('/')
         }

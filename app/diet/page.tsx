@@ -4,7 +4,7 @@ import DietSearchNoResult from '@/app/components/Diet/DietSearchNoResult'
 import DietCard from '@/app/components/Diet/DietCard'
 import DietTags from '@/app/components/Diet/DietTags'
 import { createClient } from '@/utils/supabase/server'
-import NavbarDummy from "../components/Home/NavbarDummy"
+import NavbarDummy from '../components/Home/NavbarDummy'
 
 export default async function Meals({
     searchParams,

@@ -12,7 +12,7 @@ export default function AuthImageSlideShow() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
-        }, duration * 1000)
+        }, duration * 1500)
 
         return () => clearInterval(interval)
     }, [])

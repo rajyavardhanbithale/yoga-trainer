@@ -1,7 +1,7 @@
 'use client'
 import { createClientBrowser } from '@/utils/supabase/client'
 import { createUserForDatabase, postAuth } from '@/app/auth/callback/postAuth'
-import { useEffect } from "react"
+import { useEffect } from 'react'
 export default function SupabasePostAuthHelper() {
     const supabase = createClientBrowser()
     const postAuthFunction = async () => {
@@ -24,8 +24,5 @@ export default function SupabasePostAuthHelper() {
         postAuthFunction()
     }, [])
 
-    return (
-        <>
-        </>
-    )
+    return <></>
 }
