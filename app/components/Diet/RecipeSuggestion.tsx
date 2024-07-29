@@ -36,7 +36,7 @@ export default function RecipeSuggestion() {
                         {showCase.map((rec, idx) => (
                             <CarouselItem
                                 key={idx}
-                                className="sm:basis-1/2 xl:basis-1/5 hover:scale-[1.01] duration-500 rounded-2xl cursor-pointer"
+                                className="sm:basis-1/2 xl:basis-1/3 hover:scale-[1.01] duration-500 rounded-2xl cursor-pointer"
                             >
                                 <div
                                     key={idx}

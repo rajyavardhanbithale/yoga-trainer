@@ -20,7 +20,6 @@ export default function Page() {
             <Toaster position="top-center" reverseOrder={false} />
             <div className="min-h-screen flex justify-center items-center overflow-hidden bg-white">
                 <div className="relative z-10 sm:grid flex flex-col-reverse sm:grid-cols-2  md:grid-rows-1 md:auto-rows-auto md:rounded-xl">
-                    
                     <div className="flex flex-col justify-evenly bg-slate-100 py-6 sm:py-5 sm:px-10 sm:rounded-l-2xl sm:rounded-r-none rounded-b-2xl shadow-xl">
                         <div className="flex flex-col gap-5 mx-10 sm:mx-0 sm:m-10 items-center">
                             <img src="/home/logo.svg" alt="" className="w-14" />

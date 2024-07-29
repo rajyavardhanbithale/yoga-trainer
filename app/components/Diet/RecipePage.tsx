@@ -9,7 +9,7 @@ export default function RecipePage(props: { recipe: MealData }) {
     const recipe = props.recipe
 
     return (
-        <div className="flex ">
+        <div className="flex bg-white">
             <div className="w-full lg:w-2/3 p-6 lg:p-12 flex flex-col gap-5 bg-white">
                 <h1 className="text-4xl font-bold mb-4">{recipe.name}</h1>
 
@@ -113,7 +113,7 @@ export default function RecipePage(props: { recipe: MealData }) {
                     <RecipeSuggestion></RecipeSuggestion>
                 </div>
             </div>
-            <div className="relative hidden lg:block lg:w-1/3 bg-white">
+            <div className="relative my-auto hidden h-screen lg:block lg:w-1/3 bg-white">
                 <Image
                     height={0}
                     width={0}
@@ -121,10 +121,10 @@ export default function RecipePage(props: { recipe: MealData }) {
                     loading="eager"
                     src={`/meals/${recipe.image}`}
                     alt={recipe.name}
-                    className="w-full h-screen object-cover rounded-lg shadow-lg"
+                    className="w-full h-full object-cover rounded-lg shadow-lg"
                 />
 
-                <div className="fixed top-5 right-5 flex flex-col gap-3 text-4xl glass-card p-2">
+                <div className="fixed mt-32 top-5 right-5 flex flex-col gap-3 text-4xl glass-card p-2">
                     <RecipePageSocials mealID={recipe.id}></RecipePageSocials>
                 </div>
 
@@ -134,7 +134,7 @@ export default function RecipePage(props: { recipe: MealData }) {
             </div>
 
             <div className="sm:hidden relative">
-                <div className="absolute top-5 right-2 flex flex-col gap-3 text-4xl glass-card p-2">
+                <div className="absolute top-10 right-2 flex flex-col gap-3 text-4xl glass-card p-2">
                     <RecipePageSocials mealID={recipe.id}></RecipePageSocials>
                 </div>
             </div>

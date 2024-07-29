@@ -21,7 +21,7 @@ export default function DietDialog(props: { meal: MealData }) {
                     Explore
                     <RiCompassLine className="text-xl inline-flex mx-2 mb-0.5" />
                 </DialogTrigger>
-                <DialogContent className="max-w-[90vw] sm:max-w-[60vw] sm:min-h-[80vh] p-5 rounded-2xl shadow-xl overflow-hidden">
+                <DialogContent className="z-[120] max-w-[90vw] sm:max-w-[60vw] sm:min-h-[80vh] p-5 rounded-2xl shadow-xl overflow-hidden">
                     <DialogHeader>
                         <DialogTitle className="text-2xl font-bold text-gray-900">
                             {meal?.name}

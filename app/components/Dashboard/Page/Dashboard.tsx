@@ -233,7 +233,7 @@ export default function Dashboard(name: any) {
             )}
 
             {!dashboardData && poseInfo && recentActivities && (
-                <div className="grid grid-cols-12 sm:gap-8 gap-5 sm:m-2 m-5 overflow-y-hidden">
+                <div className="z-50 grid grid-cols-12 sm:gap-8 gap-5 sm:m-2 m-5 overflow-y-hidden">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
                         <span className="text-3xl mx-5 font-medium text-slate-800">
