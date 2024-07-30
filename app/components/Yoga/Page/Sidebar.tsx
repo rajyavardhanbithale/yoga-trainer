@@ -1,24 +1,23 @@
 // 'use client'
 
-import { poseInfo } from "@/app/api/pose/poseApiData"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import Link from "next/link";
-import { IoAccessibilityOutline, IoHomeOutline } from "react-icons/io5";
-import { LuLayoutDashboard } from "react-icons/lu";
+import { poseInfo } from '@/app/api/pose/poseApiData'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import Link from 'next/link'
+import { IoAccessibilityOutline, IoHomeOutline } from 'react-icons/io5'
+import { LuLayoutDashboard } from 'react-icons/lu'
 
 interface sidebarShowCase {
-    id: number,
-    title: string,
-    image: string,
+    id: number
+    title: string
+    image: string
 }
 
 export default function YogaSidebar() {
-
-    const pose: sidebarShowCase[] = poseInfo.map(pose => ({
+    const pose: sidebarShowCase[] = poseInfo.map((pose) => ({
         id: pose.id,
         title: pose.name,
-        image: pose.image
-    }));
+        image: pose.image,
+    }))
 
     const options = [
         { title: 'Pose', icon: <IoAccessibilityOutline /> },
@@ -32,13 +31,8 @@ export default function YogaSidebar() {
                 <ScrollArea className="h-[99vh] w-full rounded-md border p-2">
                     <div className="flex flex-col gap-5 p-2">
                         {pose.map((pose, idx) => (
-                            <Link
-                                key={idx}
-                                href={`/practice?id=${pose.id}`}
-                            >
-                                <div
-                                    className="bg-slate-50 flex flex-col gap-3 justify-center items-center rounded-2xl border-4 hover:border-slate-400 duration-700 cursor-pointer">
-
+                            <Link key={idx} href={`/practice?id=${pose.id}`}>
+                                <div className="bg-slate-50 flex flex-col gap-3 justify-center items-center rounded-2xl border-4 hover:border-slate-400 duration-700 cursor-pointer">
                                     <div className="w-full overflow-hidden">
                                         <img
                                             src={`/pose/image/webp/${pose.image}`}

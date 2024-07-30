@@ -1,38 +1,46 @@
 'use client'
 
-import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, Title, ArcElement, Legend, Tooltip } from 'chart.js';
-import { LuClock8, LuTarget } from "react-icons/lu";
-import { IoIosCheckmarkCircleOutline, IoMdCloseCircleOutline, IoMdShareAlt } from "react-icons/io";
-import { SiRemark } from "react-icons/si";
-import { useSelector } from "react-redux";
+import { Doughnut } from 'react-chartjs-2'
+import { Chart as ChartJS, Title, ArcElement, Legend, Tooltip } from 'chart.js'
+import { LuClock8, LuTarget } from 'react-icons/lu'
+import {
+    IoIosCheckmarkCircleOutline,
+    IoMdCloseCircleOutline,
+    IoMdShareAlt,
+} from 'react-icons/io'
+import { SiRemark } from 'react-icons/si'
+import { useSelector } from 'react-redux'
 
-
-ChartJS.register(Title, ArcElement, Legend, Tooltip);
+ChartJS.register(Title, ArcElement, Legend, Tooltip)
 
 export default function AnalysisDoughnutChart() {
-    const analysis = useSelector((state: any) => state.practiceSlice.analysis);
+    const analysis = useSelector((state: any) => state.practiceSlice.analysis)
 
-    const epochToSecond = (startTime: number, endTime: number): (number | null) => {
+    const epochToSecond = (
+        startTime: number,
+        endTime: number
+    ): number | null => {
         if (!startTime || !endTime) {
-            return 0;
+            return 0
         }
         return parseInt(((endTime - startTime) / 1000).toFixed(1))
     }
 
-
-    function handleData(array: number[]): { zeros: number, ones: number } {
-        return array.reduce((counts, currentValue) => {
-            if (currentValue === 0) {
-                counts.zeros++;
-            } else if (currentValue === 1) {
-                counts.ones++;
-            }
-            return counts;
-        }, { zeros: 0, ones: 0 });
+    function handleData(array: number[]): { zeros: number; ones: number } {
+        return array.reduce(
+            (counts, currentValue) => {
+                if (currentValue === 0) {
+                    counts.zeros++
+                } else if (currentValue === 1) {
+                    counts.ones++
+                }
+                return counts
+            },
+            { zeros: 0, ones: 0 }
+        )
     }
 
-    const counts = handleData(analysis.correctPose);
+    const counts = handleData(analysis.correctPose)
 
     const data = {
         labels: ['Correct', 'Incorrect'],
@@ -44,40 +52,44 @@ export default function AnalysisDoughnutChart() {
                 hoverOffset: 4,
             },
         ],
-    };
+    }
 
-    const accuracy: number = analysis && parseInt((((counts.ones - counts.zeros) / counts.ones) * 100).toFixed(1))
+    const accuracy: number =
+        analysis &&
+        parseInt(
+            (((counts.ones - counts.zeros) / counts.ones) * 100).toFixed(1)
+        )
 
     const grading: { [key: number]: string } = {
-        100: "Excellent",
-        90: "Excellent",
-        80: "Very Good",
-        70: "Good",
-        60: "Fair",
-        50: "Needs Improvement",
-        40: "Poor",
-        30: "Very Poor",
-        20: "Very Poor",
-        10: "Unacceptable",
-        0: "Unacceptable"
+        100: 'Excellent',
+        90: 'Excellent',
+        80: 'Very Good',
+        70: 'Good',
+        60: 'Fair',
+        50: 'Needs Improvement',
+        40: 'Poor',
+        30: 'Very Poor',
+        20: 'Very Poor',
+        10: 'Unacceptable',
+        0: 'Unacceptable',
     }
 
     function getGrade(accuracy: number): string {
-        const keys = Object.keys(grading).map(key => parseInt(key)).sort((a, b) => b - a);
+        const keys = Object.keys(grading)
+            .map((key) => parseInt(key))
+            .sort((a, b) => b - a)
         for (const key of keys) {
             if (accuracy >= key) {
-                return grading[key];
+                return grading[key]
             }
         }
-        return "Unacceptable";
+        return 'Unacceptable'
     }
-
 
     const options = {
         maintainAspectRatio: true,
         responsive: true,
-    };
-
+    }
 
     return (
         <>
@@ -97,11 +109,16 @@ export default function AnalysisDoughnutChart() {
                         <div className="flex items-center bg-blue-100 p-4 w-full max-w-md gap-3 rounded-xl shadow-md  hover:scale-[1.01]  duration-700">
                             <LuClock8 className="text-blue-800 text-2xl font-semibold" />
                             <span className="text-xl font-medium">
-                                Duration: {epochToSecond(analysis?.startTime, analysis?.endTime)} s
+                                Duration:{' '}
+                                {epochToSecond(
+                                    analysis?.startTime,
+                                    analysis?.endTime
+                                )}{' '}
+                                s
                             </span>
                         </div>
 
-                        <div className="flex items-center bg-blue-100 p-4 w-full max-w-md gap-3 rounded-xl shadow-md hover:scale-[1.01]  duration-700" >
+                        <div className="flex items-center bg-blue-100 p-4 w-full max-w-md gap-3 rounded-xl shadow-md hover:scale-[1.01]  duration-700">
                             <LuTarget className="text-blue-800 text-2xl font-semibold" />
                             <span className="text-xl font-medium">
                                 Accuracy: {accuracy >= 0 ? accuracy : 0} %
@@ -141,4 +158,3 @@ export default function AnalysisDoughnutChart() {
         </>
     )
 }
-

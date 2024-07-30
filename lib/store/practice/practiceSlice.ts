@@ -1,23 +1,23 @@
-import { YogaPoseDetailed, YogaPosePerformanceData } from "@/types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { YogaPoseDetailed, YogaPosePerformanceData } from '@/types'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface TutorialSource {
-    source?: string | null;
-    provider: 'video' | 'animated' | null;
+    source?: string | null
+    provider: 'video' | 'animated' | null
 }
 
 type STATE = {
-    poseData: YogaPoseDetailed | null;
-    tutorialSource: TutorialSource | null;
-    currentTab: 'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio';
-    audioState: 'benefits' | null;
-    analysis: YogaPosePerformanceData;
-};
+    poseData: YogaPoseDetailed | null
+    tutorialSource: TutorialSource | null
+    currentTab: 'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio'
+    audioState: 'benefits' | null
+    analysis: YogaPosePerformanceData
+}
 
 const initialState: STATE = {
     tutorialSource: null,
     poseData: null,
-    currentTab: 'analysis',
+    currentTab: 'audio',
     audioState: null,
     analysis: {
         accuracy: [0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
@@ -26,37 +26,47 @@ const initialState: STATE = {
         correctPose: [0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
         poseID: 101,
         poseName: 'Tree Pose',
-        repTime: 5
-    }
-};
+        repTime: 5,
+    },
+}
 
 export const practiceSlice = createSlice({
     name: 'practiceSlice',
     initialState,
     reducers: {
         setTutorial: (state, action: PayloadAction<TutorialSource | null>) => {
-            state.tutorialSource = action.payload;
+            state.tutorialSource = action.payload
             if (state.tutorialSource && action.payload?.provider === 'video') {
-                state.tutorialSource.source = state.poseData?.videoData?.tutorialIFRAME;
+                state.tutorialSource.source =
+                    state.poseData?.videoData?.tutorialIFRAME
             }
-            if (state.tutorialSource && action.payload?.provider === 'animated') {
-                state.tutorialSource.source = state.poseData?.tutorial;
+            if (
+                state.tutorialSource &&
+                action.payload?.provider === 'animated'
+            ) {
+                state.tutorialSource.source = state.poseData?.tutorial
             }
         },
         setPoseData: (state, action: PayloadAction<YogaPoseDetailed>) => {
-            state.poseData = action.payload;
+            state.poseData = action.payload
             if (action.payload.tutorial) {
-                state.tutorialSource = { source: action.payload.tutorial, provider: 'animated' };
+                state.tutorialSource = {
+                    source: action.payload.tutorial,
+                    provider: 'animated',
+                }
             }
         },
-        changeTab: (state, action: PayloadAction<'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio'>) => {
-            state.currentTab = action.payload;
+        changeTab: (
+            state,
+            action: PayloadAction<
+                'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio'
+            >
+        ) => {
+            state.currentTab = action.payload
         },
-        setAudioState: (state, action: PayloadAction<'benefits' | null>) => {
-            state.audioState = action.payload;
-        },
-    }
-});
+    },
+})
 
-export const { setTutorial, setPoseData, changeTab, setAudioState } = practiceSlice.actions;
-export default practiceSlice.reducer;
+export const { setTutorial, setPoseData, changeTab } =
+    practiceSlice.actions
+export default practiceSlice.reducer

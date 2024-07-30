@@ -18,8 +18,8 @@
         radial-gradient(at 36.1% 37.33%, rgb(29, 78, 216) 0, transparent 63%);
 }
 
-*{
-    /* outline: red solid 1px; */
+* {
+    outline: red solid 1px;
 }
 
 body {

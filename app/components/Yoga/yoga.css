@@ -5,7 +5,7 @@
 }
 
 *::-webkit-scrollbar {
-    width: var(--sb-size)
+    width: var(--sb-size);
 }
 
 *::-webkit-scrollbar-track {
@@ -16,7 +16,6 @@
 *::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
     border-radius: 30px;
-
 }
 
 @supports not selector(::-webkit-scrollbar) {

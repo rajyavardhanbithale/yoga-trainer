@@ -1,43 +1,64 @@
 'use client'
-import Chart from 'chart.js/auto';
-import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend } from 'chart.js';
-import { Line } from "react-chartjs-2";
-import { YogaPosePerformanceData } from "@/types";
-import { useSelector } from "react-redux";
+import Chart from 'chart.js/auto'
+import {
+    Chart as ChartJS,
+    LineElement,
+    PointElement,
+    LinearScale,
+    Title,
+    CategoryScale,
+    Tooltip,
+    Legend,
+} from 'chart.js'
+import { Line } from 'react-chartjs-2'
+import { YogaPosePerformanceData } from '@/types'
+import { useSelector } from 'react-redux'
 
-ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
+ChartJS.register(
+    LineElement,
+    PointElement,
+    LinearScale,
+    Title,
+    CategoryScale,
+    Tooltip,
+    Legend
+)
 
 export default function LineChart() {
-
     const analysis = useSelector((state: any) => state.practiceSlice.analysis)
 
-
-    const epochToSecond = (startTime: number, endTime: number): (number | null) => {
+    const epochToSecond = (
+        startTime: number,
+        endTime: number
+    ): number | null => {
         if (!startTime || !endTime) {
-            return 0;
+            return 0
         }
-        return (endTime - startTime) / 1000;;
+        return (endTime - startTime) / 1000
     }
 
-
     const handleData = () => {
-        console.log();
+        console.log()
         const accuracyLength: number = analysis?.accuracy?.length
-        const timeData: (number | null) = epochToSecond(analysis?.startTime, analysis?.endTime)
+        const timeData: number | null = epochToSecond(
+            analysis?.startTime,
+            analysis?.endTime
+        )
 
         if (timeData !== null && accuracyLength) {
             const timePerRep: number = timeData / accuracyLength
-            const resultData: Array<string> = Array.from({ length: accuracyLength }, (_, i) => `${Math.floor(timePerRep * (i + 1))} s`);
-            const span: string = resultData[resultData.length - 1];
+            const resultData: Array<string> = Array.from(
+                { length: accuracyLength },
+                (_, i) => `${Math.floor(timePerRep * (i + 1))} s`
+            )
+            const span: string = resultData[resultData.length - 1]
 
-            return { resultData, span };
-
+            return { resultData, span }
         }
-        return { resultData: ['0', '0'], lastElement: 'error' };
-
+        return { resultData: ['0', '0'], lastElement: 'error' }
     }
 
-    const { resultData, span } = handleData();
+    const { resultData, span } = handleData()
 
     const data = {
         labels: resultData,
@@ -46,10 +67,10 @@ export default function LineChart() {
                 label: 'Accuracy ' + span,
                 borderColor: '#4158a8',
                 data: analysis && analysis?.accuracy,
-                tension: 0.2
+                tension: 0.2,
             },
         ],
-    };
+    }
 
     const options = {
         maintainAspectRatio: false,
@@ -58,10 +79,7 @@ export default function LineChart() {
                 beginAtZero: true,
             },
         },
-    };
-
-
-
+    }
 
     return (
         <>
