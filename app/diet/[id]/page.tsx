@@ -54,7 +54,6 @@ export default async function Recipe({ params }: any) {
         <>
             {diet && (
                 <div className="h-screen mt-32">
-                    
                     <RecipePage recipe={diet} />
                 </div>
             )}

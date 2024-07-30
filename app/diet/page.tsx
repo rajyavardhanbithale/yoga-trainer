@@ -27,7 +27,7 @@ export default async function Meals({
             .filter((item) =>
                 search
                     ? item.name.toLowerCase().includes(search.toLowerCase()) ||
-                    item.tags.includes(search.toLowerCase())
+                      item.tags.includes(search.toLowerCase())
                     : true
             )
     }
@@ -66,7 +66,6 @@ export default async function Meals({
 
     return (
         <>
-           
             <div className="min-h-screen bg-gray-50 w-full p-8">
                 <h1 className="text-5xl mt-12 font-extrabold mb-8 text-center text-blue-950">
                     Healthy Diet Essentials

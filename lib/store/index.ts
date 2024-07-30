@@ -3,6 +3,7 @@ import dashboardSlice from './dashboard/dashboardSlice'
 import userProfileSlice from './dashboard/userProfileSlice'
 import profileSlice from './user/profileSlice'
 import dietSlice from './dashboard/dietSlice'
+import practiceSlice  from "./practice/practiceSlice"
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
         userProfile: userProfileSlice,
         profileSlice: profileSlice,
         dietSlice: dietSlice,
+        practiceSlice: practiceSlice,
     },
 })
 
