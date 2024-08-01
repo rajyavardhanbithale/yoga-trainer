@@ -59,11 +59,7 @@ export const practiceSlice = createSlice({
         changeTab: (
             state,
             action: PayloadAction<
-                | 'benefits'
-                | 'tutorial'
-                | 'accuracy'
-                | 'analysis'
-                | 'audio'
+                'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio'
             >
         ) => {
             state.currentTab = action.payload

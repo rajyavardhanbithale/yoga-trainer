@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPoseData } from '@/lib/store/practice/practiceSlice'
 import TutorialControl from '../Utils/TutorialControl'
 import { setAudioData } from '@/lib/store/practice/audioSlice'
-import dynamic from "next/dynamic"
-import Loading from "../../Dashboard/Loading"
+import dynamic from 'next/dynamic'
+import Loading from '../../Dashboard/Loading'
 
 const UserSectionExtras = dynamic(
     () => import('@/app/components/Yoga/TabSections/Section'),

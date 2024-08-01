@@ -48,7 +48,16 @@ export default function TabSwitcher() {
                     <div
                         key={idx}
                         onClick={() =>
-                            dispatch(changeTab(opt.class.toLowerCase() as 'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio'))
+                            dispatch(
+                                changeTab(
+                                    opt.class.toLowerCase() as
+                                        | 'benefits'
+                                        | 'tutorial'
+                                        | 'accuracy'
+                                        | 'analysis'
+                                        | 'audio'
+                                )
+                            )
                         }
                         className={`flex px-3 py-0.5 items-center justify-start gap-2 rounded-xl 
                              duration-700 hover:rounded-3xl cursor-pointer

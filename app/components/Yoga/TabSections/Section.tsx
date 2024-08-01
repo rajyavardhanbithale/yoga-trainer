@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux'
 
 import TabSwitcher from './TabSwitcher'
 import AudioManager from './AudioControls/AudioManager'
-import dynamic from "next/dynamic"
-import Loading from "../../Dashboard/Loading"
+import dynamic from 'next/dynamic'
+import Loading from '../../Dashboard/Loading'
 
 const Benefits = dynamic(
     () => import('@/app/components/Yoga/TabSections/Benefits'),
@@ -24,7 +24,10 @@ const Tutorial = dynamic(
 )
 
 const AnalysisDoughnutChart = dynamic(
-    () => import('@/app/components/Yoga/TabSections/Analysis/AnalysisDoughnutChart'),
+    () =>
+        import(
+            '@/app/components/Yoga/TabSections/Analysis/AnalysisDoughnutChart'
+        ),
     {
         ssr: false,
         loading: () => <Loading />,
@@ -32,7 +35,8 @@ const AnalysisDoughnutChart = dynamic(
 )
 
 const AudioControl = dynamic(
-    () => import('@/app/components/Yoga/TabSections/AudioControls/AudioControl'),
+    () =>
+        import('@/app/components/Yoga/TabSections/AudioControls/AudioControl'),
     {
         ssr: false,
         loading: () => <Loading />,
@@ -40,13 +44,13 @@ const AudioControl = dynamic(
 )
 
 const LineChart = dynamic(
-    () => import('@/app/components/Yoga/TabSections/Accuracy/AccuracyLineChart'),
+    () =>
+        import('@/app/components/Yoga/TabSections/Accuracy/AccuracyLineChart'),
     {
         ssr: false,
         loading: () => <Loading />,
     }
 )
-
 
 export default function UserSectionExtras() {
     const activeTab = useSelector(
