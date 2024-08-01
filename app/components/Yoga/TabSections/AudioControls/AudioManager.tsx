@@ -1,8 +1,8 @@
 'use client'
 
-import { RootState } from "@/lib/store"
-import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { RootState } from '@/lib/store'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const playbackSpeedMap: { [key: string]: number } = {
     slower: 0.5,
@@ -12,23 +12,32 @@ const playbackSpeedMap: { [key: string]: number } = {
     fastest: 1.5,
 }
 const ambientMusicMap: { [key: string]: string } = {
-    'ambient': 'ambient.mp3',
+    ambient: 'ambient.mp3',
     'forest 1': 'forest-1.mp3',
     'forest river 1': 'forest-river.mp3',
-    'forest river 2': 'forest-with-river.mp3'
+    'forest river 2': 'forest-with-river.mp3',
 }
-
 
 export default function AudioManager() {
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
     const [audioIndex, setAudioIndex] = useState<number>(0)
 
-    const audioData = useSelector((state: RootState) => state.audioSlice.audioData)
-    const audioState = useSelector((state: RootState) => state.audioSlice.audioState)
-    const audioSpeed = useSelector((state: RootState) => state.audioSlice.audioSpeed)
+    const audioData = useSelector(
+        (state: RootState) => state.audioSlice.audioData
+    )
+    const audioState = useSelector(
+        (state: RootState) => state.audioSlice.audioState
+    )
+    const audioSpeed = useSelector(
+        (state: RootState) => state.audioSlice.audioSpeed
+    )
     const volume = useSelector((state: RootState) => state.audioSlice.volume)
-    const ambientMusic = useSelector((state: RootState) => state.audioSlice.ambientMusic)
-    const ambientMusicName = useSelector((state: RootState) => state.audioSlice.ambientMusicName)
+    const ambientMusic = useSelector(
+        (state: RootState) => state.audioSlice.ambientMusic
+    )
+    const ambientMusicName = useSelector(
+        (state: RootState) => state.audioSlice.ambientMusicName
+    )
 
     const audioFiles = `/pose/audio/${audioData?.audioName}`
     const userAudioFiles = `/pose/audio/user`
@@ -36,7 +45,7 @@ export default function AudioManager() {
     const playAudio = (newAudioURL: string) => {
         if (audio) {
             audio.pause()
-            audio.src = ""
+            audio.src = ''
             setAudio(null)
         }
 
@@ -47,10 +56,10 @@ export default function AudioManager() {
         setAudio(newAudio)
     }
 
-
     const handleAudioEnd = () => {
         if (audioState === 'tips' && audioData?.narratorSegment) {
-            const nextIndex = (audioIndex + 1) % audioData.narratorSegment.length
+            const nextIndex =
+                (audioIndex + 1) % audioData.narratorSegment.length
             setAudioIndex(nextIndex)
             playAudio(`${audioFiles}/${audioData.narratorSegment[nextIndex]}`)
         } else {
@@ -71,65 +80,72 @@ export default function AudioManager() {
     }
 
     useEffect(() => {
-        console.log(ambientMusic);
+        console.log(ambientMusic)
 
         switch (audioState) {
             case 'benefits':
                 if (audioData?.benefits) {
                     playAudio(`${audioFiles}/${audioData.benefits}`)
                 }
-                break;
+                break
 
             case 'narrator':
                 if (audioData?.mainAudio) {
                     playAudio(`${audioFiles}/${audioData.mainAudio}`)
                 }
-                break;
+                break
 
             case 'tips':
-                if (audioData?.narratorSegment && audioData.narratorSegment.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * audioData.narratorSegment.length)
+                if (
+                    audioData?.narratorSegment &&
+                    audioData.narratorSegment.length > 0
+                ) {
+                    const randomIndex = Math.floor(
+                        Math.random() * audioData.narratorSegment.length
+                    )
                     setAudioIndex(randomIndex)
-                    playAudio(`${audioFiles}/${audioData.narratorSegment[randomIndex]}`)
+                    playAudio(
+                        `${audioFiles}/${audioData.narratorSegment[randomIndex]}`
+                    )
                 }
-                break;
+                break
 
             case 'ambient':
-                const ambientMusicNameT = ambientMusicMap[ambientMusicName!] || 'ambient.mp3'
+                const ambientMusicNameT =
+                    ambientMusicMap[ambientMusicName!] || 'ambient.mp3'
                 if (ambientMusic) {
-                    playAudio(`${userAudioFiles}/background/${ambientMusicNameT}`)
+                    playAudio(
+                        `${userAudioFiles}/background/${ambientMusicNameT}`
+                    )
                 } else {
                     if (audio) {
                         audio.pause()
-                        audio.src = ""
+                        audio.src = ''
                         setAudio(null)
                     }
                 }
-                break;
+                break
 
             case null:
                 if (audio) {
                     audio.pause()
-                    audio.src = ""
+                    audio.src = ''
                     setAudio(null)
                 }
-                break;
+                break
 
             default:
-                break;
+                break
         }
-    }, [audioState, ambientMusic,ambientMusicName])
-
+    }, [audioState, ambientMusic, ambientMusicName])
 
     useEffect(() => {
         updateVolume(volume)
     }, [volume])
 
-
     useEffect(() => {
         updatePlaybackSpeed(audioSpeed)
     }, [audioSpeed])
-
 
     useEffect(() => {
         if (audio) {
@@ -142,11 +158,5 @@ export default function AudioManager() {
         }
     }, [audio])
 
-
-
-    return (
-        <>
-
-        </>
-    )
+    return <></>
 }

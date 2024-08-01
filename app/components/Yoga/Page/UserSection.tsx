@@ -4,13 +4,23 @@ import { poseInfo } from '@/app/api/pose/poseApiData'
 import { useSearchParams } from 'next/navigation'
 import { IoIosMore } from 'react-icons/io'
 import TensorControl from '../Utils/TesnorControl'
-import Information from '../TabSections/Section'
+
 import { useEffect } from 'react'
 import { AppDispatch, RootState } from '@/lib/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPoseData } from '@/lib/store/practice/practiceSlice'
 import TutorialControl from '../Utils/TutorialControl'
-import { setAudioData } from "@/lib/store/practice/audioSlice"
+import { setAudioData } from '@/lib/store/practice/audioSlice'
+import dynamic from "next/dynamic"
+import Loading from "../../Dashboard/Loading"
+
+const UserSectionExtras = dynamic(
+    () => import('@/app/components/Yoga/TabSections/Section'),
+    {
+        ssr: false,
+        loading: () => <Loading />,
+    }
+)
 
 export default function UserSection() {
     const searchParams = useSearchParams()
@@ -21,18 +31,17 @@ export default function UserSection() {
 
     useEffect(() => {
         const poseData = poseInfo.filter((pose) => pose.id === Number(id))[0]
+        dispatch(setPoseData(poseData))
+
         dispatch(
-            setPoseData(poseData)
+            setAudioData({
+                audioID: poseData.id,
+                audioName: poseData.TFData.class,
+                mainAudio: poseData.audioData.mainAudio,
+                benefits: poseData.audioData.benefits,
+                narratorSegment: poseData.audioData.narratorSegment,
+            })
         )
-
-        dispatch(setAudioData({
-            audioID: poseData.id,
-            audioName: poseData.TFData.class,
-            mainAudio: poseData.audioData.mainAudio,
-            benefits: poseData.audioData.benefits,
-            narratorSegment: poseData.audioData.narratorSegment
-        }))
-
     }, [id])
 
     return (
@@ -66,7 +75,7 @@ export default function UserSection() {
 
             <div className="grid grid-cols-12 gap-5  mt-5">
                 <div className="col-span-9 h-[40vh] ">
-                    <Information></Information>
+                    <UserSectionExtras />
                 </div>
                 <div className="col-span-3 h-[50vh] rounded-2xl">
                     <TensorControl></TensorControl>

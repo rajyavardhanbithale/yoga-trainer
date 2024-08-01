@@ -10,26 +10,28 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { AppDispatch } from "@/lib/store"
-import { setAudioSpeed } from "@/lib/store/practice/audioSlice"
+import { AppDispatch } from '@/lib/store'
+import { setAudioSpeed } from '@/lib/store/practice/audioSlice'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function AudioSpeed() {
-    const [speed, setSpeed] = useState<'slower' | 'slow' | 'fine' | 'fast' | 'faster'>('fine')
+    const [speed, setSpeed] = useState<
+        'slower' | 'slow' | 'fine' | 'fast' | 'faster'
+    >('fine')
     const dispatch = useDispatch<AppDispatch>()
     const audioSpeed = useSelector((state: any) => state.audioSlice.audioSpeed)
 
     useEffect(() => {
         dispatch(setAudioSpeed(speed))
     }, [speed])
-    
+
     const handleValueChange = (value: string) => {
         if (['slower', 'slow', 'fine', 'fast', 'fastest'].includes(value)) {
             setSpeed(value as 'slower' | 'slow' | 'fine' | 'fast' | 'faster')
         }
     }
-    
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>

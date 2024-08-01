@@ -6,7 +6,7 @@
     --slider-border-radius: 999px;
     /* level */
     --level-color: #1e3a8a;
-    --level-transition-duration: .1s;
+    --level-transition-duration: 0.1s;
     /* icon */
     --icon-margin: 15px;
     --icon-color: var(--slider-bg);

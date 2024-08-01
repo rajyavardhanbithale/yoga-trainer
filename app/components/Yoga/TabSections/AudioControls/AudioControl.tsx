@@ -20,8 +20,7 @@ export default function AudioControl() {
             dispatch(setAudioState(null))
         }
     }
-    
-    
+
     return (
         <>
             <div className="w-full flex flex-col gap-5 p-5 m-5">
@@ -77,7 +76,7 @@ export default function AudioControl() {
                 <div className="w-1/2 flex flex-col justify-center items-center gap-3 mx-auto -mt-5">
                     <span className="text-xl font-semibold">Volume</span>
                     <div className="w-full flex justify-center items-center ">
-                        <VolumeSlider  />
+                        <VolumeSlider />
                     </div>
                 </div>
             </div>

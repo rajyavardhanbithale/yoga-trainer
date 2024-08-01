@@ -8,7 +8,6 @@ interface AudioData {
     narratorSegment: string[]
 }
 
-
 type STATE = {
     audioData: AudioData | null
     audioState: 'narrator' | 'benefits' | 'tips' | 'ambient' | null
@@ -32,8 +31,6 @@ const audioSlice = createSlice({
     initialState,
     reducers: {
         setAudioData: (state, action: PayloadAction<AudioData>) => {
-
-
             state.audioData = action.payload
         },
         setAudioState: (
@@ -44,7 +41,9 @@ const audioSlice = createSlice({
         },
         setAudioSpeed: (
             state,
-            action: PayloadAction<'slower' | 'slow' | 'fine' | 'fast' | 'faster'>
+            action: PayloadAction<
+                'slower' | 'slow' | 'fine' | 'fast' | 'faster'
+            >
         ) => {
             state.audioSpeed = action.payload
         },
@@ -57,9 +56,16 @@ const audioSlice = createSlice({
         },
         setVolume: (state, action: PayloadAction<number>) => {
             state.volume = action.payload
-        }
+        },
     },
 })
 
-export const { setAudioData, setAudioState, setAudioSpeed, setAmbientMusic, setAmbientMusicName, setVolume } = audioSlice.actions
+export const {
+    setAudioData,
+    setAudioState,
+    setAudioSpeed,
+    setAmbientMusic,
+    setAmbientMusicName,
+    setVolume,
+} = audioSlice.actions
 export default audioSlice.reducer

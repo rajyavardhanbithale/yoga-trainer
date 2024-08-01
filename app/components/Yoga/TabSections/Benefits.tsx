@@ -1,6 +1,6 @@
 'use client'
 import { AppDispatch, RootState } from '@/lib/store'
-import { setAudioState } from "@/lib/store/practice/audioSlice"
+import { setAudioState } from '@/lib/store/practice/audioSlice'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
@@ -31,11 +31,15 @@ export default function Benefits() {
                         {audioState === 'benefits' ? (
                             <IoVolumeMediumOutline
                                 onClick={() => dispatch(setAudioState(null))}
-                                className="text-[1.85rem] font-bold mx-auto py-1 px-0.5 text-button-text" />
+                                className="text-[1.85rem] font-bold mx-auto py-1 px-0.5 text-button-text"
+                            />
                         ) : (
                             <IoVolumeMuteOutline
-                                onClick={() => dispatch(setAudioState('benefits'))}
-                                className="text-[1.85rem] mx-auto font-bold py-1 px-0.5 text-button-text" />
+                                onClick={() =>
+                                    dispatch(setAudioState('benefits'))
+                                }
+                                className="text-[1.85rem] mx-auto font-bold py-1 px-0.5 text-button-text"
+                            />
                         )}
                     </span>
                 </div>

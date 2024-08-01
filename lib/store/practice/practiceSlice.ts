@@ -17,7 +17,7 @@ type STATE = {
 const initialState: STATE = {
     tutorialSource: null,
     poseData: null,
-    currentTab: 'audio',
+    currentTab: 'benefits',
     audioState: null,
     analysis: {
         accuracy: [0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
@@ -59,7 +59,11 @@ export const practiceSlice = createSlice({
         changeTab: (
             state,
             action: PayloadAction<
-                'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio' | string
+                | 'benefits'
+                | 'tutorial'
+                | 'accuracy'
+                | 'analysis'
+                | 'audio'
             >
         ) => {
             state.currentTab = action.payload

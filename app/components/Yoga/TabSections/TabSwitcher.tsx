@@ -48,13 +48,13 @@ export default function TabSwitcher() {
                     <div
                         key={idx}
                         onClick={() =>
-                            dispatch(changeTab(opt.class.toLowerCase()))
+                            dispatch(changeTab(opt.class.toLowerCase() as 'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio'))
                         }
-                        className={`flex px-3 items-center justify-start gap-2 rounded-xl 
+                        className={`flex px-3 py-0.5 items-center justify-start gap-2 rounded-xl 
                              duration-700 hover:rounded-3xl cursor-pointer
                             ${currentTab === opt.class.toLowerCase() ? 'bg-blue-950 text-slate-50' : 'bg-slate-300 hover:bg-opacity-50'}`}
                     >
-                        <span className="capitalize text-xl whitespace-nowrap">
+                        <span className="capitalize text-xl whitespace-nowrap font-extrabold">
                             {opt.name}
                         </span>
 
