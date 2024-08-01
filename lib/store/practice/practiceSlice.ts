@@ -59,7 +59,7 @@ export const practiceSlice = createSlice({
         changeTab: (
             state,
             action: PayloadAction<
-                'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio'
+                'benefits' | 'tutorial' | 'accuracy' | 'analysis' | 'audio' | string
             >
         ) => {
             state.currentTab = action.payload
@@ -67,6 +67,5 @@ export const practiceSlice = createSlice({
     },
 })
 
-export const { setTutorial, setPoseData, changeTab } =
-    practiceSlice.actions
+export const { setTutorial, setPoseData, changeTab } = practiceSlice.actions
 export default practiceSlice.reducer

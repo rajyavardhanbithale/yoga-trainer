@@ -1,7 +1,6 @@
 'use client'
 
 import { poseInfo } from '@/app/api/pose/poseApiData'
-import { YogaPoseDetailed } from '@/types'
 import { useSearchParams } from 'next/navigation'
 import { IoIosMore } from 'react-icons/io'
 import TensorControl from '../Utils/TesnorControl'
@@ -11,6 +10,7 @@ import { AppDispatch, RootState } from '@/lib/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPoseData } from '@/lib/store/practice/practiceSlice'
 import TutorialControl from '../Utils/TutorialControl'
+import { setAudioData } from "@/lib/store/practice/audioSlice"
 
 export default function UserSection() {
     const searchParams = useSearchParams()
@@ -20,9 +20,19 @@ export default function UserSection() {
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
+        const poseData = poseInfo.filter((pose) => pose.id === Number(id))[0]
         dispatch(
-            setPoseData(poseInfo.filter((pose) => pose.id === Number(id))[0])
+            setPoseData(poseData)
         )
+
+        dispatch(setAudioData({
+            audioID: poseData.id,
+            audioName: poseData.TFData.class,
+            mainAudio: poseData.audioData.mainAudio,
+            benefits: poseData.audioData.benefits,
+            narratorSegment: poseData.audioData.narratorSegment
+        }))
+
     }, [id])
 
     return (

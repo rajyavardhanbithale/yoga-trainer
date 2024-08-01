@@ -6,7 +6,8 @@ import TabSwitcher from './TabSwitcher'
 import Tutorial from './Tutorial'
 import LineChart from './Accuracy/AccuracyLineChart'
 import AnalysisDoughnutChart from './Analysis/AnalysisDoughnutChart'
-import AudioControl from "./AudioControls/AudioControl"
+import AudioControl from './AudioControls/AudioControl'
+import AudioManager from "./AudioControls/AudioManager"
 
 export default function Information() {
     const activeTab = useSelector(
@@ -33,13 +34,15 @@ export default function Information() {
                 <div className="flex h-full w-full">
                     <AnalysisDoughnutChart />
                 </div>
-            )}            
-            
+            )}
+
             {activeTab === 'audio' && (
                 <div className="flex h-full w-full">
                     <AudioControl />
                 </div>
             )}
+
+            <AudioManager />
         </>
     )
 }

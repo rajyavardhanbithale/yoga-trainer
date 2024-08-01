@@ -1,8 +1,9 @@
 'use client'
-import { RootState } from '@/lib/store'
+import { AppDispatch, RootState } from '@/lib/store'
+import { setAudioState } from "@/lib/store/practice/audioSlice"
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { IoVolumeMediumOutline, IoVolumeMuteOutline } from 'react-icons/io5'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Benefits() {
     const benefits = useSelector(
@@ -15,6 +16,8 @@ export default function Benefits() {
         (state: RootState) => state.audioSlice.audioState
     )
 
+    const dispatch = useDispatch<AppDispatch>()
+
     return (
         <>
             <div className={`flex flex-col`}>
@@ -26,9 +29,13 @@ export default function Benefits() {
                         className="inline-flex align-middle mx-2 sm:w-10 w-10 rounded-2xl bg-blue-900 text-white hover:brightness-75 duration-300 cursor-pointer"
                     >
                         {audioState === 'benefits' ? (
-                            <IoVolumeMediumOutline className="text-[1.85rem] font-bold mx-auto py-1 px-0.5 text-button-text" />
+                            <IoVolumeMediumOutline
+                                onClick={() => dispatch(setAudioState(null))}
+                                className="text-[1.85rem] font-bold mx-auto py-1 px-0.5 text-button-text" />
                         ) : (
-                            <IoVolumeMuteOutline className="text-[1.85rem] mx-auto font-bold py-1 px-0.5 text-button-text" />
+                            <IoVolumeMuteOutline
+                                onClick={() => dispatch(setAudioState('benefits'))}
+                                className="text-[1.85rem] mx-auto font-bold py-1 px-0.5 text-button-text" />
                         )}
                     </span>
                 </div>

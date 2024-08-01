@@ -1,16 +1,33 @@
-import { cn } from "@/lib/utils"
-import { Slider } from "@/components/ui/slider"
+'use client'
+import { AppDispatch } from "@/lib/store";
+import { setVolume } from "@/lib/store/practice/audioSlice";
+import { useState } from "react";
+import { IoMdVolumeHigh } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 
-type SliderProps = React.ComponentProps<typeof Slider>
 
-export default function VolumeSlider({ className, ...props }: SliderProps) {
-  return (
-    <Slider
-      defaultValue={[50]}
-      max={100}
-      step={1}
-      className={cn("w-[60%]", className)}
-      {...props}
-    />
-  )
+export default function VolumeSlider() {
+    const volumeVal = useSelector((state: any) => state.audioSlice.volume)
+
+    const [volume, setVolumeLocal] = useState<number>(volumeVal)
+
+    const dispatch = useDispatch<AppDispatch>()
+
+    const handleVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setVolumeLocal(parseInt(e.target.value))
+        dispatch(setVolume(parseInt(e.target.value)))
+    }
+
+
+    return (
+        <>
+            <label className="slider">
+                <span className="ml-2">
+                    {volume} %
+                </span>
+                <input type="range" className="level" onChange={(e) => handleVolume(e)} value={volume} />
+                <IoMdVolumeHigh className="text-3xl mr-2" />
+            </label>
+        </>
+    )
 }
