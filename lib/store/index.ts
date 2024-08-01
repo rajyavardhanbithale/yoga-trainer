@@ -5,6 +5,7 @@ import profileSlice from './user/profileSlice'
 import dietSlice from './dashboard/dietSlice'
 import practiceSlice from './practice/practiceSlice'
 import audioSlice from './practice/audioSlice'
+import tensorflowSlice  from "./tensorflow/tersorflowSlice"
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         dietSlice: dietSlice,
         practiceSlice: practiceSlice,
         audioSlice: audioSlice,
+        tensorflowSlice: tensorflowSlice
     },
 })
 

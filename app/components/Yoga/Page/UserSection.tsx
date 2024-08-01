@@ -5,29 +5,32 @@ import { useSearchParams } from 'next/navigation'
 import { IoIosMore } from 'react-icons/io'
 import TensorControl from '../Utils/TesnorControl'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { AppDispatch, RootState } from '@/lib/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPoseData } from '@/lib/store/practice/practiceSlice'
 import TutorialControl from '../Utils/TutorialControl'
 import { setAudioData } from '@/lib/store/practice/audioSlice'
-import dynamic from 'next/dynamic'
-import Loading from '../../Dashboard/Loading'
+import dynamic from "next/dynamic"
+import Loading from "../../Dashboard/Loading"
+import InputSource from "../VideoWebcam/InputSource"
 
-const UserSectionExtras = dynamic(
-    () => import('@/app/components/Yoga/TabSections/Section'),
-    {
-        ssr: false,
-        loading: () => <Loading />,
-    }
-)
+// const UserSectionExtras = dynamic(
+//     () => import('@/app/components/Yoga/TabSections/Section'),
+//     {
+//         ssr: false,
+//         loading: () => <Loading />,
+//     }
+// )
 
 export default function UserSection() {
     const searchParams = useSearchParams()
     const id = searchParams.get('id') ?? 101
-
     const data = useSelector((state: RootState) => state.practiceSlice.poseData)
     const dispatch = useDispatch<AppDispatch>()
+
+    const videoRef = useRef(null)
+    const source = 'tree.mp4'
 
     useEffect(() => {
         const poseData = poseInfo.filter((pose) => pose.id === Number(id))[0]
@@ -67,7 +70,12 @@ export default function UserSection() {
                 </div>
             )}
             <div className="grid grid-cols-12 gap-5">
-                <div className="col-span-6 h-[50vh] bg-red-500"></div>
+                <div className="col-span-6 h-[50vh] ">
+                    <InputSource
+                        videoRef={videoRef}
+                        source={source}
+                    />
+                </div>
                 <div className="relative col-span-6 h-[50vh] bg-slate-100 rounded-2xl overflow-hidden">
                     <TutorialControl />
                 </div>
@@ -75,7 +83,7 @@ export default function UserSection() {
 
             <div className="grid grid-cols-12 gap-5  mt-5">
                 <div className="col-span-9 h-[40vh] ">
-                    <UserSectionExtras />
+                    {/* <UserSectionExtras /> */}
                 </div>
                 <div className="col-span-3 h-[50vh] rounded-2xl">
                     <TensorControl></TensorControl>

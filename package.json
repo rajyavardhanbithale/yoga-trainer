@@ -29,6 +29,7 @@
     "@reduxjs/toolkit": "^2.2.6",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.4",
+    "@tensorflow/tfjs": "^4.20.0",
     "@types/country-list": "^2.1.4",
     "@types/crypto-js": "^4.2.2",
     "@types/js-cookie": "^3.0.6",
@@ -53,7 +54,8 @@
     "react-tooltip": "^5.27.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-animated": "^1.1.2"
+    "tailwindcss-animated": "^1.1.2",
+    "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
