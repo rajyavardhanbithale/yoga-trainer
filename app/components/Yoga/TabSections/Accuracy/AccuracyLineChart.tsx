@@ -27,7 +27,6 @@ ChartJS.register(
 export default function LineChart() {
     const analysis = useSelector((state: any) => state.practiceSlice.analysis)
 
-
     const epochToSecond = (
         startTime: number,
         endTime: number

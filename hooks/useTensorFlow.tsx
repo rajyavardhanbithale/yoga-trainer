@@ -12,8 +12,9 @@ function useTensorFlow() {
         setModelLoadingStatus('pending')
 
         // const model = await tf.loadGraphModel(`model/set${set}/model.json`)
-        const model = await tf.loadGraphModel(`https://raw.githubusercontent.com/rajyavardhanbithale/yoga-trainer/main/public/model/set${set}/model.json`)
-
+        const model = await tf.loadGraphModel(
+            `https://raw.githubusercontent.com/rajyavardhanbithale/yoga-trainer/main/public/model/set${set}/model.json`
+        )
 
         if (model) {
             setModelLoadingStatus('success')

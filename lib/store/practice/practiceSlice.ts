@@ -131,7 +131,7 @@ export const practiceSlice = createSlice({
                         }
                     }
 
-                    if(method === 'update' && data){
+                    if (method === 'update' && data) {
                         state.analysis = data
                     }
                     state.updateStatus === 'success'

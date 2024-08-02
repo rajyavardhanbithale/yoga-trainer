@@ -57,7 +57,7 @@ export default function TensorflowInputHelper(props: {
 
     const checkPrediction = (prediction: string) => {
         const check = getPredictionClass(prediction, set)
-      
+
         if (check === poseData?.TFData.class) {
             setUserPoseAnalysis((prevState) => ({
                 ...prevState,
@@ -106,7 +106,12 @@ export default function TensorflowInputHelper(props: {
     useEffect(() => {
         if (capturedFrame && isModelAvailable) {
             tensorflowPredict()
-            dispatch(updateYogaPoseDataBase({method:'update',data:userPoseAnalysis}))
+            dispatch(
+                updateYogaPoseDataBase({
+                    method: 'update',
+                    data: userPoseAnalysis,
+                })
+            )
         }
     }, [capturedFrame, isModelAvailable])
 
@@ -122,6 +127,12 @@ export default function TensorflowInputHelper(props: {
                         poseName: poseData?.name ?? '',
                         repTime: repTime,
                     },
+                })
+            )
+            dispatch(
+                updateYogaPoseDataBase({
+                    method: 'update',
+                    data: userPoseAnalysis,
                 })
             )
         }
