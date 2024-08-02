@@ -1,13 +1,17 @@
-import { APIYogaPosePerformanceData, UserPoseAnalysis, YogaPoseDetailed, YogaPosePerformanceData } from '@/types'
-import { createClientBrowser } from "@/utils/supabase/client"
+import {
+    APIYogaPosePerformanceData,
+    UserPoseAnalysis,
+    YogaPoseDetailed,
+    YogaPosePerformanceData,
+} from '@/types'
+import { createClientBrowser } from '@/utils/supabase/client'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from "axios"
-import CryptoJS from "crypto-js"
+import axios from 'axios'
+import CryptoJS from 'crypto-js'
 
 export interface TutorialSource {
     source?: string | null
-    provider: 'video' | 'animated' | null,
-
+    provider: 'video' | 'animated' | null
 }
 
 type STATE = {
@@ -33,41 +37,44 @@ const initialState: STATE = {
         correctPose: [],
         repTime: 0,
     },
-    updateStatus: 'idle'
+    updateStatus: 'idle',
 }
 
 type UpdatePosePayload = {
-    method: string;
-    data?: UserPoseAnalysis;
-};
+    method: string
+    data?: UserPoseAnalysis
+}
 
 const supabase = createClientBrowser()
 
-export const updateYogaPoseDataBase = createAsyncThunk<UpdatePosePayload, UpdatePosePayload>(
-    'tensorflow/updateDB',
-    async ({ method, data }) => {
-        // console.log(method, data);
-        const { data: { user }, error } = await supabase.auth.getUser()
-        const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null
+export const updateYogaPoseDataBase = createAsyncThunk<
+    UpdatePosePayload,
+    UpdatePosePayload
+>('tensorflow/updateDB', async ({ method, data }) => {
+    // console.log(method, data);
+    const {
+        data: { user },
+        error,
+    } = await supabase.auth.getUser()
+    const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null
 
-        if (method === 'update' && userID && data) {
-            if (data.accuracy.length !== 0) {
-                const payload: APIYogaPosePerformanceData = {
-                    userID: userID,
-                    poseID: data?.poseID,
-                    startTime: Math.floor(data?.startTime / 1000),
-                    endTime: Math.floor(data?.endTime / 1000),
-                    repTime: data?.repTime * 1000,
-                    accuracy: data?.accuracy,
-                    correctPose: data?.correctPose
-                }
-
-                const response = await axios.post('/api/db/insert', payload)
+    if (method === 'updateDB' && userID && data) {
+        if (data.accuracy.length !== 0) {
+            const payload: APIYogaPosePerformanceData = {
+                userID: userID,
+                poseID: data?.poseID,
+                startTime: Math.floor(data?.startTime / 1000),
+                endTime: Math.floor(data?.endTime / 1000),
+                repTime: data?.repTime * 1000,
+                accuracy: data?.accuracy,
+                correctPose: data?.correctPose,
             }
+
+            const response = await axios.post('/api/db/insert', payload)
         }
-        return { method, data };
     }
-);
+    return { method, data }
+})
 
 export const practiceSlice = createSlice({
     name: 'practiceSlice',
@@ -103,30 +110,34 @@ export const practiceSlice = createSlice({
         ) => {
             state.currentTab = action.payload
         },
-
-
     },
     extraReducers: (builder) => {
         builder.addCase(updateYogaPoseDataBase.pending, (state) => {
-            state.updateStatus = 'pending';
-
+            state.updateStatus = 'pending'
         }),
-            builder.addCase(updateYogaPoseDataBase.fulfilled, (state, action: PayloadAction<UpdatePosePayload>) => {
-                const { method, data } = action.payload;
-                if (method === 'reset') {
-                    state.analysis = {
-                        poseID: 0,
-                        poseName: '',
-                        startTime: 0,
-                        endTime: 0,
-                        accuracy: [],
-                        correctPose: [],
-                        repTime: 0,
-                    };
+            builder.addCase(
+                updateYogaPoseDataBase.fulfilled,
+                (state, action: PayloadAction<UpdatePosePayload>) => {
+                    const { method, data } = action.payload
+                    if (method === 'reset') {
+                        state.analysis = {
+                            poseID: 0,
+                            poseName: '',
+                            startTime: 0,
+                            endTime: 0,
+                            accuracy: [],
+                            correctPose: [],
+                            repTime: 0,
+                        }
+                    }
+
+                    if(method === 'update' && data){
+                        state.analysis = data
+                    }
+                    state.updateStatus === 'success'
                 }
-                state.updateStatus === 'success'
-            })
-    }
+            )
+    },
 })
 
 export const { setTutorial, setPoseData, changeTab } = practiceSlice.actions

@@ -14,7 +14,7 @@ import { setAudioData } from '@/lib/store/practice/audioSlice'
 import dynamic from 'next/dynamic'
 import Loading from '../../Dashboard/Loading'
 import InputSource from '../VideoWebcam/InputSource'
-import Preferences from "../Utils/Preferences"
+import Preferences from '../Utils/Preferences'
 
 const UserSectionExtras = dynamic(
     () => import('@/app/components/Yoga/TabSections/Section'),
@@ -31,7 +31,8 @@ export default function UserSection() {
     const dispatch = useDispatch<AppDispatch>()
 
     const videoRef = useRef(null)
-    const source = 'tree.mp4'
+    // const source = 'tree.mp4'
+    const source = 'warrior_2.mp4'
 
     useEffect(() => {
         const poseData = poseInfo.filter((pose) => pose.id === Number(id))[0]
@@ -87,7 +88,6 @@ export default function UserSection() {
                     <TensorControl></TensorControl>
                 </div>
             </div>
-
 
             <div className="absolute top-5 right-5">
                 <Preferences />

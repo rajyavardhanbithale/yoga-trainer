@@ -3,9 +3,9 @@
 import useConvertTensorClass from '@/hooks/useConvertTensorClass'
 import useTensorFlow from '@/hooks/useTensorFlow'
 import { AppDispatch, RootState } from '@/lib/store'
-import { updateYogaPoseDataBase } from "@/lib/store/practice/practiceSlice"
+import { updateYogaPoseDataBase } from '@/lib/store/practice/practiceSlice'
 import { updateBoolPose } from '@/lib/store/tensorflow/tensorflowSlice'
-import { UserPoseAnalysis } from "@/types"
+import { UserPoseAnalysis } from '@/types'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -13,7 +13,6 @@ export default function TensorflowInputHelper(props: {
     videoRef: React.RefObject<HTMLVideoElement>
 }) {
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null)
-
 
     const { runModel } = useTensorFlow()
     const { getPredictionClass } = useConvertTensorClass(0.8)
@@ -29,12 +28,17 @@ export default function TensorflowInputHelper(props: {
     )
     const dispatch = useDispatch<AppDispatch>()
     const videoRef = props?.videoRef
-    const repTime:number = useSelector((state: RootState) => state.tensorflowSlice.repTime) 
-    const set:number = poseData?.TFData.set || 1
+    const repTime: number = useSelector(
+        (state: RootState) => state.tensorflowSlice.repTime
+    )
+    const set: number = poseData?.TFData.set || 1
 
-    const userPoseAnalysisStructure = useSelector((state: RootState) => state.practiceSlice.analysis)
-    const [userPoseAnalysis, setUserPoseAnalysis] = useState<UserPoseAnalysis>(userPoseAnalysisStructure)
-
+    const userPoseAnalysisStructure = useSelector(
+        (state: RootState) => state.practiceSlice.analysis
+    )
+    const [userPoseAnalysis, setUserPoseAnalysis] = useState<UserPoseAnalysis>(
+        userPoseAnalysisStructure
+    )
 
     const handleCaptureFrame = () => {
         const video = videoRef.current
@@ -52,26 +56,24 @@ export default function TensorflowInputHelper(props: {
     }
 
     const checkPrediction = (prediction: string) => {
-        const check = getPredictionClass(prediction, 1)
-
+        const check = getPredictionClass(prediction, set)
+      
         if (check === poseData?.TFData.class) {
-            setUserPoseAnalysis(prevState => ({
+            setUserPoseAnalysis((prevState) => ({
                 ...prevState,
                 accuracy: [...prevState.accuracy, 1],
                 correctPose: [...prevState.correctPose, 1],
-
             }))
 
             dispatch(updateBoolPose(true))
         } else {
-            setUserPoseAnalysis(prevState => ({
+            setUserPoseAnalysis((prevState) => ({
                 ...prevState,
                 accuracy: [...prevState.accuracy, 0],
                 correctPose: [...prevState.correctPose, 0],
             }))
             dispatch(updateBoolPose(false))
         }
-
     }
 
     const tensorflowPredict = async () => {
@@ -85,9 +87,9 @@ export default function TensorflowInputHelper(props: {
     useEffect(() => {
         let intervalId: NodeJS.Timeout | undefined
         if (isModelAvailable && isModelRunning) {
-            setUserPoseAnalysis(prevState => ({
+            setUserPoseAnalysis((prevState) => ({
                 ...prevState,
-                startTime: Date.now()
+                startTime: Date.now(),
             }))
             intervalId = setInterval(() => {
                 handleCaptureFrame()
@@ -104,26 +106,26 @@ export default function TensorflowInputHelper(props: {
     useEffect(() => {
         if (capturedFrame && isModelAvailable) {
             tensorflowPredict()
+            dispatch(updateYogaPoseDataBase({method:'update',data:userPoseAnalysis}))
         }
     }, [capturedFrame, isModelAvailable])
 
-
     useEffect(() => {
         if (isModelAvailable && !isModelRunning) {
-            dispatch(updateYogaPoseDataBase({
-                method: 'update',
-                data: {
-                    ...userPoseAnalysis,
-                    endTime: Date.now(),
-                    poseID: poseData?.id ?? 0,
-                    poseName: poseData?.name ?? '',
-                    repTime: repTime
-                }
-            }))
+            dispatch(
+                updateYogaPoseDataBase({
+                    method: 'updateDB',
+                    data: {
+                        ...userPoseAnalysis,
+                        endTime: Date.now(),
+                        poseID: poseData?.id ?? 0,
+                        poseName: poseData?.name ?? '',
+                        repTime: repTime,
+                    },
+                })
+            )
         }
     }, [isModelAvailable, isModelRunning])
-
-   
 
     return (
         <>

@@ -1,7 +1,12 @@
 'use client'
 
-
-export default function TensorButton({ onClick, label }: { onClick: () => void, label: string }) {
+export default function TensorButton({
+    onClick,
+    label,
+}: {
+    onClick: () => void
+    label: string
+}) {
     return (
         <button
             onClick={onClick}
@@ -13,5 +18,5 @@ shadow-xl hover:shadow-blue-800/50"
         >
             {label}
         </button>
-    );
+    )
 }

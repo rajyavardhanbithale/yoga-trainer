@@ -1,17 +1,14 @@
-
 import { NextRequest, NextResponse } from 'next/server'
 import { APIYogaPosePerformanceData } from '@/types'
 import CryptoJS from 'crypto-js'
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from '@/utils/supabase/server'
 
 const poseAnalysis = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_POSE_ANALYSIS!
 
 export async function POST(request: NextRequest) {
     const body: APIYogaPosePerformanceData = await request.json()
 
-    const supabase  =  createClient()
-
-    
+    const supabase = createClient()
 
     const { error } = await supabase.from(poseAnalysis).insert(body)
 

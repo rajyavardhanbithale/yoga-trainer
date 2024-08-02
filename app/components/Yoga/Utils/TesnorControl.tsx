@@ -11,13 +11,13 @@ import {
     updateRepTime,
 } from '@/lib/store/tensorflow/tensorflowSlice'
 import { useEffect, useState } from 'react'
-import TensorButton from "./TensorButton"
-import { updateYogaPoseDataBase } from "@/lib/store/practice/practiceSlice"
-import Preferences from "./Preferences"
+import TensorButton from './TensorButton'
+import { updateYogaPoseDataBase } from '@/lib/store/practice/practiceSlice'
+import Preferences from './Preferences'
 
 export default function TensorControl() {
-    const [showPreferences, setShowPreferences] = useState<boolean>(false);
-    const { runModel, stopModel, modelLoadingStatus } = useTensorFlow()
+    const [showPreferences, setShowPreferences] = useState<boolean>(false)
+    const { runModel, stopModel, resetModel, modelLoadingStatus } = useTensorFlow()
     const dispatch = useDispatch<AppDispatch>()
 
     const poseMessage = useSelector(
@@ -31,14 +31,15 @@ export default function TensorControl() {
         (state: RootState) => state.tensorflowSlice.isModelRunning
     )
 
-    const set = useSelector((state: RootState) => state.practiceSlice.poseData?.TFData.set)
-
+    const set = useSelector(
+        (state: RootState) => state.practiceSlice.poseData?.TFData.set
+    )
 
     const handleLoadModel = () => {
         if (set !== undefined) {
-            runModel({ set });
+            runModel({ set })
         } else {
-            console.error('Set value is undefined');
+            console.error('Set value is undefined')
         }
     }
 
@@ -49,20 +50,24 @@ export default function TensorControl() {
     }, [modelLoadingStatus])
 
     useEffect(() => {
-        const repTime = localStorage.getItem('repTime');
+        const repTime = localStorage.getItem('repTime')
         if (!repTime) {
-            setShowPreferences(true);
+            setShowPreferences(true)
         }
-    }, []);
+    }, [])
 
     useEffect(() => {
-        const repTime = localStorage.getItem('repTime');
+        const repTime = localStorage.getItem('repTime')
         if (repTime) {
-            dispatch(updateRepTime(parseFloat(repTime)));
+            dispatch(updateRepTime(parseFloat(repTime)))
         } else {
-            setShowPreferences(true);
+            setShowPreferences(true)
         }
-    }, [dispatch]);
+    }, [dispatch])
+
+    useEffect(()=>{
+        resetModel()
+    },[set])
 
     return (
         <>
@@ -70,7 +75,10 @@ export default function TensorControl() {
                 <div className="w-full h-full flex flex-col gap-5 bg-slate-200 rounded-2xl justify-center items-center shadow-xl hover:shadow-lg duration-500">
                     <>
                         {modelLoadingStatus === 'idle' && (
-                            <TensorButton label="Start" onClick={handleLoadModel} />
+                            <TensorButton
+                                label="Start"
+                                onClick={handleLoadModel}
+                            />
                         )}
 
                         {modelLoadingStatus === 'pending' && (
@@ -83,7 +91,7 @@ export default function TensorControl() {
                             </div>
                         )}
 
-                        {(modelLoadingStatus === 'success' && isModelRunning) && (
+                        {modelLoadingStatus === 'success' && isModelRunning && (
                             <TensorButton
                                 label="Stop"
                                 onClick={() =>
@@ -93,21 +101,22 @@ export default function TensorControl() {
                                 }
                             />
                         )}
-                        {(modelLoadingStatus === 'success' && !isModelRunning) && (
-                            <TensorButton
-                                label="Practice"
-                                onClick={() => {
-                                    dispatch(
-                                        updateModelRunning(!isModelRunning)
-                                    );
-                                    dispatch(
-                                        updateYogaPoseDataBase({ method: 'reset' })
-                                    );
-
-                                }
-                                }
-                            />
-                        )}
+                        {modelLoadingStatus === 'success' &&
+                            !isModelRunning && (
+                                <TensorButton
+                                    label="Practice"
+                                    onClick={() => {
+                                        dispatch(
+                                            updateModelRunning(!isModelRunning)
+                                        )
+                                        dispatch(
+                                            updateYogaPoseDataBase({
+                                                method: 'reset',
+                                            })
+                                        )
+                                    }}
+                                />
+                            )}
                     </>
                     {isModelRunning && poseMessage && (
                         <div
@@ -135,4 +144,3 @@ export default function TensorControl() {
         </>
     )
 }
-

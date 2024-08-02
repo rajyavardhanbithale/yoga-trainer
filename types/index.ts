@@ -170,15 +170,14 @@ interface UserProfilePublicExt {
 }
 
 interface UserPoseAnalysis {
-    poseID: number,
-    poseName: string,
-    startTime: number,
-    endTime: number,
-    accuracy: number[],
-    correctPose: number[],
-    repTime: number,
+    poseID: number
+    poseName: string
+    startTime: number
+    endTime: number
+    accuracy: number[]
+    correctPose: number[]
+    repTime: number
 }
-
 
 export type {
     YogaPose,
@@ -199,5 +198,5 @@ export type {
     IFResponse1,
     UserProfile,
     UserProfilePublic,
-    UserPoseAnalysis
+    UserPoseAnalysis,
 }

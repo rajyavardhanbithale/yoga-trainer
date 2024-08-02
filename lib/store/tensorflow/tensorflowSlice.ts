@@ -21,7 +21,7 @@ type STATE = {
     isModelAvailable: boolean
     isModelRunning: boolean
     poseMessage: string | null
-    repTime:number
+    repTime: number
 }
 
 const initialState: STATE = {
@@ -30,10 +30,8 @@ const initialState: STATE = {
     isModelAvailable: false,
     isModelRunning: false,
     poseMessage: null,
-    repTime:3
+    repTime: 3,
 }
-
-
 
 export const tensorflow = createSlice({
     name: 'tensorflow',
@@ -63,12 +61,12 @@ export const tensorflow = createSlice({
             state.isModelRunning = action.payload
         },
         updateRepTime: (state, action: PayloadAction<number>) => {
-            localStorage.setItem('repTime', action.payload.toString()); 
+            localStorage.setItem('repTime', action.payload.toString())
 
-            console.log(action.payload);
-            
+            console.log(action.payload)
+
             state.repTime = action.payload
-        }
+        },
     },
 })
 
@@ -77,6 +75,6 @@ export const {
     updateBoolPose,
     isModelAvailable,
     updateModelRunning,
-    updateRepTime
+    updateRepTime,
 } = tensorflow.actions
 export default tensorflow.reducer

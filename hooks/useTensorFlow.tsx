@@ -11,7 +11,9 @@ function useTensorFlow() {
 
         setModelLoadingStatus('pending')
 
-        const model = await tf.loadGraphModel(`model/set${set}/model.json`)
+        // const model = await tf.loadGraphModel(`model/set${set}/model.json`)
+        const model = await tf.loadGraphModel(`https://raw.githubusercontent.com/rajyavardhanbithale/yoga-trainer/main/public/model/set${set}/model.json`)
+
 
         if (model) {
             setModelLoadingStatus('success')
@@ -34,13 +36,17 @@ function useTensorFlow() {
         }
     }
 
+    function resetModel() {
+        setModelLoadingStatus('idle')
+    }
+
     // To be implemented
     function stopModel() {
         if (model) {
             model.dispose()
         }
     }
-    return { runModel, stopModel, modelLoadingStatus }
+    return { runModel, stopModel, modelLoadingStatus, resetModel }
 }
 
 export default useTensorFlow
