@@ -132,7 +132,13 @@ export default function TensorflowInputHelper(props: {
             dispatch(
                 updateYogaPoseDataBase({
                     method: 'update',
-                    data: userPoseAnalysis,
+                    data: {
+                        ...userPoseAnalysis,
+                        endTime: Date.now(),
+                        poseID: poseData?.id ?? 0,
+                        poseName: poseData?.name ?? '',
+                        repTime: repTime,
+                    },
                 })
             )
         }
