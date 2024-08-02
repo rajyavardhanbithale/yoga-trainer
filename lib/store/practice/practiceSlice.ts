@@ -51,7 +51,6 @@ export const updateYogaPoseDataBase = createAsyncThunk<
     UpdatePosePayload,
     UpdatePosePayload
 >('tensorflow/updateDB', async ({ method, data }) => {
-    // console.log(method, data);
     const {
         data: { user },
         error,

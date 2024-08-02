@@ -1,6 +1,6 @@
 'use client'
 
-import useTensorFlow from '@/hooks/useTensorFlow'
+// import useTensorFlow from '@/hooks/useTensorFlow'
 import Typewriter from 'typewriter-effect'
 import './tensorUtils.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,8 +17,7 @@ import Preferences from './Preferences'
 
 export default function TensorControl() {
     const [showPreferences, setShowPreferences] = useState<boolean>(false)
-    const { runModel, stopModel, resetModel, modelLoadingStatus } =
-        useTensorFlow()
+    // const { runModel, stopModel, resetModel, modelLoadingStatus } = useTensorFlow()
     const dispatch = useDispatch<AppDispatch>()
 
     const poseMessage = useSelector(
@@ -38,17 +37,17 @@ export default function TensorControl() {
 
     const handleLoadModel = () => {
         if (set !== undefined) {
-            runModel({ set })
+            // runModel({ set })
         } else {
             console.error('Set value is undefined')
         }
     }
 
-    useEffect(() => {
-        if (modelLoadingStatus === 'success') {
-            dispatch(isModelAvailable(true))
-        }
-    }, [modelLoadingStatus])
+    // useEffect(() => {
+    //     if (modelLoadingStatus === 'success') {
+    //         dispatch(isModelAvailable(true))
+    //     }
+    // }, [modelLoadingStatus])
 
     useEffect(() => {
         const repTime = localStorage.getItem('repTime')
@@ -66,16 +65,18 @@ export default function TensorControl() {
         }
     }, [dispatch])
 
-    useEffect(() => {
-        resetModel()
-    }, [set])
+    // useEffect(() => {
+    //     resetModel()
+    // }, [set])
+
+    const modelLoadingStatus = 'success'
 
     return (
         <>
             <div className="flex flex-col justify-center items-center h-full rounded-2xl">
                 <div className="w-full h-full flex flex-col gap-5 bg-slate-200 rounded-2xl justify-center items-center shadow-xl hover:shadow-lg duration-500">
                     <>
-                        {modelLoadingStatus === 'idle' && (
+                        {/* {modelLoadingStatus === 'idle' && (
                             <TensorButton
                                 label="Start"
                                 onClick={handleLoadModel}
@@ -90,7 +91,7 @@ export default function TensorControl() {
                                     Hang on Loading Assets
                                 </span>
                             </div>
-                        )}
+                        )} */}
 
                         {modelLoadingStatus === 'success' && isModelRunning && (
                             <TensorButton

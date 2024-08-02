@@ -62,7 +62,6 @@ export default function RecipePageSocials(props: { mealID: number }) {
     }
 
     const updateViews = async (id: number) => {
-        console.log(totalViews)
         const { data, error } = await supabase
             .from('food-data')
             .update({ views: totalViews + 1 })

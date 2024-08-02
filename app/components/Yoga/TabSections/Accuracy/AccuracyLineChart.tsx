@@ -38,7 +38,6 @@ export default function LineChart() {
     }
 
     const handleData = () => {
-        console.log()
         const accuracyLength: number = analysis?.accuracy?.length
         const timeData: number | null = epochToSecond(
             analysis?.startTime,

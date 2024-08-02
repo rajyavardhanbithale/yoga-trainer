@@ -63,8 +63,6 @@ export const tensorflow = createSlice({
         updateRepTime: (state, action: PayloadAction<number>) => {
             localStorage.setItem('repTime', action.payload.toString())
 
-            console.log(action.payload)
-
             state.repTime = action.payload
         },
     },

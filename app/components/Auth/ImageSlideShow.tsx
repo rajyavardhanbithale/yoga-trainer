@@ -16,7 +16,6 @@ export default function AuthImageSlideShow() {
 
         return () => clearInterval(interval)
     }, [])
-    console.log(currentIndex)
     return (
         <>
             <Image

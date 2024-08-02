@@ -41,7 +41,6 @@ export default function Sidebar() {
     const dispatch = useDispatch<AppDispatch>()
 
     const handleSideBarToggle = (option: string | null) => {
-        console.log(option)
         if (option === 'home') {
             push('/')
         }

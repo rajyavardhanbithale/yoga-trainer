@@ -80,7 +80,6 @@ export default function AudioManager() {
     }
 
     useEffect(() => {
-        console.log(ambientMusic)
 
         switch (audioState) {
             case 'benefits':

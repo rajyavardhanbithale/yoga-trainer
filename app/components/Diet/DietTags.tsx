@@ -13,7 +13,6 @@ export default function DietTags(props: { mealTag: string }) {
         const overlay = searchParams.get('overlay') || null
 
         const tags = searchParams.get('tag')
-        console.log(tags)
 
         if (tags) {
             const tagArray = tags.split(',')

@@ -29,8 +29,6 @@ export default function DietStatChart({ nutrientData }) {
 
     const { fat, carb, calorie, protein, dates } = nutrientData
 
-    console.log(nutrientData.fat.length)
-
     const labels = dates?.map((d) => new Date(d).toLocaleDateString())
 
     const backgroundColor = [
