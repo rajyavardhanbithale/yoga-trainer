@@ -1,6 +1,6 @@
 'use client'
 
-// import useTensorFlow from '@/hooks/useTensorFlow'
+import useTensorFlow from '@/hooks/useTensorFlow'
 import Typewriter from 'typewriter-effect'
 import './tensorUtils.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,10 +14,13 @@ import { useEffect, useState } from 'react'
 import TensorButton from './TensorButton'
 import { updateYogaPoseDataBase } from '@/lib/store/practice/practiceSlice'
 import Preferences from './Preferences'
+import CloudSaveDialog from "./CloudSaveDialog"
 
 export default function TensorControl() {
     const [showPreferences, setShowPreferences] = useState<boolean>(false)
-    // const { runModel, stopModel, resetModel, modelLoadingStatus } = useTensorFlow()
+    const [cloudSave, setCloudSave] = useState<boolean>(false)
+
+    const { runModel, stopModel, resetModel, modelLoadingStatus } = useTensorFlow()
     const dispatch = useDispatch<AppDispatch>()
 
     const poseMessage = useSelector(
@@ -37,17 +40,17 @@ export default function TensorControl() {
 
     const handleLoadModel = () => {
         if (set !== undefined) {
-            // runModel({ set })
+            runModel({ set })
         } else {
             console.error('Set value is undefined')
         }
     }
 
-    // useEffect(() => {
-    //     if (modelLoadingStatus === 'success') {
-    //         dispatch(isModelAvailable(true))
-    //     }
-    // }, [modelLoadingStatus])
+    useEffect(() => {
+        if (modelLoadingStatus === 'success') {
+            dispatch(isModelAvailable(true))
+        }
+    }, [modelLoadingStatus])
 
     useEffect(() => {
         const repTime = localStorage.getItem('repTime')
@@ -65,18 +68,40 @@ export default function TensorControl() {
         }
     }, [dispatch])
 
-    // useEffect(() => {
-    //     resetModel()
-    // }, [set])
+    useEffect(() => {
+        resetModel()
+    }, [set])
 
-    const modelLoadingStatus = 'success'
+
+    const handlePractice = () => {
+        const getLSItem = window.localStorage.getItem('showSaveProgressDialog');
+        if(getLSItem === null || getLSItem === 'true'){
+            setCloudSave(true);
+        }else{
+            startTensor()
+        }
+    }
+
+    const startTensor = () => {
+        console.log('start');
+        
+        dispatch(
+            updateModelRunning(!isModelRunning)
+        )
+        dispatch(
+            updateYogaPoseDataBase({
+                method: 'reset',
+            })
+        )
+    }
+    
 
     return (
         <>
             <div className="flex flex-col justify-center items-center h-full rounded-2xl">
                 <div className="w-full h-full flex flex-col gap-5 bg-slate-200 rounded-2xl justify-center items-center shadow-xl hover:shadow-lg duration-500">
                     <>
-                        {/* {modelLoadingStatus === 'idle' && (
+                        {modelLoadingStatus === 'idle' && (
                             <TensorButton
                                 label="Start"
                                 onClick={handleLoadModel}
@@ -91,7 +116,7 @@ export default function TensorControl() {
                                     Hang on Loading Assets
                                 </span>
                             </div>
-                        )} */}
+                        )}
 
                         {modelLoadingStatus === 'success' && isModelRunning && (
                             <TensorButton
@@ -107,18 +132,11 @@ export default function TensorControl() {
                             !isModelRunning && (
                                 <TensorButton
                                     label="Practice"
-                                    onClick={() => {
-                                        dispatch(
-                                            updateModelRunning(!isModelRunning)
-                                        )
-                                        dispatch(
-                                            updateYogaPoseDataBase({
-                                                method: 'reset',
-                                            })
-                                        )
-                                    }}
+                                    onClick={handlePractice}
                                 />
                             )}
+
+                        <CloudSaveDialog open={cloudSave} setOpen={setCloudSave} startTensor={startTensor} ></CloudSaveDialog>
                     </>
                     {isModelRunning && poseMessage && (
                         <div

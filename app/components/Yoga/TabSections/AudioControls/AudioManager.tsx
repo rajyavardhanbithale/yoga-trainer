@@ -80,7 +80,6 @@ export default function AudioManager() {
     }
 
     useEffect(() => {
-
         switch (audioState) {
             case 'benefits':
                 if (audioData?.benefits) {
