@@ -1,11 +1,9 @@
 'use client'
 
-import { useRef } from "react"
-import TensorflowInputHelper from "./TensorflowInputHelper"
+import { useRef } from 'react'
+import TensorflowInputHelper from './TensorflowInputHelper'
 
-
-
-export default function InputSource(props: { source: string, videoRef: any }) {
+export default function InputSource(props: { source: string; videoRef: any }) {
     const videoRef = useRef(null)
 
     return (

@@ -1,22 +1,34 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const successMessageList: Array<string> = ["Correct pose!", "Nailed it!", "Great form!", "Well done", "You got it!"]
-const unsuccessMessageList: Array<string> = ["Incorrect pose.", "Try once more.", "Keep practicing.", "Check your posture.", "Try another angle."]
-
+const successMessageList: Array<string> = [
+    'Correct pose!',
+    'Nailed it!',
+    'Great form!',
+    'Well done',
+    'You got it!',
+]
+const unsuccessMessageList: Array<string> = [
+    'Incorrect pose.',
+    'Try once more.',
+    'Keep practicing.',
+    'Check your posture.',
+    'Try another angle.',
+]
 
 type STATE = {
-    loading: boolean;
-    successMessage: string | null
-    unsuccessMessage: string | null
-
+    loading: boolean
     isPoseValid: boolean | null
+    isModelAvailable: boolean
+    isModelRunning: boolean
+    poseMessage: string | null
 }
 
 const initialState: STATE = {
     loading: false,
-    successMessage: null,
-    unsuccessMessage: null,
-    isPoseValid: null
+    isPoseValid: null,
+    isModelAvailable: false,
+    isModelRunning: false,
+    poseMessage: null
 }
 
 export const tensorflowSlice = createSlice({
@@ -26,20 +38,31 @@ export const tensorflowSlice = createSlice({
         setModelLoading: (state, action) => {
             state.loading = action.payload
         },
-        setSuccessMessage: (state) => {
-            state.unsuccessMessage = null
-            state.successMessage = successMessageList[Math.floor(Math.random() * successMessageList.length)]
-        },
-        setUnSuccessMessage: (state) => {
-            state.successMessage = null
-            state.unsuccessMessage = unsuccessMessageList[Math.floor(Math.random() * unsuccessMessageList.length)]
-        },
         updateBoolPose: (state, action: PayloadAction<boolean>) => {
             state.isPoseValid = action.payload
-        }
-    }
+            if (action.payload === true) {
+                state.poseMessage = successMessageList[
+                    Math.floor(Math.random() * successMessageList.length)
+                ]
+            } else {
+                state.poseMessage = unsuccessMessageList[
+                    Math.floor(Math.random() * unsuccessMessageList.length)
+                ]
+            }
+        },
+        isModelAvailable: (state, action: PayloadAction<boolean>) => {
+            state.isModelAvailable = action.payload
+        },
+        updateModelRunning: (state, action: PayloadAction<boolean>) => {
+            state.isModelRunning = action.payload
+        },
+    },
 })
 
-
-export const { setModelLoading, setSuccessMessage, setUnSuccessMessage, updateBoolPose } = tensorflowSlice.actions
+export const {
+    setModelLoading,
+    updateBoolPose,
+    isModelAvailable,
+    updateModelRunning
+} = tensorflowSlice.actions
 export default tensorflowSlice.reducer

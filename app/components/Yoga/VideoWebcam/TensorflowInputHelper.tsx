@@ -1,72 +1,102 @@
 'use client'
 
-import useConvertTensorClass from "@/hooks/useConvertTensorClass";
-import useTensorFlow from "@/hooks/useTensorFlow";
-import { AppDispatch, RootState } from "@/lib/store";
-import { updateBoolPose } from "@/lib/store/tensorflow/tersorflowSlice";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import useConvertTensorClass from '@/hooks/useConvertTensorClass'
+import useTensorFlow from '@/hooks/useTensorFlow'
+import { AppDispatch, RootState } from '@/lib/store'
+import { updateBoolPose } from '@/lib/store/tensorflow/tersorflowSlice'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-export default function TensorflowInputHelper(props: { videoRef: any }) {
-    const [capturedFrame, setCapturedFrame] = useState<string | null>(null);
-    const [prediction, setPrediction] = useState<string>('')
+export default function TensorflowInputHelper(props: { videoRef: React.RefObject<HTMLVideoElement> }) {
+    const [capturedFrame, setCapturedFrame] = useState<string | null>(null)
 
-    const { runModel, stopModel, modelLoadingStatus } = useTensorFlow()
-    const { getPredictionClass } = useConvertTensorClass(0.80)
+    const { runModel } = useTensorFlow()
+    const { getPredictionClass } = useConvertTensorClass(0.8)
 
-    const poseData = useSelector((state: RootState) => state.practiceSlice.poseData)
+    const poseData = useSelector(
+        (state: RootState) => state.practiceSlice.poseData
+    )
+    const isModelAvailable = useSelector(
+        (state: RootState) => state.tensorflowSlice.isModelAvailable
+    )
+    const isModelRunning = useSelector(
+        (state: RootState) => state.tensorflowSlice.isModelRunning
+    )
     const dispatch = useDispatch<AppDispatch>()
-    const set = 1
     const videoRef = props?.videoRef
+    const repTime = 3
 
     const handleCaptureFrame = () => {
-        const video: (any | null) = videoRef.current;
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        const video = videoRef.current
+        if (video) {
+            const canvas = document.createElement('canvas')
+            const ctx = canvas.getContext('2d')
 
-        canvas.width = 250;
-        canvas.height = 250
-        ctx?.drawImage(video, 0, 0, 250, 250);
-        const imageData = canvas.toDataURL();
+            canvas.width = 250
+            canvas.height = 250
+            ctx?.drawImage(video, 0, 0, 250, 250)
+            const imageData = canvas.toDataURL()
 
-        setCapturedFrame(imageData);
+            setCapturedFrame(imageData)
+        }
     }
 
-    const checkPrediction = () => {
-        const check = getPredictionClass(prediction, set)
+    const checkPrediction = (prediction: string) => {
+        const check = getPredictionClass(prediction, 1)
 
-        if(check === poseData?.TFData.class){
+        if (check === poseData?.TFData.class) {
             dispatch(updateBoolPose(true))
-        }else{
+        } else {
             dispatch(updateBoolPose(false))
         }
     }
 
     const tensorflowPredict = async () => {
         const pred = await runModel({ set: 1, pred_image: capturedFrame })
-        setPrediction(pred ? pred : '')
+        console.log('Prediction result:', pred);
+        if (pred) {
+            checkPrediction(pred)
+        }
     }
 
     useEffect(() => {
-        tensorflowPredict()
-    }, [capturedFrame])
+        let intervalId: NodeJS.Timeout | undefined
+
+        if (isModelAvailable && isModelRunning) {
+            intervalId = setInterval(() => {
+                console.log('Capturing frame');
+                handleCaptureFrame()
+            }, repTime * 1000)
+        }
+
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId)
+            }
+        }
+    }, [isModelAvailable, isModelRunning, videoRef])
 
     useEffect(() => {
-        checkPrediction()
-    }, [prediction])
+        if (capturedFrame && isModelAvailable) {
+            tensorflowPredict()
+        }
+    }, [capturedFrame, isModelAvailable])
+
 
     return (
         <>
-            <button onClick={handleCaptureFrame}>
-                cap
-            </button>
-
             {/* always hidden */}
-            {capturedFrame &&
+            {capturedFrame && (
                 <div>
-                    <img src={capturedFrame} alt="cap frm" className="hidden" height={500} width={500} />
+                    <img
+                        src={capturedFrame}
+                        alt="Captured Frame"
+                        className="hidden"
+                        height={500}
+                        width={500}
+                    />
                 </div>
-            }
+            )}
         </>
     )
 }

@@ -11,9 +11,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPoseData } from '@/lib/store/practice/practiceSlice'
 import TutorialControl from '../Utils/TutorialControl'
 import { setAudioData } from '@/lib/store/practice/audioSlice'
-import dynamic from "next/dynamic"
-import Loading from "../../Dashboard/Loading"
-import InputSource from "../VideoWebcam/InputSource"
+import dynamic from 'next/dynamic'
+import Loading from '../../Dashboard/Loading'
+import InputSource from '../VideoWebcam/InputSource'
 
 // const UserSectionExtras = dynamic(
 //     () => import('@/app/components/Yoga/TabSections/Section'),
@@ -71,10 +71,7 @@ export default function UserSection() {
             )}
             <div className="grid grid-cols-12 gap-5">
                 <div className="col-span-6 h-[50vh] ">
-                    <InputSource
-                        videoRef={videoRef}
-                        source={source}
-                    />
+                    <InputSource videoRef={videoRef} source={source} />
                 </div>
                 <div className="relative col-span-6 h-[50vh] bg-slate-100 rounded-2xl overflow-hidden">
                     <TutorialControl />
