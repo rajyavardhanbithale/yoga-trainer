@@ -8,9 +8,15 @@ import { AppDispatch, RootState } from '@/lib/store'
 import {
     isModelAvailable,
     updateModelRunning,
-} from '@/lib/store/tensorflow/tersorflowSlice'
-import { useEffect } from 'react'
+    updateRepTime,
+} from '@/lib/store/tensorflow/tensorflowSlice'
+import { useEffect, useState } from 'react'
+import TensorButton from "./TensorButton"
+import { updateYogaPoseDataBase } from "@/lib/store/practice/practiceSlice"
+import Preferences from "./Preferences"
+
 export default function TensorControl() {
+    const [showPreferences, setShowPreferences] = useState<boolean>(false);
     const { runModel, stopModel, modelLoadingStatus } = useTensorFlow()
     const dispatch = useDispatch<AppDispatch>()
 
@@ -25,10 +31,15 @@ export default function TensorControl() {
         (state: RootState) => state.tensorflowSlice.isModelRunning
     )
 
-    const set = 1
+    const set = useSelector((state: RootState) => state.practiceSlice.poseData?.TFData.set)
+
 
     const handleLoadModel = () => {
-        runModel({ set: set })
+        if (set !== undefined) {
+            runModel({ set });
+        } else {
+            console.error('Set value is undefined');
+        }
     }
 
     useEffect(() => {
@@ -37,23 +48,29 @@ export default function TensorControl() {
         }
     }, [modelLoadingStatus])
 
+    useEffect(() => {
+        const repTime = localStorage.getItem('repTime');
+        if (!repTime) {
+            setShowPreferences(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        const repTime = localStorage.getItem('repTime');
+        if (repTime) {
+            dispatch(updateRepTime(parseFloat(repTime)));
+        } else {
+            setShowPreferences(true);
+        }
+    }, [dispatch]);
+
     return (
         <>
             <div className="flex flex-col justify-center items-center h-full rounded-2xl">
                 <div className="w-full h-full flex flex-col gap-5 bg-slate-200 rounded-2xl justify-center items-center shadow-xl hover:shadow-lg duration-500">
                     <>
                         {modelLoadingStatus === 'idle' && (
-                            <button
-                                onClick={handleLoadModel}
-                                className="bg-blue-900 text-slate-50 font-semibold text-2xl h-fit 
-                    py-2 px-6 rounded-tl-2xl rounded-br-2xl 
-                    hover:rounded-tr-2xl hover:rounded-bl-2xl duration-500
-                    hover:rounded-tl-none hover:rounded-br-none
-                    shadow-xl hover:shadow-blue-800/50
-                    "
-                            >
-                                Start
-                            </button>
+                            <TensorButton label="Start" onClick={handleLoadModel} />
                         )}
 
                         {modelLoadingStatus === 'pending' && (
@@ -66,22 +83,33 @@ export default function TensorControl() {
                             </div>
                         )}
 
-                        {modelLoadingStatus === 'success' && (
-                            <button
-                                onClick={() => dispatch(updateModelRunning(!isModelRunning))}
+                        {(modelLoadingStatus === 'success' && isModelRunning) && (
+                            <TensorButton
+                                label="Stop"
+                                onClick={() =>
+                                    dispatch(
+                                        updateModelRunning(!isModelRunning)
+                                    )
+                                }
+                            />
+                        )}
+                        {(modelLoadingStatus === 'success' && !isModelRunning) && (
+                            <TensorButton
+                                label="Practice"
+                                onClick={() => {
+                                    dispatch(
+                                        updateModelRunning(!isModelRunning)
+                                    );
+                                    dispatch(
+                                        updateYogaPoseDataBase({ method: 'reset' })
+                                    );
 
-                                className="bg-blue-900 text-slate-50 font-semibold text-2xl h-fit 
-              py-2 px-6 rounded-tl-2xl rounded-br-2xl 
-              hover:rounded-tr-2xl hover:rounded-bl-2xl duration-500
-              hover:rounded-tl-none hover:rounded-br-none
-              shadow-xl hover:shadow-blue-800/50
-              "
-                            >
-                                {isModelRunning ? "Stop" : "Practice"}
-                            </button>
+                                }
+                                }
+                            />
                         )}
                     </>
-                    {(isModelRunning && poseMessage) && (
+                    {isModelRunning && poseMessage && (
                         <div
                             className={`${isPoseValid ? 'text-emerald-600' : 'text-rose-600'} text-2xl font-bold tracking-wide text-center p-2`}
                         >
@@ -97,6 +125,14 @@ export default function TensorControl() {
                     )}
                 </div>
             </div>
+
+            {showPreferences && (
+                <Preferences
+                    open={showPreferences}
+                    setOpen={setShowPreferences}
+                />
+            )}
         </>
     )
 }
+

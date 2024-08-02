@@ -14,14 +14,15 @@ import { setAudioData } from '@/lib/store/practice/audioSlice'
 import dynamic from 'next/dynamic'
 import Loading from '../../Dashboard/Loading'
 import InputSource from '../VideoWebcam/InputSource'
+import Preferences from "../Utils/Preferences"
 
-// const UserSectionExtras = dynamic(
-//     () => import('@/app/components/Yoga/TabSections/Section'),
-//     {
-//         ssr: false,
-//         loading: () => <Loading />,
-//     }
-// )
+const UserSectionExtras = dynamic(
+    () => import('@/app/components/Yoga/TabSections/Section'),
+    {
+        ssr: false,
+        loading: () => <Loading />,
+    }
+)
 
 export default function UserSection() {
     const searchParams = useSearchParams()
@@ -80,11 +81,16 @@ export default function UserSection() {
 
             <div className="grid grid-cols-12 gap-5  mt-5">
                 <div className="col-span-9 h-[40vh] ">
-                    {/* <UserSectionExtras /> */}
+                    <UserSectionExtras />
                 </div>
                 <div className="col-span-3 h-[50vh] rounded-2xl">
                     <TensorControl></TensorControl>
                 </div>
+            </div>
+
+
+            <div className="absolute top-5 right-5">
+                <Preferences />
             </div>
         </>
     )

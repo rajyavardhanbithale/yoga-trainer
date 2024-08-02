@@ -21,6 +21,7 @@ type STATE = {
     isModelAvailable: boolean
     isModelRunning: boolean
     poseMessage: string | null
+    repTime:number
 }
 
 const initialState: STATE = {
@@ -28,11 +29,14 @@ const initialState: STATE = {
     isPoseValid: null,
     isModelAvailable: false,
     isModelRunning: false,
-    poseMessage: null
+    poseMessage: null,
+    repTime:3
 }
 
-export const tensorflowSlice = createSlice({
-    name: 'tensorflowSlice',
+
+
+export const tensorflow = createSlice({
+    name: 'tensorflow',
     initialState,
     reducers: {
         setModelLoading: (state, action) => {
@@ -41,13 +45,15 @@ export const tensorflowSlice = createSlice({
         updateBoolPose: (state, action: PayloadAction<boolean>) => {
             state.isPoseValid = action.payload
             if (action.payload === true) {
-                state.poseMessage = successMessageList[
-                    Math.floor(Math.random() * successMessageList.length)
-                ]
+                state.poseMessage =
+                    successMessageList[
+                        Math.floor(Math.random() * successMessageList.length)
+                    ]
             } else {
-                state.poseMessage = unsuccessMessageList[
-                    Math.floor(Math.random() * unsuccessMessageList.length)
-                ]
+                state.poseMessage =
+                    unsuccessMessageList[
+                        Math.floor(Math.random() * unsuccessMessageList.length)
+                    ]
             }
         },
         isModelAvailable: (state, action: PayloadAction<boolean>) => {
@@ -56,6 +62,13 @@ export const tensorflowSlice = createSlice({
         updateModelRunning: (state, action: PayloadAction<boolean>) => {
             state.isModelRunning = action.payload
         },
+        updateRepTime: (state, action: PayloadAction<number>) => {
+            localStorage.setItem('repTime', action.payload.toString()); 
+
+            console.log(action.payload);
+            
+            state.repTime = action.payload
+        }
     },
 })
 
@@ -63,6 +76,7 @@ export const {
     setModelLoading,
     updateBoolPose,
     isModelAvailable,
-    updateModelRunning
-} = tensorflowSlice.actions
-export default tensorflowSlice.reducer
+    updateModelRunning,
+    updateRepTime
+} = tensorflow.actions
+export default tensorflow.reducer

@@ -169,6 +169,17 @@ interface UserProfilePublicExt {
     achievements: number[]
 }
 
+interface UserPoseAnalysis {
+    poseID: number,
+    poseName: string,
+    startTime: number,
+    endTime: number,
+    accuracy: number[],
+    correctPose: number[],
+    repTime: number,
+}
+
+
 export type {
     YogaPose,
     YogaPoseAPI,
@@ -188,4 +199,5 @@ export type {
     IFResponse1,
     UserProfile,
     UserProfilePublic,
+    UserPoseAnalysis
 }

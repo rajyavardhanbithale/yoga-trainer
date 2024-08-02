@@ -3,12 +3,17 @@
 import useConvertTensorClass from '@/hooks/useConvertTensorClass'
 import useTensorFlow from '@/hooks/useTensorFlow'
 import { AppDispatch, RootState } from '@/lib/store'
-import { updateBoolPose } from '@/lib/store/tensorflow/tersorflowSlice'
+import { updateYogaPoseDataBase } from "@/lib/store/practice/practiceSlice"
+import { updateBoolPose } from '@/lib/store/tensorflow/tensorflowSlice'
+import { UserPoseAnalysis } from "@/types"
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-export default function TensorflowInputHelper(props: { videoRef: React.RefObject<HTMLVideoElement> }) {
+export default function TensorflowInputHelper(props: {
+    videoRef: React.RefObject<HTMLVideoElement>
+}) {
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null)
+
 
     const { runModel } = useTensorFlow()
     const { getPredictionClass } = useConvertTensorClass(0.8)
@@ -24,7 +29,12 @@ export default function TensorflowInputHelper(props: { videoRef: React.RefObject
     )
     const dispatch = useDispatch<AppDispatch>()
     const videoRef = props?.videoRef
-    const repTime = 3
+    const repTime:number = useSelector((state: RootState) => state.tensorflowSlice.repTime) 
+    const set:number = poseData?.TFData.set || 1
+
+    const userPoseAnalysisStructure = useSelector((state: RootState) => state.practiceSlice.analysis)
+    const [userPoseAnalysis, setUserPoseAnalysis] = useState<UserPoseAnalysis>(userPoseAnalysisStructure)
+
 
     const handleCaptureFrame = () => {
         const video = videoRef.current
@@ -45,15 +55,28 @@ export default function TensorflowInputHelper(props: { videoRef: React.RefObject
         const check = getPredictionClass(prediction, 1)
 
         if (check === poseData?.TFData.class) {
+            setUserPoseAnalysis(prevState => ({
+                ...prevState,
+                accuracy: [...prevState.accuracy, 1],
+                correctPose: [...prevState.correctPose, 1],
+
+            }))
+
             dispatch(updateBoolPose(true))
         } else {
+            setUserPoseAnalysis(prevState => ({
+                ...prevState,
+                accuracy: [...prevState.accuracy, 0],
+                correctPose: [...prevState.correctPose, 0],
+            }))
             dispatch(updateBoolPose(false))
         }
+
     }
 
     const tensorflowPredict = async () => {
-        const pred = await runModel({ set: 1, pred_image: capturedFrame })
-        console.log('Prediction result:', pred);
+        const pred = await runModel({ set: set, pred_image: capturedFrame })
+
         if (pred) {
             checkPrediction(pred)
         }
@@ -61,10 +84,12 @@ export default function TensorflowInputHelper(props: { videoRef: React.RefObject
 
     useEffect(() => {
         let intervalId: NodeJS.Timeout | undefined
-
         if (isModelAvailable && isModelRunning) {
+            setUserPoseAnalysis(prevState => ({
+                ...prevState,
+                startTime: Date.now()
+            }))
             intervalId = setInterval(() => {
-                console.log('Capturing frame');
                 handleCaptureFrame()
             }, repTime * 1000)
         }
@@ -74,7 +99,7 @@ export default function TensorflowInputHelper(props: { videoRef: React.RefObject
                 clearInterval(intervalId)
             }
         }
-    }, [isModelAvailable, isModelRunning, videoRef])
+    }, [isModelAvailable, isModelRunning])
 
     useEffect(() => {
         if (capturedFrame && isModelAvailable) {
@@ -82,6 +107,23 @@ export default function TensorflowInputHelper(props: { videoRef: React.RefObject
         }
     }, [capturedFrame, isModelAvailable])
 
+
+    useEffect(() => {
+        if (isModelAvailable && !isModelRunning) {
+            dispatch(updateYogaPoseDataBase({
+                method: 'update',
+                data: {
+                    ...userPoseAnalysis,
+                    endTime: Date.now(),
+                    poseID: poseData?.id ?? 0,
+                    poseName: poseData?.name ?? '',
+                    repTime: repTime
+                }
+            }))
+        }
+    }, [isModelAvailable, isModelRunning])
+
+   
 
     return (
         <>

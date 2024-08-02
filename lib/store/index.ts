@@ -5,7 +5,7 @@ import profileSlice from './user/profileSlice'
 import dietSlice from './dashboard/dietSlice'
 import practiceSlice from './practice/practiceSlice'
 import audioSlice from './practice/audioSlice'
-import tensorflowSlice from './tensorflow/tersorflowSlice'
+import tensorflowSlice from './tensorflow/tensorflowSlice'
 
 export const store = configureStore({
     reducer: {
