@@ -16,6 +16,7 @@ import {
 } from '@/lib/store/dashboard/dashboardSlice'
 import { AppDispatch, RootState } from '@/lib/store'
 import { RxActivityLog } from 'react-icons/rx'
+import Link from "next/link"
 
 export default function Dashboard(name: any) {
     const dashboardData = useSelector(
@@ -95,6 +96,22 @@ export default function Dashboard(name: any) {
         }
     }
 
+    const getHour = () => {
+        const hours = new Date().getHours();
+        if (hours >= 5 && hours < 12) {
+            return 'Morning';
+        } else if (hours >= 12 && hours < 17) {
+            return 'Midday';
+        } else if (hours >= 17 && hours < 20) {
+            return 'Evening';
+        } else if (hours >= 20 && hours < 22) {
+            return 'Night';
+        } else {
+            return 'Afternoon';
+        }
+    };
+
+
     return (
         <>
             {dashboardData && poseInfo && recentActivities && (
@@ -124,7 +141,7 @@ export default function Dashboard(name: any) {
                             <div className="flex justify-center items-center text-center mx-5">
                                 <span className="text-xl px-5 text-white capitalize font-bold">
                                     {wishes(
-                                        'Morning',
+                                        getHour(),
                                         name.name.split(' ')[0] ?? 'User'
                                     )}
                                 </span>
@@ -168,10 +185,12 @@ export default function Dashboard(name: any) {
                                             </span>
                                         </div>
 
-                                        <button className="capitalize bg-blue-800 text-xl text-slate-100 rounded-xl px-3 py-3 font-medium h-fit mx-2 shadow-md hover:shadow-indigo-900 duration-300">
-                                            perform
-                                            <BsLightningCharge className="inline-flex mx-1" />
-                                        </button>
+                                        <Link href={`/practice?id=${item.id}`}>
+                                            <button className="capitalize bg-blue-800 text-xl text-slate-100 rounded-xl px-3 py-3 font-medium h-fit mx-2 shadow-md hover:shadow-indigo-900 duration-300">
+                                                exercise
+                                                <BsLightningCharge className="inline-flex mx-1" />
+                                            </button>
+                                        </Link>
                                     </div>
                                 ))}
                         </div>
@@ -184,7 +203,7 @@ export default function Dashboard(name: any) {
                             description="All active dates are marked below"
                         />
 
-                        <div className="flex sm:-mt-14 justify-center">
+                        <div className="flex xl:sm:-mt-14 mt-3 justify-center">
                             <Calendar
                                 epochTimes={dashboardData.userActiveDays}
                             />
@@ -218,7 +237,7 @@ export default function Dashboard(name: any) {
                     </div>
 
                     {/* level 2.2 last 30 days */}
-                    <div className="col-span-full xl:col-span-3 h-[60vh]  rounded-2xl overflow-hidden flex flex-col justify-between">
+                    <div className="col-span-full xl:col-span-3 h-[50vh]  rounded-2xl overflow-hidden flex flex-col justify-between">
                         <Heading
                             title="Last 30 Days"
                             description="Overview of activity trends over the last 30 days."
@@ -232,8 +251,8 @@ export default function Dashboard(name: any) {
                 </div>
             )}
 
-            {!dashboardData && poseInfo && recentActivities && (
-                <div className="z-50 grid grid-cols-12 sm:gap-8 gap-5 sm:m-2 m-5 overflow-y-hidden">
+            {(!dashboardData || !poseInfo || !recentActivities) && (
+                <div className=" z-50 grid grid-cols-12 sm:gap-8 gap-5 sm:m-2 m-5 overflow-y-hidden">
                     {/* level 0 */}
                     <div className="col-span-12 min-h-[5vh] flex flex-col sm:flex-row justify-between items-center rounded-2xl">
                         <span className="text-3xl mx-5 font-medium text-slate-800">

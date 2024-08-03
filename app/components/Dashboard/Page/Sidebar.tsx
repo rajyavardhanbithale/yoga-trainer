@@ -14,8 +14,9 @@ import { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 
 import './dashboard.css'
-import { IoHomeOutline } from 'react-icons/io5'
+import { IoHomeOutline, IoLogOutOutline } from 'react-icons/io5'
 import { useRouter } from 'next/navigation'
+import Logout from "./Logout"
 
 const raleway = Raleway({
     subsets: ['latin'],
@@ -88,19 +89,34 @@ export default function Sidebar() {
                         ))}
                     </div>
 
-                    <div
-                        onClick={() =>
-                            dispatch(activeWindow('profile'.toLowerCase()))
-                        }
-                        className={`tooltip tooltip-right flex flex-col justify-center items-center mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-2.5 
+                    <div>
+                        <div
+                            onClick={() =>
+                                dispatch(activeWindow('profile'.toLowerCase()))
+                            }
+                            className={`tooltip tooltip-right flex flex-col justify-center items-center mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-2.5 
                         py-2.5 rounded-xl duration-500 cursor-pointer
                         ${activeWindows === 'profile'.toLowerCase() ? 'bg-blue-100 text-slate-800' : 'bg-transparent text-slate-50'} 
                                 `}
-                        data-tip={'Profile'}
-                    >
-                        <span className="text-2xl font-bold">
-                            <RiUser6Line />
-                        </span>
+                            data-tip={'Profile'}
+                        >
+                            <span className="text-2xl font-bold">
+                                <RiUser6Line />
+                            </span>
+                        </div>
+
+                        <div
+                            onClick={() =>
+                                dispatch(activeWindow('logout'.toLowerCase()))
+                            }
+                            className={`tooltip tooltip-right flex flex-col justify-center items-center mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-2.5 
+                        py-2.5 rounded-xl duration-500 cursor-pointer
+                        ${activeWindows === 'logout'.toLowerCase() ? 'bg-blue-100 text-slate-800' : 'bg-transparent text-slate-50'} 
+                                `}
+                            data-tip={'Logout'}
+                        >
+                            <Logout />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -163,16 +179,28 @@ export default function Sidebar() {
                             ))}
                         </div>
 
-                        <div
-                            onClick={() => handleSideBarToggle('profile')}
-                            className="flex flex-row gap-5 justify-start items-center bg-opacity-50 w-full mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-4 py-2.5 rounded-xl duration-500 cursor-pointer"
-                        >
-                            <span className="text-2xl text-slate-50 font-bold">
-                                <RiUser6Line />
-                            </span>
-                            <span className="text-xl text-slate-50 font-bold">
-                                Profile
-                            </span>
+                        <div>
+                            <div
+                                onClick={() => handleSideBarToggle('profile')}
+                                className="flex flex-row gap-5 justify-start items-center bg-opacity-50 w-full mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-4 py-2.5 rounded-xl duration-500 cursor-pointer"
+                            >
+                                <span className="text-2xl text-slate-50 font-bold">
+                                    <RiUser6Line />
+                                </span>
+                                <span className="text-xl text-slate-50 font-bold">
+                                    Profile
+                                </span>
+                            </div>
+
+                            <div
+                                className="flex flex-row gap-5 justify-start items-center bg-opacity-50 w-full mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-4 py-2.5 rounded-xl duration-500 cursor-pointer"
+                            >
+                                <Logout />
+                                <span className="text-xl text-slate-50 font-bold">
+                                    
+                                </span>
+                            </div>
+
                         </div>
                     </div>
                 </div>

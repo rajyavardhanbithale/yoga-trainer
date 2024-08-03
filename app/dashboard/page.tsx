@@ -16,34 +16,34 @@ const Dashboard = dynamic(
         loading: () => <Loading />,
     }
 )
-// const StatsDashboard = dynamic(
-//     () => import('@/app/components/Dashboard/Stats/Stats'),
-//     {
-//         loading: () => <Loading />,
-//         ssr: false,
-//     }
-// )
-// const Achievements = dynamic(
-//     () => import('@/app/components/Dashboard/Achievements/Achievements'),
-//     {
-//         loading: () => <Loading />,
-//         ssr: false,
-//     }
-// )
-// const DietDashboard = dynamic(
-//     () => import('@/app/components/Dashboard/Diet/Diet'),
-//     {
-//         loading: () => <Loading />,
-//         ssr: false,
-//     }
-// )
-// const Profile = dynamic(
-//     () => import('@/app/components/Dashboard/Profile/Profile'),
-//     {
-//         loading: () => <Loading />,
-//         ssr: false,
-//     }
-// )
+const StatsDashboard = dynamic(
+    () => import('@/app/components/Dashboard/Stats/Stats'),
+    {
+        loading: () => <Loading />,
+        ssr: false,
+    }
+)
+const Achievements = dynamic(
+    () => import('@/app/components/Dashboard/Achievements/Achievements'),
+    {
+        loading: () => <Loading />,
+        ssr: false,
+    }
+)
+const DietDashboard = dynamic(
+    () => import('@/app/components/Dashboard/Diet/Diet'),
+    {
+        loading: () => <Loading />,
+        ssr: false,
+    }
+)
+const Profile = dynamic(
+    () => import('@/app/components/Dashboard/Profile/Profile'),
+    {
+        loading: () => <Loading />,
+        ssr: false,
+    }
+)
 
 export default function Page() {
     const [user, setUser] = useState<any>(null)
@@ -72,11 +72,12 @@ export default function Page() {
                 <div className="mt-16 sm:ml-24 sm:m-2 h-full w-full bg-slate-50 rounded-2xl">
                     {activeWindow === 'dashboard' && (
                         <Dashboard name={user?.user_metadata?.name}></Dashboard>
-                    )}
+                    )} 
 
-                    {/* {activeWindow === 'stats' && (
+                    {activeWindow === 'stats' && (
                         <StatsDashboard></StatsDashboard>
                     )}
+
 
                     {activeWindow === 'badges' && <Achievements></Achievements>}
 
@@ -84,7 +85,7 @@ export default function Page() {
 
                     {user && activeWindow === 'profile' && (
                         <Profile user={user}></Profile>
-                    )} */}
+                    )}
                 </div>
             </div>
         </>

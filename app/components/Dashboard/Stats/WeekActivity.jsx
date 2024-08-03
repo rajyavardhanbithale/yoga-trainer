@@ -14,6 +14,9 @@ import { Bar } from 'react-chartjs-2'
 ChartJS.register(BarElement, LinearScale, CategoryScale, Title, Tooltip, Legend)
 
 export default function WeekActivity({ weeklyActivity }) {
+
+
+    
     const labels = [
         'Sunday',
         'Monday',
@@ -48,12 +51,12 @@ export default function WeekActivity({ weeklyActivity }) {
     }
 
     const options = {
-        // animations: {
-        //     tension: {
-        //         duration: 10000,
-        //         easing: 'easeInElastic',
-        //     },
-        // },
+        animations: {
+            tension: {
+                duration: 10000,
+                easing: 'easeInElastic',
+            },
+        },
 
         scales: {
             x: {
@@ -70,7 +73,7 @@ export default function WeekActivity({ weeklyActivity }) {
                 ticks: {
                     display: false,
                 },
-                max: 4,
+                max: Math.max(...weeklyActivity) + 2,
             },
         },
         plugins: {
@@ -82,7 +85,7 @@ export default function WeekActivity({ weeklyActivity }) {
             },
         },
         responsive: true,
-        maintainAspectRatio: false, // Allows the chart to take the full height of the container
+        maintainAspectRatio: true,
     }
 
     return (

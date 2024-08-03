@@ -184,17 +184,17 @@ export default function Accuracy({ performanceData }) {
                         </button>
                     </div>
 
-                    <div className="inline-flex xl:ml-auto py-2 my-2 text-lg text-slate-800 ">
+                    <div className="inline-flex ml-4 xl:my-0 sm:my-2 py-2 text-lg text-slate-800 ">
                         {userSelection === 'accurate' && (
                             <span>
-                                You have reached {percentage.accuracy} %
-                                accuracy over the past {accuracy.length} days.
+                                You have reached {Math.floor(percentage.accuracy *100)/100} %
+                                accuracy over the past {accuracy.length} Exercise.
                             </span>
                         )}
                         {userSelection === 'inaccurate' && (
                             <span>
-                                You have reached {percentage.inaccuracy}%
-                                inaccuracy over the past {accuracy.length} days.
+                                You have reached {Math.floor(percentage.inaccuracy *100)/100}%
+                                inaccuracy over the past {accuracy.length} Exercise.
                             </span>
                         )}
                     </div>

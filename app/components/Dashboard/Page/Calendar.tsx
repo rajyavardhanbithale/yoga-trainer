@@ -8,12 +8,21 @@ type Prop = {
 }
 
 export default function Calendar({ epochTimes }: Prop) {
-    const dates: Array<Date> = epochTimes.map((time) => new Date(time * 1000))
-    const [selected, setSelected] = useState<Date[]>(dates)
+
+    
+    const dates: Date[] = epochTimes.map(time => {
+        const date = new Date(time * 1000);
+        return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+    });
+
+  
+
     return (
         <>
-            <div className="sm:scale-[.70]">
-                <DayPicker mode="multiple" selected={selected} />
+            <div className="xl:scale-[.70]">
+                <DayPicker 
+                mode="multiple"
+                 selected={dates} />
             </div>
         </>
     )

@@ -76,7 +76,7 @@ export default function StatsDashboard() {
                             title="Weekly Activity"
                             description="Overview of your activity throughout the week"
                         />
-                        <div className="animate-fade-up h-full flex w-full ">
+                        <div className="animate-fade-up  flex w-full ">
                             <WeekActivity
                                 weeklyActivity={userStats.weeklyActivity}
                             />

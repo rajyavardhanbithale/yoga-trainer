@@ -70,26 +70,43 @@ export async function GET(request: NextRequest) {
     // stage D. last n days activity
     const generateLastNDaysActivity = (nDays: number): number[] => {
         const epochTime = generateUserActiveDays()
-
-        // Check overflow condition
+    
+        // Ensure we're dealing with exactly nDays
         nDays = Math.min(365, nDays)
-
-        const maxEpochTime = Math.max(...epochTime)
-        let epochDaysMap = new Map<number, number>()
-
-        // Count occurrences of each day
-        epochTime.forEach((time) => {
+    
+        // Get the current time in epoch seconds
+        const now = Math.floor(Date.now() / 1000)
+        
+        // Calculate the start time of the range (30 days ago)
+        const startTime = now - nDays * 24 * 60 * 60
+    
+        // Filter activities that fall within the last nDays
+        const filteredEpochTime = epochTime.filter(time => time >= startTime)
+    
+        // Collect the unique days in the last nDays range
+        const daySet = new Set<number>()
+        filteredEpochTime.forEach(time => {
             const day = Math.floor(time / (24 * 60 * 60))
-            epochDaysMap.set(day, (epochDaysMap.get(day) || 0) + 1)
+            daySet.add(day)
         })
-
-        return Array.from({ length: nDays }, (_, i) => {
-            const currentDay = Math.floor(
-                (maxEpochTime - i * 24 * 60 * 60) / (24 * 60 * 60)
-            )
-            return epochDaysMap.get(currentDay) || 0
-        }).reverse()
+    
+        // Convert Set to Array and sort in descending order
+        const activeDays = Array.from(daySet).sort((a, b) => b - a)
+    
+        // Initialize result array with zeroes
+        const activityCounts = Array(nDays).fill(0)
+    
+        // Fill in the activity counts
+        activeDays.slice(0, nDays).forEach(day => {
+            const index = Math.min(nDays - 1, activeDays.indexOf(day))
+            if (index >= 0) {
+                activityCounts[index] = filteredEpochTime.filter(time => Math.floor(time / (24 * 60 * 60)) === day).length
+            }
+        })
+    
+        return activityCounts.reverse()
     }
+    
 
     const responseData: { [key: string]: any } = {
         todayPoseList: generateTodayPoseList(3),
