@@ -3,12 +3,15 @@
 import { poseInfo } from '@/app/api/pose/poseApiData'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Link from 'next/link'
-import { useState } from "react"
-import { IoAccessibility, IoAccessibilityOutline, IoHomeOutline } from 'react-icons/io5'
+import { useState } from 'react'
+import {
+    IoAccessibility,
+    IoAccessibilityOutline,
+    IoHomeOutline,
+} from 'react-icons/io5'
 import { LuLayoutDashboard } from 'react-icons/lu'
 
 import '@/app/components/Yoga/yoga.css'
-
 
 interface sidebarShowCase {
     id: number
@@ -58,27 +61,33 @@ export default function YogaSidebar() {
                 </ScrollArea>
             </div>
 
-
             {/* display button to open side menu */}
             <div className="xl:hidden block">
                 <div
                     onClick={() => setOpen(!open)}
-                    className="absolute top-5 left-3 p-1 bg-slate-200 rounded-xl cursor-pointer">
+                    className="absolute top-5 left-3 p-1 bg-slate-200 rounded-xl cursor-pointer"
+                >
                     <IoAccessibility className="text-2xl text-slate-800 hover:animate-spin animate-once animate-duration-[2000ms] animate-ease-in-out" />
                 </div>
             </div>
 
             {/* for mobile devices */}
 
-            {open &&
-                <div className={`h-full fixed w-64 bg-slate-300 z-[100] ${open ? 'sidebar-in-animation' : 'sidebar-out-animation'}`}>
+            {open && (
+                <div
+                    className={`h-full fixed w-64 bg-slate-300 z-[100] ${open ? 'sidebar-in-animation' : 'sidebar-out-animation'}`}
+                >
                     <ScrollArea className="h-full w-full border p-2">
                         <div className="flex flex-col gap-5 p-2">
                             {pose.map((pose, idx) => (
-                                <Link key={idx} href={`/practice?id=${pose.id}`}>
+                                <Link
+                                    key={idx}
+                                    href={`/practice?id=${pose.id}`}
+                                >
                                     <div
                                         onClick={() => setOpen(false)}
-                                        className="bg-slate-50 flex flex-col gap-3 justify-center items-center rounded-2xl border-4 hover:border-slate-400 duration-700 cursor-pointer">
+                                        className="bg-slate-50 flex flex-col gap-3 justify-center items-center rounded-2xl border-4 hover:border-slate-400 duration-700 cursor-pointer"
+                                    >
                                         <div className="w-full overflow-hidden">
                                             <img
                                                 src={`/pose/image/webp/${pose.image}`}
@@ -97,7 +106,7 @@ export default function YogaSidebar() {
                         </div>
                     </ScrollArea>
                 </div>
-            }
+            )}
 
             {open && (
                 <div
@@ -105,7 +114,6 @@ export default function YogaSidebar() {
                     className="absolute h-screen w-screen bg-transparent z-[99]"
                 ></div>
             )}
-
         </>
     )
 }

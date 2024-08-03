@@ -69,7 +69,6 @@
     }
 }
 
-
 .sidebar-in-animation {
     transform: translateX(0);
     animation: animate-in-sidebar 300ms ease-in-out;

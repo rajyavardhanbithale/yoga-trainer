@@ -14,7 +14,7 @@ import { setAudioData } from '@/lib/store/practice/audioSlice'
 import dynamic from 'next/dynamic'
 import Loading from '../../Dashboard/Loading'
 import InputSource from '../VideoWebcam/InputSource'
-import Menu from "../Utils/Menu/Menu"
+import Menu from '../Utils/Menu/Menu'
 
 const UserSectionExtras = dynamic(
     () => import('@/app/components/Yoga/TabSections/Section'),

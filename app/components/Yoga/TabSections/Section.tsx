@@ -68,7 +68,7 @@ export default function UserSectionExtras() {
                 )}
 
                 {activeTab === 'tutorial' && (
-                    <div className="flex h-full sm:-mt-5 mt-16">
+                    <div className="flex h-full  mt-16">
                         <Tutorial />
                     </div>
                 )}
