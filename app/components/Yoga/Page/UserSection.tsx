@@ -27,12 +27,11 @@ const UserSectionExtras = dynamic(
 export default function UserSection() {
     const searchParams = useSearchParams()
     const id = searchParams.get('id') ?? 101
+    const source = searchParams.get('source') ?? 'tree.mp4'
     const data = useSelector((state: RootState) => state.practiceSlice.poseData)
     const dispatch = useDispatch<AppDispatch>()
 
     const videoRef = useRef(null)
-    // const source = 'tree.mp4'
-    const source = 'warrior_2.mp4'
 
     useEffect(() => {
         const poseData = poseInfo.filter((pose) => pose.id === Number(id))[0]

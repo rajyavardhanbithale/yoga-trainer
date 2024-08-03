@@ -25,31 +25,29 @@ export async function GET(request: NextRequest) {
         const epochTimeExtracted = epochTimeList?.map(
             (time) => time?.startTime
         ) as number[]
-        
+
         return epochTimeExtracted
     }
 
     const userActivity = (nDays: number): number[] => {
-        const epochTime = generateUserActiveDays();
-    
-       
-        nDays = Math.min(365, nDays);
-    
-        const now = new Date();
-        const currentDay = Math.floor(now.getTime() / (24 * 60 * 60 * 1000)); 
-    
-        let epochDaysMap = new Map<number, number>();
-    
-        
+        const epochTime = generateUserActiveDays()
+
+        nDays = Math.min(365, nDays)
+
+        const now = new Date()
+        const currentDay = Math.floor(now.getTime() / (24 * 60 * 60 * 1000))
+
+        let epochDaysMap = new Map<number, number>()
+
         epochTime.forEach((time) => {
-            const day = Math.floor(time / (24 * 60 * 60));
-            epochDaysMap.set(day, (epochDaysMap.get(day) || 0) + 1);
-        });
-    
+            const day = Math.floor(time / (24 * 60 * 60))
+            epochDaysMap.set(day, (epochDaysMap.get(day) || 0) + 1)
+        })
+
         return Array.from({ length: nDays }, (_, i) => {
-            const targetDay = currentDay - i;
-            return epochDaysMap.get(targetDay) || 0;
-        }).reverse();
+            const targetDay = currentDay - i
+            return epochDaysMap.get(targetDay) || 0
+        }).reverse()
     }
 
     const userActiveInMonth = (nDays: number) => {

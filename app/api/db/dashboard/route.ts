@@ -70,43 +70,44 @@ export async function GET(request: NextRequest) {
     // stage D. last n days activity
     const generateLastNDaysActivity = (nDays: number): number[] => {
         const epochTime = generateUserActiveDays()
-    
+
         // Ensure we're dealing with exactly nDays
         nDays = Math.min(365, nDays)
-    
+
         // Get the current time in epoch seconds
         const now = Math.floor(Date.now() / 1000)
-        
+
         // Calculate the start time of the range (30 days ago)
         const startTime = now - nDays * 24 * 60 * 60
-    
+
         // Filter activities that fall within the last nDays
-        const filteredEpochTime = epochTime.filter(time => time >= startTime)
-    
+        const filteredEpochTime = epochTime.filter((time) => time >= startTime)
+
         // Collect the unique days in the last nDays range
         const daySet = new Set<number>()
-        filteredEpochTime.forEach(time => {
+        filteredEpochTime.forEach((time) => {
             const day = Math.floor(time / (24 * 60 * 60))
             daySet.add(day)
         })
-    
+
         // Convert Set to Array and sort in descending order
         const activeDays = Array.from(daySet).sort((a, b) => b - a)
-    
+
         // Initialize result array with zeroes
         const activityCounts = Array(nDays).fill(0)
-    
+
         // Fill in the activity counts
-        activeDays.slice(0, nDays).forEach(day => {
+        activeDays.slice(0, nDays).forEach((day) => {
             const index = Math.min(nDays - 1, activeDays.indexOf(day))
             if (index >= 0) {
-                activityCounts[index] = filteredEpochTime.filter(time => Math.floor(time / (24 * 60 * 60)) === day).length
+                activityCounts[index] = filteredEpochTime.filter(
+                    (time) => Math.floor(time / (24 * 60 * 60)) === day
+                ).length
             }
         })
-    
+
         return activityCounts.reverse()
     }
-    
 
     const responseData: { [key: string]: any } = {
         todayPoseList: generateTodayPoseList(3),

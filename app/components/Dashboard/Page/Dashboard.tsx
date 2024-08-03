@@ -16,7 +16,7 @@ import {
 } from '@/lib/store/dashboard/dashboardSlice'
 import { AppDispatch, RootState } from '@/lib/store'
 import { RxActivityLog } from 'react-icons/rx'
-import Link from "next/link"
+import Link from 'next/link'
 
 export default function Dashboard(name: any) {
     const dashboardData = useSelector(
@@ -97,20 +97,19 @@ export default function Dashboard(name: any) {
     }
 
     const getHour = () => {
-        const hours = new Date().getHours();
+        const hours = new Date().getHours()
         if (hours >= 5 && hours < 12) {
-            return 'Morning';
+            return 'Morning'
         } else if (hours >= 12 && hours < 17) {
-            return 'Midday';
+            return 'Midday'
         } else if (hours >= 17 && hours < 20) {
-            return 'Evening';
+            return 'Evening'
         } else if (hours >= 20 && hours < 22) {
-            return 'Night';
+            return 'Night'
         } else {
-            return 'Afternoon';
+            return 'Afternoon'
         }
-    };
-
+    }
 
     return (
         <>

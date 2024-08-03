@@ -72,12 +72,11 @@ export default function Page() {
                 <div className="mt-16 sm:ml-24 sm:m-2 h-full w-full bg-slate-50 rounded-2xl">
                     {activeWindow === 'dashboard' && (
                         <Dashboard name={user?.user_metadata?.name}></Dashboard>
-                    )} 
+                    )}
 
                     {activeWindow === 'stats' && (
                         <StatsDashboard></StatsDashboard>
                     )}
-
 
                     {activeWindow === 'badges' && <Achievements></Achievements>}
 

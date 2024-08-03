@@ -14,9 +14,6 @@ import { Bar } from 'react-chartjs-2'
 ChartJS.register(BarElement, LinearScale, CategoryScale, Title, Tooltip, Legend)
 
 export default function WeekActivity({ weeklyActivity }) {
-
-
-    
     const labels = [
         'Sunday',
         'Monday',

@@ -16,7 +16,7 @@ import { FaBars, FaTimes } from 'react-icons/fa'
 import './dashboard.css'
 import { IoHomeOutline, IoLogOutOutline } from 'react-icons/io5'
 import { useRouter } from 'next/navigation'
-import Logout from "./Logout"
+import Logout from './Logout'
 
 const raleway = Raleway({
     subsets: ['latin'],
@@ -192,15 +192,10 @@ export default function Sidebar() {
                                 </span>
                             </div>
 
-                            <div
-                                className="flex flex-row gap-5 justify-start items-center bg-opacity-50 w-full mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-4 py-2.5 rounded-xl duration-500 cursor-pointer"
-                            >
+                            <div className="flex flex-row gap-5 justify-start items-center bg-opacity-50 w-full mb-3 hover:bg-opacity-50 hover:bg-blue-600 px-4 py-2.5 rounded-xl duration-500 cursor-pointer">
                                 <Logout />
-                                <span className="text-xl text-slate-50 font-bold">
-                                    
-                                </span>
+                                <span className="text-xl text-slate-50 font-bold"></span>
                             </div>
-
                         </div>
                     </div>
                 </div>
