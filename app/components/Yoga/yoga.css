@@ -13,8 +13,6 @@
     --icon-size: 25px;
 }
 
-
-
 .slider {
     cursor: pointer;
     display: -webkit-inline-box;
@@ -69,4 +67,55 @@
     .slider .level {
         width: 60vw;
     }
+}
+
+
+.sidebar-in-animation {
+    transform: translateX(0);
+    animation: animate-in-sidebar 300ms ease-in-out;
+}
+
+@keyframes animate-in-sidebar {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.sidebar-out-animation {
+    transform: translateX(-100%);
+    animation: animate-out-sidebar 300ms ease-in-out;
+}
+
+@keyframes animate-out-sidebar {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.slide-enter {
+    animation: slideInFromRight 0.3s ease-out forwards;
+}
+
+.slide-exit {
+    animation: slideInFromRight 0.3s ease-in reverse;
 }

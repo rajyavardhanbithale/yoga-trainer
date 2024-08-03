@@ -58,18 +58,14 @@ export default function UserSectionExtras() {
     )
     return (
         <>
-
             <TabSwitcher />
 
-
             <div className="sm:w-full">
-
-
-                {activeTab === 'benefits' &&
+                {activeTab === 'benefits' && (
                     <div className="mt-5 sm:mt-1">
                         <Benefits />
                     </div>
-                }
+                )}
 
                 {activeTab === 'tutorial' && (
                     <div className="flex h-full sm:-mt-5 mt-16">

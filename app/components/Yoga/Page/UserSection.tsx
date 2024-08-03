@@ -14,7 +14,7 @@ import { setAudioData } from '@/lib/store/practice/audioSlice'
 import dynamic from 'next/dynamic'
 import Loading from '../../Dashboard/Loading'
 import InputSource from '../VideoWebcam/InputSource'
-import Preferences from '../Utils/Preferences'
+import Menu from "../Utils/Menu/Menu"
 
 const UserSectionExtras = dynamic(
     () => import('@/app/components/Yoga/TabSections/Section'),
@@ -54,11 +54,13 @@ export default function UserSection() {
             {data && (
                 <div className="flex flex-col justify-center items-center mb-10 sm:mb-2">
                     <div className="flex sm:flex-row flex-col justify-center items-center sm:gap-3 text-slate-800 px-5 py-1 rounded-2xl">
-                        <span className="text-3xl capitalize font-bold">
+                        <span className="text-3xl capitalize font-bold text-center">
                             {data.name}
                         </span>
-                        <span className="text-3xl capitalize font-bold hidden sm:block">-</span>
-                        <span className="text-3xl capitalize font-bold">
+                        <span className="text-3xl capitalize font-bold hidden sm:block">
+                            -
+                        </span>
+                        <span className="text-3xl capitalize font-bold text-center">
                             <hr className="block sm:hidden my-1 py-0.5" />
                             {data.originalName}
                         </span>
@@ -91,7 +93,7 @@ export default function UserSection() {
             </div>
 
             <div className="absolute top-5 right-5">
-                <Preferences />
+                <Menu />
             </div>
         </>
     )

@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from 'react'
 import TensorButton from './TensorButton'
 import { updateYogaPoseDataBase } from '@/lib/store/practice/practiceSlice'
-import Preferences from './Preferences'
+import Preferences from './Menu/Preferences'
 import CloudSaveDialog from './CloudSaveDialog'
 
 export default function TensorControl() {

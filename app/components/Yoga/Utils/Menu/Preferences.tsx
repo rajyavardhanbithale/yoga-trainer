@@ -58,7 +58,7 @@ export default function Preferences(props: {
                     className="p-1 bg-slate-200 rounded-xl cursor-pointer"
                     onClick={() => setOpen(true)}
                 >
-                    <IoMdSettings className="text-2xl text-slate-800 hover:animate-spin animate-once animate-duration-[2000ms] animate-ease-in-out" />
+                    <IoMdSettings className="text-2xl hove:hover:scale-125 text-slate-800 hover:animate-spin animate-once animate-duration-[2000ms] animate-ease-in-out" />
                 </div>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px] z-[1000]">
