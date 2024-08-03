@@ -48,6 +48,7 @@ export default function Preferences(props: {
     const handleSaveChanges = () => {
         dispatch(updateRepTime(interval))
         setOpen(false)
+        props?.setOpen && props?.setOpen(false)
     }
 
     return (

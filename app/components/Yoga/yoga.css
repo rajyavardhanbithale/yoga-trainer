@@ -1,6 +1,6 @@
 .slider {
     /* slider */
-    --slider-width: 400px;
+    --slider-width: 20vw;
     --slider-height: 12px;
     --slider-bg: rgb(170, 170, 170);
     --slider-border-radius: 999px;
@@ -12,6 +12,8 @@
     --icon-color: var(--slider-bg);
     --icon-size: 25px;
 }
+
+
 
 .slider {
     cursor: pointer;
@@ -61,4 +63,10 @@
 
 .slider:hover .level {
     height: calc(var(--slider-height) * 1.2);
+}
+
+@media (max-width: 768px) {
+    .slider .level {
+        width: 60vw;
+    }
 }

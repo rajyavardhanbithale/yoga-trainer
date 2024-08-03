@@ -3,7 +3,7 @@
 import { poseInfo } from '@/app/api/pose/poseApiData'
 import { useSearchParams } from 'next/navigation'
 import { IoIosMore } from 'react-icons/io'
-import TensorControl from '../Utils/TesnorControl'
+import TensorControl from '../Utils/TensorControl'
 
 import { useEffect, useRef } from 'react'
 import { AppDispatch, RootState } from '@/lib/store'
@@ -52,13 +52,14 @@ export default function UserSection() {
     return (
         <>
             {data && (
-                <div className="flex flex-col justify-center items-center mb-2">
-                    <div className="flex gap-3  text-slate-800 px-5 py-1 rounded-2xl">
+                <div className="flex flex-col justify-center items-center mb-10 sm:mb-2">
+                    <div className="flex sm:flex-row flex-col justify-center items-center sm:gap-3 text-slate-800 px-5 py-1 rounded-2xl">
                         <span className="text-3xl capitalize font-bold">
                             {data.name}
                         </span>
-                        <span className="text-3xl capitalize font-bold">-</span>
+                        <span className="text-3xl capitalize font-bold hidden sm:block">-</span>
                         <span className="text-3xl capitalize font-bold">
+                            <hr className="block sm:hidden my-1 py-0.5" />
                             {data.originalName}
                         </span>
                     </div>
@@ -71,20 +72,20 @@ export default function UserSection() {
                     </button>
                 </div>
             )}
-            <div className="grid grid-cols-12 gap-5">
-                <div className="col-span-6 h-[50vh] ">
+            <div className="grid sm:grid-cols-12 gap-10 sm:gap-5">
+                <div className="col-span-full sm:col-span-6 h-[50vh] bg-slate-100 rounded-2xl">
                     <InputSource videoRef={videoRef} source={source} />
                 </div>
-                <div className="relative col-span-6 h-[50vh] bg-slate-100 rounded-2xl overflow-hidden">
+                <div className="col-span-full sm:col-span-6 relative h-[50vh] bg-slate-100 rounded-2xl overflow-hidden">
                     <TutorialControl />
                 </div>
             </div>
 
-            <div className="grid grid-cols-12 gap-5  mt-5">
-                <div className="col-span-9 h-[40vh] ">
+            <div className="sm:grid sm:grid-cols-12 sm:gap-5 mt-5">
+                <div className="sm:col-span-9 h-[40vh]">
                     <UserSectionExtras />
                 </div>
-                <div className="col-span-3 h-[50vh] rounded-2xl">
+                <div className="sm:col-span-3 h-[40vh] rounded-2xl mt-[35rem] sm:mt-3">
                     <TensorControl></TensorControl>
                 </div>
             </div>

@@ -20,7 +20,7 @@ export default function VolumeSlider() {
     return (
         <>
             <label className="slider">
-                <span className="ml-2">{volume} %</span>
+                <span className="ml-2 text-nowrap w-8">{volume} %</span>
                 <input
                     type="range"
                     className="level"

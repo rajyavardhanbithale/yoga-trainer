@@ -58,34 +58,43 @@ export default function UserSectionExtras() {
     )
     return (
         <>
+
             <TabSwitcher />
 
-            {activeTab === 'benefits' && <Benefits />}
 
-            {activeTab === 'tutorial' && (
-                <div className="flex h-full -mt-5">
-                    <Tutorial />
-                </div>
-            )}
+            <div className="sm:w-full">
 
-            {activeTab === 'accuracy' && (
-                <div className="flex h-full w-full">
-                    <LineChart />
-                </div>
-            )}
 
-            {activeTab === 'analysis' && (
-                <div className="flex h-full w-full">
-                    <AnalysisDoughnutChart />
-                </div>
-            )}
+                {activeTab === 'benefits' &&
+                    <div className="mt-5 sm:mt-1">
+                        <Benefits />
+                    </div>
+                }
 
-            {activeTab === 'audio' && (
-                <div className="flex h-full w-full">
-                    <AudioControl />
-                </div>
-            )}
+                {activeTab === 'tutorial' && (
+                    <div className="flex h-full sm:-mt-5 mt-16">
+                        <Tutorial />
+                    </div>
+                )}
 
+                {activeTab === 'accuracy' && (
+                    <div className="flex h-full w-full">
+                        <LineChart />
+                    </div>
+                )}
+
+                {activeTab === 'analysis' && (
+                    <div className="flex h-full w-full">
+                        <AnalysisDoughnutChart />
+                    </div>
+                )}
+
+                {activeTab === 'audio' && (
+                    <div className="flex h-full w-full">
+                        <AudioControl />
+                    </div>
+                )}
+            </div>
             <AudioManager />
         </>
     )

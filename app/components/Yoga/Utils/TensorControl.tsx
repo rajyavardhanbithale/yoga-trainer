@@ -14,13 +14,14 @@ import { useEffect, useState } from 'react'
 import TensorButton from './TensorButton'
 import { updateYogaPoseDataBase } from '@/lib/store/practice/practiceSlice'
 import Preferences from './Preferences'
-import CloudSaveDialog from "./CloudSaveDialog"
+import CloudSaveDialog from './CloudSaveDialog'
 
 export default function TensorControl() {
     const [showPreferences, setShowPreferences] = useState<boolean>(false)
     const [cloudSave, setCloudSave] = useState<boolean>(false)
 
-    const { runModel, stopModel, resetModel, modelLoadingStatus } = useTensorFlow()
+    const { runModel, stopModel, resetModel, modelLoadingStatus } =
+        useTensorFlow()
     const dispatch = useDispatch<AppDispatch>()
 
     const poseMessage = useSelector(
@@ -72,29 +73,25 @@ export default function TensorControl() {
         resetModel()
     }, [set])
 
-
     const handlePractice = () => {
-        const getLSItem = window.localStorage.getItem('showSaveProgressDialog');
-        if(getLSItem === null || getLSItem === 'true'){
-            setCloudSave(true);
-        }else{
+        const getLSItem = window.localStorage.getItem('showSaveProgressDialog')
+        if (getLSItem === null || getLSItem === 'true') {
+            setCloudSave(true)
+        } else {
             startTensor()
         }
     }
 
     const startTensor = () => {
-        console.log('start');
-        
-        dispatch(
-            updateModelRunning(!isModelRunning)
-        )
+        console.log('start')
+
+        dispatch(updateModelRunning(!isModelRunning))
         dispatch(
             updateYogaPoseDataBase({
                 method: 'reset',
             })
         )
     }
-    
 
     return (
         <>
@@ -136,7 +133,11 @@ export default function TensorControl() {
                                 />
                             )}
 
-                        <CloudSaveDialog open={cloudSave} setOpen={setCloudSave} startTensor={startTensor} ></CloudSaveDialog>
+                        <CloudSaveDialog
+                            open={cloudSave}
+                            setOpen={setCloudSave}
+                            startTensor={startTensor}
+                        ></CloudSaveDialog>
                     </>
                     {isModelRunning && poseMessage && (
                         <div

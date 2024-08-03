@@ -43,7 +43,7 @@ export default function TabSwitcher() {
     const dispatch = useDispatch<AppDispatch>()
     return (
         <>
-            <div className="flex overflow-x-auto flex-row w-full bg-slate-100 py-2 gap-5 border-b-[3px] border-slate-500">
+            <div className="flex overflow-x-auto flex-row w-full bg-slate-100 rounded-t-2xl px-3 py-2 gap-5 border-b-[3px] border-slate-500">
                 {options.map((opt, idx) => (
                     <div
                         key={idx}
