@@ -129,8 +129,8 @@ After installing the dependencies, you can start the development server by runni
 
 -   [x] Make prediction faster
 -   [ ] Add more yoga poses to model
--   [ ] Add Responsive Layout for smaller device
--   [ ] Improve UI/UX
+-   [x] Add Responsive Layout for smaller device
+-   [x] Improve UI/UX
 -   [ ] Multi-language Support
     -   [ ] Hindi
     -   [ ] Spanish
