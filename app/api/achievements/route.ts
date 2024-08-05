@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
-
+import CryptoJS from 'crypto-js'
 const USERDB = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_USER_PROFILE!
 
 export async function GET(req: NextRequest) {
@@ -15,6 +15,8 @@ export async function GET(req: NextRequest) {
         .from(USERDB)
         .select('achievements')
         .eq('userID', userIdMD5)
+
+    
 
     const achievements = data && data[0]?.achievements
 
