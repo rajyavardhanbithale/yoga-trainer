@@ -1,6 +1,5 @@
-
-import { achievementCriteria } from "./achievementCriteria";
-import { createClient } from "@/utils/supabase/server";
+import { achievementCriteria } from './achievementCriteria'
+import { createClient } from '@/utils/supabase/server'
 
 export async function unlockAchievements(
     totalPoseCount: number,
@@ -11,30 +10,35 @@ export async function unlockAchievements(
     streak15: boolean,
     userID: string | undefined
 ) {
-    const unlockedAchievements: number[] = [];
+    const unlockedAchievements: number[] = []
 
     const supabase = createClient()
 
     for (const criteria of achievementCriteria) {
         if (
-            (criteria.totalPoseCount === undefined || totalPoseCount >= criteria.totalPoseCount) &&
-            (criteria.uniquePoseCount === undefined || uniquePoseCount >= criteria.uniquePoseCount) &&
-            (criteria.accuracy === undefined || accuracy >= criteria.accuracy) &&
-            (criteria.isEarlyBird === undefined || isEarlyBird === criteria.isEarlyBird) &&
-            (criteria.streakDays === undefined || (criteria.streakDays === 5 && streak5) || (criteria.streakDays === 15 && streak15))
+            (criteria.totalPoseCount === undefined ||
+                totalPoseCount >= criteria.totalPoseCount) &&
+            (criteria.uniquePoseCount === undefined ||
+                uniquePoseCount >= criteria.uniquePoseCount) &&
+            (criteria.accuracy === undefined ||
+                accuracy >= criteria.accuracy) &&
+            (criteria.isEarlyBird === undefined ||
+                isEarlyBird === criteria.isEarlyBird) &&
+            (criteria.streakDays === undefined ||
+                (criteria.streakDays === 5 && streak5) ||
+                (criteria.streakDays === 15 && streak15))
         ) {
-            unlockedAchievements.push(criteria.id);
+            unlockedAchievements.push(criteria.id)
         }
     }
 
-    
     if (unlockedAchievements.length > 0) {
-        const updatedAchievements = unlockedAchievements;
+        const updatedAchievements = unlockedAchievements
         await supabase
             .from('user-db')
             .update({ achievements: updatedAchievements })
-            .eq('userID', userID);
+            .eq('userID', userID)
     }
 
-    return unlockedAchievements;
+    return unlockedAchievements
 }

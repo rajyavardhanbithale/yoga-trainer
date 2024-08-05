@@ -1,8 +1,7 @@
-import { createClient } from "@/utils/supabase/server";
-import { NextRequest, NextResponse } from "next/server";
+import { createClient } from '@/utils/supabase/server'
+import { NextRequest, NextResponse } from 'next/server'
 import CryptoJS from 'crypto-js'
-import { unlockAchievements } from "./checkCriteria";
-
+import { unlockAchievements } from './checkCriteria'
 
 const USERDB = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_USER_PROFILE!
 
@@ -19,14 +18,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
         .select('poseID,accuracy,correctPose,startTime')
         .eq('userID', userIdMD5)
 
-
     // calculating accuracy
     const calculateAccuracy = () => {
         const filterArray: number[][] = data?.map((item) => item.accuracy) ?? []
         const sumArray: number = filterArray?.flat()?.reduce((a, b) => {
             return a + b
         }, 0)
-        const accuracy: number = Math.floor(((sumArray / filterArray?.flat()?.length) * 100) * 100) / 100
+        const accuracy: number =
+            Math.floor((sumArray / filterArray?.flat()?.length) * 100 * 100) /
+            100
         return accuracy
     }
 
@@ -42,30 +42,28 @@ export async function GET(req: NextRequest, res: NextResponse) {
             totalPose: filterArray,
 
             uniquePoseCount: uniquePose.length,
-            uniquePose: uniquePose
+            uniquePose: uniquePose,
         }
         return userPose
-
     }
 
     // check if user is early bird
     const checkTime = () => {
         function getHoursFromEpoch(epochTime: number): string {
-            const date = new Date(epochTime * 1000);
-            return date.getHours().toString().padStart(2, '0');
+            const date = new Date(epochTime * 1000)
+            return date.getHours().toString().padStart(2, '0')
         }
 
         const filterArray: number[] = data?.map((item) => item.startTime) ?? []
-        const timeArray = filterArray.map(getHoursFromEpoch);
+        const timeArray = filterArray.map(getHoursFromEpoch)
 
         const checkTime = timeArray.map((time) => {
-            if ((4 < parseInt(time)) && (parseInt(time) > 7)) {
+            if (4 < parseInt(time) && parseInt(time) > 7) {
                 return true
             }
         })
 
         return true
-
     }
 
     // check streak
@@ -111,15 +109,22 @@ export async function GET(req: NextRequest, res: NextResponse) {
         return representation.includes(0) ? false : true
     }
 
-    const { totalPoseCount, totalPose, uniquePoseCount, uniquePose } = userPose()
+    const { totalPoseCount, totalPose, uniquePoseCount, uniquePose } =
+        userPose()
     const accuracy = calculateAccuracy()
     const isUserEarlyBird = checkTime()
     const streak5 = userActivity(5)
     const streak15 = userActivity(15)
 
-    const achievementUnlocked = await unlockAchievements(totalPoseCount, uniquePoseCount, accuracy, isUserEarlyBird, streak5, streak15, userIdMD5)
+    const achievementUnlocked = await unlockAchievements(
+        totalPoseCount,
+        uniquePoseCount,
+        accuracy,
+        isUserEarlyBird,
+        streak5,
+        streak15,
+        userIdMD5
+    )
 
-
-    
     return NextResponse.json(achievementUnlocked)
 }
