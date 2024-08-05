@@ -8,7 +8,7 @@
 Find your center with RAGE AI: Your AI-Powered Yoga Partner!
 <br/>
 <br/>
-<a href="https://rage-AI.vercel.app/">
+<a href="http://yoga-trainer-v2.vercel.app/">
 <strong>Explore the platform for learning yoga »</strong></a>
 <br/>
 <br/>
