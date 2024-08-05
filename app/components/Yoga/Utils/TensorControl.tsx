@@ -20,7 +20,8 @@ export default function TensorControl() {
     const [showPreferences, setShowPreferences] = useState<boolean>(false)
     const [cloudSave, setCloudSave] = useState<boolean>(false)
 
-    const { runModel, stopModel, resetModel, modelLoadingStatus } = useTensorFlow()
+    const { runModel, stopModel, resetModel, modelLoadingStatus } =
+        useTensorFlow()
     const dispatch = useDispatch<AppDispatch>()
 
     const poseMessage = useSelector(
