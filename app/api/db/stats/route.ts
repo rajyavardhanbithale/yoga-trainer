@@ -30,38 +30,38 @@ export async function GET(request: NextRequest) {
     }
 
     const userActivity = (nDays: number) => {
-        const epochTime = generateUserActiveDays();
+        const epochTime = generateUserActiveDays()
 
-        nDays = Math.min(365, nDays);
+        nDays = Math.min(365, nDays)
 
-        const today = new Date();
-        const dayOfWeek = today.getDay();
-        const daysToMonday = (dayOfWeek + 6) % 7;
+        const today = new Date()
+        const dayOfWeek = today.getDay()
+        const daysToMonday = (dayOfWeek + 6) % 7
 
-        const mondayDate = new Date(today);
-        mondayDate.setDate(today.getDate() - daysToMonday);
-        mondayDate.setHours(0, 0, 0, 0);
+        const mondayDate = new Date(today)
+        mondayDate.setDate(today.getDate() - daysToMonday)
+        mondayDate.setHours(0, 0, 0, 0)
 
-        const activityDays = epochTime.map(ts => new Date(ts * 1000))
-            .filter(date => date >= mondayDate && date <= today)
-            .map(date => date.getDay());
+        const activityDays = epochTime
+            .map((ts) => new Date(ts * 1000))
+            .filter((date) => date >= mondayDate && date <= today)
+            .map((date) => date.getDay())
 
-        const frequency: number[] = new Array(7).fill(0);
-        activityDays.forEach(day => {
-            frequency[day]++;
-        });
+        const frequency: number[] = new Array(7).fill(0)
+        activityDays.forEach((day) => {
+            frequency[day]++
+        })
 
-        const representation = new Array(7).fill(0);
+        const representation = new Array(7).fill(0)
         for (let i = 0; i < 7; i++) {
-            const day = (dayOfWeek - i + 7) % 7;
+            const day = (dayOfWeek - i + 7) % 7
             if (frequency[day] > 0) {
-                representation[i] = frequency[day];
+                representation[i] = frequency[day]
             }
         }
 
-        return representation.reverse();
+        return representation
     }
-
 
     const userActiveInMonth = (nDays: number) => {
         const activity = userActivity(nDays)

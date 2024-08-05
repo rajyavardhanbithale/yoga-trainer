@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
             (time) => time?.startTime
         ) as number[]
 
-        console.log(epochTimeExtracted);
+        console.log(epochTimeExtracted)
 
         return epochTimeExtracted
     }
@@ -70,35 +70,38 @@ export async function GET(request: NextRequest) {
     }
 
     // stage D. last n days activity
-    const generateLastNDaysActivity = (nDays: number)=> {
-        const today = new Date();
-        const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const generateLastNDaysActivity = (nDays: number) => {
+        const today = new Date()
+        const thirtyDaysAgo = new Date(
+            today.getTime() - 30 * 24 * 60 * 60 * 1000
+        )
 
-        nDays = Math.min(365,nDays)
+        nDays = Math.min(365, nDays)
         const timestamp = generateUserActiveDays()
         // Convert timestamps to dates within the last 30 days
-        const activityDays = timestamp.map(ts => new Date(ts * 1000))
-            .filter(date => date >= thirtyDaysAgo && date <= today)
-            .map(date => date.toISOString().split('T')[0]);
+        const activityDays = timestamp
+            .map((ts) => new Date(ts * 1000))
+            .filter((date) => date >= thirtyDaysAgo && date <= today)
+            .map((date) => date.toISOString().split('T')[0])
 
         // Count the frequency of activity per day
-        const frequency: Record<string, number> = {};
-        activityDays.forEach(day => {
-            frequency[day] = (frequency[day] || 0) + 1;
-        });
+        const frequency: Record<string, number> = {}
+        activityDays.forEach((day) => {
+            frequency[day] = (frequency[day] || 0) + 1
+        })
 
         // Create the representation for the last 30 days
-        const representation = new Array(30).fill(0);
+        const representation = new Array(30).fill(0)
 
         for (let i = 0; i < 30; i++) {
-            const day = new Date(today.getTime() - i * 24 * 60 * 60 * 1000);
-            const dayString = day.toISOString().split('T')[0];
+            const day = new Date(today.getTime() - i * 24 * 60 * 60 * 1000)
+            const dayString = day.toISOString().split('T')[0]
             if (frequency[dayString]) {
-                representation[29 - i] = frequency[dayString];
+                representation[29 - i] = frequency[dayString]
             }
         }
 
-        return representation;
+        return representation
     }
 
     const responseData: { [key: string]: any } = {

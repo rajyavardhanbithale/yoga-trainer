@@ -70,6 +70,7 @@ export const updateYogaPoseDataBase = createAsyncThunk<
             }
 
             const response = await axios.post('/api/db/insert', payload)
+            const response1 = await axios.post('/api/unlock-achievement', payload)
         }
     }
     return { method, data }

@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
-import CryptoJS from 'crypto-js'
 import { createClient } from '@/utils/supabase/server'
 
 const USERDB = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_USER_PROFILE!
