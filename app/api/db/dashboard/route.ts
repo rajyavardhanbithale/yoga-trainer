@@ -46,6 +46,8 @@ export async function GET(request: NextRequest) {
             (time) => time?.startTime
         ) as number[]
 
+        console.log(epochTimeExtracted);
+
         return epochTimeExtracted
     }
 
@@ -68,45 +70,35 @@ export async function GET(request: NextRequest) {
     }
 
     // stage D. last n days activity
-    const generateLastNDaysActivity = (nDays: number): number[] => {
-        const epochTime = generateUserActiveDays()
+    const generateLastNDaysActivity = (nDays: number)=> {
+        const today = new Date();
+        const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-        // Ensure we're dealing with exactly nDays
-        nDays = Math.min(365, nDays)
+        nDays = Math.min(365,nDays)
+        const timestamp = generateUserActiveDays()
+        // Convert timestamps to dates within the last 30 days
+        const activityDays = timestamp.map(ts => new Date(ts * 1000))
+            .filter(date => date >= thirtyDaysAgo && date <= today)
+            .map(date => date.toISOString().split('T')[0]);
 
-        // Get the current time in epoch seconds
-        const now = Math.floor(Date.now() / 1000)
+        // Count the frequency of activity per day
+        const frequency: Record<string, number> = {};
+        activityDays.forEach(day => {
+            frequency[day] = (frequency[day] || 0) + 1;
+        });
 
-        // Calculate the start time of the range (30 days ago)
-        const startTime = now - nDays * 24 * 60 * 60
+        // Create the representation for the last 30 days
+        const representation = new Array(30).fill(0);
 
-        // Filter activities that fall within the last nDays
-        const filteredEpochTime = epochTime.filter((time) => time >= startTime)
-
-        // Collect the unique days in the last nDays range
-        const daySet = new Set<number>()
-        filteredEpochTime.forEach((time) => {
-            const day = Math.floor(time / (24 * 60 * 60))
-            daySet.add(day)
-        })
-
-        // Convert Set to Array and sort in descending order
-        const activeDays = Array.from(daySet).sort((a, b) => b - a)
-
-        // Initialize result array with zeroes
-        const activityCounts = Array(nDays).fill(0)
-
-        // Fill in the activity counts
-        activeDays.slice(0, nDays).forEach((day) => {
-            const index = Math.min(nDays - 1, activeDays.indexOf(day))
-            if (index >= 0) {
-                activityCounts[index] = filteredEpochTime.filter(
-                    (time) => Math.floor(time / (24 * 60 * 60)) === day
-                ).length
+        for (let i = 0; i < 30; i++) {
+            const day = new Date(today.getTime() - i * 24 * 60 * 60 * 1000);
+            const dayString = day.toISOString().split('T')[0];
+            if (frequency[dayString]) {
+                representation[29 - i] = frequency[dayString];
             }
-        })
+        }
 
-        return activityCounts.reverse()
+        return representation;
     }
 
     const responseData: { [key: string]: any } = {
