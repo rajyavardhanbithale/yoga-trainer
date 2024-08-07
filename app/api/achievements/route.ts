@@ -16,8 +16,6 @@ export async function GET(req: NextRequest) {
         .select('achievements')
         .eq('userID', userIdMD5)
 
-    
-
     const achievements = data && data[0]?.achievements
 
     return NextResponse.json(

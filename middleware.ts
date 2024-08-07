@@ -6,16 +6,16 @@ export default async function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname
 
     const supabase = createClient()
-    const { data: user, error } = await supabase.auth.getUser()
+    const { data: user, error } = await supabase.auth.getSession()
 
     if (path === '/dashboard') {
-        if (!user || error) {
+        if (!user.session || error) {
             return NextResponse.redirect(new URL('/login', request.nextUrl))
         }
     }
 
     if (path === '/login') {
-        if (user && !error) {
+        if (user.session && !error) {
             return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
         }
     }

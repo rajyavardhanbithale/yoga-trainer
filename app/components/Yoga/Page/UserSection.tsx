@@ -9,20 +9,20 @@ import { useEffect, useRef } from 'react'
 import { AppDispatch, RootState } from '@/lib/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPoseData } from '@/lib/store/practice/practiceSlice'
-import TutorialControl from '../Utils/TutorialControl'
+// import TutorialControl from '../Utils/TutorialControl'
 import { setAudioData } from '@/lib/store/practice/audioSlice'
 import dynamic from 'next/dynamic'
 import Loading from '../../Dashboard/Loading'
 import InputSource from '../VideoWebcam/InputSource'
 import Menu from '../Utils/Menu/Menu'
 
-const UserSectionExtras = dynamic(
-    () => import('@/app/components/Yoga/TabSections/Section'),
-    {
-        ssr: false,
-        loading: () => <Loading />,
-    }
-)
+// const UserSectionExtras = dynamic(
+//     () => import('@/app/components/Yoga/TabSections/Section'),
+//     {
+//         ssr: false,
+//         loading: () => <Loading />,
+//     }
+// )
 
 export default function UserSection() {
     const searchParams = useSearchParams()
@@ -78,13 +78,13 @@ export default function UserSection() {
                     <InputSource videoRef={videoRef} source={source} />
                 </div>
                 <div className="col-span-full sm:col-span-6 relative h-[50vh] bg-slate-100 rounded-2xl overflow-hidden">
-                    <TutorialControl />
+                    {/* <TutorialControl /> */}
                 </div>
             </div>
 
             <div className="sm:grid sm:grid-cols-12 sm:gap-5 mt-5">
                 <div className="sm:col-span-9 h-[40vh]">
-                    <UserSectionExtras />
+                    {/* <UserSectionExtras /> */}
                 </div>
                 <div className="sm:col-span-3 h-[40vh] rounded-2xl mt-[35rem] sm:mt-3">
                     <TensorControl></TensorControl>

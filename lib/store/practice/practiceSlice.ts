@@ -8,6 +8,7 @@ import { createClientBrowser } from '@/utils/supabase/client'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
+import { User } from "lucide-react"
 
 export interface TutorialSource {
     source?: string | null
@@ -47,34 +48,35 @@ type UpdatePosePayload = {
 
 const supabase = createClientBrowser()
 
-export const updateYogaPoseDataBase = createAsyncThunk<
-    UpdatePosePayload,
-    UpdatePosePayload
->('tensorflow/updateDB', async ({ method, data }) => {
-    const {
-        data: { user },
-        error,
-    } = await supabase.auth.getUser()
-    const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null
+export const practiceSliceUpdateDB = createAsyncThunk<UpdatePosePayload, UpdatePosePayload>(
+    'tensorflow/updateDB',
+    async ({ method, data }) => {
+        const {
+            data: { user },
+            error,
+        } = await supabase.auth.getUser()
 
-    if (method === 'updateDB' && userID && data) {
-        if (data.accuracy.length !== 0) {
+        const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null
+    
+        if (method === 'update-db' && userID) {
+            if (data  && data.accuracy.length !== 0) {
             const payload: APIYogaPosePerformanceData = {
                 userID: userID,
                 poseID: data?.poseID,
                 startTime: Math.floor(data?.startTime / 1000),
                 endTime: Math.floor(data?.endTime / 1000),
-                repTime: data?.repTime * 1000,
+                repTime: data?.repTime,
                 accuracy: data?.accuracy,
                 correctPose: data?.correctPose,
             }
 
             const response = await axios.post('/api/db/insert', payload)
-            const response1 = await axios.get('/api/unlock-achievement')
+            // const response1 = await axios.get('/api/unlock-achievement')
         }
+        }
+        return { method, data }
     }
-    return { method, data }
-})
+)
 
 export const practiceSlice = createSlice({
     name: 'practiceSlice',
@@ -112,32 +114,22 @@ export const practiceSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(updateYogaPoseDataBase.pending, (state) => {
+        builder.addCase(practiceSliceUpdateDB.pending, (state) => {
             state.updateStatus = 'pending'
-        }),
-            builder.addCase(
-                updateYogaPoseDataBase.fulfilled,
-                (state, action: PayloadAction<UpdatePosePayload>) => {
-                    const { method, data } = action.payload
-                    if (method === 'reset') {
-                        state.analysis = {
-                            poseID: 0,
-                            poseName: '',
-                            startTime: 0,
-                            endTime: 0,
-                            accuracy: [],
-                            correctPose: [],
-                            repTime: 0,
-                        }
-                    }
+        })
+        builder.addCase(practiceSliceUpdateDB.fulfilled, (state, action) => {
+            state.updateStatus = 'success'
+            if (action.payload.data) {
+                state.analysis = action.payload.data
 
-                    if (method === 'update' && data) {
-                        state.analysis = data
-                    }
-                    state.updateStatus === 'success'
-                }
-            )
-    },
+            } else {
+                console.error('undefined data from the API')
+            }
+        })
+        builder.addCase(practiceSliceUpdateDB.rejected, (state) => {
+            state.updateStatus = 'error'
+        })
+    }
 })
 
 export const { setTutorial, setPoseData, changeTab } = practiceSlice.actions

@@ -1,97 +1,87 @@
 'use client'
-
 import useTensorFlow from '@/hooks/useTensorFlow'
 import Typewriter from 'typewriter-effect'
 import './tensorUtils.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/lib/store'
-import {
-    isModelAvailable,
-    updateModelRunning,
-    updateRepTime,
-} from '@/lib/store/tensorflow/tensorflowSlice'
 import { useEffect, useState } from 'react'
 import TensorButton from './TensorButton'
-import { updateYogaPoseDataBase } from '@/lib/store/practice/practiceSlice'
 import Preferences from './Menu/Preferences'
 import CloudSaveDialog from './CloudSaveDialog'
+import { updateModelLoaded, updateRepTime, updateModelRunning } from "@/lib/store/tensorflow/tensorflowSlice"
 
 export default function TensorControl() {
-    const [showPreferences, setShowPreferences] = useState<boolean>(false)
     const [cloudSave, setCloudSave] = useState<boolean>(false)
 
-    const { runModel, stopModel, resetModel, modelLoadingStatus } =
+    const [error, setError] = useState<string | null>(null)
+
+    const { runModel, stopModel, modelLoadingStatus, resetModel, loadModel } =
         useTensorFlow()
     const dispatch = useDispatch<AppDispatch>()
 
-    const poseMessage = useSelector(
-        (state: RootState) => state.tensorflowSlice.poseMessage
-    )
+    const modelSet = useSelector((state: RootState) => state?.practiceSlice?.poseData?.TFData.set)
+    const repTime: number = useSelector((state: RootState) => state.tensorflowSlice.repTime)
+    const isModelLoaded = useSelector((state: RootState) => state.tensorflowSlice.isModelLoaded)
+    const isModelRunning = useSelector((state: RootState) => state.tensorflowSlice.isModelRunning)
+    const poseMessage = useSelector((state: RootState) => state.tensorflowSlice.poseMessage)
+    const isUserPoseCorret = useSelector((state: RootState) => state.tensorflowSlice.isUserPoseCorred)
+   
 
-    const isPoseValid = useSelector(
-        (state: RootState) => state.tensorflowSlice.isPoseValid
-    )
-    const isModelRunning = useSelector(
-        (state: RootState) => state.tensorflowSlice.isModelRunning
-    )
-
-    const set = useSelector(
-        (state: RootState) => state.practiceSlice.poseData?.TFData.set
-    )
-
-    const handleLoadModel = () => {
-        if (set !== undefined) {
-            runModel({ set })
-        } else {
-            console.error('Set value is undefined')
-        }
-    }
-
-    useEffect(() => {
-        if (modelLoadingStatus === 'success') {
-            dispatch(isModelAvailable(true))
-        }
-    }, [modelLoadingStatus])
-
-    useEffect(() => {
-        const repTime = localStorage.getItem('repTime')
-        if (!repTime) {
-            setShowPreferences(true)
-        }
-    }, [])
-
-    useEffect(() => {
-        const repTime = localStorage.getItem('repTime')
-        if (repTime) {
-            dispatch(updateRepTime(parseFloat(repTime)))
-        } else {
-            setShowPreferences(true)
-        }
-    }, [dispatch])
-
-    useEffect(() => {
-        resetModel()
-    }, [set])
-
-    const handlePractice = () => {
+    const hnadleStart = () => {
         const getLSItem = window.localStorage.getItem('showSaveProgressDialog')
         if (getLSItem === null || getLSItem === 'true') {
             setCloudSave(true)
         } else {
-            startTensor()
+            dispatch(updateModelRunning(true))
         }
     }
 
+    const handleStop = () =>{
+        stopModel()
+        dispatch(updateModelRunning(false))
+    }
+
+    const handleLoadModel = () => {
+        if (modelSet) {
+            loadModel(modelSet)
+        } else {
+            setError('Please select a pose to start the')
+        }
+    }
+
+    const getRepTimeFromLocalStorage = () => {
+        const repTime = window.localStorage.getItem('repTime')
+        if (repTime) {
+            return parseInt(repTime)
+        }
+        return 3
+    }
+
+    useEffect(() => {
+        dispatch(updateRepTime(getRepTimeFromLocalStorage()))
+    }, [])
+
     const startTensor = () => {
         console.log('start')
-
-        dispatch(updateModelRunning(!isModelRunning))
-        dispatch(
-            updateYogaPoseDataBase({
-                method: 'reset',
-            })
-        )
+        dispatch(updateModelRunning(false))
     }
+
+
+    useEffect(() => {
+        if(modelLoadingStatus === 'success'){
+            dispatch(updateModelLoaded(true))
+        }
+    }, [modelLoadingStatus])
+
+    // const modelLoadingStatus = 'pending'
+    // console.log('dbg logs',{
+    //     modelLoadingStatus: modelLoadingStatus,
+    //     modelSet: modelSet,
+    //     repTime: repTime,
+    //     isModelLoaded: isModelLoaded,
+    //     isModelRunning: isModelRunning
+    // });
+
 
     return (
         <>
@@ -107,7 +97,9 @@ export default function TensorControl() {
 
                         {modelLoadingStatus === 'pending' && (
                             <div className="flex flex-col items-center gap-4">
-                                <div className="loader "> </div>
+                                <div className="w-full flex bg-slate-200 justify-center">
+                                    <div className="loader-tf"></div>
+                                </div>
                                 <span className="text-[2.5vh] text-text font-semibold text-center p-2">
                                     {' '}
                                     Hang on Loading Assets
@@ -115,21 +107,18 @@ export default function TensorControl() {
                             </div>
                         )}
 
-                        {modelLoadingStatus === 'success' && isModelRunning && (
+                        {(modelLoadingStatus === 'success' && isModelRunning) && (
                             <TensorButton
                                 label="Stop"
-                                onClick={() =>
-                                    dispatch(
-                                        updateModelRunning(!isModelRunning)
-                                    )
-                                }
+                                onClick={handleStop}
                             />
                         )}
-                        {modelLoadingStatus === 'success' &&
+
+                        {(modelLoadingStatus === 'success' && !isModelRunning) &&
                             !isModelRunning && (
                                 <TensorButton
                                     label="Practice"
-                                    onClick={handlePractice}
+                                    onClick={hnadleStart}
                                 />
                             )}
 
@@ -141,7 +130,7 @@ export default function TensorControl() {
                     </>
                     {isModelRunning && poseMessage && (
                         <div
-                            className={`${isPoseValid ? 'text-emerald-600' : 'text-rose-600'} text-2xl font-bold tracking-wide text-center p-2`}
+                            className={`${isUserPoseCorret ? 'text-emerald-600' : 'text-rose-600'} text-2xl font-bold tracking-wide text-center p-2`}
                         >
                             <Typewriter
                                 options={{
@@ -156,12 +145,9 @@ export default function TensorControl() {
                 </div>
             </div>
 
-            {showPreferences && (
-                <Preferences
-                    open={showPreferences}
-                    setOpen={setShowPreferences}
-                />
-            )}
+
+            <Preferences isProp={true} />
+
         </>
     )
 }

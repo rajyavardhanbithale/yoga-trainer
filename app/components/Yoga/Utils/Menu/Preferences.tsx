@@ -18,50 +18,46 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/lib/store'
 import { updateRepTime } from '@/lib/store/tensorflow/tensorflowSlice'
 
-export default function Preferences(props: {
-    open?: boolean
-    setOpen?: (value: boolean) => void
-}) {
-    const [interval, setInterval] = useState<number>(3) // default value
+export default function Preferences({ isProp }: { isProp?: boolean }) {
 
-    useEffect(() => {
-        const storedRepTime = localStorage.getItem('repTime')
-        if (storedRepTime) {
-            setInterval(parseFloat(storedRepTime))
-        }
-    }, [])
-
-    const [open, setOpen] = useState<boolean>(props.open ?? false)
-
-    useEffect(() => {
-        if (props.open !== undefined) {
-            setOpen(props.open)
-        }
-    }, [props.open])
+    const [open, setOpen] = useState<boolean>(false)
+    const [interval, setInterval] = useState<number>(3)
 
     const dispatch = useDispatch<AppDispatch>()
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInterval(Number(e.target.value))
-    }
+    useEffect(() => {
+        const getRepTimeFromLocalStorage = window.localStorage.getItem('repTime')
+        if (!getRepTimeFromLocalStorage) {
+            setOpen(true)
+        } else {
+            setInterval(parseInt(getRepTimeFromLocalStorage))
+        }
+    }, [])
 
     const handleSaveChanges = () => {
+        window.localStorage.setItem('repTime', interval.toString())
         dispatch(updateRepTime(interval))
         setOpen(false)
-        props?.setOpen && props?.setOpen(false)
     }
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-                <div
-                    className="p-1 bg-slate-200 rounded-xl cursor-pointer"
-                    onClick={() => setOpen(true)}
-                >
-                    <IoMdSettings className="text-2xl hove:hover:scale-125 text-slate-800 hover:animate-spin animate-once animate-duration-[2000ms] animate-ease-in-out" />
-                </div>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] z-[1000]">
+            {!isProp &&
+                <DialogTrigger asChild>
+                    <div
+                        className="p-1 bg-slate-200 rounded-xl cursor-pointer"
+                        onClick={() => setOpen(true)}
+                    >
+                        <IoMdSettings className="text-2xl hove:hover:scale-125 text-slate-800 hover:animate-spin animate-once animate-duration-[2000ms] animate-ease-in-out" />
+                    </div>
+                </DialogTrigger>
+            }
+            <DialogContent
+                className="sm:max-w-[425px] z-[1000]"
+                onInteractOutside={(e) => {
+                    e.preventDefault();
+                }}
+            >
                 <DialogHeader>
                     <DialogTitle>Preferences</DialogTitle>
                     <DialogDescription className="font-bold mt-2">
@@ -85,7 +81,7 @@ export default function Preferences(props: {
                             id="updateInterval"
                             type="number"
                             value={interval}
-                            onChange={handleInputChange}
+                            onChange={(e) => setInterval(parseInt(e.target.value))}
                             className="w-full"
                             placeholder="Enter interval in seconds"
                         />

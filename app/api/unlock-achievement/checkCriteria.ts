@@ -1,6 +1,7 @@
 import { achievementCriteria } from './achievementCriteria'
 import { createClient } from '@/utils/supabase/server'
 
+const USERDB = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_USER_PROFILE!
 export async function unlockAchievements(
     totalPoseCount: number,
     uniquePoseCount: number,
@@ -32,13 +33,28 @@ export async function unlockAchievements(
         }
     }
 
+    // fetching previous achievements
+    const { data: previous, error } = await supabase
+        .from(USERDB)
+        .select('achievements')
+        .eq('userID', userID)
+        .single()
+
+    const prevAchievements = previous?.achievements
+
     if (unlockedAchievements.length > 0) {
         const updatedAchievements = unlockedAchievements
         await supabase
-            .from('user-db')
+            .from(USERDB)
             .update({ achievements: updatedAchievements })
             .eq('userID', userID)
     }
 
-    return unlockedAchievements
+    const newAchievements = prevAchievements
+        ? unlockedAchievements?.filter((ach: number) => {
+              !prevAchievements.includes(ach)
+          })
+        : unlockedAchievements
+
+    return newAchievements
 }
