@@ -15,7 +15,7 @@ import dynamic from 'next/dynamic'
 import Loading from '../../Dashboard/Loading'
 import InputSource from '../VideoWebcam/InputSource'
 import Menu from '../Utils/Menu/Menu'
-import NewAchievements from "../../NewAchievements/NewAchievements"
+import NewAchievements from '../../NewAchievements/NewAchievements'
 
 const UserSectionExtras = dynamic(
     () => import('@/app/components/Yoga/TabSections/Section'),

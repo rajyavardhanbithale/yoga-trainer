@@ -91,8 +91,6 @@ export default function TensorControl() {
     //     isModelRunning: isModelRunning
     // });
 
-
-
     return (
         <>
             <div className="flex flex-col justify-center items-center h-full rounded-2xl">

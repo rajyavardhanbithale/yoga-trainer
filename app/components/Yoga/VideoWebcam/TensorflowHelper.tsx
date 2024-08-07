@@ -68,7 +68,7 @@ export default function TensorflowInputHelper(props: {
             isModelAvailable &&
             isModelRunning
         ) {
-            manipulateUserPose(userPoseAnalysis, 'init')
+            manipulateUserPose('init')
         }
         // update start time
         if (
@@ -76,12 +76,12 @@ export default function TensorflowInputHelper(props: {
             isModelAvailable &&
             isModelRunning
         ) {
-            manipulateUserPose(userPoseAnalysis, 'update-time-start')
+            manipulateUserPose('update-time-start')
         }
 
         // update end time
         if (!isModelRunning && isModelAvailable && capturedFrame) {
-            manipulateUserPose(userPoseAnalysis, 'update-time-end')
+            manipulateUserPose('update-time-end')
         }
 
         if (capturedFrame && isModelAvailable && isModelRunning) {
@@ -117,13 +117,13 @@ export default function TensorflowInputHelper(props: {
         console.log('check', check)
 
         if (check === poseData?.TFData.class) {
-            manipulateUserPose(userPoseAnalysis, 'update-correct-pose')
+            manipulateUserPose('update-correct-pose')
         } else {
-            manipulateUserPose(userPoseAnalysis, 'update-incorrect-pose')
+            manipulateUserPose('update-incorrect-pose')
         }
     }
 
-    const manipulateUserPose = (pose: UserPoseAnalysis, operation: string) => {
+    const manipulateUserPose = (operation: string) => {
         const randRange = (min: number, max: number): number => {
             return (
                 Math.floor(
@@ -160,7 +160,7 @@ export default function TensorflowInputHelper(props: {
                 setUserPoseAnalysis((prev) => ({
                     ...prev,
                     correctPose: [...prev.correctPose, 1],
-                    accuracy: [...prev.accuracy, randRange(0.91005, 1)],
+                    accuracy: [...prev.accuracy, randRange(0.81005, 1)],
                 }))
                 break
 
@@ -168,7 +168,7 @@ export default function TensorflowInputHelper(props: {
                 setUserPoseAnalysis((prev) => ({
                     ...prev,
                     correctPose: [...prev.correctPose, 0],
-                    accuracy: [...prev.accuracy, randRange(0.30105, 1)],
+                    accuracy: [...prev.accuracy, randRange(0.30105, 0)],
                 }))
                 break
 
@@ -205,7 +205,7 @@ export default function TensorflowInputHelper(props: {
                     data: userPoseAnalysis,
                 })
             )
-            manipulateUserPose(userPoseAnalysis, 'reset')
+            manipulateUserPose('reset')
         }
     }, [userPoseAnalysis])
 
@@ -216,8 +216,8 @@ export default function TensorflowInputHelper(props: {
                 if (loadingToastRef.current !== null) {
                     toast.dismiss(loadingToastRef.current)
                     loadingToastRef.current = null
+                    toast.success('Synced to cloud')
                 }
-                toast.success('Synced to cloud')
             } else if (updateStatus === 'pending') {
                 loadingToastRef.current = toast.loading('Syncing to cloud')
             }

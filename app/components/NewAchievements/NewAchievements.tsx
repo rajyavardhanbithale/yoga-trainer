@@ -20,7 +20,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/lib/store'
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 
 export default function NewAchievements() {
     const [open, setOpen] = useState<boolean>(false)
@@ -35,8 +35,7 @@ export default function NewAchievements() {
     const isModelRunning = useSelector(
         (state: RootState) => state.tensorflowSlice.isModelRunning
     )
-    
-    
+
     useEffect(() => {
         const fetchNewAchievements = async () => {
             try {
@@ -48,8 +47,8 @@ export default function NewAchievements() {
                 )
                 if (newAchievements.length > 0) {
                     setOpen(true)
+                    setFilteredAchievements(filtered)
                 }
-                setFilteredAchievements(filtered)
             } catch (error) {
                 console.error('Error fetching new achievements:', error)
             }
@@ -58,7 +57,7 @@ export default function NewAchievements() {
         if (updateState === 'success' && !isModelRunning) {
             fetchNewAchievements()
         }
-    }, [updateState,isModelRunning])
+    }, [updateState, isModelRunning])
 
     useEffect(() => {
         if (open) {
@@ -66,7 +65,7 @@ export default function NewAchievements() {
                 particleCount: 250,
                 spread: 120,
                 origin: { y: 0.5 },
-                startVelocity: 25
+                startVelocity: 25,
             })
             confetti({
                 particleCount: 250,
@@ -125,10 +124,9 @@ export default function NewAchievements() {
                     </div>
                 </ScrollArea>
                 <DialogClose asChild>
-                    <Button type="button">Close</Button>
+                    <Button type="button" className="bg-blue-950">Close</Button>
                 </DialogClose>
             </DialogContent>
-
         </Dialog>
     )
 }
