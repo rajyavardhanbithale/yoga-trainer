@@ -19,9 +19,9 @@ type STATE = {
     repTime: number
     poseMessage: string
 
-    isModelLoaded:boolean
-    isModelRunning:boolean
-    isUserPoseCorred:boolean | null
+    isModelLoaded: boolean
+    isModelRunning: boolean
+    isUserPoseCorred: boolean | null
 }
 
 const initialState: STATE = {
@@ -37,21 +37,18 @@ export const tensorflow = createSlice({
     name: 'tensorflow',
     initialState,
     reducers: {
-        updateRepTime: (state, action) =>{
+        updateRepTime: (state, action) => {
             state.repTime = action.payload
         },
-        updateModelLoaded: (state, action) =>{
+        updateModelLoaded: (state, action) => {
             state.isModelLoaded = action.payload
         },
-        updateModelRunning: (state, action) =>{
+        updateModelRunning: (state, action) => {
             state.isModelRunning = action.payload
-        }
+        },
     },
 })
 
-export const {
-    updateRepTime,
-    updateModelLoaded,
-    updateModelRunning,
-} = tensorflow.actions
+export const { updateRepTime, updateModelLoaded, updateModelRunning } =
+    tensorflow.actions
 export default tensorflow.reducer

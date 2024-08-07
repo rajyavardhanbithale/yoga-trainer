@@ -8,7 +8,7 @@ import { createClientBrowser } from '@/utils/supabase/client'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import CryptoJS from 'crypto-js'
-import { User } from "lucide-react"
+import { User } from 'lucide-react'
 
 export interface TutorialSource {
     source?: string | null
@@ -48,18 +48,19 @@ type UpdatePosePayload = {
 
 const supabase = createClientBrowser()
 
-export const practiceSliceUpdateDB = createAsyncThunk<UpdatePosePayload, UpdatePosePayload>(
-    'tensorflow/updateDB',
-    async ({ method, data }) => {
-        const {
-            data: { user },
-            error,
-        } = await supabase.auth.getUser()
+export const practiceSliceUpdateDB = createAsyncThunk<
+    UpdatePosePayload,
+    UpdatePosePayload
+>('tensorflow/updateDB', async ({ method, data }) => {
+    const {
+        data: { user },
+        error,
+    } = await supabase.auth.getUser()
 
-        const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null
-    
-        if (method === 'update-db' && userID) {
-            if (data  && data.accuracy.length !== 0) {
+    const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null
+
+    if (method === 'update-db' && userID) {
+        if (data && data.accuracy.length !== 0) {
             const payload: APIYogaPosePerformanceData = {
                 userID: userID,
                 poseID: data?.poseID,
@@ -73,10 +74,9 @@ export const practiceSliceUpdateDB = createAsyncThunk<UpdatePosePayload, UpdateP
             const response = await axios.post('/api/db/insert', payload)
             // const response1 = await axios.get('/api/unlock-achievement')
         }
-        }
-        return { method, data }
     }
-)
+    return { method, data }
+})
 
 export const practiceSlice = createSlice({
     name: 'practiceSlice',
@@ -121,7 +121,6 @@ export const practiceSlice = createSlice({
             state.updateStatus = 'success'
             if (action.payload.data) {
                 state.analysis = action.payload.data
-
             } else {
                 console.error('undefined data from the API')
             }
@@ -129,7 +128,7 @@ export const practiceSlice = createSlice({
         builder.addCase(practiceSliceUpdateDB.rejected, (state) => {
             state.updateStatus = 'error'
         })
-    }
+    },
 })
 
 export const { setTutorial, setPoseData, changeTab } = practiceSlice.actions

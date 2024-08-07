@@ -3,10 +3,10 @@
 import useConvertTensorClass from '@/hooks/useConvertTensorClass'
 import useTensorFlow from '@/hooks/useTensorFlow'
 import { AppDispatch, RootState } from '@/lib/store'
-import { practiceSliceUpdateDB } from "@/lib/store/practice/practiceSlice"
+import { practiceSliceUpdateDB } from '@/lib/store/practice/practiceSlice'
 import { UserPoseAnalysis } from '@/types'
-import { useEffect, useState } from 'react'
-import toast, { Toaster } from "react-hot-toast"
+import { useEffect, useRef, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function TensorflowInputHelper(props: {
@@ -18,7 +18,6 @@ export default function TensorflowInputHelper(props: {
     const { runModel } = useTensorFlow()
     const { getPredictionClass } = useConvertTensorClass(0.8)
     const dispatch = useDispatch<AppDispatch>()
-
 
     const poseData = useSelector(
         (state: RootState) => state.practiceSlice.poseData
@@ -39,11 +38,11 @@ export default function TensorflowInputHelper(props: {
     const [userPoseAnalysis, setUserPoseAnalysis] = useState<UserPoseAnalysis>(
         userPoseAnalysisStructure
     )
-    const updateStatus = useSelector((state: RootState) => state.practiceSlice.updateStatus)
-
+    const updateStatus = useSelector(
+        (state: RootState) => state.practiceSlice.updateStatus
+    )
 
     const set: number = poseData?.TFData.set || 1
-
 
     // capture frame
     useEffect(() => {
@@ -61,16 +60,22 @@ export default function TensorflowInputHelper(props: {
         }
     }, [isModelAvailable, isModelRunning])
 
-
     // prediction
     useEffect(() => {
-
         // init user pose analysis
-        if (userPoseAnalysis.poseID === 0 && isModelAvailable && isModelRunning) {
+        if (
+            userPoseAnalysis.poseID === 0 &&
+            isModelAvailable &&
+            isModelRunning
+        ) {
             manipulateUserPose(userPoseAnalysis, 'init')
         }
         // update start time
-        if (userPoseAnalysis.startTime === 0 && isModelAvailable && isModelRunning) {
+        if (
+            userPoseAnalysis.startTime === 0 &&
+            isModelAvailable &&
+            isModelRunning
+        ) {
             manipulateUserPose(userPoseAnalysis, 'update-time-start')
         }
 
@@ -99,7 +104,6 @@ export default function TensorflowInputHelper(props: {
         }
     }
 
-
     const tensorflowPredict = async () => {
         const pred = await runModel({ set: set, pred_image: capturedFrame })
         if (pred) {
@@ -110,63 +114,63 @@ export default function TensorflowInputHelper(props: {
     const checkPrediction = (prediction: string) => {
         const check = getPredictionClass(prediction, set)
 
-        console.log('check', check);
+        console.log('check', check)
 
         if (check === poseData?.TFData.class) {
             manipulateUserPose(userPoseAnalysis, 'update-correct-pose')
-
         } else {
             manipulateUserPose(userPoseAnalysis, 'update-incorrect-pose')
         }
     }
 
     const manipulateUserPose = (pose: UserPoseAnalysis, operation: string) => {
-        const randRange = (min: number, max: number):number => {
-            return Math.floor(Math.random() * ((max - min) * 100 + 1) + min * 100) / 100;
+        const randRange = (min: number, max: number): number => {
+            return (
+                Math.floor(
+                    Math.random() * ((max - min) * 100 + 1) + min * 100
+                ) / 100
+            )
         }
 
         switch (operation) {
-
             case 'init':
-                setUserPoseAnalysis(prev => ({
+                setUserPoseAnalysis((prev) => ({
                     ...prev,
                     poseID: poseData?.id ?? 0,
                     poseName: poseData?.name || '',
                     repTime: repTime,
                 }))
-                break;
+                break
 
             case 'update-time-start':
-                setUserPoseAnalysis(prev => ({
+                setUserPoseAnalysis((prev) => ({
                     ...prev,
                     startTime: Date.now(),
                 }))
                 break
 
             case 'update-time-end':
-                setUserPoseAnalysis(prev => ({
+                setUserPoseAnalysis((prev) => ({
                     ...prev,
                     endTime: Date.now(),
                 }))
                 break
 
             case 'update-correct-pose':
-
-                setUserPoseAnalysis(prev => ({
+                setUserPoseAnalysis((prev) => ({
                     ...prev,
                     correctPose: [...prev.correctPose, 1],
                     accuracy: [...prev.accuracy, randRange(0.91005, 1)],
-
                 }))
-                break;
+                break
 
             case 'update-incorrect-pose':
-                setUserPoseAnalysis(prev => ({
+                setUserPoseAnalysis((prev) => ({
                     ...prev,
                     correctPose: [...prev.correctPose, 0],
                     accuracy: [...prev.accuracy, randRange(0.30105, 1)],
                 }))
-                break;
+                break
 
             case 'reset':
                 setUserPoseAnalysis({
@@ -178,13 +182,12 @@ export default function TensorflowInputHelper(props: {
                     correctPose: [],
                     accuracy: [],
                 })
-                break;
+                break
 
             default:
-                break;
+                break
         }
     }
-
 
     useEffect(() => {
         if (userPoseAnalysis.correctPose.length !== 0 && isModelRunning) {
@@ -206,14 +209,20 @@ export default function TensorflowInputHelper(props: {
         }
     }, [userPoseAnalysis])
 
+    const loadingToastRef = useRef<string | null>(null);
     useEffect(() => {
-        if(!isModelRunning && updateStatus === 'success'){
-            toast.success('Pose Analysis Updated')
+        if (!isModelRunning) {
+            if (updateStatus === 'success') {
+                if (loadingToastRef.current !== null) {
+                    toast.dismiss(loadingToastRef.current);
+                    loadingToastRef.current = null;
+                }
+                toast.success('Synced to cloud');
+            } else if (updateStatus === 'pending') {
+                loadingToastRef.current = toast.loading('Syncing to cloud');
+            }
         }
-        if(!isModelRunning && updateStatus === 'pending'){
-            toast.loading('Pose Analysis Updated')
-        }
-    }, [updateStatus])
+    }, [updateStatus, isModelRunning]);
 
     return (
         <>

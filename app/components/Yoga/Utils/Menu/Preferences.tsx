@@ -19,14 +19,14 @@ import { AppDispatch } from '@/lib/store'
 import { updateRepTime } from '@/lib/store/tensorflow/tensorflowSlice'
 
 export default function Preferences({ isProp }: { isProp?: boolean }) {
-
     const [open, setOpen] = useState<boolean>(false)
     const [interval, setInterval] = useState<number>(3)
 
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
-        const getRepTimeFromLocalStorage = window.localStorage.getItem('repTime')
+        const getRepTimeFromLocalStorage =
+            window.localStorage.getItem('repTime')
         if (!getRepTimeFromLocalStorage) {
             setOpen(true)
         } else {
@@ -42,7 +42,7 @@ export default function Preferences({ isProp }: { isProp?: boolean }) {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            {!isProp &&
+            {!isProp && (
                 <DialogTrigger asChild>
                     <div
                         className="p-1 bg-slate-200 rounded-xl cursor-pointer"
@@ -51,11 +51,11 @@ export default function Preferences({ isProp }: { isProp?: boolean }) {
                         <IoMdSettings className="text-2xl hove:hover:scale-125 text-slate-800 hover:animate-spin animate-once animate-duration-[2000ms] animate-ease-in-out" />
                     </div>
                 </DialogTrigger>
-            }
+            )}
             <DialogContent
                 className="sm:max-w-[425px] z-[1000]"
                 onInteractOutside={(e) => {
-                    e.preventDefault();
+                    e.preventDefault()
                 }}
             >
                 <DialogHeader>
@@ -81,7 +81,9 @@ export default function Preferences({ isProp }: { isProp?: boolean }) {
                             id="updateInterval"
                             type="number"
                             value={interval}
-                            onChange={(e) => setInterval(parseInt(e.target.value))}
+                            onChange={(e) =>
+                                setInterval(parseInt(e.target.value))
+                            }
                             className="w-full"
                             placeholder="Enter interval in seconds"
                         />

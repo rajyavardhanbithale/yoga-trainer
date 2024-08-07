@@ -22,51 +22,56 @@ function useTensorFlow() {
     }, [])
 
     // Function to run the TensorFlow model on an image
-    async function runModel(options: { set: number; pred_image?: string | null }) {
-        const { set, pred_image } = options;
+    async function runModel(options: {
+        set: number
+        pred_image?: string | null
+    }) {
+        const { set, pred_image } = options
 
-        setModelLoadingStatus('pending');
+        setModelLoadingStatus('pending')
 
         try {
             const model = await tf.loadGraphModel(
                 `https://raw.githubusercontent.com/rajyavardhanbithale/yoga-trainer/main/public/model/set${set}/model.json`
-            );
+            )
 
             if (model) {
-                setModelLoadingStatus('success');
+                setModelLoadingStatus('success')
             }
 
             if (pred_image) {
-                let image = new Image();
-                image.crossOrigin = 'anonymous';
-                image.src = pred_image;
+                let image = new Image()
+                image.crossOrigin = 'anonymous'
+                image.src = pred_image
 
                 return new Promise<string>((resolve, reject) => {
                     image.onload = () => {
                         try {
-                            let tfTensor = tf.browser.fromPixels(image);
-                            tfTensor = tfTensor.expandDims(0);
-                            tfTensor = tfTensor.cast('float32');
+                            let tfTensor = tf.browser.fromPixels(image)
+                            tfTensor = tfTensor.expandDims(0)
+                            tfTensor = tfTensor.cast('float32')
 
-                            const pred = model.predict(tfTensor) as tf.Tensor;
-                            tfTensor.dispose();
+                            const pred = model.predict(tfTensor) as tf.Tensor
+                            tfTensor.dispose()
 
-                            pred.data().then(val1 => {
-                                resolve(val1.toString());
-                            }).catch(reject);
+                            pred.data()
+                                .then((val1) => {
+                                    resolve(val1.toString())
+                                })
+                                .catch(reject)
                         } catch (error) {
-                            reject(error);
+                            reject(error)
                         }
-                    };
-                    image.onerror = reject;
-                });
+                    }
+                    image.onerror = reject
+                })
             }
         } catch (error) {
-            console.error('Error during model prediction:', error);
-            setModelLoadingStatus('idle');
+            console.error('Error during model prediction:', error)
+            setModelLoadingStatus('idle')
         }
 
-        return null;
+        return null
     }
 
     // Function to reset model state
@@ -83,7 +88,7 @@ function useTensorFlow() {
         }
     }, [model])
 
-    return { runModel, stopModel, modelLoadingStatus, resetModel,loadModel }
+    return { runModel, stopModel, modelLoadingStatus, resetModel, loadModel }
 }
 
 export default useTensorFlow

@@ -8,7 +8,11 @@ import { useEffect, useState } from 'react'
 import TensorButton from './TensorButton'
 import Preferences from './Menu/Preferences'
 import CloudSaveDialog from './CloudSaveDialog'
-import { updateModelLoaded, updateRepTime, updateModelRunning } from "@/lib/store/tensorflow/tensorflowSlice"
+import {
+    updateModelLoaded,
+    updateRepTime,
+    updateModelRunning,
+} from '@/lib/store/tensorflow/tensorflowSlice'
 
 export default function TensorControl() {
     const [cloudSave, setCloudSave] = useState<boolean>(false)
@@ -19,13 +23,24 @@ export default function TensorControl() {
         useTensorFlow()
     const dispatch = useDispatch<AppDispatch>()
 
-    const modelSet = useSelector((state: RootState) => state?.practiceSlice?.poseData?.TFData.set)
-    const repTime: number = useSelector((state: RootState) => state.tensorflowSlice.repTime)
-    const isModelLoaded = useSelector((state: RootState) => state.tensorflowSlice.isModelLoaded)
-    const isModelRunning = useSelector((state: RootState) => state.tensorflowSlice.isModelRunning)
-    const poseMessage = useSelector((state: RootState) => state.tensorflowSlice.poseMessage)
-    const isUserPoseCorret = useSelector((state: RootState) => state.tensorflowSlice.isUserPoseCorred)
-   
+    const modelSet = useSelector(
+        (state: RootState) => state?.practiceSlice?.poseData?.TFData.set
+    )
+    const repTime: number = useSelector(
+        (state: RootState) => state.tensorflowSlice.repTime
+    )
+    const isModelLoaded = useSelector(
+        (state: RootState) => state.tensorflowSlice.isModelLoaded
+    )
+    const isModelRunning = useSelector(
+        (state: RootState) => state.tensorflowSlice.isModelRunning
+    )
+    const poseMessage = useSelector(
+        (state: RootState) => state.tensorflowSlice.poseMessage
+    )
+    const isUserPoseCorret = useSelector(
+        (state: RootState) => state.tensorflowSlice.isUserPoseCorred
+    )
 
     const hnadleStart = () => {
         const getLSItem = window.localStorage.getItem('showSaveProgressDialog')
@@ -36,7 +51,7 @@ export default function TensorControl() {
         }
     }
 
-    const handleStop = () =>{
+    const handleStop = () => {
         stopModel()
         dispatch(updateModelRunning(false))
     }
@@ -66,9 +81,8 @@ export default function TensorControl() {
         dispatch(updateModelRunning(false))
     }
 
-
     useEffect(() => {
-        if(modelLoadingStatus === 'success'){
+        if (modelLoadingStatus === 'success') {
             dispatch(updateModelLoaded(true))
         }
     }, [modelLoadingStatus])
@@ -81,7 +95,6 @@ export default function TensorControl() {
     //     isModelLoaded: isModelLoaded,
     //     isModelRunning: isModelRunning
     // });
-
 
     return (
         <>
@@ -100,21 +113,19 @@ export default function TensorControl() {
                                 <div className="w-full flex bg-slate-200 justify-center">
                                     <div className="loader-tf"></div>
                                 </div>
-                                <span className="text-[2.5vh] text-text font-semibold text-center p-2">
+                                <span className="text-lg font-semibold text-center p-2">
                                     {' '}
                                     Hang on Loading Assets
                                 </span>
                             </div>
                         )}
 
-                        {(modelLoadingStatus === 'success' && isModelRunning) && (
-                            <TensorButton
-                                label="Stop"
-                                onClick={handleStop}
-                            />
+                        {modelLoadingStatus === 'success' && isModelRunning && (
+                            <TensorButton label="Stop" onClick={handleStop} />
                         )}
 
-                        {(modelLoadingStatus === 'success' && !isModelRunning) &&
+                        {modelLoadingStatus === 'success' &&
+                            !isModelRunning &&
                             !isModelRunning && (
                                 <TensorButton
                                     label="Practice"
@@ -145,9 +156,7 @@ export default function TensorControl() {
                 </div>
             </div>
 
-
             <Preferences isProp={true} />
-
         </>
     )
 }
