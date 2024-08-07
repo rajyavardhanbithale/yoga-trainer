@@ -26,12 +26,7 @@ export default function TensorControl() {
     const modelSet = useSelector(
         (state: RootState) => state?.practiceSlice?.poseData?.TFData.set
     )
-    const repTime: number = useSelector(
-        (state: RootState) => state.tensorflowSlice.repTime
-    )
-    const isModelLoaded = useSelector(
-        (state: RootState) => state.tensorflowSlice.isModelLoaded
-    )
+
     const isModelRunning = useSelector(
         (state: RootState) => state.tensorflowSlice.isModelRunning
     )
@@ -96,6 +91,8 @@ export default function TensorControl() {
     //     isModelRunning: isModelRunning
     // });
 
+
+
     return (
         <>
             <div className="flex flex-col justify-center items-center h-full rounded-2xl">
@@ -114,8 +111,7 @@ export default function TensorControl() {
                                     <div className="loader-tf"></div>
                                 </div>
                                 <span className="text-lg font-semibold text-center p-2">
-                                    {' '}
-                                    Hang on Loading Assets
+                                    Hang on, loading 40 MB of assets.
                                 </span>
                             </div>
                         )}

@@ -72,7 +72,6 @@ export const practiceSliceUpdateDB = createAsyncThunk<
             }
 
             const response = await axios.post('/api/db/insert', payload)
-            // const response1 = await axios.get('/api/unlock-achievement')
         }
     }
     return { method, data }

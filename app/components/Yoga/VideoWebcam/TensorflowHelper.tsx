@@ -209,20 +209,20 @@ export default function TensorflowInputHelper(props: {
         }
     }, [userPoseAnalysis])
 
-    const loadingToastRef = useRef<string | null>(null);
+    const loadingToastRef = useRef<string | null>(null)
     useEffect(() => {
         if (!isModelRunning) {
             if (updateStatus === 'success') {
                 if (loadingToastRef.current !== null) {
-                    toast.dismiss(loadingToastRef.current);
-                    loadingToastRef.current = null;
+                    toast.dismiss(loadingToastRef.current)
+                    loadingToastRef.current = null
                 }
-                toast.success('Synced to cloud');
+                toast.success('Synced to cloud')
             } else if (updateStatus === 'pending') {
-                loadingToastRef.current = toast.loading('Syncing to cloud');
+                loadingToastRef.current = toast.loading('Syncing to cloud')
             }
         }
-    }, [updateStatus, isModelRunning]);
+    }, [updateStatus, isModelRunning])
 
     return (
         <>

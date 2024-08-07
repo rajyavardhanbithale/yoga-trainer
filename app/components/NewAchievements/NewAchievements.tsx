@@ -16,11 +16,11 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog'
 import { DialogClose } from '@radix-ui/react-dialog'
-import { Button } from 'react-day-picker'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/lib/store'
+import { Button } from "@/components/ui/button"
 
 export default function NewAchievements() {
     const [open, setOpen] = useState<boolean>(false)
@@ -32,6 +32,11 @@ export default function NewAchievements() {
         (state: RootState) => state.practiceSlice.updateStatus
     )
 
+    const isModelRunning = useSelector(
+        (state: RootState) => state.tensorflowSlice.isModelRunning
+    )
+    
+    
     useEffect(() => {
         const fetchNewAchievements = async () => {
             try {
@@ -50,10 +55,10 @@ export default function NewAchievements() {
             }
         }
 
-        if (updateState === 'success') {
+        if (updateState === 'success' && !isModelRunning) {
             fetchNewAchievements()
         }
-    }, [updateState])
+    }, [updateState,isModelRunning])
 
     useEffect(() => {
         if (open) {
@@ -61,6 +66,7 @@ export default function NewAchievements() {
                 particleCount: 250,
                 spread: 120,
                 origin: { y: 0.5 },
+                startVelocity: 25
             })
             confetti({
                 particleCount: 250,
@@ -118,12 +124,11 @@ export default function NewAchievements() {
                         ))}
                     </div>
                 </ScrollArea>
-            </DialogContent>
-            <DialogFooter className="sm:justify-start">
                 <DialogClose asChild>
                     <Button type="button">Close</Button>
                 </DialogClose>
-            </DialogFooter>
+            </DialogContent>
+
         </Dialog>
     )
 }

@@ -46,7 +46,7 @@ export default function Achievements() {
                             className="has-tooltip 2xl:w-40 sm:w-48 w-28 h-fit overflow-hidden m-2 span-5 rounded-full cursor-pointer"
                         >
                             <Image
-                                src={`/achievements/${item.icon}-${gender}.jpg`}
+                                src={`/achievements/${item.icon}-${gender}.webp`}
                                 width={256}
                                 height={256}
                                 alt="BG-IMAGE"

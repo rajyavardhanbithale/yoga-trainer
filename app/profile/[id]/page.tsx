@@ -102,7 +102,7 @@ export default async function Profile({ params }: any) {
                                                 className="overflow-hidden m-2 rounded-full cursor-pointer flex items-center justify-center"
                                             >
                                                 <Image
-                                                    src={`/achievements/${item.icon}-${gender}.jpg`}
+                                                    src={`/achievements/${item.icon}-${gender}.webp`}
                                                     width={92}
                                                     height={92}
                                                     alt="Achievement"
