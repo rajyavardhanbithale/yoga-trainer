@@ -42,7 +42,6 @@ const AnalysisDoughnutChart = dynamic(
     }
 )
 
-
 const LineChart = dynamic(
     () =>
         import('@/app/components/Yoga/TabSections/Accuracy/AccuracyLineChart'),

@@ -12,13 +12,13 @@ import { setAudioData } from '@/lib/store/practice/audioSlice'
 import dynamic from 'next/dynamic'
 import Menu from '../Utils/Menu/Menu'
 import NewAchievements from '../../NewAchievements/NewAchievements'
-import PracticeLoader from "../Utils/PracticeLoader"
+import PracticeLoader from '../Utils/PracticeLoader'
 
 const UserSectionExtras = dynamic(
     () => import('@/app/components/Yoga/TabSections/Section'),
     {
         ssr: false,
-        loading: () => <PracticeLoader />
+        loading: () => <PracticeLoader />,
     }
 )
 
@@ -93,7 +93,6 @@ export default function UserSection() {
                 </div>
                 <div className="col-span-full sm:col-span-6 relative h-[50vh] bg-slate-100 rounded-2xl overflow-hidden">
                     <TutorialControl />
-                    
                 </div>
             </div>
 

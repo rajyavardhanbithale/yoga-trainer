@@ -67,12 +67,13 @@ export const practiceSliceUpdateDB = createAsyncThunk<
 
     const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null
 
-    if (!userID) {
-        return rejectWithValue({ method, data, error: 'uid-null' })
-    }
+
 
     if (method === 'update-db') {
-        if (data && data.accuracy.length !== 0) {
+        if (!userID) {
+            return rejectWithValue({ method, data, error: 'uid-null' })
+        }
+        if (data && data.accuracy.length !== 0 && userID) {
             const payload: APIYogaPosePerformanceData = {
                 userID: userID,
                 poseID: data.poseID,
@@ -134,7 +135,7 @@ export const practiceSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(practiceSliceUpdateDB.pending, (state) => {
             state.updateStatus = 'pending'
-            state.errorMessage = null // Clear error message when pending
+            state.errorMessage = null
         })
         builder.addCase(practiceSliceUpdateDB.fulfilled, (state, action) => {
             if (action.payload.data) {
@@ -150,6 +151,9 @@ export const practiceSlice = createSlice({
             state.updateStatus = 'error'
             state.errorMessage =
                 action.payload?.error || 'Unknown error occurred'
+
+            state.analysis = action.payload?.data || state.analysis
+
             console.error('Error from API:', state.errorMessage)
         })
     },

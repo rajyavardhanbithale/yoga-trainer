@@ -39,7 +39,7 @@ export default function TensorControl() {
 
     const handleStart = () => {
         const getLSItem = window.localStorage.getItem('showSaveProgressDialog')
-        if ((getLSItem === null || getLSItem === 'true')) {
+        if (getLSItem === null || getLSItem === 'true') {
             setCloudSave(true)
         } else {
             dispatch(updateModelRunning(true))
@@ -83,17 +83,13 @@ export default function TensorControl() {
     }, [modelLoadingStatus])
 
     // const modelLoadingStatus = 'pending'
-    console.log('dbg logs', {
-        modelLoadingStatus: modelLoadingStatus,
-        modelSet: modelSet,
-        // repTime: repTime,
-        isModelLoaded: modelLoadingStatus,
-        isModelRunning: isModelRunning
-    });
-
-    
-
-
+    // console.log('dbg logs', {
+    //     modelLoadingStatus: modelLoadingStatus,
+    //     modelSet: modelSet,
+    //     // repTime: repTime,
+    //     isModelLoaded: modelLoadingStatus,
+    //     isModelRunning: isModelRunning,
+    // })
 
     return (
         <>
@@ -137,7 +133,7 @@ export default function TensorControl() {
                             startTensor={startTensor}
                         ></CloudSaveDialog>
                     </>
-                    {(isModelRunning && poseMessage) && (
+                    {isModelRunning && poseMessage && (
                         <div
                             className={`${isUserPoseCorret ? 'text-emerald-600' : 'text-rose-600'} text-2xl font-bold tracking-wide text-center p-2`}
                         >

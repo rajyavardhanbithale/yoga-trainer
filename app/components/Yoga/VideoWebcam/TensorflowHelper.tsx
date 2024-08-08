@@ -4,7 +4,7 @@ import useConvertTensorClass from '@/hooks/useConvertTensorClass'
 import useTensorFlow from '@/hooks/useTensorFlow'
 import { AppDispatch, RootState } from '@/lib/store'
 import { practiceSliceUpdateDB } from '@/lib/store/practice/practiceSlice'
-import { updateMessageList } from "@/lib/store/tensorflow/tensorflowSlice"
+import { updateMessageList } from '@/lib/store/tensorflow/tensorflowSlice'
 import { UserPoseAnalysis } from '@/types'
 import { useEffect, useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
@@ -220,34 +220,37 @@ export default function TensorflowInputHelper(props: {
         if (!isModelRunning) {
             if (updateStatus === 'success') {
                 if (loadingToastRef.current) {
-                    toast.dismiss(loadingToastRef.current);
-                    loadingToastRef.current = null;
-                    toast.success('Synced to cloud');
+                    toast.dismiss(loadingToastRef.current)
+                    loadingToastRef.current = null
+                    toast.success('Synced to cloud')
                 }
             } else if (updateStatus === 'pending') {
                 if (!loadingToastRef.current) {
-                    loadingToastRef.current = toast.loading('Syncing to cloud');
+                    loadingToastRef.current = toast.loading('Syncing to cloud')
                 }
             } else if (updateStatus === 'error') {
                 if (loadingToastRef.current) {
-                    toast.dismiss(loadingToastRef.current);
-                    loadingToastRef.current = null;
+                    toast.dismiss(loadingToastRef.current)
+                    loadingToastRef.current = null
                 }
                 const errorMessage = errorDetail?.includes('uid-null')
                     ? 'Failed to sync to cloud: User not logged in'
-                    : 'Failed to sync to cloud';
-                toast.error(errorMessage);
+                    : 'Failed to sync to cloud'
+                toast.error(errorMessage)
             }
         }
 
         return () => {
             if (loadingToastRef.current) {
-                toast.dismiss(loadingToastRef.current);
-                loadingToastRef.current = null;
+                toast.dismiss(loadingToastRef.current)
+                loadingToastRef.current = null
             }
-        };
-    }, [updateStatus, isModelRunning, errorDetail]);
+        }
+    }, [updateStatus, isModelRunning, errorDetail])
 
+
+   
+    
     return (
         <>
             {/* always hidden */}

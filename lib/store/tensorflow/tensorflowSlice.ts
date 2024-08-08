@@ -46,18 +46,28 @@ export const tensorflow = createSlice({
         updateModelRunning: (state, action) => {
             state.isModelRunning = action.payload
         },
-        updateMessageList:(state,action) => {
-            if(action.payload === 'success'){
-                state.poseMessage = successMessageList[Math.floor(Math.random() * successMessageList.length)]
+        updateMessageList: (state, action) => {
+            if (action.payload === 'success') {
+                state.poseMessage =
+                    successMessageList[
+                        Math.floor(Math.random() * successMessageList.length)
+                    ]
                 state.isUserPoseCorrect = true
-            }else{
-                state.poseMessage = unsuccessMessageList[Math.floor(Math.random() * unsuccessMessageList.length)]
+            } else {
+                state.poseMessage =
+                    unsuccessMessageList[
+                        Math.floor(Math.random() * unsuccessMessageList.length)
+                    ]
                 state.isUserPoseCorrect = false
             }
-        }
+        },
     },
 })
 
-export const { updateRepTime, updateModelLoaded, updateModelRunning,updateMessageList } =
-    tensorflow.actions
+export const {
+    updateRepTime,
+    updateModelLoaded,
+    updateModelRunning,
+    updateMessageList,
+} = tensorflow.actions
 export default tensorflow.reducer

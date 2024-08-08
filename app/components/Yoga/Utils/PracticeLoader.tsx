@@ -9,7 +9,6 @@ export default function PracticeLoader() {
                     <div className="circle-pr"></div>
                 </div>
             </div>
-
         </>
     )
 }
