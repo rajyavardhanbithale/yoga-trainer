@@ -34,33 +34,35 @@ export async function GET(request: NextRequest) {
 
         nDays = Math.min(365, nDays)
 
-        const today = new Date()
-        const dayOfWeek = today.getDay()
-        const daysToMonday = (dayOfWeek + 6) % 7
+        const today = new Date();
+        const dayOfWeek = today.getDay();
 
-        const mondayDate = new Date(today)
-        mondayDate.setDate(today.getDate() - daysToMonday)
-        mondayDate.setHours(0, 0, 0, 0)
+        // Calculate the most recent Monday
+        const daysToMonday = (dayOfWeek + 6) % 7;
+        const mondayDate = new Date(today);
+        mondayDate.setDate(today.getDate() - daysToMonday);
+        mondayDate.setHours(0, 0, 0, 0);
 
+        // Convert epoch times to dates and filter them to be within the current week
         const activityDays = epochTime
             .map((ts) => new Date(ts * 1000))
             .filter((date) => date >= mondayDate && date <= today)
-            .map((date) => date.getDay())
+            .map((date) => date.getDay());
 
-        const frequency: number[] = new Array(7).fill(0)
+        // Calculate activity frequency for each day of the week
+        const frequency: number[] = new Array(7).fill(0);
         activityDays.forEach((day) => {
-            frequency[day]++
-        })
+            frequency[day]++;
+        });
 
-        const representation = new Array(7).fill(0)
+        // Adjust the order of days to match the start of the week from Monday
+        const representation = new Array(7).fill(0);
         for (let i = 0; i < 7; i++) {
-            const day = (dayOfWeek - i + 7) % 7
-            if (frequency[day] > 0) {
-                representation[i] = frequency[day]
-            }
+            const dayIndex = (i + 1) % 7;
+            representation[i] = frequency[dayIndex];
         }
 
-        return representation
+        return representation;
     }
 
     const userActiveInMonth = (nDays: number) => {

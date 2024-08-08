@@ -46,8 +46,6 @@ export async function GET(request: NextRequest) {
             (time) => time?.startTime
         ) as number[]
 
-        console.log(epochTimeExtracted)
-
         return epochTimeExtracted
     }
 
@@ -57,14 +55,19 @@ export async function GET(request: NextRequest) {
         const userActivity = data as DBFetchSupabase[]
         const userActivityEpochList = userActivity.map((item) => item?.poseID)
 
+        const uniqueActivity = new Set(userActivityEpochList)
+
+        const uniqueActivityArray = Array.from(uniqueActivity)
+
+
         // check overflow condition
         nActivity =
-            userActivityEpochList.length >= nActivity
+            uniqueActivityArray.length >= nActivity
                 ? nActivity
-                : userActivityEpochList.length
+                : uniqueActivityArray.length
 
         // return the final list of pose id according to sorted epoch time
-        const recentActivity = userActivityEpochList.slice(0, nActivity)
+        const recentActivity = uniqueActivityArray.slice(0, nActivity)
 
         return recentActivity
     }
