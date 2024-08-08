@@ -36,9 +36,15 @@ export default function TensorflowInputHelper(props: {
     const userPoseAnalysisStructure = useSelector(
         (state: RootState) => state.practiceSlice.analysis
     )
-    const [userPoseAnalysis, setUserPoseAnalysis] = useState<UserPoseAnalysis>(
-        userPoseAnalysisStructure
-    )
+    const [userPoseAnalysis, setUserPoseAnalysis] = useState<UserPoseAnalysis>({
+        poseID: 0,
+        poseName: '',
+        startTime: 0,
+        endTime: 0,
+        accuracy: [],
+        correctPose: [],
+        repTime: 0,
+    })
     const updateStatus = useSelector(
         (state: RootState) => state.practiceSlice.updateStatus
     )
@@ -223,6 +229,7 @@ export default function TensorflowInputHelper(props: {
                     toast.dismiss(loadingToastRef.current)
                     loadingToastRef.current = null
                     toast.success('Synced to cloud')
+                    manipulateUserPose('reset')
                 }
             } else if (updateStatus === 'pending') {
                 if (!loadingToastRef.current) {
@@ -248,9 +255,6 @@ export default function TensorflowInputHelper(props: {
         }
     }, [updateStatus, isModelRunning, errorDetail])
 
-
-   
-    
     return (
         <>
             {/* always hidden */}

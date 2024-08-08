@@ -11,7 +11,7 @@ import TutorialControl from '../Utils/TutorialControl'
 import { setAudioData } from '@/lib/store/practice/audioSlice'
 import dynamic from 'next/dynamic'
 import Menu from '../Utils/Menu/Menu'
-import NewAchievements from '../../NewAchievements/NewAchievements'
+import NewAchievements from '../NewAchievements/NewAchievements'
 import PracticeLoader from '../Utils/PracticeLoader'
 
 const UserSectionExtras = dynamic(

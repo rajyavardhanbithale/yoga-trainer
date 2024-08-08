@@ -10,10 +10,8 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from '@/components/ui/dialog'
 import { DialogClose } from '@radix-ui/react-dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -70,7 +68,12 @@ export default function NewAchievements() {
             confetti({
                 particleCount: 250,
                 spread: 220,
-                origin: { y: 0.8 },
+                origin: { y: 0.6 },
+            })
+            confetti({
+                particleCount: 300,
+                spread: 150,
+                origin: { y: 0.4 },
             })
         }
     }, [open])

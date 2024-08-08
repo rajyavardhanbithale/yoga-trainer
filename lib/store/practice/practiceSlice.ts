@@ -67,8 +67,6 @@ export const practiceSliceUpdateDB = createAsyncThunk<
 
     const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null
 
-
-
     if (method === 'update-db') {
         if (!userID) {
             return rejectWithValue({ method, data, error: 'uid-null' })
