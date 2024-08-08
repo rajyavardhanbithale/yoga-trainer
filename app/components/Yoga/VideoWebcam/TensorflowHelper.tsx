@@ -4,6 +4,7 @@ import useConvertTensorClass from '@/hooks/useConvertTensorClass'
 import useTensorFlow from '@/hooks/useTensorFlow'
 import { AppDispatch, RootState } from '@/lib/store'
 import { practiceSliceUpdateDB } from '@/lib/store/practice/practiceSlice'
+import { updateMessageList } from "@/lib/store/tensorflow/tensorflowSlice"
 import { UserPoseAnalysis } from '@/types'
 import { useEffect, useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
@@ -41,7 +42,9 @@ export default function TensorflowInputHelper(props: {
     const updateStatus = useSelector(
         (state: RootState) => state.practiceSlice.updateStatus
     )
-    const errorDetail = useSelector((state: RootState) => state.practiceSlice.errorMessage)
+    const errorDetail = useSelector(
+        (state: RootState) => state.practiceSlice.errorMessage
+    )
 
     const set: number = poseData?.TFData.set || 1
 
@@ -119,8 +122,10 @@ export default function TensorflowInputHelper(props: {
 
         if (check === poseData?.TFData.class) {
             manipulateUserPose('update-correct-pose')
+            dispatch(updateMessageList('success'))
         } else {
             manipulateUserPose('update-incorrect-pose')
+            dispatch(updateMessageList('unsuccess'))
         }
     }
 
@@ -214,27 +219,33 @@ export default function TensorflowInputHelper(props: {
     useEffect(() => {
         if (!isModelRunning) {
             if (updateStatus === 'success') {
-                if (loadingToastRef.current !== null) {
+                if (loadingToastRef.current) {
                     toast.dismiss(loadingToastRef.current);
                     loadingToastRef.current = null;
                     toast.success('Synced to cloud');
                 }
             } else if (updateStatus === 'pending') {
-                loadingToastRef.current = toast.loading('Syncing to cloud');
+                if (!loadingToastRef.current) {
+                    loadingToastRef.current = toast.loading('Syncing to cloud');
+                }
             } else if (updateStatus === 'error') {
-                if (loadingToastRef.current !== null) {
+                if (loadingToastRef.current) {
                     toast.dismiss(loadingToastRef.current);
                     loadingToastRef.current = null;
                 }
-                
-                
-                if (errorDetail?.includes('uid-null')) {
-                    toast.error('Failed to sync to cloud: User not logged in');
-                } else {
-                    toast.error('Failed to sync to cloud');
-                }
+                const errorMessage = errorDetail?.includes('uid-null')
+                    ? 'Failed to sync to cloud: User not logged in'
+                    : 'Failed to sync to cloud';
+                toast.error(errorMessage);
             }
         }
+
+        return () => {
+            if (loadingToastRef.current) {
+                toast.dismiss(loadingToastRef.current);
+                loadingToastRef.current = null;
+            }
+        };
     }, [updateStatus, isModelRunning, errorDetail]);
 
     return (

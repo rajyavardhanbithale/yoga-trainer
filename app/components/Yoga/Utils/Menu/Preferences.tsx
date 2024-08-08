@@ -25,14 +25,16 @@ export default function Preferences({ isProp }: { isProp?: boolean }) {
     const dispatch = useDispatch<AppDispatch>()
 
     useEffect(() => {
-        const getRepTimeFromLocalStorage =
-            window.localStorage.getItem('repTime')
-        if (!getRepTimeFromLocalStorage) {
-            setOpen(true)
-        } else {
-            setInterval(parseInt(getRepTimeFromLocalStorage))
+        if (isProp) {
+            const getRepTimeFromLocalStorage =
+                window.localStorage.getItem('repTime')
+            if (!getRepTimeFromLocalStorage) {
+                setOpen(true)
+            } else {
+                setInterval(parseInt(getRepTimeFromLocalStorage))
+            }
         }
-    }, [])
+    }, [isProp])
 
     const handleSaveChanges = () => {
         window.localStorage.setItem('repTime', interval.toString())

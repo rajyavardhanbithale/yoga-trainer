@@ -21,7 +21,7 @@ type STATE = {
 
     isModelLoaded: boolean
     isModelRunning: boolean
-    isUserPoseCorred: boolean | null
+    isUserPoseCorrect: boolean | null
 }
 
 const initialState: STATE = {
@@ -30,7 +30,7 @@ const initialState: STATE = {
     isModelLoaded: false,
     isModelRunning: false,
 
-    isUserPoseCorred: null,
+    isUserPoseCorrect: null,
 }
 
 export const tensorflow = createSlice({
@@ -46,9 +46,18 @@ export const tensorflow = createSlice({
         updateModelRunning: (state, action) => {
             state.isModelRunning = action.payload
         },
+        updateMessageList:(state,action) => {
+            if(action.payload === 'success'){
+                state.poseMessage = successMessageList[Math.floor(Math.random() * successMessageList.length)]
+                state.isUserPoseCorrect = true
+            }else{
+                state.poseMessage = unsuccessMessageList[Math.floor(Math.random() * unsuccessMessageList.length)]
+                state.isUserPoseCorrect = false
+            }
+        }
     },
 })
 
-export const { updateRepTime, updateModelLoaded, updateModelRunning } =
+export const { updateRepTime, updateModelLoaded, updateModelRunning,updateMessageList } =
     tensorflow.actions
 export default tensorflow.reducer

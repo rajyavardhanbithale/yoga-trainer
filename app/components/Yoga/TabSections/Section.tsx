@@ -23,6 +23,14 @@ const Tutorial = dynamic(
     }
 )
 
+const AudioControl = dynamic(
+    () =>
+        import('@/app/components/Yoga/TabSections/AudioControls/AudioControl'),
+    {
+        ssr: false,
+        loading: () => <Loading />,
+    }
+)
 const AnalysisDoughnutChart = dynamic(
     () =>
         import(
@@ -34,14 +42,6 @@ const AnalysisDoughnutChart = dynamic(
     }
 )
 
-const AudioControl = dynamic(
-    () =>
-        import('@/app/components/Yoga/TabSections/AudioControls/AudioControl'),
-    {
-        ssr: false,
-        loading: () => <Loading />,
-    }
-)
 
 const LineChart = dynamic(
     () =>

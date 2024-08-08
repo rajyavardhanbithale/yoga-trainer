@@ -118,3 +118,47 @@
 .slide-exit {
     animation: slideInFromRight 0.3s ease-in reverse;
 }
+
+
+.spinner-pr {
+    width: 3.25em;
+    height: 3.25em;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #172554;
+    animation: rotate4-pr 2s linear infinite;
+    position: relative;
+}
+
+.circle-pr {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 2px solid transparent;
+    border-top-color: #172554;
+    border-radius: 50%;
+    animation: dash4-pr 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4-pr {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash4-pr {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+        border-top-color: transparent;
+    }
+    100% {
+        transform: rotate(360deg);
+        border-top-color: #172554;
+    }
+}
