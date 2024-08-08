@@ -124,7 +124,9 @@ export default function NewAchievements() {
                     </div>
                 </ScrollArea>
                 <DialogClose asChild>
-                    <Button type="button" className="bg-blue-950">Close</Button>
+                    <Button type="button" className="bg-blue-950">
+                        Close
+                    </Button>
                 </DialogClose>
             </DialogContent>
         </Dialog>

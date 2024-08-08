@@ -3,8 +3,6 @@
 import { poseInfo } from '@/app/api/pose/poseApiData'
 import { useSearchParams } from 'next/navigation'
 import { IoIosMore } from 'react-icons/io'
-import TensorControl from '../Utils/TensorControl'
-
 import { useEffect, useRef } from 'react'
 import { AppDispatch, RootState } from '@/lib/store'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,8 +10,7 @@ import { setPoseData } from '@/lib/store/practice/practiceSlice'
 import TutorialControl from '../Utils/TutorialControl'
 import { setAudioData } from '@/lib/store/practice/audioSlice'
 import dynamic from 'next/dynamic'
-import Loading from '../../Dashboard/Loading'
-import InputSource from '../VideoWebcam/InputSource'
+import Loading from '@/app/components/Dashboard/Loading'
 import Menu from '../Utils/Menu/Menu'
 import NewAchievements from '../../NewAchievements/NewAchievements'
 
@@ -24,6 +21,23 @@ const UserSectionExtras = dynamic(
         loading: () => <Loading />,
     }
 )
+
+const TensorControl = dynamic(
+    () => import('@/app/components/Yoga/Utils/TensorControl'),
+    {
+        ssr: false,
+        loading: () => <Loading />,
+    }
+)
+
+const InputSource = dynamic(
+    () => import('@/app/components/Yoga/VideoWebcam/InputSource'),
+    {
+        ssr: false,
+        loading: () => <Loading />,
+    }
+)
+
 
 export default function UserSection() {
     const searchParams = useSearchParams()

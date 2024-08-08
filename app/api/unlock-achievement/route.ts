@@ -13,6 +13,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const userIdMD5 = userID && CryptoJS.MD5(userID).toString()
 
+
+
+    if(userIdMD5 === undefined) {
+        return NextResponse.json({ error: 'User ID not found' }, { status: 404 })
+    }
+
     const { data, error } = await supabase
         .from('pose-performance-data')
         .select('poseID,accuracy,correctPose,startTime')

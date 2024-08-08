@@ -87,7 +87,7 @@ export default function TensorControl() {
     //     modelLoadingStatus: modelLoadingStatus,
     //     modelSet: modelSet,
     //     repTime: repTime,
-    //     isModelLoaded: isModelLoaded,
+    //     isModelLoaded: modelLoadingStatus,
     //     isModelRunning: isModelRunning
     // });
 

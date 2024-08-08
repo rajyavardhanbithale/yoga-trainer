@@ -41,6 +41,7 @@ export default function TensorflowInputHelper(props: {
     const updateStatus = useSelector(
         (state: RootState) => state.practiceSlice.updateStatus
     )
+    const errorDetail = useSelector((state: RootState) => state.practiceSlice.errorMessage)
 
     const set: number = poseData?.TFData.set || 1
 
@@ -214,15 +215,27 @@ export default function TensorflowInputHelper(props: {
         if (!isModelRunning) {
             if (updateStatus === 'success') {
                 if (loadingToastRef.current !== null) {
-                    toast.dismiss(loadingToastRef.current)
-                    loadingToastRef.current = null
-                    toast.success('Synced to cloud')
+                    toast.dismiss(loadingToastRef.current);
+                    loadingToastRef.current = null;
+                    toast.success('Synced to cloud');
                 }
             } else if (updateStatus === 'pending') {
-                loadingToastRef.current = toast.loading('Syncing to cloud')
+                loadingToastRef.current = toast.loading('Syncing to cloud');
+            } else if (updateStatus === 'error') {
+                if (loadingToastRef.current !== null) {
+                    toast.dismiss(loadingToastRef.current);
+                    loadingToastRef.current = null;
+                }
+                
+                
+                if (errorDetail?.includes('uid-null')) {
+                    toast.error('Failed to sync to cloud: User not logged in');
+                } else {
+                    toast.error('Failed to sync to cloud');
+                }
             }
         }
-    }, [updateStatus, isModelRunning])
+    }, [updateStatus, isModelRunning, errorDetail]);
 
     return (
         <>
