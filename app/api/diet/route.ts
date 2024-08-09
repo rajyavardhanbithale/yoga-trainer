@@ -5,6 +5,8 @@ import CryptoJS from 'crypto-js'
 import { mealData } from './mealData'
 
 const USERDB = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_USER_PROFILE!
+const authCookieKey = process.env.NEXT_AUTH_COOKIE_KEY!
+const aesSalt = process.env.NEXT_PUBLIC_AES_SALT!
 
 interface MealCount {
     name: string
@@ -12,12 +14,29 @@ interface MealCount {
     image: string
 }
 
-export async function GET(req: NextRequest) {
+async function getUserIDCookie(cookie: string | undefined) {
+    try {
+        if (cookie !== undefined) {
+            const aesEncrypted = CryptoJS.AES.decrypt(cookie, aesSalt).toString(CryptoJS.enc.Utf8)
+            
+            return aesEncrypted
+        }else{
+            return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })    
+        }
+    } catch {
+        return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })
+    }
+}
+
+
+export async function GET(request: NextRequest) {
+
+    const cookie = request.cookies.get(authCookieKey)
+
     const supabase = createClient()
-    const {
-        data: { user },
-    } = await supabase.auth.getUser()
-    const userID: string | null = user ? CryptoJS.MD5(user.id).toString() : null
+
+    // stage 1 - extract user ID information
+    const userID = await getUserIDCookie(cookie?.value)
 
     const { data: userRecord, error: fetchError } = await supabase
         .from(USERDB)

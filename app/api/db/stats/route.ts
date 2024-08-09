@@ -3,15 +3,32 @@ import CryptoJS from 'crypto-js'
 import { createClient } from '@/utils/supabase/server'
 
 const poseAnalysis = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_POSE_ANALYSIS!
+const authCookieKey = process.env.NEXT_AUTH_COOKIE_KEY!
+const aesSalt = process.env.NEXT_PUBLIC_AES_SALT!
+
+async function getUserIDCookie(cookie: string | undefined) {
+    try {
+        if (cookie !== undefined) {
+            const aesEncrypted = CryptoJS.AES.decrypt(cookie, aesSalt).toString(CryptoJS.enc.Utf8)
+            
+            return aesEncrypted
+        }else{
+            return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })    
+        }
+    } catch {
+        return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })
+    }
+}
+
 
 export async function GET(request: NextRequest) {
+
+    const cookie = request.cookies.get(authCookieKey)
+
     const supabase = createClient()
 
-    // stage 1 - extract user information
-    const userInfo = await supabase.auth.getUser()
-    const userID = userInfo?.data?.user?.id
-
-    const userIdMD5 = userID && CryptoJS.MD5(userID).toString()
+    // stage 1 - extract user ID information
+    const userIdMD5 = await getUserIDCookie(cookie?.value)
 
     // stage 2 - query from database
     const { data, error } = await supabase
@@ -34,35 +51,35 @@ export async function GET(request: NextRequest) {
 
         nDays = Math.min(365, nDays)
 
-        const today = new Date();
-        const dayOfWeek = today.getDay();
+        const today = new Date()
+        const dayOfWeek = today.getDay()
 
         // Calculate the most recent Monday
-        const daysToMonday = (dayOfWeek + 6) % 7;
-        const mondayDate = new Date(today);
-        mondayDate.setDate(today.getDate() - daysToMonday);
-        mondayDate.setHours(0, 0, 0, 0);
+        const daysToMonday = (dayOfWeek + 6) % 7
+        const mondayDate = new Date(today)
+        mondayDate.setDate(today.getDate() - daysToMonday)
+        mondayDate.setHours(0, 0, 0, 0)
 
         // Convert epoch times to dates and filter them to be within the current week
         const activityDays = epochTime
             .map((ts) => new Date(ts * 1000))
             .filter((date) => date >= mondayDate && date <= today)
-            .map((date) => date.getDay());
+            .map((date) => date.getDay())
 
         // Calculate activity frequency for each day of the week
-        const frequency: number[] = new Array(7).fill(0);
+        const frequency: number[] = new Array(7).fill(0)
         activityDays.forEach((day) => {
-            frequency[day]++;
-        });
+            frequency[day]++
+        })
 
         // Adjust the order of days to match the start of the week from Monday
-        const representation = new Array(7).fill(0);
+        const representation = new Array(7).fill(0)
         for (let i = 0; i < 7; i++) {
-            const dayIndex = (i + 1) % 7;
-            representation[i] = frequency[dayIndex];
+            const dayIndex = (i + 1) % 7
+            representation[i] = frequency[dayIndex]
         }
 
-        return representation;
+        return representation
     }
 
     const userActiveInMonth = (nDays: number) => {

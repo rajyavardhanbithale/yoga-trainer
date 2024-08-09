@@ -3,13 +3,33 @@ import { createClient } from '@/utils/supabase/server'
 import CryptoJS from 'crypto-js'
 const USERDB = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_USER_PROFILE!
 
-export async function GET(req: NextRequest) {
+const authCookieKey = process.env.NEXT_AUTH_COOKIE_KEY!
+const aesSalt = process.env.NEXT_PUBLIC_AES_SALT!
+
+async function getUserIDCookie(cookie: string | undefined) {
+    try {
+        if (cookie !== undefined) {
+            const aesEncrypted = CryptoJS.AES.decrypt(cookie, aesSalt).toString(CryptoJS.enc.Utf8)
+            
+            return aesEncrypted
+        }else{
+            
+            return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })    
+        }
+    } catch {
+        
+        return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })
+    }
+}
+
+
+export async function GET(request: NextRequest) {
     const supabase = createClient()
 
-    const userInfo = await supabase.auth.getUser()
-    const userID = userInfo?.data?.user?.id
+    const cookie = request.cookies.get(authCookieKey)
 
-    const userIdMD5 = userID && CryptoJS.MD5(userID).toString()
+    const userIdMD5 = await getUserIDCookie(cookie?.value)
+
 
     const { data, error } = await supabase
         .from(USERDB)

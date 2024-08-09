@@ -3,15 +3,32 @@ import { NextRequest, NextResponse } from 'next/server'
 import CryptoJS from 'crypto-js'
 import { unlockAchievements } from './checkCriteria'
 
-const USERDB = process.env.NEXT_PUBLIC_SUPABASE_DATABASE_USER_PROFILE!
+const authCookieKey = process.env.NEXT_AUTH_COOKIE_KEY!
+const aesSalt = process.env.NEXT_PUBLIC_AES_SALT!
 
-export async function GET(req: NextRequest, res: NextResponse) {
+async function getUserIDCookie(cookie: string | undefined) {
+    try {
+        if (cookie !== undefined) {
+            const aesEncrypted = CryptoJS.AES.decrypt(cookie, aesSalt).toString(CryptoJS.enc.Utf8)
+            
+            return aesEncrypted
+        }else{
+            return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })    
+        }
+    } catch {
+        return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })
+    }
+}
+
+
+export async function GET(request: NextRequest) {
+
+    const cookie = request.cookies.get(authCookieKey)
+
     const supabase = createClient()
 
-    const userInfo = await supabase.auth.getUser()
-    const userID = userInfo?.data?.user?.id
-
-    const userIdMD5 = userID && CryptoJS.MD5(userID).toString()
+    // stage 1 - extract user ID information
+    const userIdMD5 = await getUserIDCookie(cookie?.value)
 
     if (userIdMD5 === undefined) {
         return NextResponse.json(
@@ -130,7 +147,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         isUserEarlyBird,
         streak5,
         streak15,
-        userIdMD5
+        typeof userIdMD5
     )
 
     return NextResponse.json(achievementUnlocked)
