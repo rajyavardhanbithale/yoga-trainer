@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { poseInfo } from './poseApiData'
 
-
-
-
 export async function GET(req: NextRequest) {
     const poseData = poseInfo
 

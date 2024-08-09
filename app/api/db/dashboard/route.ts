@@ -12,22 +12,26 @@ const aesSalt = process.env.NEXT_PUBLIC_AES_SALT!
 async function getUserIDCookie(cookie: string | undefined) {
     try {
         if (cookie !== undefined) {
-            const aesEncrypted = CryptoJS.AES.decrypt(cookie, aesSalt).toString(CryptoJS.enc.Utf8)
-            
+            const aesEncrypted = CryptoJS.AES.decrypt(cookie, aesSalt).toString(
+                CryptoJS.enc.Utf8
+            )
+
             return aesEncrypted
-        }else{
-            
-            return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })    
+        } else {
+            return NextResponse.json(
+                { message: 'error in fetching data from database' },
+                { status: 400 }
+            )
         }
     } catch {
-        
-        return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })
+        return NextResponse.json(
+            { message: 'error in fetching data from database' },
+            { status: 400 }
+        )
     }
 }
 
-
 export async function GET(request: NextRequest) {
-
     const cookie = request.cookies.get(authCookieKey)
 
     const supabase = createClient()
@@ -35,14 +39,12 @@ export async function GET(request: NextRequest) {
     // stage 1 - extract user ID information
     const userIdMD5 = await getUserIDCookie(cookie?.value)
 
-    
     // stage 2 - query from database
     const { data, error } = await supabase
         .from(poseAnalysis)
         .select('poseID, correctPose, startTime, userID')
         .eq('userID', userIdMD5)
 
-        
     // stage A. today pose list
     const generateTodayPoseList = (nPose: number): number[] => {
         // extracting available pose id from poseInfo

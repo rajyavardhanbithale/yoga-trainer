@@ -9,19 +9,24 @@ const aesSalt = process.env.NEXT_PUBLIC_AES_SALT!
 async function getUserIDCookie(cookie: string | undefined) {
     try {
         if (cookie !== undefined) {
-            const aesEncrypted = CryptoJS.AES.decrypt(cookie, aesSalt).toString(CryptoJS.enc.Utf8)
-            
+            const aesEncrypted = CryptoJS.AES.decrypt(cookie, aesSalt).toString(
+                CryptoJS.enc.Utf8
+            )
+
             return aesEncrypted
-        }else{
-            
-            return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })    
+        } else {
+            return NextResponse.json(
+                { message: 'error in fetching data from database' },
+                { status: 400 }
+            )
         }
     } catch {
-        
-        return NextResponse.json({ message: 'error in fetching data from database' }, { status: 400 })
+        return NextResponse.json(
+            { message: 'error in fetching data from database' },
+            { status: 400 }
+        )
     }
 }
-
 
 export async function GET(request: NextRequest) {
     const supabase = createClient()
@@ -29,7 +34,6 @@ export async function GET(request: NextRequest) {
     const cookie = request.cookies.get(authCookieKey)
 
     const userIdMD5 = await getUserIDCookie(cookie?.value)
-
 
     const { data, error } = await supabase
         .from(USERDB)

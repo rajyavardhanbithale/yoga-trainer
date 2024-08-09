@@ -1,14 +1,14 @@
 'use client'
 
 import { createClientBrowser } from '@/utils/supabase/client'
+import axios from "axios"
 import CryptoJS from 'crypto-js'
 
 async function fetchCurrentUtcTime(): Promise<number> {
-    const response = await fetch(
-        'https://worldtimeapi.org/api/timezone/Etc/UTC'
-    )
-    const data = await response.json()
-    const currentUtcTime = Math.floor(new Date(data.datetime).getTime() / 1000)
+    const now = new Date();
+    const utcString = now.toUTCString();
+    
+    const currentUtcTime = Math.floor(new Date(utcString).getTime() / 1000)
     return currentUtcTime
 }
 
