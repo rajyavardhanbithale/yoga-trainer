@@ -32,16 +32,15 @@ async function getUserIDCookie(
                 return response
             }
 
-            
             if (!user && error) {
-                console.log("error")
+                console.log('error')
             }
         }
 
-        if(key !== undefined) {
+        if (key !== undefined) {
             const { data: user, error } = await supabase.auth.getSession()
-            
-            if(!user.session) {
+
+            if (!user.session) {
                 response.cookies.delete(authCookieKey)
                 return response
             }

@@ -7,7 +7,7 @@ import { FcLike, FcLikePlaceholder } from 'react-icons/fc'
 import { IoIosShareAlt } from 'react-icons/io'
 import { IoEye } from 'react-icons/io5'
 import { useDispatch } from 'react-redux'
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
 
 import CryptoJS from 'crypto-js'
 import { likeFoodPost } from '@/lib/store/user/profileSlice'
@@ -40,9 +40,7 @@ export default function RecipePageSocials(props: { mealID: number }) {
     }
 
     const fetchUserLikes = async (id: number) => {
-       
         const userID: string | null = Cookies.get('myCookieKey') ?? null
-
 
         const { data, error } = await supabase
             .from('user-db')
