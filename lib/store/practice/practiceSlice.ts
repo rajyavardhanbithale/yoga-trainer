@@ -80,6 +80,7 @@ export const practiceSliceUpdateDB = createAsyncThunk<
                 repTime: data.repTime,
                 accuracy: data.accuracy,
                 correctPose: data.correctPose,
+                duration: Math.floor((data.endTime - data.startTime)),
             }
 
             try {
