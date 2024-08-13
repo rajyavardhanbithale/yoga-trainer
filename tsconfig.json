@@ -21,6 +21,6 @@
             "@/*": ["./*"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Yoga/TabSections/Accuracy/AccuracyLineChart.tsx"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Yoga/TabSections/Accuracy/AccuracyLineChart.tsx", "app/components/LeaderBoard/WeeklyActivity.jsx"],
     "exclude": ["node_modules"]
 }
