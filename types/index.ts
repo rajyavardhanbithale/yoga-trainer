@@ -104,7 +104,7 @@ interface APIYogaPosePerformanceData {
     endTime: number
     accuracy: Array<number>
     correctPose: Array<number>
-    duration: number    
+    duration: number
 }
 
 interface APIYogaDataMinimal {
@@ -181,28 +181,27 @@ interface UserPoseAnalysis {
 }
 
 interface DataEntry {
-    accuracy: number[];
-    correctPose: number[];
-    startTime: number;
-    endTime: number;
-    repTime: number;
-    userID: string;
+    accuracy: number[]
+    correctPose: number[]
+    startTime: number
+    endTime: number
+    repTime: number
+    userID: string
 }
 
 interface UserMetrics {
-    correctPose: number[];
-    repTime: number[];
-    totalReps: number;
-    duration: number[];
+    correctPose: number[]
+    repTime: number[]
+    totalReps: number
+    duration: number[]
 }
 
 interface LeaderboardEntry {
-    UserID: string;
-    AdjustedCorrectPoseRatio: number;
-    TotalReps: number;
-    Consistency: number;
+    UserID: string
+    AdjustedCorrectPoseRatio: number
+    TotalReps: number
+    Consistency: number
 }
-
 
 export type {
     YogaPose,
