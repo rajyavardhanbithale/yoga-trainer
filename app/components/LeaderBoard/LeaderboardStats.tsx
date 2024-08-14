@@ -19,13 +19,11 @@ export default function LeaderboardStats({
 
     useEffect(() => {
         const widthPercentage = Math.max(25, Math.min(100, accuracy * 100))
-        console.log('accuracy : ', widthPercentage)
         setSliderWidthAccuracy(`${widthPercentage}%`)
     }, [accuracy])
 
     useEffect(() => {
         const widthPercentage = Math.max(0, Math.min(100, timeSpent))
-        console.log('time spent : ', widthPercentage)
         setSliderWidthTime(`${widthPercentage}%`)
     }, [timeSpent])
 

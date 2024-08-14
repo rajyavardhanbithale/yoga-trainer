@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { createClient } from '@/utils/supabase/server'
 import { Redis } from '@upstash/redis'
 import { NextRequest, NextResponse } from 'next/server'
@@ -64,10 +66,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (leaderboardDataRedis) {
         // checking update time
         if (Date.now() < leaderboardDataRedis.config.nextUpdate) {
-            return NextResponse.json({
-                source: 'redis',
-                data: leaderboardDataRedis,
-            })
+            return NextResponse.json(
+                {source:"redis", ...leaderboardDataRedis},
+           )
         }
 
         const updatedData = await handleCacheUpdate()
