@@ -23,8 +23,7 @@ ChartJS.register(
 )
 
 export default function WeeklyActivity({ chartData }) {
-
-    const chartDataSum = chartData.reduce((a,b)=>a+b); 
+    const chartDataSum = chartData.reduce((a, b) => a + b)
 
     const data = {
         labels: chartData.map((_, index) => index.toString()),

@@ -54,7 +54,7 @@ export default function NavbarDummy() {
     }, [])
 
     // Define paths where the navbar should be hidden
-    const hiddenPaths = ['/', 'dashboard', 'practice','leaderboard']
+    const hiddenPaths = ['/', 'dashboard', 'practice', 'leaderboard']
 
     return (
         <>

@@ -1,16 +1,14 @@
-
 import { createClient } from '@/utils/supabase/server'
 import { Redis } from '@upstash/redis'
 import { NextRequest, NextResponse } from 'next/server'
 import { CalculateMetrics } from './calculateMetrics'
 import { nanoid } from '@reduxjs/toolkit'
 
-const leaderboardUpdateTime = 1 // minutes
+const leaderboardUpdateTime = 5 // minutes
 const redis = new Redis({
     url: process.env.NEXT_PUBLIC_UPSTASH_REDIS_URL,
     token: process.env.NEXT_PUBLIC_UPSTASH_REDIS_KEY,
 })
-
 
 interface Data {
     userID: string
@@ -35,14 +33,12 @@ async function handleCache(finalResponse: any) {
 
 async function handleCacheUpdate() {
     const supabase = createClient()
-    const { data } = await supabase
-        .from('pose-performance-data')
-        .select(
-            `
+    const { data } = await supabase.from('pose-performance-data').select(
+        `
             userID,accuracy,correctPose,startTime,endTime,repTime,duration, 
             user-db(name,profile_pic,country,user_public_id)
             `
-        )
+    )
 
     if (data) {
         const metrics = CalculateMetrics(data)

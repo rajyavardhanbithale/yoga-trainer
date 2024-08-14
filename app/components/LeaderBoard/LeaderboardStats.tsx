@@ -1,27 +1,35 @@
-'use client';
+'use client'
 
-import React, { useRef, useEffect, useState } from 'react';
-import './leaderboard.css';
+import React, { useRef, useEffect, useState } from 'react'
+import './leaderboard.css'
 
-export default function LeaderboardStats({ accuracy, timeSpent, session }: { accuracy: number, timeSpent: number, session: number }) {
-    const sliderRef = useRef<HTMLInputElement>(null);
-    const [sliderWidthAccuracy, setSliderWidthAccuracy] = useState<string>('75%');
-    const [sliderWidthTime, setSliderWidthTime] = useState<string>('75%');
+export default function LeaderboardStats({
+    accuracy,
+    timeSpent,
+    session,
+}: {
+    accuracy: number
+    timeSpent: number
+    session: number
+}) {
+    const sliderRef = useRef<HTMLInputElement>(null)
+    const [sliderWidthAccuracy, setSliderWidthAccuracy] =
+        useState<string>('75%')
+    const [sliderWidthTime, setSliderWidthTime] = useState<string>('75%')
 
     useEffect(() => {
-        const widthPercentage = Math.max(25, Math.min(100, accuracy * 100));
-        console.log('accuracy : ', widthPercentage);
-        setSliderWidthAccuracy(`${widthPercentage}%`);
-    }, [accuracy]);
+        const widthPercentage = Math.max(25, Math.min(100, accuracy * 100))
+        console.log('accuracy : ', widthPercentage)
+        setSliderWidthAccuracy(`${widthPercentage}%`)
+    }, [accuracy])
 
     useEffect(() => {
-        const widthPercentage = Math.max(0, Math.min(100, timeSpent));
-        console.log('time spent : ', widthPercentage);
-        setSliderWidthTime(`${widthPercentage}%`);
-    }, [timeSpent]);
+        const widthPercentage = Math.max(0, Math.min(100, timeSpent))
+        console.log('time spent : ', widthPercentage)
+        setSliderWidthTime(`${widthPercentage}%`)
+    }, [timeSpent])
 
     return (
-
         <div className="flex flex-col gap-[2px] items-center justify-start">
             <div className="w-full flex items-center gap-2">
                 <span className="text-sm text-slate-50">Accuracy </span>
@@ -54,5 +62,5 @@ export default function LeaderboardStats({ accuracy, timeSpent, session }: { acc
                 <span className="text-sm text-slate-50">{session}</span>
             </div>
         </div>
-    );
+    )
 }

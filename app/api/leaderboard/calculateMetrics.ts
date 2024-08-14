@@ -1,5 +1,3 @@
-
-
 interface Data {
     userID: string
     correctPose: number[]
@@ -16,7 +14,6 @@ interface Data {
     }
 }
 const userActivity = (nDays: number, epochTime: number[]) => {
-
     nDays = Math.min(365, nDays)
 
     const today = new Date()
@@ -50,7 +47,6 @@ const userActivity = (nDays: number, epochTime: number[]) => {
     return representation
 }
 
-
 export function CalculateMetrics(poseData: any): any {
     const mean = (arr: number[]): number =>
         arr.reduce((a, b) => a + b, 0) / arr.length
@@ -64,7 +60,7 @@ export function CalculateMetrics(poseData: any): any {
 
     const userData: Record<string, any> = {}
 
-    poseData.forEach((entry:any) => {
+    poseData.forEach((entry: any) => {
         const userId = entry.userID
         if (!userData[userId]) {
             userData[userId] = {
@@ -99,19 +95,19 @@ export function CalculateMetrics(poseData: any): any {
             durationMean: mean(metrics.duration),
             weekActivity: weeklyActivity,
             totalSessions: metrics.totalSessions,
-            userInfo: metrics.userInfo  
+            userInfo: metrics.userInfo,
         }
     })
 
     // return {
-        //     id: userId,
-        //     correctPoseMean: mean(metrics.correctPose),
-        //     correctPoseStdDev: standardDeviation(metrics.correctPose),
-        //     repTimeMean: mean(metrics.repTime),
-        //     repTimeStdDev: standardDeviation(metrics.repTime),
-        //     durationMean: mean(metrics.duration),
-        //     durationStdDev: standardDeviation(metrics.duration),
-        //     weekActivity: weeklyActivity,
-        //     userInfo: metrics.userInfo  
-        // }
+    //     id: userId,
+    //     correctPoseMean: mean(metrics.correctPose),
+    //     correctPoseStdDev: standardDeviation(metrics.correctPose),
+    //     repTimeMean: mean(metrics.repTime),
+    //     repTimeStdDev: standardDeviation(metrics.repTime),
+    //     durationMean: mean(metrics.duration),
+    //     durationStdDev: standardDeviation(metrics.duration),
+    //     weekActivity: weeklyActivity,
+    //     userInfo: metrics.userInfo
+    // }
 }

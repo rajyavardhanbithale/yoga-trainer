@@ -1,11 +1,16 @@
 .gradient-slider {
     -webkit-appearance: none;
     height: 6px;
-    background: linear-gradient(to right, rgb(236, 72, 153), rgb(239, 68, 68), rgb(234, 179, 8));
+    background: linear-gradient(
+        to right,
+        rgb(236, 72, 153),
+        rgb(239, 68, 68),
+        rgb(234, 179, 8)
+    );
     border-radius: 50px;
     outline: none;
     opacity: 0.9;
-    transition: opacity .15s ease-in-out;
+    transition: opacity 0.15s ease-in-out;
 }
 
 .gradient-slider::-webkit-slider-thumb {
