@@ -1,21 +1,14 @@
-'use client'
 
+
+import axios from "axios"
 import LeaderboardCarousel from './LeaderboardCarousel'
 import LeaderboardDisplay from './LeaderboardDisplay'
 
 const ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
 
 export default async function Leaderboard() {
-    const response = await fetch(`${ENDPOINT}/api/leaderboard`, {
-        next: {
-            revalidate: 60,
-        },
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    const data = await response.json()
-
+    const response = await axios.get(`${ENDPOINT}/api/leaderboard`)
+    const data = response.data
     return (
         <>
             <div className="z-50 w-11/12 justify-center glass-card">
