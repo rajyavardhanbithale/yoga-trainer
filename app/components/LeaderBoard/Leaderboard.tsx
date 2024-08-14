@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+'use client'
 
 import LeaderboardCarousel from './LeaderboardCarousel'
 import LeaderboardDisplay from './LeaderboardDisplay'
@@ -10,9 +10,9 @@ export default async function Leaderboard() {
         next: {
             revalidate: 60,
         },
-        headers:{
+        headers: {
             'Content-Type': 'application/json',
-        }
+        },
     })
     const data = await response.json()
 
