@@ -1,12 +1,19 @@
+export const dynamic = 'force-dynamic'
+
 import LeaderboardCarousel from './LeaderboardCarousel'
 import LeaderboardDisplay from './LeaderboardDisplay'
 
+const ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT
+
 export default async function Leaderboard() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/leaderboard`, {
-        next: {
-            revalidate: 60,
-        },
-    })
+    const response = await fetch(
+        `${ENDPOINT}/api/leaderboard`,
+        {
+            next: {
+                revalidate: 60,
+            },
+        }
+    )
     const data = await response.json()
 
     return (
