@@ -99,7 +99,7 @@ export default function Navbar() {
 
                 <div className="sm:flex hidden flex-row items-center gap-4 m-1 px-6 glass-card">
                     {options.map((option, idx) => (
-                        <Link key={idx} href={`/${option.name}`}>
+                        <Link key={idx} href={`/${option.name.toLowerCase()}`}>
                             <div className="text-xl text-slate-100 flex items-center hover:brightness-50 duration-500 cursor-pointer">
                                 {option.icon}
                                 <span className="capitalize inline-flex items-center cursor-pointer">
@@ -133,7 +133,7 @@ export default function Navbar() {
                         {options.map((option, idx) => (
                             <Link
                                 key={idx}
-                                href={`/${option.name}`}
+                                href={`/${option.name.toLowerCase()}`}
                                 onClick={() => setIsOpen(false)}
                             >
                                 <div className="text-xl text-slate-50 flex  px-2 py-1 rounded-2xl items-center hover:brightness-75 duration-1000 cursor-pointer ">
