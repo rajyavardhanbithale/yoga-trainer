@@ -2,7 +2,7 @@ import LeaderboardCarousel from './LeaderboardCarousel'
 import LeaderboardDisplay from './LeaderboardDisplay'
 
 export default async function Leaderboard() {
-    const response = await fetch('http://localhost:3000/api/leaderboard', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/leaderboard`, {
         next: {
             revalidate: 60,
         },

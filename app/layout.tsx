@@ -18,9 +18,7 @@ export default function RootLayout({
     return (
         <StoreProvider>
             <html lang="en" data-theme="light">
-                <body className={comfortaa.className}>
-                    {children}
-                </body>
+                <body className={comfortaa.className}>{children}</body>
             </html>
         </StoreProvider>
     )

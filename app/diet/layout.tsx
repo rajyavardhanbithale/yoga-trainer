@@ -1,4 +1,4 @@
-import NavbarDummy from "../components/Home/NavbarDummy"
+import NavbarDummy from '../components/Home/NavbarDummy'
 
 export default function DietLayout({
     children,
@@ -8,9 +8,7 @@ export default function DietLayout({
     return (
         <>
             <NavbarDummy />
-            <section>
-                {children}
-            </section>
+            <section>{children}</section>
         </>
     )
 }
