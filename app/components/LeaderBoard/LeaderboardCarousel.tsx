@@ -38,24 +38,27 @@ export default function LeaderboardCarousel({ userData }: { userData: any }) {
                                                     idx + 1 === 1
                                                         ? 'gold'
                                                         : idx + 1 === 2
-                                                            ? 'silver'
-                                                            : 'bronze'
+                                                          ? 'silver'
+                                                          : 'bronze'
                                                 }
                                                 height={40}
                                                 width={40}
                                                 className="p-0 m-0 brightness-110 shadow-xl"
                                             />
-                                            {data.userInfo.country &&
+                                            {data.userInfo.country && (
                                                 <div className="rounded-lg h-fit w-fit overflow-hidden">
                                                     <Image
                                                         height={40}
                                                         width={40}
-                                                        alt={data.userInfo.country}
+                                                        alt={
+                                                            data.userInfo
+                                                                .country
+                                                        }
                                                         src={`https://flagicons.lipis.dev/flags/4x3/${data.userInfo.country}.svg`}
                                                         className="shadow-2xl"
                                                     />
                                                 </div>
-                                            }
+                                            )}
                                         </div>
                                         <div className="flex items-center gap-1">
                                             <span className="text-nowrap text-xl text-slate-50 text-extrabold">

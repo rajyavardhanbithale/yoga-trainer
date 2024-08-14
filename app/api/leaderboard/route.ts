@@ -66,9 +66,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (leaderboardDataRedis) {
         // checking update time
         if (Date.now() < leaderboardDataRedis.config.nextUpdate) {
-            return NextResponse.json(
-                {source:"redis", ...leaderboardDataRedis},
-           )
+            return NextResponse.json({
+                source: 'redis',
+                ...leaderboardDataRedis,
+            })
         }
 
         const updatedData = await handleCacheUpdate()

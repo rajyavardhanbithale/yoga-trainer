@@ -74,12 +74,12 @@ export default function DietCard(props: { meals: MealData }) {
                         ))}
                     </div>
 
-                    <div className="flex flex-col xl:flex-row  gap-3 w-full ">
+                    <div className="flex flex-col gap-3 xl:gap-4 w-full xl:mt-5">
                         <DietDialog meal={meal} />
                         <Link
                             href={`/diet/${meal.name.toLocaleLowerCase().replaceAll(' ', '-')}-${meal.id}`}
                         >
-                            <button className="xl:my-3 w-3/4 xl:w-full text-xl bg-blue-900 text-slate-50 rounded-2xl px-5 py-1 capitalize cursor-pointer hover:bg-blue-950 duration-500">
+                            <button className="w-3/4 xl:w-full text-xl bg-blue-900 text-slate-50 rounded-2xl px-5 py-1 capitalize cursor-pointer hover:bg-blue-950 duration-500">
                                 Read More
                                 <MdArrowOutward className="text-xl inline-flex  mb-0.5" />
                             </button>
