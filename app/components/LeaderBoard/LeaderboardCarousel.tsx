@@ -11,8 +11,8 @@ import LeaderboardStats from './LeaderboardStats'
 export default function LeaderboardCarousel({ userData }: { userData: any }) {
     return (
         <>
-            <div className="h-full w-full md:ml-24 xl:ml-0 flex justify-center items-center bg-slate-50 bg-opacity-10 rounded-2xl border-2 border-slate-50 border-opacity-10 shadow-2xl p-2">
-                <Carousel className="w-3/4 h-full flex items-center p-1">
+            <div className="h-full w-full  xl:ml-0 flex justify-center items-center bg-slate-50 bg-opacity-10 rounded-2xl border-2 border-slate-50 border-opacity-10 shadow-2xl p-2">
+                <Carousel className="w-3/4 h-full flex items-center px-1 py-1">
                     <CarouselContent>
                         {userData?.metrics
                             ?.slice(0, 3)

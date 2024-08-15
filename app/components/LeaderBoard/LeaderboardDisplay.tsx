@@ -72,7 +72,7 @@ export default async function LeaderboardDisplay({ data }: { data: any }) {
                                     />
                                 </div>
 
-                                <div className="w-16 h-16 flex justify-center items-center my-auto">
+                                <div className="w-16 sm:h-16 h-8 flex justify-center items-center my-auto">
                                     <WeeklyActivity
                                         chartData={metric.weekActivity}
                                     />
