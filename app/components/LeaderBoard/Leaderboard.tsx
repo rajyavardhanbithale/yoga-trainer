@@ -26,10 +26,6 @@ export default async function Leaderboard() {
                     </div>
                 </div>
             </div>
-
-
         </>
     )
 }
-
-
