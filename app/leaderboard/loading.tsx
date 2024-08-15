@@ -1,4 +1,4 @@
-import BackgroundSVG from "../components/Home/Background";
+import BackgroundSVG from '../components/Home/Background'
 
 export default function Loading() {
     return (

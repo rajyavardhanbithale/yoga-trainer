@@ -6,9 +6,11 @@
 
 .header-mesh {
     background-color: rgb(30, 58, 138);
-    background-image: radial-gradient(at 20% 80%,
+    background-image: radial-gradient(
+            at 20% 80%,
             rgb(30, 58, 138) 0,
-            transparent 40%),
+            transparent 40%
+        ),
         radial-gradient(at 80% 80%, rgb(30, 58, 138) 0, transparent 41%),
         radial-gradient(at 20% 20%, rgb(30, 58, 138) 0, transparent 27%),
         radial-gradient(at 80% 20%, rgb(30, 64, 175) 0, transparent 40%),
@@ -63,7 +65,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-
 .loader-3s {
     position: relative;
     width: 120px;
@@ -72,58 +73,67 @@ body {
 }
 
 .loader-3s:before {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 30px;
     left: 50px;
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    background: linear-gradient(to bottom, rgb(56, 189, 248), rgb(59, 130, 246));
+    background: linear-gradient(
+        to bottom,
+        rgb(56, 189, 248),
+        rgb(59, 130, 246)
+    );
     box-shadow: 0 0 15px 8px rgba(15, 174, 248, 0.3);
     animation: loading-bounce 0.5s ease-in-out infinite alternate;
 }
 
 .loader-3s:after {
-    content: "";
+    content: '';
     position: absolute;
     right: 0;
     top: 0;
     height: 7px;
     width: 45px;
     border-radius: 4px;
-    box-shadow: 0 5px 0 #fff, -35px 50px 0 #fff, -70px 95px 0 #fff;
+    box-shadow:
+        0 5px 0 #fff,
+        -35px 50px 0 #fff,
+        -70px 95px 0 #fff;
     animation: loading-step 1s ease-in-out infinite;
 }
 
 @keyframes loading-bounce {
     0% {
-        transform: scale(1, 0.7)
+        transform: scale(1, 0.7);
     }
 
     40% {
-        transform: scale(0.8, 1.2)
+        transform: scale(0.8, 1.2);
     }
 
     60% {
-        transform: scale(1, 1)
+        transform: scale(1, 1);
     }
 
     100% {
-        bottom: 140px
+        bottom: 140px;
     }
 }
 
 @keyframes loading-step {
     0% {
-        box-shadow: 0 10px 0 rgba(0, 0, 0, 0),
+        box-shadow:
+            0 10px 0 rgba(0, 0, 0, 0),
             0 10px 0 #fff,
             -35px 50px 0 #fff,
             -70px 90px 0 #fff;
     }
 
     100% {
-        box-shadow: 0 10px 0 #fff,
+        box-shadow:
+            0 10px 0 #fff,
             -35px 50px 0 #fff,
             -70px 90px 0 #fff,
             -70px 90px 0 rgba(0, 0, 0, 0);
@@ -149,7 +159,7 @@ body {
     bottom: 20px;
     height: 24px;
     width: 7px;
-    outline: 1px solid #FFF;
+    outline: 1px solid #fff;
     color: rgb(56, 189, 248);
     box-shadow: 0 0 15px 8px rgba(15, 174, 248, 0.3);
     box-sizing: border-box;

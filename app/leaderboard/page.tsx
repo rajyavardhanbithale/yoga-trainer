@@ -9,12 +9,10 @@ export default async function LeaderboardPage() {
                 <BackgroundSVG />
 
                 <Navbar />
-                
 
                 <div className="z-50 h-full flex justify-center my-auto">
                     <Leaderboard />
                 </div>
-
             </main>
         </>
     )
