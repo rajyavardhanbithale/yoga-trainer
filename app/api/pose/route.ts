@@ -6,6 +6,7 @@ export async function GET(req: NextRequest) {
 
     // minimal response to pose info using poseID param
     const poseID = req.nextUrl.searchParams.get('poseID') ?? null
+    const poseList = req.nextUrl.searchParams.get('list') ?? null
 
     const poseIDList =
         (poseID ? poseID.split(',').map((item) => parseInt(item)) : []) ?? []
@@ -31,6 +32,11 @@ export async function GET(req: NextRequest) {
                 status: 200,
             }
         )
+    }
+
+    if (poseList) {
+        const poseDataList = poseData.map((item) => ({ id: item.id, name: item.name, originalName: item.originalName, image: item.image }))
+        return NextResponse.json(poseDataList, { status: 200, })
     }
 
     return NextResponse.json(
