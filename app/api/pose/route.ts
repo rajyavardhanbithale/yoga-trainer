@@ -35,8 +35,13 @@ export async function GET(req: NextRequest) {
     }
 
     if (poseList) {
-        const poseDataList = poseData.map((item) => ({ id: item.id, name: item.name, originalName: item.originalName, image: item.image }))
-        return NextResponse.json(poseDataList, { status: 200, })
+        const poseDataList = poseData.map((item) => ({
+            id: item.id,
+            name: item.name,
+            originalName: item.originalName,
+            image: item.image,
+        }))
+        return NextResponse.json(poseDataList, { status: 200 })
     }
 
     return NextResponse.json(

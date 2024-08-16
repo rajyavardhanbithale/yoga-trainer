@@ -5,7 +5,7 @@ export default function BackgroundSVG() {
         <>
             {/* <img src="/home/bg.svg" alt="" className="xl:flex inset-0 w-full h-full object-cover hidden absolute z-0" /> */}
             {/* <img src="/home/bg-md.svg" alt="" className="absolute inset-0 w-full h-full object-cover z-0 xl:hidden" /> */}
-            
+
             {/* desktop */}
             <Image
                 src={'/home/bg.svg'}
