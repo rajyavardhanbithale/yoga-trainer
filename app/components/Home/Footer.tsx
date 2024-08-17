@@ -39,8 +39,8 @@ export default async function Footer() {
 
                 <div className="flex items-center m-1 glass-card px-3 py-0.5">
                     <span className="text-lg text-slate-100 px-1 m-1 font-normal">
-                        © {new Date().getFullYear()} Made with 🤯 by Rajyavardhan Bithale | All
-                        Rights Reserved
+                        © {new Date().getFullYear()} Made with 🤯 by
+                        Rajyavardhan Bithale | All Rights Reserved
                     </span>
                 </div>
 

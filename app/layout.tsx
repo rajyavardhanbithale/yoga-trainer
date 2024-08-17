@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Comfortaa } from 'next/font/google'
 import './globals.css'
 import { StoreProvider } from '@/lib/store/StoreProvider'
-import ScrollProvider from "./components/SmoothScroll"
 const comfortaa = Comfortaa({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -20,9 +19,9 @@ export default function RootLayout({
         <StoreProvider>
             <html lang="en" data-theme="light">
                 <body className={comfortaa.className}>
-                    <ScrollProvider>
-                        {children}
-                    </ScrollProvider>
+                  
+                    {children}
+              
                 </body>
             </html>
         </StoreProvider>

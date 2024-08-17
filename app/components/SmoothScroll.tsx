@@ -1,12 +1,12 @@
 'use client'
 
-// components/ScrollProvider.tsx
+import React, { useEffect, useRef } from 'react'
+import Scrollbar from 'smooth-scrollbar'
 
-import React, { useEffect, useRef } from 'react';
-import Scrollbar from 'smooth-scrollbar';
-
-const ScrollProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const scrollbarRef = useRef<HTMLDivElement>(null);
+const ScrollProvider: React.FC<{ children: React.ReactNode }> = ({
+    children,
+}) => {
+    const scrollbarRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         if (scrollbarRef.current) {
@@ -23,22 +23,22 @@ const ScrollProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
                         maxOverscroll: 150,
                     },
                 },
-            });
+            })
         }
-    }, []);
+    }, [])
 
     return (
         <div
             ref={scrollbarRef}
             style={{
                 height: '100vh',
-                overflow: 'hidden', // Hide native scrollbar
-                position: 'relative', // Position relative to ensure scrollbar positioning
+                overflow: 'hidden',
+                position: 'relative',
             }}
         >
             {children}
         </div>
-    );
-};
+    )
+}
 
-export default ScrollProvider;
+export default ScrollProvider
