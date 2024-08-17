@@ -5,6 +5,7 @@ import SupabasePostAuthHelper from './components/Home/SupabasePostAuthHelper'
 import Section from './components/Home/Section/PoseTypewriter'
 import ImageMarquee from './components/Home/Section/ImageMarquee'
 import { Raleway } from 'next/font/google'
+import Footer from "./components/Home/Footer"
 
 const raleway = Raleway({ subsets: ['latin'] })
 export default function Home() {
@@ -14,7 +15,7 @@ export default function Home() {
                 {/* <BackgroundSVG /> */}
                 <Navbar />
 
-                <div className={`${raleway.className}`}>
+                <div className={`${raleway.className} mb-10`}>
                     <div className="xl:mt-20 mt-20 md:mt-0">
                         <Header />
                     </div>
@@ -23,10 +24,12 @@ export default function Home() {
                         <Section />
                     </div>
 
-                    <div className="xl:mt-20 sm:mt-40 mt-20">
+                    <div className="xl:mt-36 sm:mt-40 mt-20">
                         <ImageMarquee />
                     </div>
                 </div>
+
+                <Footer />
             </main>
             <SupabasePostAuthHelper />
         </>

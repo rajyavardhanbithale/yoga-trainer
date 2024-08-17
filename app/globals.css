@@ -200,3 +200,9 @@ body {
         box-shadow: 0 -28px inset;
     }
 }
+
+
+.skew-yoga {
+    transform: skewX(-3deg) skewY(-3deg);
+    transform-style: preserve-3d;
+}

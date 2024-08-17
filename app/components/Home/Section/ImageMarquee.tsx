@@ -32,10 +32,10 @@ export default function ImageMarquee() {
     const firstHalf = imageList.slice(0, imageList.length / 2)
     const secondHalf = imageList.slice(imageList.length / 2, imageList.length)
 
-    console.log(firstHalf)
+
     return (
         <div className="flex flex-col xl:flex-row gap-5">
-            <div className="hidden w-1/2 xl:flex xl:flex-col gap-8 rounded-2xl skew-y-3">
+            <div className="hidden w-1/2 xl:flex xl:flex-col gap-8 rounded-2xl skew-yoga">
                 <Marquee direction="right" autoFill={true}>
                     <div className="flex flex-row">
                         {firstHalf.map((image, idx) => (
