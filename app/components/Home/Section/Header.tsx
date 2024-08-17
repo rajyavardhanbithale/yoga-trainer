@@ -38,13 +38,11 @@ export default function Header() {
                     </div>
 
                     <div className="relative flex opacity-80 justify-center sm:w-1/2 w-full sm:h-[25rem] h-[15rem] mt-5 rounded-2xl shadow-xl overflow-hidden">
-
                         <img
                             src="/home/vec.jpg"
                             alt="Yoga Practice"
                             className="w-full object-cover brightness-75"
                         />
-
 
                         <span className="absolute left-0 h-full blr" />
                         <span className="absolute right-0 h-full blr" />
@@ -52,7 +50,6 @@ export default function Header() {
                         <span className="absolute bottom-0 w-full blr" />
                     </div>
                 </div>
-
             </main>
         </>
     )

@@ -6,7 +6,7 @@ import ImageMarquee from './components/Home/Section/ImageMarquee'
 import { Raleway } from 'next/font/google'
 import Footer from './components/Home/Footer'
 import ScrollProvider from './components/SmoothScroll'
-import LeaderBoardSection from "./components/Home/Section/LeaderBoardSection"
+import LeaderBoardSection from './components/Home/Section/LeaderBoardSection'
 
 const raleway = Raleway({ subsets: ['latin'] })
 
@@ -23,13 +23,13 @@ export default function Home() {
                             <Header />
                         </div>
 
-                        {/* <div className="xl:mt-20 mt-20 md:mt-0 overflow-hidden">
+                        <div className="xl:mt-20 mt-20 md:mt-0 overflow-hidden">
                             <Section />
                         </div>
 
                         <div className="xl:mt-36 sm:mt-40 mt-20">
                             <ImageMarquee />
-                        </div> */}
+                        </div>
 
                         <div className="xl:mt-36 sm:mt-40 mt-20 overflow-hidden">
                             <LeaderBoardSection />

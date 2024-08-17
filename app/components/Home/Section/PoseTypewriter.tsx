@@ -4,7 +4,7 @@ import { Raleway } from 'next/font/google'
 import { useEffect, useState } from 'react'
 import Typewriter from 'typewriter-effect'
 import { Separator } from '@/components/ui/separator'
-import PanZoom from "./Panzoom"
+import PanZoom from './Panzoom'
 
 interface Pose {
     id: number
@@ -32,12 +32,9 @@ export default function Section() {
         fetchPoseList()
     }, [])
 
-
-
     return (
         <>
             <PanZoom minZoom={1} maxZoom={1.5}>
-
                 <div className="flex flex-col gap-5">
                     <Separator className="w-1/4 mx-auto opacity-20" />
                     <div
@@ -51,7 +48,9 @@ export default function Section() {
                             {poseList && (
                                 <Typewriter
                                     options={{
-                                        strings: poseList ? poseList : 'Loading...',
+                                        strings: poseList
+                                            ? poseList
+                                            : 'Loading...',
                                         autoStart: true,
                                         delay: 50,
                                         deleteSpeed: 90,

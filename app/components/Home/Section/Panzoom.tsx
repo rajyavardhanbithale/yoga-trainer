@@ -1,37 +1,41 @@
-'use client';
+'use client'
 
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 interface ZoomableDivProps {
-    children: React.ReactNode;
-    minZoom?: number; 
-    maxZoom?: number; 
+    children: React.ReactNode
+    minZoom?: number
+    maxZoom?: number
 }
 
-export default function ZoomableDiv({ children, minZoom = 1, maxZoom = 4 }: ZoomableDivProps) {
-    const [scale, setScale] = useState(minZoom);
+export default function ZoomableDiv({
+    children,
+    minZoom = 1,
+    maxZoom = 4,
+}: ZoomableDivProps) {
+    const [scale, setScale] = useState(minZoom)
 
     useEffect(() => {
         const handleWheel = (event: WheelEvent) => {
-            event.preventDefault(); 
+            event.preventDefault()
 
-            setScale(prevScale => {
-                const zoomFactor = 0.001; 
+            setScale((prevScale) => {
+                const zoomFactor = 0.001
                 const newScale = Math.min(
                     Math.max(minZoom, prevScale - event.deltaY * zoomFactor),
                     maxZoom
-                );
-                return newScale;
-            });
-        };
+                )
+                return newScale
+            })
+        }
 
-        window.addEventListener('wheel', handleWheel, { passive: false });
+        window.addEventListener('wheel', handleWheel, { passive: false })
 
         return () => {
-            window.removeEventListener('wheel', handleWheel);
-        };
-    }, [minZoom, maxZoom]);
+            window.removeEventListener('wheel', handleWheel)
+        }
+    }, [minZoom, maxZoom])
 
     return (
         <motion.div
@@ -40,5 +44,5 @@ export default function ZoomableDiv({ children, minZoom = 1, maxZoom = 4 }: Zoom
         >
             {children}
         </motion.div>
-    );
+    )
 }
