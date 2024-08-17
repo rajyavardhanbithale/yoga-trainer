@@ -1,13 +1,14 @@
 import Navbar from './components/Home/Navbar'
 import Header from './components/Home/Header'
-import BackgroundSVG from './components/Home/Background'
 import SupabasePostAuthHelper from './components/Home/SupabasePostAuthHelper'
 import Section from './components/Home/Section/PoseTypewriter'
 import ImageMarquee from './components/Home/Section/ImageMarquee'
 import { Raleway } from 'next/font/google'
-import Footer from "./components/Home/Footer"
+import Footer from './components/Home/Footer'
+import ScrollProvider from "./components/SmoothScroll"
 
 const raleway = Raleway({ subsets: ['latin'] })
+
 export default function Home() {
     return (
         <>
@@ -28,9 +29,9 @@ export default function Home() {
                         <ImageMarquee />
                     </div>
                 </div>
-
                 <Footer />
             </main>
+
             <SupabasePostAuthHelper />
         </>
     )

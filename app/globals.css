@@ -6,11 +6,9 @@
 
 .header-mesh {
     background-color: rgb(30, 58, 138);
-    background-image: radial-gradient(
-            at 20% 80%,
+    background-image: radial-gradient(at 20% 80%,
             rgb(30, 58, 138) 0,
-            transparent 40%
-        ),
+            transparent 40%),
         radial-gradient(at 80% 80%, rgb(30, 58, 138) 0, transparent 41%),
         radial-gradient(at 20% 20%, rgb(30, 58, 138) 0, transparent 27%),
         radial-gradient(at 80% 20%, rgb(30, 64, 175) 0, transparent 40%),
@@ -25,6 +23,15 @@
 body {
     overflow: visible;
     background: linear-gradient(to right bottom, #051b4c, #051f56, #051e56);
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    scroll-behavior: smooth !important;
 }
 
 .glass-card {
@@ -80,11 +87,9 @@ body {
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    background: linear-gradient(
-        to bottom,
-        rgb(56, 189, 248),
-        rgb(59, 130, 246)
-    );
+    background: linear-gradient(to bottom,
+            rgb(56, 189, 248),
+            rgb(59, 130, 246));
     box-shadow: 0 0 15px 8px rgba(15, 174, 248, 0.3);
     animation: loading-bounce 0.5s ease-in-out infinite alternate;
 }
@@ -200,7 +205,6 @@ body {
         box-shadow: 0 -28px inset;
     }
 }
-
 
 .skew-yoga {
     transform: skewX(-3deg) skewY(-3deg);

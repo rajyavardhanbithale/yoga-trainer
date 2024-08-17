@@ -1,37 +1,35 @@
-import Link from "next/link";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { TbBrandLeetcode } from "react-icons/tb";
-
+import Link from 'next/link'
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
+import { TbBrandLeetcode } from 'react-icons/tb'
 
 export default async function Footer() {
-
     const icons = [
         {
             name: 'github',
             icon: <FaGithub />,
-            link: "https://github.com/rajyavardhanbithale"
+            link: 'https://github.com/rajyavardhanbithale',
         },
         {
             name: 'linkedin',
             icon: <FaLinkedinIn />,
-            link: "https://www.linkedin.com/in/rajyavardhanb"
+            link: 'https://www.linkedin.com/in/rajyavardhanb',
         },
         {
             name: 'twitter',
             icon: <FaXTwitter />,
-            link: "https://twitter.com/Saul08Goodman"
+            link: 'https://twitter.com/Saul08Goodman',
         },
         {
             name: 'leetcode',
             icon: <TbBrandLeetcode />,
-            link: "https://leetcode.com/rajyavardhanbithale"
-        }
+            link: 'https://leetcode.com/rajyavardhanbithale',
+        },
     ]
 
     return (
         <>
-            <footer className="bg-blend-darken px-4 mt-5 flex justify-center items-center py-5 glass-card">
+            <footer className="bg-blend-darken px-4 mt-5 flex items-center py-5 glass-card justify-evenly">
                 <div className="flex items-center m-1 glass-card px-3 py-0.5">
                     <img src="/home/logo.svg" alt="" className="w-8" />
                     <span className="text-xl text-slate-100 px-1 m-1 font-normal">
@@ -40,8 +38,9 @@ export default async function Footer() {
                 </div>
 
                 <div className="flex items-center m-1 glass-card px-3 py-0.5">
-                    <span className="text-xl text-slate-100 px-1 m-1 font-normal">
-                        © {new Date().getFullYear()} Rajyavardhan Bithale | All Rights Reserved
+                    <span className="text-lg text-slate-100 px-1 m-1 font-normal">
+                        © {new Date().getFullYear()} Made with 🤯 by Rajyavardhan Bithale | All
+                        Rights Reserved
                     </span>
                 </div>
 
@@ -55,7 +54,6 @@ export default async function Footer() {
                     ))}
                 </div>
             </footer>
-
         </>
     )
 }
