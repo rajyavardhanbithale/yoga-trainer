@@ -6,7 +6,6 @@ import { motion } from 'framer-motion'
 
 export default function LeaderBoardCard() {
     const [userInfo, setUserInfo] = useState<any>([])
-    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         async function fetchUserData() {
@@ -19,8 +18,6 @@ export default function LeaderBoardCard() {
                 setUserInfo(data.metrics)
             } catch (error) {
                 console.error('Error fetching user data:', error)
-            } finally {
-                setLoading(false)
             }
         }
 
@@ -29,19 +26,17 @@ export default function LeaderBoardCard() {
 
     return (
         <>
-            <div className="flex flex-row justify-between w-3/4 mx-auto ">
-                {!loading &&
-                    userInfo.length !== 0 &&
+            <div className="flex flex-col sm:flex-row justify-between sm:w-3/4 mx-auto gap-5">
+                {userInfo.length !== 0 &&
                     userInfo.slice(0, 3).map((data: any, idx: number) => (
                         <motion.div
                             key={data.userInfo.user_public_id}
                             className={`w-64 h-fit p-4 glass-card rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center gap-4 
-                                ${
-                                    idx === 1
-                                        ? 'scale-50 z-10 order-0'
-                                        : idx === 0
-                                          ? 'scale-110 order-1'
-                                          : 'scale-50 order-2'
+                                ${idx === 1
+                                    ? 'scale-50 z-10 order-0'
+                                    : idx === 0
+                                        ? 'scale-110 order-1'
+                                        : 'scale-50 order-2'
                                 }`}
                             initial={{
                                 opacity: 0,
@@ -56,7 +51,7 @@ export default function LeaderBoardCard() {
                             }}
                             viewport={{ once: false }}
                         >
-                            <div className="w-32 h-32 overflow-hidden rounded-full bg-gray-100 shadow-md">
+                            <div className="w-32 h-32 overflow-hidden rounded-full bg-slate-100 shadow-md">
                                 <Image
                                     height={256}
                                     width={256}
@@ -74,15 +69,15 @@ export default function LeaderBoardCard() {
                                         idx + 1 === 1
                                             ? 'gold'
                                             : idx + 1 === 2
-                                              ? 'silver'
-                                              : 'bronze'
+                                                ? 'silver'
+                                                : 'bronze'
                                     }
                                     height={40}
                                     width={40}
                                     className="brightness-110"
                                 />
                                 {data.userInfo.country && (
-                                    <div className="rounded-full overflow-hidden border-2 border-gray-300">
+                                    <div className="rounded-full overflow-hidden border-2 border-slate-300">
                                         <Image
                                             height={40}
                                             width={40}
@@ -107,23 +102,24 @@ export default function LeaderBoardCard() {
                             </div>
                         </motion.div>
                     ))}
-            </div>
 
-            {loading && (
-                <div className="flex flex-row justify-between gap-4 p-4">
-                    {Array.from({ length: 3 }).map((_, idx) => (
+
+                {userInfo.length === 0 && (
+                    Array.from({ length: 3 }).map((_, idx) => (
                         <div
                             key={idx}
-                            className="w-64 h-96 p-4 bg-gray-200 rounded-lg shadow-lg animate-pulse flex flex-col items-center gap-4"
+                            className="w-64 h-96 p-4 glass-card rounded-lg shadow-lg animate-pulse flex flex-col items-center gap-4"
                         >
-                            <div className="w-32 h-32 bg-gray-300 rounded-full"></div>
-                            <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
-                            <div className="w-32 h-6 bg-gray-300 rounded-full"></div>
-                            <div className="w-full h-12 bg-gray-300 rounded-full"></div>
+                            <div className="w-32 h-32 bg-slate-300/10 rounded-full"></div>
+                            <div className="w-16 h-16 bg-slate-300/10 rounded-full"></div>
+                            <div className="w-32 h-6 bg-slate-300/10 rounded-full"></div>
+                            <div className="w-full h-12 bg-slate-300/10 rounded-full"></div>
                         </div>
-                    ))}
-                </div>
-            )}
+                    ))
+
+                )}
+            </div>
+
         </>
     )
 }

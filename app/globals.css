@@ -2,44 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ./src/index.css */
-
-.header-mesh {
-    background-color: rgb(30, 58, 138);
-    background-image: radial-gradient(
-            at 20% 80%,
-            rgb(30, 58, 138) 0,
-            transparent 40%
-        ),
-        radial-gradient(at 80% 80%, rgb(30, 58, 138) 0, transparent 41%),
-        radial-gradient(at 20% 20%, rgb(30, 58, 138) 0, transparent 27%),
-        radial-gradient(at 80% 20%, rgb(30, 64, 175) 0, transparent 40%),
-        radial-gradient(at 67.62% 62.17%, rgb(8, 145, 178) 0, transparent 21%),
-        radial-gradient(at 36.1% 37.33%, rgb(29, 78, 216) 0, transparent 63%);
-}
-
 * {
     /* outline: red solid 1px; */
+    scrollbar-width: thin !important;
+    scrollbar-color: #051129 #2e2e2ed7 !important;
 }
 
+
 body {
-    overflow: visible;
     background: linear-gradient(to right bottom, #051b4c, #051f56, #051e56);
 }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    scroll-behavior: smooth !important;
+*::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #DFE9EB;
+}
+
+*::-webkit-scrollbar-track:hover {
+    background-color: #B8C0C2;
+}
+
+*::-webkit-scrollbar-track:active {
+    background-color: #B8C0C2;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #020732;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #0E265C;
+}
+
+*::-webkit-scrollbar-thumb:active {
+    background-color: #092666;
 }
 
 .glass-card {
     backdrop-filter: blur(16px) saturate(200%);
     -webkit-backdrop-filter: blur(16px) saturate(200%);
-    background-color: rgba(17, 25, 40, 0.32);
+    background-color: rgba(21, 22, 24, 0.32);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.079);
 }
@@ -74,6 +82,18 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+.header-mesh {
+    background-color: rgb(30, 58, 138);
+    background-image: radial-gradient(at 20% 80%,
+            rgb(30, 58, 138) 0,
+            transparent 40%),
+        radial-gradient(at 80% 80%, rgb(30, 58, 138) 0, transparent 41%),
+        radial-gradient(at 20% 20%, rgb(30, 58, 138) 0, transparent 27%),
+        radial-gradient(at 80% 20%, rgb(30, 64, 175) 0, transparent 40%),
+        radial-gradient(at 67.62% 62.17%, rgb(8, 145, 178) 0, transparent 21%),
+        radial-gradient(at 36.1% 37.33%, rgb(29, 78, 216) 0, transparent 63%);
+}
+
 .loader-3s {
     position: relative;
     width: 120px;
@@ -89,11 +109,9 @@ body {
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    background: linear-gradient(
-        to bottom,
-        rgb(56, 189, 248),
-        rgb(59, 130, 246)
-    );
+    background: linear-gradient(to bottom,
+            rgb(56, 189, 248),
+            rgb(59, 130, 246));
     box-shadow: 0 0 15px 8px rgba(15, 174, 248, 0.3);
     animation: loading-bounce 0.5s ease-in-out infinite alternate;
 }

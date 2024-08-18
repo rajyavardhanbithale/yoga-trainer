@@ -29,7 +29,7 @@ export default async function Footer() {
 
     return (
         <>
-            <footer className="bg-blend-darken px-4 mt-5 flex items-center py-5 glass-card justify-evenly">
+            <footer className="bg-blend-darken px-4 mt-5 flex flex-col sm:flex-row gap-5 items-center py-5 glass-card justify-evenly">
                 <div className="flex items-center m-1 glass-card px-3 py-0.5">
                     <img src="/home/logo.svg" alt="" className="w-8" />
                     <span className="text-xl text-slate-100 px-1 m-1 font-normal">

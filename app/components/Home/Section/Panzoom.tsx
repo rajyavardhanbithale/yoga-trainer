@@ -11,17 +11,20 @@ interface ZoomableDivProps {
 
 export default function ZoomableDiv({
     children,
-    minZoom = 1,
-    maxZoom = 4,
+    minZoom,
+    maxZoom,
 }: ZoomableDivProps) {
-    const [scale, setScale] = useState(minZoom)
+    const [scale, setScale] = useState(minZoom ?? 0.5)
+
+    minZoom = minZoom || 0.5
+    maxZoom = maxZoom || 2
 
     useEffect(() => {
         const handleWheel = (event: WheelEvent) => {
             event.preventDefault()
 
             setScale((prevScale) => {
-                const zoomFactor = 0.001
+                const zoomFactor = 0.002
                 const newScale = Math.min(
                     Math.max(minZoom, prevScale - event.deltaY * zoomFactor),
                     maxZoom
@@ -40,6 +43,7 @@ export default function ZoomableDiv({
     return (
         <motion.div
             style={{ scale }}
+            transition={{ duration: 3, ease: 'easeInOut' }}
             className="transition-transform duration-300 ease-in-out overflow-x-hidden overflow-y-auto"
         >
             {children}

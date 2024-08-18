@@ -1,44 +1,12 @@
-'use client'
+"use client";
+import { ReactLenis } from "@studio-freight/react-lenis";
 
-import React, { useEffect, useRef } from 'react'
-import Scrollbar from 'smooth-scrollbar'
-
-const ScrollProvider: React.FC<{ children: React.ReactNode }> = ({
-    children,
-}) => {
-    const scrollbarRef = useRef<HTMLDivElement>(null)
-
-    useEffect(() => {
-        if (scrollbarRef.current) {
-            Scrollbar.init(scrollbarRef.current, {
-                damping: 0.05,
-                thumbMinSize: 20,
-                renderByPixels: true,
-                alwaysShowTracks: true,
-                continuousScrolling: true,
-                plugins: {
-                    overscroll: {
-                        effect: 'bounce',
-                        damping: 0.1,
-                        maxOverscroll: 150,
-                    },
-                },
-            })
-        }
-    }, [])
-
+function SmoothScrolling({ children }: { children: React.ReactNode }) {
     return (
-        <div
-            ref={scrollbarRef}
-            style={{
-                height: '100vh',
-                overflow: 'hidden',
-                position: 'relative',
-            }}
-        >
+        <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
             {children}
-        </div>
-    )
+        </ReactLenis>
+    );
 }
 
-export default ScrollProvider
+export default SmoothScrolling;

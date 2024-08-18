@@ -108,7 +108,7 @@ export default function ImageMarquee() {
                     </span>
                 </div>
 
-                <div className="mt-5 xl:mt-1">
+                <div className="mt-8 xl:mt-1">
                     <Link
                         href="/practice"
                         className="group inline-flex items-center bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-8 rounded-full transition-all duration-300 ease-in-out"

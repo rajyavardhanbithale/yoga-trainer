@@ -14,7 +14,7 @@ interface Pose {
 }
 
 const raleway = Raleway({ subsets: ['latin'] })
-export default function Section() {
+export default function PoseTypewriter() {
     const [poseList, setPoseList] = useState<string[]>([])
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function Section() {
 
     return (
         <>
-            <PanZoom minZoom={1} maxZoom={1.5}>
+            <PanZoom minZoom={1} maxZoom={1.1}>
                 <div className="flex flex-col gap-5">
                     <Separator className="w-1/4 mx-auto opacity-20" />
                     <div
