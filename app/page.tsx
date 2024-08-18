@@ -10,7 +10,6 @@ import LeaderBoardSection from './components/Home/Section/LeaderBoardSection'
 const raleway = Raleway({ subsets: ['latin'] })
 
 export default function Home() {
-
     return (
         <>
             <main className="flex h-full flex-col bg-[url('/home/bg.svg')] bg-repeat-y bg-top bg-[length:auto_100%]">

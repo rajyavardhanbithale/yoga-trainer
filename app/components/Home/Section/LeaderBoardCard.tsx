@@ -32,11 +32,12 @@ export default function LeaderBoardCard() {
                         <motion.div
                             key={data.userInfo.user_public_id}
                             className={`w-64 h-fit p-4 glass-card rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center gap-4 
-                                ${idx === 1
-                                    ? 'scale-50 z-10 order-0'
-                                    : idx === 0
-                                        ? 'scale-110 order-1'
-                                        : 'scale-50 order-2'
+                                ${
+                                    idx === 1
+                                        ? 'scale-50 z-10 order-0'
+                                        : idx === 0
+                                          ? 'scale-110 order-1'
+                                          : 'scale-50 order-2'
                                 }`}
                             initial={{
                                 opacity: 0,
@@ -69,8 +70,8 @@ export default function LeaderBoardCard() {
                                         idx + 1 === 1
                                             ? 'gold'
                                             : idx + 1 === 2
-                                                ? 'silver'
-                                                : 'bronze'
+                                              ? 'silver'
+                                              : 'bronze'
                                     }
                                     height={40}
                                     width={40}
@@ -103,8 +104,7 @@ export default function LeaderBoardCard() {
                         </motion.div>
                     ))}
 
-
-                {userInfo.length === 0 && (
+                {userInfo.length === 0 &&
                     Array.from({ length: 3 }).map((_, idx) => (
                         <div
                             key={idx}
@@ -115,11 +115,8 @@ export default function LeaderBoardCard() {
                             <div className="w-32 h-6 bg-slate-300/10 rounded-full"></div>
                             <div className="w-full h-12 bg-slate-300/10 rounded-full"></div>
                         </div>
-                    ))
-
-                )}
+                    ))}
             </div>
-
         </>
     )
 }
