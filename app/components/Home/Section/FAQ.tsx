@@ -2,6 +2,7 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Title } from './StyleUtils'
+import { IoIosInformationCircleOutline } from "react-icons/io"
 
 export default function FAQ() {
     const faq = [
@@ -47,8 +48,43 @@ export default function FAQ() {
             <div className="flex justify-center items-center mx-auto flex-col gap-10">
                 <Title>FAQs</Title>
 
+                <div className="text-slate-50 flex sm:hidden gap-2 items-center justify-center">
+                    <IoIosInformationCircleOutline className="" />
+                    <span className="text-base">
+                        Scroll the FAQs to see more
+                    </span>
+                </div>
 
-                <div className="w-[80%] join join-vertical ">
+                <ScrollArea className="w-[95%] h-[400px] sm:hidden block">
+                    <div className="relative join join-vertical w-full">
+                        {faq.map((item, idx) => (
+                            <div
+                                className="collapse join-item mb-4 collapse-arrow glass-card rounded-lg"
+                                key={idx}
+                            >
+                                <input
+                                    type="radio"
+                                    name="accordion"
+                                    id={`accordion-${idx}`}
+                                    defaultChecked={idx === 0}
+                                />
+                                <label
+                                    htmlFor={`accordion-${idx}`}
+                                    className="collapse-title text-xl font-medium text-slate-50"
+                                >
+                                    {item.title}
+                                </label>
+                                <div className="collapse-content px-4 py-1">
+                                    <p className="text-slate-50">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </ScrollArea>
+
+                <div className="w-[80%] join join-vertical sm:block hidden">
                     {faq.map((item, idx) => (
                         <div
                             className="collapse join-item mb-4 collapse-arrow glass-card rounded-lg"
