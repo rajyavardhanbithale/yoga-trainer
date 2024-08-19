@@ -72,7 +72,6 @@ export default function TensorControl() {
     }, [])
 
     const startTensor = () => {
-        console.log('start')
         dispatch(updateModelRunning(false))
     }
 

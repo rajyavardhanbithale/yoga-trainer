@@ -23,9 +23,6 @@ export default function PoseTypewriter() {
                 next: { revalidate: 3600 },
             })
             const data: Pose[] = await response.json()
-
-            console.log(data)
-
             setPoseList(data.map((item: Pose) => item.originalName))
         }
 

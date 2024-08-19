@@ -87,7 +87,7 @@ export default function StatsDashboard() {
                             title="Last 30 Days Activity"
                             description="Summary of your recent activity."
                         />
-                        <div className="flex h-full w-full justify-center items-center animate-fade-left">
+                        <div className="flex h-full w-full justify-center items-center ">
                             <DaySpent activeInMonth={userStats.activeInMonth} />
                         </div>
                     </div>

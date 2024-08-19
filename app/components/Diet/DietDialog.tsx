@@ -7,7 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog'
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from '@/components/ui/scroll-area'
 import Image from 'next/image'
 
 import { RiCompassLine } from 'react-icons/ri'
@@ -49,7 +49,8 @@ export default function DietDialog(props: { meal: MealData }) {
                                                 </div>
                                                 <div className="text-gray-700 text-base">
                                                     <span className="block">
-                                                        Tags: {meal.tags.join(', ')}
+                                                        Tags:{' '}
+                                                        {meal.tags.join(', ')}
                                                     </span>
                                                     <span className="block">
                                                         {meal.vegetarian
@@ -73,7 +74,9 @@ export default function DietDialog(props: { meal: MealData }) {
                                                                     {ig.item}
                                                                 </span>
                                                                 <span>
-                                                                    {ig.quantity}
+                                                                    {
+                                                                        ig.quantity
+                                                                    }
                                                                 </span>
                                                             </li>
                                                         )

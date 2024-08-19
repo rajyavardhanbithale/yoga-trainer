@@ -124,8 +124,6 @@ export default function TensorflowInputHelper(props: {
     const checkPrediction = (prediction: string) => {
         const check = getPredictionClass(prediction, set)
 
-        console.log('check', check)
-
         if (check === poseData?.TFData.class) {
             manipulateUserPose('update-correct-pose')
             dispatch(updateMessageList('success'))
