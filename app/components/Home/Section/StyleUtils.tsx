@@ -45,30 +45,30 @@ function Title({ children }: { children: React.ReactNode }) {
             </span>
 
             <div className="hidden sm:block">
-            <motion.div
-                ref={ref}
-                style={{
-                    overflow: 'hidden',
-                    display: 'flex',
-                    fontSize: '2rem',
-                }}
-                variants={container}
-                initial="hidden"
-                animate={isInView ? 'visible' : 'hidden'}
-                transition={{ duration: 5, delay: 5 }}
-                className="hidden sm:block xl:text-3xl text-4xl text-center xl:text-start font-semibold bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text"
-            >
-                {words.map((word, index) => (
-                    <motion.span
-                        variants={child}
-                        style={{ marginRight: '5px' }}
-                        key={index}
-                        className="xl:text-3xl text-4xl text-center xl:text-start font-semibold bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text"
-                    >
-                        {word}
-                    </motion.span>
-                ))}
-            </motion.div>
+                <motion.div
+                    ref={ref}
+                    style={{
+                        overflow: 'hidden',
+                        display: 'flex',
+                        fontSize: '2rem',
+                    }}
+                    variants={container}
+                    initial="hidden"
+                    animate={isInView ? 'visible' : 'hidden'}
+                    transition={{ duration: 5, delay: 5 }}
+                    className="hidden sm:block xl:text-3xl text-4xl text-center xl:text-start font-semibold bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text"
+                >
+                    {words.map((word, index) => (
+                        <motion.span
+                            variants={child}
+                            style={{ marginRight: '5px' }}
+                            key={index}
+                            className="xl:text-3xl text-4xl text-center xl:text-start font-semibold bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text"
+                        >
+                            {word}
+                        </motion.span>
+                    ))}
+                </motion.div>
             </div>
         </>
     )

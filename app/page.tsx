@@ -8,6 +8,7 @@ import Footer from '@/app/components/Home/Footer'
 import LeaderBoardSection from '@/app/components/Home/Section/LeaderBoardSection'
 import DietSection from '@/app/components/Home/Section/DietSection'
 import DashboardSection from '@/app/components/Home/Section/DashboardSection'
+import FAQ from "./components/Home/Section/FAQ"
 
 const raleway = Raleway({ subsets: ['latin'] })
 
@@ -36,6 +37,7 @@ export default function Home() {
                     <DietSection />
 
                     <DashboardSection />
+                    <FAQ />
                 </div>
                 <Footer />
             </main>
