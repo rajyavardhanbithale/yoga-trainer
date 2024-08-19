@@ -5,7 +5,6 @@ import { Chart as ChartJS, Title, ArcElement, Legend, Tooltip } from 'chart.js'
 ChartJS.register(Title, ArcElement, Legend, Tooltip)
 
 export default function DaySpent({ activeInMonth }) {
-
     const data = {
         labels: ['Active', 'Inactive'],
         datasets: [

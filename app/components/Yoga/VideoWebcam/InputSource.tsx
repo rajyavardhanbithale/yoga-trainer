@@ -1,21 +1,46 @@
 'use client'
 
 import { useRef } from 'react'
-import TensorflowInputHelper from './TensorflowHelper'
+import Webcam from 'react-webcam'
+import dynamic from 'next/dynamic'
 
-export default function InputSource(props: { source: string; videoRef: any }) {
+const TensorflowInputHelper = dynamic(() => import('./TensorflowHelper'), {
+    ssr: false,
+})
+
+export default function InputSource(props: { source: string }) {
     const videoRef = useRef(null)
+    const webcamRef = useRef<Webcam>(null)
+
+    const videoConstraints = {
+        width: 1280,
+        height: 720,
+        facingMode: 'user',
+    }
 
     return (
         <>
-            <video
+            {/* <video
                 ref={videoRef}
                 src={`test/${props?.source}`}
                 className="w-full h-full object-contain rounded-xl"
                 controls
-            ></video>
+            ></video> */}
 
-            <TensorflowInputHelper videoRef={videoRef} />
+            <Webcam
+                audio={false}
+                height={720}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                width={1280}
+                videoConstraints={videoConstraints}
+            />
+
+            <TensorflowInputHelper
+                videoRef={videoRef}
+                webcamRef={webcamRef}
+                source={'webcam'}
+            />
         </>
     )
 }

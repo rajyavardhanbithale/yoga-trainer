@@ -89,26 +89,25 @@ export async function GET(request: NextRequest) {
     }
 
     const userActiveInMonth = (nDays: number) => {
-        const now = new Date();
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(now.getDate() - nDays);
+        const now = new Date()
+        const thirtyDaysAgo = new Date()
+        thirtyDaysAgo.setDate(now.getDate() - nDays)
 
-        const activity = generateUserActiveDays();
+        const activity = generateUserActiveDays()
 
-       
         const activeDates = activity
-            .map((timestamp) => new Date(timestamp * 1000)) 
-            .filter(date => date >= thirtyDaysAgo && date <= now) 
-            .map(date => date.toISOString().split('T')[0]) 
+            .map((timestamp) => new Date(timestamp * 1000))
+            .filter((date) => date >= thirtyDaysAgo && date <= now)
+            .map((date) => date.toISOString().split('T')[0])
             .reduce((uniqueDates, date) => {
-                uniqueDates.add(date);
-                return uniqueDates;
-            }, new Set<string>());
+                uniqueDates.add(date)
+                return uniqueDates
+            }, new Set<string>())
 
         return {
-            inactive: nDays - activeDates.size, 
-            active: activeDates.size
-        };
+            inactive: nDays - activeDates.size,
+            active: activeDates.size,
+        }
     }
 
     const userAccuracyInaccuracy = (nDays: number) => {
@@ -193,7 +192,6 @@ export async function GET(request: NextRequest) {
 
     // stage - 4 (optional) handle error
     if (error) {
-
         return NextResponse.json(
             {
                 message: 'error in fetching data from database',

@@ -9,6 +9,7 @@ import LeaderBoardSection from '@/app/components/Home/Section/LeaderBoardSection
 import DietSection from '@/app/components/Home/Section/DietSection'
 import DashboardSection from '@/app/components/Home/Section/DashboardSection'
 import FAQ from './components/Home/Section/FAQ'
+import './home.css'
 
 const raleway = Raleway({ subsets: ['latin'] })
 

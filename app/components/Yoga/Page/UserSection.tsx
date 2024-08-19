@@ -3,7 +3,7 @@
 import { poseInfo } from '@/app/api/pose/poseApiData'
 import { useSearchParams } from 'next/navigation'
 import { IoIosMore } from 'react-icons/io'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { AppDispatch, RootState } from '@/lib/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPoseData } from '@/lib/store/practice/practiceSlice'
@@ -44,8 +44,6 @@ export default function UserSection() {
     const source = searchParams.get('source') ?? 'tree.mp4'
     const data = useSelector((state: RootState) => state.practiceSlice.poseData)
     const dispatch = useDispatch<AppDispatch>()
-
-    const videoRef = useRef(null)
 
     useEffect(() => {
         const poseData = poseInfo.filter((pose) => pose.id === Number(id))[0]
@@ -89,7 +87,7 @@ export default function UserSection() {
             )}
             <div className="grid sm:grid-cols-12 gap-10 sm:gap-5">
                 <div className="col-span-full sm:col-span-6 h-[50vh] bg-slate-100 rounded-2xl">
-                    <InputSource videoRef={videoRef} source={source} />
+                    <InputSource source={source} />
                 </div>
                 <div className="col-span-full sm:col-span-6 relative h-[50vh] bg-slate-100 rounded-2xl overflow-hidden">
                     <TutorialControl />

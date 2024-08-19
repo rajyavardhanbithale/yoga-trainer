@@ -6,12 +6,15 @@ import { AppDispatch, RootState } from '@/lib/store'
 import { practiceSliceUpdateDB } from '@/lib/store/practice/practiceSlice'
 import { updateMessageList } from '@/lib/store/tensorflow/tensorflowSlice'
 import { UserPoseAnalysis } from '@/types'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { useDispatch, useSelector } from 'react-redux'
+import Webcam from 'react-webcam'
 
 export default function TensorflowInputHelper(props: {
     videoRef: React.RefObject<HTMLVideoElement>
+    webcamRef: React.RefObject<Webcam>
+    source: string
 }) {
     const [capturedFrame, setCapturedFrame] = useState<string | null>(null)
     const videoRef = props?.videoRef
@@ -100,22 +103,47 @@ export default function TensorflowInputHelper(props: {
     }, [capturedFrame, isModelAvailable, isModelRunning])
 
     const handleCaptureFrame = () => {
-        const video = videoRef.current
-        if (video) {
-            const canvas = document.createElement('canvas')
-            const ctx = canvas.getContext('2d')
+        if (props.source === 'webcam') {
+            const webcamScreenshot = props?.webcamRef?.current?.getScreenshot()
 
-            canvas.width = 250
-            canvas.height = 250
-            ctx?.drawImage(video, 0, 0, 250, 250)
-            const imageData = canvas.toDataURL()
+            if (webcamScreenshot) {
+                const img = new Image()
+                img.src = webcamScreenshot
 
-            setCapturedFrame(imageData)
+                img.onload = () => {
+                    const canvas = document.createElement('canvas')
+                    const ctx = canvas.getContext('2d')
+
+                    if (ctx) {
+                        canvas.width = 250
+                        canvas.height = 250
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+                        const imageData = canvas.toDataURL()
+                        setCapturedFrame(imageData)
+                    }
+                }
+            }
+        }
+        if (props.source === 'video') {
+            const video = videoRef.current
+            if (video) {
+                const canvas = document.createElement('canvas')
+                const ctx = canvas.getContext('2d')
+
+                canvas.width = 250
+                canvas.height = 250
+                ctx?.drawImage(video, 0, 0, 250, 250)
+                const imageData = canvas.toDataURL()
+
+                setCapturedFrame(imageData)
+            }
         }
     }
 
     const tensorflowPredict = async () => {
         const pred = await runModel({ set: set, pred_image: capturedFrame })
+        console.log('prediction', pred)
         if (pred) {
             checkPrediction(pred)
         }
@@ -256,7 +284,6 @@ export default function TensorflowInputHelper(props: {
     return (
         <>
             {/* always hidden */}
-
             <Toaster position="top-center" reverseOrder={false} />
 
             {capturedFrame && (

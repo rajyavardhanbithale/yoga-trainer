@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
     const { error } = await supabase.from(poseAnalysis).insert(body)
 
     if (error) {
-
         return NextResponse.json(
             {
                 message: 'error in inserting data to database',
