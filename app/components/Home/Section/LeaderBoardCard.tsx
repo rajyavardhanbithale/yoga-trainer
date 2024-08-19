@@ -36,9 +36,9 @@ export default function LeaderBoardCard() {
                                 x: idx === 0 ? 0 : idx === 1 ? -100 : 100,
                             }}
                             className={` p-2 glass-card
-                                ${idx === 0 && "order-2"} 
-                                ${idx === 1 && "order-1"}
-                                ${idx === 2 && "order-3"}
+                                ${idx === 0 && 'order-2'} 
+                                ${idx === 1 && 'order-1'}
+                                ${idx === 2 && 'order-3'}
                                 `}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{
@@ -51,9 +51,9 @@ export default function LeaderBoardCard() {
                         >
                             <div
                                 className={`w-64 h-fit p-4 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center gap-4 
-                                                            ${idx === 0 && "scale-100 hover:scale-[1.01]"} 
-                                                            ${idx === 1 && "scale-90 hover:scale-95"}
-                                                            ${idx === 2 && "scale-90 hover:scale-95"}
+                                                            ${idx === 0 && 'scale-100 hover:scale-[1.01]'} 
+                                                            ${idx === 1 && 'scale-90 hover:scale-95'}
+                                                            ${idx === 2 && 'scale-90 hover:scale-95'}
                                     transition-transform duration-1000 ease-in-out
                                 `}
                             >
@@ -75,8 +75,8 @@ export default function LeaderBoardCard() {
                                             idx + 1 === 1
                                                 ? 'gold'
                                                 : idx + 1 === 2
-                                                    ? 'silver'
-                                                    : 'bronze'
+                                                  ? 'silver'
+                                                  : 'bronze'
                                         }
                                         height={40}
                                         width={40}

@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Marquee from 'react-fast-marquee'
-import Link from 'next/link'
-import { Button, Description, Title } from "./StyleUtils"
+import { Button, Description, Title } from './StyleUtils'
 
 interface Pose {
     id: number
@@ -34,7 +33,7 @@ export default function ImageMarquee() {
 
     return (
         <div className="flex flex-col xl:flex-row gap-5">
-            <div className="hidden w-1/2 xl:flex xl:flex-col gap-8 rounded-2xl skew-yoga">
+            <div className="hidden w-1/2 xl:flex xl:flex-col gap-8 rounded-2xl xl:skew-yoga">
                 <Marquee direction="right" autoFill={true}>
                     <div className="flex flex-row">
                         {firstHalf.map((image, idx) => (
@@ -75,10 +74,7 @@ export default function ImageMarquee() {
             </div>
 
             <div className="xl:w-1/2 flex flex-col justify-start m-3 p-3">
-                <Title>
-                    Your Personalized Yoga Companion
-                </Title>
-
+                <Title>Your Personalized Yoga Companion</Title>
 
                 <div className="xl:hidden block">
                     <Marquee direction="left" autoFill={true} className="my-10">
@@ -111,9 +107,7 @@ export default function ImageMarquee() {
                 </div>
 
                 <div className="mt-8 xl:mt-1">
-                    <Button link="/pose">
-                        Try AI Trainer
-                    </Button>
+                    <Button link="/pose">Try AI Trainer</Button>
                 </div>
             </div>
         </div>

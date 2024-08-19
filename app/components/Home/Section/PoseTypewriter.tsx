@@ -44,7 +44,7 @@ export default function PoseTypewriter() {
                             Engage in the
                         </span>
 
-                        <span className="text-slate-50 truncate capitalize text-4xl font-bold sm:w-1/2 text-start bg-gradient-to-r from-slate-200 via-slate-300 to-slate-600 text-transparent bg-clip-text">
+                        <span className="text-slate-50 truncate capitalize sm:text-4xl text-3xl font-bold sm:w-1/2 text-start bg-gradient-to-r from-slate-200 via-slate-300 to-slate-600 text-transparent bg-clip-text">
                             {poseList && (
                                 <Typewriter
                                     options={{

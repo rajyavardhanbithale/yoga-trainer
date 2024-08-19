@@ -1,18 +1,14 @@
 'use client'
-import Link from "next/link";
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-
-
-
+import Link from 'next/link'
+import React, { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 function Title({ children }: { children: React.ReactNode }) {
+    const ref = useRef<HTMLDivElement>(null)
+    const isInView = useInView(ref, { once: true })
 
-    const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true });
-
-    const text = typeof children === 'string' ? children : '';
-    const words = text.split(' ');
+    const text = typeof children === 'string' ? children : ''
+    const words = text.split(' ')
 
     const container = {
         hidden: { opacity: 0 },
@@ -20,7 +16,7 @@ function Title({ children }: { children: React.ReactNode }) {
             opacity: 1,
             transition: { staggerChildren: 0.12, delayChildren: 0.04 },
         },
-    };
+    }
 
     const child = {
         visible: {
@@ -41,21 +37,26 @@ function Title({ children }: { children: React.ReactNode }) {
                 stiffness: 100,
             },
         },
-    };
+    }
     return (
         <>
-            {/* <span className="xl:text-3xl text-4xl text-center xl:text-start font-semibold bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text">
+            <span className="block sm:hidden xl:text-3xl text-4xl text-center xl:text-start font-semibold bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text">
                 {children}
-            </span> */}
+            </span>
 
+            <div className="hidden sm:block">
             <motion.div
                 ref={ref}
-                style={{ overflow: 'hidden', display: 'flex', fontSize: '2rem' }}
+                style={{
+                    overflow: 'hidden',
+                    display: 'flex',
+                    fontSize: '2rem',
+                }}
                 variants={container}
                 initial="hidden"
                 animate={isInView ? 'visible' : 'hidden'}
                 transition={{ duration: 5, delay: 5 }}
-                className="xl:text-3xl text-4xl text-center xl:text-start font-semibold bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text"
+                className="hidden sm:block xl:text-3xl text-4xl text-center xl:text-start font-semibold bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text"
             >
                 {words.map((word, index) => (
                     <motion.span
@@ -68,6 +69,7 @@ function Title({ children }: { children: React.ReactNode }) {
                     </motion.span>
                 ))}
             </motion.div>
+            </div>
         </>
     )
 }
@@ -82,16 +84,20 @@ function Description({ children }: { children: React.ReactNode }) {
     )
 }
 
-function Button({ children, link }: { children: React.ReactNode, link: string }) {
+function Button({
+    children,
+    link,
+}: {
+    children: React.ReactNode
+    link: string
+}) {
     return (
         <>
             <Link
                 href={link}
                 className="group inline-flex items-center glass-card hover:bg-white/20 text-white font-medium py-3 px-8 rounded-full transition-all duration-300 ease-in-out"
             >
-                <span className="text-xl xl:text-base">
-                    {children}
-                </span>
+                <span className="text-xl xl:text-base">{children}</span>
                 <svg
                     className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300 ease-in-out"
                     fill="none"

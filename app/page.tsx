@@ -6,8 +6,8 @@ import ImageMarquee from '@/app/components/Home/Section/ImageMarquee'
 import { Raleway } from 'next/font/google'
 import Footer from '@/app/components/Home/Footer'
 import LeaderBoardSection from '@/app/components/Home/Section/LeaderBoardSection'
-import DietSection from "@/app/components/Home/Section/DietSection"
-import DashboardSection from "@/app/components/Home/Section/DashboardSection"
+import DietSection from '@/app/components/Home/Section/DietSection'
+import DashboardSection from '@/app/components/Home/Section/DashboardSection'
 
 const raleway = Raleway({ subsets: ['latin'] })
 
@@ -17,8 +17,10 @@ export default function Home() {
             <main className="flex h-full flex-col bg-[url('/home/bg.svg')] bg-repeat-y bg-top bg-[length:auto_100%]">
                 <Navbar />
 
-                <div className={`${raleway.className} flex flex-col w-full mb-10 gap-28`}>
-                    <div className="xl:mt-14">
+                <div
+                    className={`${raleway.className} flex flex-col w-full sm:mb-10 sm:gap-28 gap-16`}
+                >
+                    <div className="xl:mt-14 mt-14 sm:mt-0">
                         <Header />
                     </div>
 
@@ -26,10 +28,7 @@ export default function Home() {
                         <PoseTypewriter />
                     </div>
 
-                    <div className="">
-                        <ImageMarquee />
-                    </div>
-
+                    <ImageMarquee />
                     <div className="overflow-hidden">
                         <LeaderBoardSection />
                     </div>
