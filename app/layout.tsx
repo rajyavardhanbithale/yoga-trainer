@@ -91,6 +91,9 @@ export default function RootLayout({
     return (
         <StoreProvider>
             <html lang="en" data-theme="light">
+                <head>
+                    <link rel="icon" href="favicon.ico" sizes="any" />
+                </head>
                 <body className={comfortaa.className}>
                     <SmoothScrolling>{children}</SmoothScrolling>
                 </body>
