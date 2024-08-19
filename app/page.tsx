@@ -19,7 +19,7 @@ export default function Home() {
                 <Navbar />
 
                 <div
-                    className={`${raleway.className} flex flex-col w-full sm:mb-10 sm:gap-28 gap-16`}
+                    className={`${raleway.className} flex flex-col w-full mb-10 sm:gap-28 gap-16`}
                 >
                     <div className="xl:mt-14 mt-14 sm:mt-0">
                         <Header />

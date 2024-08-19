@@ -1,4 +1,6 @@
 
+
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Title } from './StyleUtils'
 
 export default function FAQ() {
@@ -42,20 +44,32 @@ export default function FAQ() {
 
     return (
         <>
-            <div className="w-[80%] flex justify-center items-center mx-auto flex-col gap-10">
+            <div className="flex justify-center items-center mx-auto flex-col gap-10">
                 <Title>FAQs</Title>
 
-                <div className="join join-vertical w-full">
+
+                <div className="w-[80%] join join-vertical ">
                     {faq.map((item, idx) => (
-                        <div className="collapse join-item mb-4 collapse-arrow glass-card rounded-lg" key={idx}>
-                            <input type="radio" name="accordion" id={`accordion-${idx}`} defaultChecked={idx === 0} />
+                        <div
+                            className="collapse join-item mb-4 collapse-arrow glass-card rounded-lg"
+                            key={idx}
+                        >
+                            <input
+                                type="radio"
+                                name="accordion"
+                                id={`accordion-${idx}`}
+                                defaultChecked={idx === 0}
+                            />
                             <label
                                 htmlFor={`accordion-${idx}`}
-                                className="collapse-title text-xl font-medium text-slate-50">
+                                className="collapse-title text-xl font-medium text-slate-50"
+                            >
                                 {item.title}
                             </label>
                             <div className="collapse-content px-4 py-1">
-                                <p className="text-slate-50">{item.description}</p>
+                                <p className="text-slate-50">
+                                    {item.description}
+                                </p>
                             </div>
                         </div>
                     ))}
