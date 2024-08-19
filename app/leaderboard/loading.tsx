@@ -3,7 +3,7 @@ import BackgroundSVG from '../components/Home/Background'
 export default function Loading() {
     return (
         <>
-            <main className="flex min-h-screen flex-col  overflow-hidden">
+            <main className="flex min-h-screen flex-col overflow-hidden">
                 <BackgroundSVG />
 
                 <div className="z-50 h-full flex flex-col gap-20 justify-center my-auto p-5 items-center scale-110">

@@ -92,7 +92,9 @@ export default function RootLayout({
         <StoreProvider>
             <html lang="en" data-theme="light">
                 <body className={comfortaa.className}>
-                    <SmoothScrolling>{children}</SmoothScrolling>
+                    <SmoothScrolling>
+                        {children}
+                    </SmoothScrolling>
                 </body>
             </html>
         </StoreProvider>
