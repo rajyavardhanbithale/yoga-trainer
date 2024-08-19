@@ -1,25 +1,28 @@
 import LeaderBoardCard from './LeaderBoardCard'
+import { Button, Description, Title } from "./StyleUtils"
 
 export default async function LeaderBoardSection() {
     return (
         <>
-            <div className="sm:w-3/4 w-11/12 mx-auto flex flex-col justify-center items-center gap-6 py-10">
-                <span className="xl:text-3xl text-4xl text-center xl:text-start font-semibold bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text">
+            <div className="sm:w-3/4 w-11/12 mx-auto flex flex-col justify-center items-center gap-6">
+                <Title>
                     RAGE AI Yoga Leaderboard
-                </span>
+                </Title>
 
-                <span className="text-xl sm:text-2xl font-normal mt-3 bg-gradient-to-b from-slate-50 to-slate-100 text-transparent bg-clip-text">
+                <Description>
                     Celebrate Your Progress and Achievements
-                </span>
+                </Description>
 
-                <p className="xl:text-2xl text-3xl font-light bg-gradient-to-br from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text">
-                    Welcome to the RageAI Leaderboard! Here, we celebrate the
-                    top performers in our yoga community who have made
-                    impressive strides with the help of RageAI.
-                </p>
+                <Description>
+                    Compete with other users and see how you rank on the leaderboard. The more you practice, the higher you&apos;ll climb!
+                </Description>
+
+                <Button link="/leaderboard">
+                    View Leaderboard
+                </Button>
             </div>
 
-            <div className="w-11/2 flex mx-auto justify-center items-center overflow-hidden">
+            <div className="sm:mt-10 w-11/2 flex mx-auto justify-center items-center overflow-hidden">
                 <LeaderBoardCard />
             </div>
         </>

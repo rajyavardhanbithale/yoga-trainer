@@ -5,8 +5,7 @@ import Leaderboard from '../components/LeaderBoard/Leaderboard'
 export default async function LeaderboardPage() {
     return (
         <>
-            <main className="flex min-h-screen flex-col  overflow-hidden">
-                <BackgroundSVG />
+            <main className="flex min-h-screen flex-col overflow-hidden bg-[url('/home/bg.svg')] bg-repeat-y bg-top bg-[length:auto_100%]">
 
                 <Navbar />
 

@@ -11,8 +11,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/lib/store'
 import { activeWindow } from '@/lib/store/dashboard/dashboardSlice'
 import { useState } from 'react'
-import { FaBars, FaTimes } from 'react-icons/fa'
-
 import './dashboard.css'
 import { IoHomeOutline, IoLogOutOutline } from 'react-icons/io5'
 import { useRouter } from 'next/navigation'

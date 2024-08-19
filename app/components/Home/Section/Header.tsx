@@ -1,16 +1,18 @@
 import { Raleway } from 'next/font/google'
 import { IoArrowForwardOutline, IoCompassOutline } from 'react-icons/io5'
+import HeaderTextAnimation from "./HeaderTextAnimation"
 
 const raleway = Raleway({ subsets: ['latin'] })
 
 export default function Header() {
     return (
         <>
-            <main className="z-10 flex sm:min-h-screen justify-center items-center w-11/12 mx-auto">
+            <main className="z-10 flex xl:min-h-screen justify-center items-center w-11/12 mx-auto ">
                 <div className="flex flex-col gap-5 justify-center items-center">
-                    <span className="sm:text-6xl text-3xl bg-gradient-to-b from-slate-50 via-slate-200 to-slate-400 text-transparent bg-clip-text">
+
+                    <HeaderTextAnimation>
                         Welcome To RAGE AI
-                    </span>
+                    </HeaderTextAnimation>
 
                     <div
                         className={`${raleway.className} flex flex-col gap-3 justify-center items-center`}

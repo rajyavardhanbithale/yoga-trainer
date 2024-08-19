@@ -1,11 +1,13 @@
-import Navbar from './components/Home/Navbar'
-import Header from './components/Home/Section/Header'
-import SupabasePostAuthHelper from './components/Home/SupabasePostAuthHelper'
-import PoseTypewriter from './components/Home/Section/PoseTypewriter'
-import ImageMarquee from './components/Home/Section/ImageMarquee'
+import Navbar from '@/app/components/Home/Navbar'
+import Header from '@/app/components/Home/Section/Header'
+import SupabasePostAuthHelper from '@/app/components/Home/SupabasePostAuthHelper'
+import PoseTypewriter from '@/app/components/Home/Section/PoseTypewriter'
+import ImageMarquee from '@/app/components/Home/Section/ImageMarquee'
 import { Raleway } from 'next/font/google'
-import Footer from './components/Home/Footer'
-import LeaderBoardSection from './components/Home/Section/LeaderBoardSection'
+import Footer from '@/app/components/Home/Footer'
+import LeaderBoardSection from '@/app/components/Home/Section/LeaderBoardSection'
+import DietSection from "@/app/components/Home/Section/DietSection"
+import DashboardSection from "@/app/components/Home/Section/DashboardSection"
 
 const raleway = Raleway({ subsets: ['latin'] })
 
@@ -15,22 +17,26 @@ export default function Home() {
             <main className="flex h-full flex-col bg-[url('/home/bg.svg')] bg-repeat-y bg-top bg-[length:auto_100%]">
                 <Navbar />
 
-                <div className={`${raleway.className} mb-10`}>
-                    <div className="xl:mt-20 mt-20 md:mt-0">
+                <div className={`${raleway.className} flex flex-col w-full mb-10 gap-28`}>
+                    <div className="xl:mt-14">
                         <Header />
                     </div>
 
-                    <div className="xl:mt-20 mt-20 md:mt-0 overflow-hidden">
+                    <div className="overflow-hidden">
                         <PoseTypewriter />
                     </div>
 
-                    <div className="xl:mt-36 sm:mt-40 mt-20">
+                    <div className="">
                         <ImageMarquee />
                     </div>
 
-                    <div className="xl:mt-36 sm:mt-40 mt-20 overflow-hidden">
+                    <div className="overflow-hidden">
                         <LeaderBoardSection />
                     </div>
+
+                    <DietSection />
+
+                    <DashboardSection />
                 </div>
                 <Footer />
             </main>
