@@ -31,10 +31,12 @@ export default async function Footer() {
         <>
             <footer className="bg-slate-900 text-slate-100 py-4 px-6 flex flex-col sm:flex-row gap-6 items-center justify-between glass-card">
                 <div className="flex items-center gap-2  px-4 py-2 rounded-lg">
-                    <img src="/home/logo.svg" alt="RAGE AI Logo" className="w-8" />
-                    <span className="text-2xl font-semibold">
-                        RAGE AI
-                    </span>
+                    <img
+                        src="/home/logo.svg"
+                        alt="RAGE AI Logo"
+                        className="w-8"
+                    />
+                    <span className="text-2xl font-semibold">RAGE AI</span>
                 </div>
 
                 <div className="flex flex-col items-center gap-1 text-center sm:text-left tracking-wide">

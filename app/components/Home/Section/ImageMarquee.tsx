@@ -107,7 +107,7 @@ export default function ImageMarquee() {
                 </div>
 
                 <div className="mt-8 xl:mt-1">
-                    <Button link="/pose">Try AI Trainer</Button>
+                    <Button link="/practice">Try AI Trainer</Button>
                 </div>
             </div>
         </div>
