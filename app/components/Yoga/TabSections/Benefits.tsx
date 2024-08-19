@@ -44,7 +44,7 @@ export default function Benefits() {
                     </span>
                 </div>
 
-                <ScrollArea>
+                <ScrollArea data-lenis-prevent>
                     {benefits?.map((text: string, idx: number) => (
                         <div
                             key={idx}
