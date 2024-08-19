@@ -75,7 +75,9 @@ export const metadata: Metadata = {
         description:
             'RAGE AI: Personalized yoga guidance, real-time feedback, and progress tracking to enhance your practice. Explore now!',
         creator: '@Saul08Goodman',
-        images: ['https://raw.githubusercontent.com/rajyavardhanbithale/yoga-trainer/main/public/seo/screens.webp'],
+        images: [
+            'https://raw.githubusercontent.com/rajyavardhanbithale/yoga-trainer/main/public/seo/screens.webp',
+        ],
     },
     robots: 'all',
     publisher: 'Rajyavardhan Bithale',
