@@ -15,7 +15,7 @@ const raleway = Raleway({ subsets: ['latin'] })
 export default function Home() {
     return (
         <>
-            <main className="flex h-full flex-col bg-[url('/home/bg.svg')] bg-repeat-y bg-top bg-[length:auto_100%]">
+            {/* <main className="flex h-full flex-col bg-[url('/home/bg.svg')] bg-repeat-y bg-top bg-[length:auto_100%]">
                 <Navbar />
 
                 <div
@@ -42,7 +42,7 @@ export default function Home() {
                 </div>
                 <Footer />
             </main>
-            <SupabasePostAuthHelper />
+            <SupabasePostAuthHelper /> */}
         </>
     )
 }

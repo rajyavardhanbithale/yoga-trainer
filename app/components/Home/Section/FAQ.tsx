@@ -1,8 +1,6 @@
-
-
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { Title } from './StyleUtils'
-import { IoIosInformationCircleOutline } from "react-icons/io"
+import { IoIosInformationCircleOutline } from 'react-icons/io'
 
 export default function FAQ() {
     const faq = [
