@@ -12,7 +12,7 @@ export const metadata: Metadata = {
         'RAGE AI: Personalized yoga guidance, real-time feedback, and progress tracking to enhance your practice. Explore now!',
     generator: 'Next.js',
     applicationName: 'RAGE AI',
-    icons: '/logo.svg',
+    icons: 'logo.svg',
     referrer: 'origin-when-cross-origin',
     keywords: [
         'Next.js',
