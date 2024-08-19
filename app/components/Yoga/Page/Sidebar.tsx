@@ -37,7 +37,10 @@ export default function YogaSidebar() {
     return (
         <>
             <div className="hidden xl:block h-screen fixed w-52">
-                <ScrollArea data-lenis-prevent className="h-[99vh] w-full rounded-md border p-2">
+                <ScrollArea
+                    data-lenis-prevent
+                    className="h-[99vh] w-full rounded-md border p-2"
+                >
                     <div className="flex flex-col gap-5 p-2">
                         {pose.map((pose, idx) => (
                             <Link key={idx} href={`/practice?id=${pose.id}`}>
@@ -77,7 +80,10 @@ export default function YogaSidebar() {
                 <div
                     className={`h-full fixed w-64 bg-slate-300 z-[100] ${open ? 'sidebar-in-animation' : 'sidebar-out-animation'}`}
                 >
-                    <ScrollArea data-lenis-prevent className="h-full w-full border p-2">
+                    <ScrollArea
+                        data-lenis-prevent
+                        className="h-full w-full border p-2"
+                    >
                         <div className="flex flex-col gap-5 p-2">
                             {pose.map((pose, idx) => (
                                 <Link

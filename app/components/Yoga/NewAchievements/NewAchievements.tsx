@@ -92,7 +92,10 @@ export default function NewAchievements() {
                     </DialogDescription>
                 </DialogHeader>
 
-                <ScrollArea data-lenis-prevent className="w-full h-[50vh] sm:h-full flex">
+                <ScrollArea
+                    data-lenis-prevent
+                    className="w-full h-[50vh] sm:h-full flex"
+                >
                     <div className="flex flex-wrap gap-10 justify-center">
                         {filteredAchievements?.map((achievement) => (
                             <div

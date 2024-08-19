@@ -46,7 +46,10 @@ export default function DietStats() {
                                         Favorite Diet Meal
                                     </span>
                                 </div>
-                                <ScrollArea data-lenis-prevent className="z-10 h-[40vh] rounded-xl p-4">
+                                <ScrollArea
+                                    data-lenis-prevent
+                                    className="z-10 h-[40vh] rounded-xl p-4"
+                                >
                                     <div className="flex flex-col gap-5 ">
                                         {favMeal.length == 0 && (
                                             <div className="mt-20 text-center text-xl text-gray-500">

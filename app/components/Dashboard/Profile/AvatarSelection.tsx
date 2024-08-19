@@ -43,7 +43,10 @@ export default function AvatarSelection() {
                             Select avatar for your profile
                         </DialogTitle>
                         <DialogDescription className="w-full">
-                            <ScrollArea data-lenis-prevent className="h-[80vh] w-full rounded-md border sm:p-4">
+                            <ScrollArea
+                                data-lenis-prevent
+                                className="h-[80vh] w-full rounded-md border sm:p-4"
+                            >
                                 <div className="flex flex-wrap justify-center sm:p-4">
                                     {avatarFilenames.map((filename, index) => (
                                         <div

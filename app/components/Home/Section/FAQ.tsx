@@ -53,7 +53,10 @@ export default function FAQ() {
                     </span>
                 </div>
 
-                <ScrollArea data-lenis-prevent className="w-[95%] h-[400px] sm:hidden block">
+                <ScrollArea
+                    data-lenis-prevent
+                    className="w-[95%] h-[400px] sm:hidden block"
+                >
                     <div className="relative join join-vertical w-full">
                         {faq.map((item, idx) => (
                             <div

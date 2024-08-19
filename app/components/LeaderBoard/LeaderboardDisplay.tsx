@@ -6,7 +6,10 @@ import LeaderboardStats from './LeaderboardStats'
 export default async function LeaderboardDisplay({ data }: { data: any }) {
     return (
         <>
-            <ScrollArea data-lenis-prevent className="sm:h-[26rem] w-full my-auto flex flex-col rounded-2xl ">
+            <ScrollArea
+                data-lenis-prevent
+                className="sm:h-[26rem] w-full my-auto flex flex-col rounded-2xl "
+            >
                 {data &&
                     data?.map((metric: any, idx: number) => (
                         <div
