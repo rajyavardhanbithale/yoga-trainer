@@ -6,7 +6,7 @@ function useTensorFlow() {
     const [modelLoadingStatus, setModelLoadingStatus] = useState<string>('idle')
     const [model, setModel] = useState<tf.GraphModel | null>(null)
 
-    // Function to load the TensorFlow model
+    // load the TensorFlow model
     const loadModel = useCallback(async (set: number) => {
         setModelLoadingStatus('pending')
         try {
@@ -21,7 +21,7 @@ function useTensorFlow() {
         }
     }, [])
 
-    // Function to run the TensorFlow model on an image
+    // run the TensorFlow model on an image of size 250x250 (defined during the model training)
     async function runModel(options: {
         set: number
         pred_image?: string | null
@@ -54,6 +54,12 @@ function useTensorFlow() {
                             const pred = model.predict(tfTensor) as tf.Tensor
                             tfTensor.dispose()
 
+                            //pred.data()
+                            //    .then((val1) => {
+                            //        resolve(val1)
+                            //    })
+                            //    .catch(reject)
+                            
                             pred.data()
                                 .then((val1) => {
                                     resolve(val1.toString())
@@ -74,13 +80,13 @@ function useTensorFlow() {
         return null
     }
 
-    // Function to reset model state
+    // reset model state
     const resetModel = useCallback(() => {
         setModelLoadingStatus('idle')
         setModel(null)
     }, [])
 
-    // Function to stop and dispose of the model
+    // stop and dispose of the model
     const stopModel = useCallback(() => {
         if (model) {
             model.dispose()
