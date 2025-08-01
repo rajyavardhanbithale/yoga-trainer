@@ -110,11 +110,11 @@ const dietSlice = createSlice({
         ),
             builder.addCase(fetchDiet.pending, (state) => {
                 state.STATE = 'pending'
-            })            
-            
-            builder.addCase(fetchDiet.rejected, (state) => {
-                state.STATE = 'pending'
             })
+
+        builder.addCase(fetchDiet.rejected, (state) => {
+            state.STATE = 'pending'
+        })
 
         builder.addCase(saveRecentDiet.pending, (state) => {
             state.operation = 'saveDiet'

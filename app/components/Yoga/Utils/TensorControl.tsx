@@ -19,9 +19,8 @@ export default function TensorControl() {
 
     const [error, setError] = useState<string | null>(null)
 
-    const { runModel, stopModel, modelLoadingStatus, resetModel, loadModel } = useTensorFlow()
-
-
+    const { runModel, stopModel, modelLoadingStatus, resetModel, loadModel } =
+        useTensorFlow()
 
     const dispatch = useDispatch<AppDispatch>()
 

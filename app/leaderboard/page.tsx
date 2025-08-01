@@ -1,6 +1,6 @@
 import BackgroundSVG from '../components/Home/Background'
 import Navbar from '../components/Home/Navbar'
-import Leaderboard from '../components/LeaderBoard/Leaderboard'
+// import Leaderboard from '../components/LeaderBoard/Leaderboard'
 
 export default async function LeaderboardPage() {
     return (
@@ -9,7 +9,7 @@ export default async function LeaderboardPage() {
                 <Navbar />
 
                 <div className="z-50 flex justify-center my-auto">
-                    <Leaderboard />
+                    {/* <Leaderboard /> */}
                 </div>
             </main>
         </>
